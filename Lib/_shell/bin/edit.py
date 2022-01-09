@@ -1,7 +1,7 @@
 """
 Edit a text file.
 
-usage: [path]
+usage: edit [path]
     
 """
 
@@ -78,7 +78,7 @@ def main():
     text_view.title = file
     
     try:
-        with open(path, "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             text_view.text = f.read()
     except FileNotFoundError:
         pass
@@ -91,7 +91,7 @@ def main():
     if new_path != "":
         file = new_path
     
-    with open(path, "w+") as f:
+    with open(file, "w+") as f:
         f.write(text_view.text)
     
 if __name__ == "__main__":

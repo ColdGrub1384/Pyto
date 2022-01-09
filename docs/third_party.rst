@@ -34,7 +34,9 @@ Other dependencies
 - `black <https://github.com/psf/black>`_ 21.9b1.dev24+g14d16c8
 - `boto <https://github.com/boto/boto/>`_ 2.49.0
 - `boto3 <https://github.com/boto/boto3>`_ 1.20.24
+- `boto3 <https://github.com/boto/boto3>`_ 1.20.29
 - `botocore <https://github.com/boto/botocore>`_ 1.23.24
+- `botocore <https://github.com/boto/botocore>`_ 1.23.29
 - `certifi <https://certifiio.readthedocs.io/en/latest/>`_ 2021.10.8
 - `chardet <https://github.com/chardet/chardet>`_ 4.0.0
 - `click <https://palletsprojects.com/p/click/>`_ 8.0.3
@@ -50,7 +52,9 @@ Other dependencies
 - `html5lib <https://github.com/html5lib/html5lib-python>`_ 1.1
 - `idna <https://github.com/kjd/idna>`_ 3.3
 - `imageio <https://github.com/imageio/imageio>`_ 2.13.3
+- `imageio <https://github.com/imageio/imageio>`_ 2.13.5
 - `ipaddress <https://github.com/phihag/ipaddress>`_ 1.0.23
+- `jmespath <https://github.com/jmespath/jmespath.py>`_ 0.10.0
 - `joblib <https://joblib.readthedocs.io>`_ 1.1.0
 - `mypy-extensions <https://github.com/python/mypy_extensions>`_ 0.4.3
 - `networkx <https://networkx.org/>`_ 2.6.3
@@ -64,10 +68,13 @@ Other dependencies
 - `pytoml <https://github.com/avakar/pytoml>`_ 0.1.21
 - `pytz <http://pythonhosted.org/pytz>`_ 2021.3
 - `requests <https://requests.readthedocs.io>`_ 2.26.0
+- `s3transfer <https://github.com/boto/s3transfer>`_ 0.5.0
 - `setuptools <https://github.com/pypa/setuptools>`_ 59.6.0
 - `six <https://github.com/benjaminp/six>`_ 1.16.0
 - `smart-open <https://github.com/piskvorky/smart_open>`_ 5.2.1
 - `soupsieve <https://github.com/facelessuser/soupsieve>`_ 2.3.1
+- `threadpoolctl <https://github.com/joblib/threadpoolctl>`_ 3.0.0
+- `tifffile <https://www.lfd.uci.edu/~gohlke/>`_ 2021.11.2
 - `toga-core <https://beeware.org/project/projects/libraries/toga/>`_ 0.3.0.dev29
 - `toga-iOS <https://beeware.org/project/projects/libraries/toga/>`_ 0.3.0.dev29
 - `toml <https://github.com/uiri/toml>`_ 0.10.2

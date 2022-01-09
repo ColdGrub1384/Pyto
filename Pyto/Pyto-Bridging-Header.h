@@ -2,7 +2,7 @@
 //  Use this file to import your target's headers that you would like to expose to Swift.
 //
 
-#import "../Python/Python.h"
+#import "Python.h"
 #import "Model/Python Bridging/Selectors/BlockBasedSelector.h"
 
 #if MAIN && !SCREENSHOTS

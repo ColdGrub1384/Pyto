@@ -319,7 +319,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
     @available(iOS 13.0, *)
     func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
         guard let fontDescriptor = viewController.selectedFontDescriptor else { return }
-        let font = UIFont(descriptor: fontDescriptor, size: DefaultTheme().sourceCodeTheme.font.pointSize)
+        let font = UIFont(descriptor: fontDescriptor, size: XcodeLightTheme().sourceCodeTheme.font.pointSize)
         EditorViewController.font = font
         
         tableView.reloadData()

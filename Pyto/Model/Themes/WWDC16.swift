@@ -81,5 +81,9 @@ struct WWDC16Theme: Theme {
         return sourceCodeTheme.color(for: .identifier)
     }
     
+    var consoleBackgroundColor: UIColor {
+        Color(displayP3Red: 60/255, green: 60/255, blue: 70/255, alpha: 1)
+    }
+    
     let name: String? = "WWDC16"
 }

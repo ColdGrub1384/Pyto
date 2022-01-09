@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import Dynamic
 
 class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
     
@@ -158,6 +159,17 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil) { [weak self] _ in
             if let previousDisplayMode = self?.previousDisplayMode {
                 self!.preferredDisplayMode = previousDisplayMode
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if isiOSAppOnMac {
+            Dynamic(view.window?.windowScene).titlebar.titleVisibility = 1
+            for window in Dynamic.NSApplication.sharedApplication.windows.asArray ?? [] {
+               Dynamic(window).styleMask = 32783
             }
         }
     }

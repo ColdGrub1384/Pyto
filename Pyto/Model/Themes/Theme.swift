@@ -36,18 +36,12 @@ protocol Theme {
     
     /// The data corresponding to the theme.
     var data: Data { get }
-    
-    /// The color used to display exceptions in the console.
-    var exceptionColor: UIColor { get }
-    
-    /// The color used to display warnings in the console.
-    var warningColor: UIColor { get }
 }
 
 extension Theme {
     
     var tintColor: UIColor? {
-        return UIColor(named: "TintColor")
+        return .systemGreen
     }
     
     var name: String? {
@@ -72,7 +66,7 @@ extension Theme {
             str += "default\n"
         }
         
-        str += "\((tintColor ?? UIColor(named: "TintColor") ?? .systemGreen).encode().base64EncodedString())\n"
+        str += "\((tintColor ?? .systemGreen).encode().base64EncodedString())\n"
         
         let tokens: [SourceCodeTokenType] = [.comment, .editorPlaceholder, .identifier, .keyword, .number, .plain, .string]
         
@@ -82,18 +76,14 @@ extension Theme {
         
         str += "\(sourceCodeTheme.backgroundColor.encode().base64EncodedString())\n"
         
-        str += "\(exceptionColor.encode().base64EncodedString())\n"
-        str += "\(warningColor.encode().base64EncodedString())\n"
+        str += "\(#colorLiteral(red: 0.6745098039, green: 0.1921568627, blue: 0.1921568627, alpha: 1).encode().base64EncodedString())\n"
+        str += "\(#colorLiteral(red: 0.7254901961, green: 0.4784313725, blue: 0.09803921569, alpha: 1).encode().base64EncodedString())\n"
+        
+        str += "\(sourceCodeTheme.color(for: .builtin).encode().base64EncodedString())\n"
+        
+        str += "\(consoleBackgroundColor.encode().base64EncodedString())\n"
         
         return str.data(using: .utf8) ?? Data()
-    }
-    
-    var exceptionColor: UIColor {
-        return #colorLiteral(red: 0.6745098039, green: 0.1921568627, blue: 0.1921568627, alpha: 1)
-    }
-    
-    var warningColor: UIColor {
-        return #colorLiteral(red: 0.7254901961, green: 0.4784313725, blue: 0.09803921569, alpha: 1)
     }
 }
 
@@ -147,7 +137,7 @@ func ThemeFromData(_ data: Data) -> Theme? {
             case .identifier:
                 return CustomSourceCodeTheme.decodedColor(from: comp[5])
             case .builtin:
-                return CustomSourceCodeTheme.decodedColor(from: comp.indices.contains(13) ? comp[13] : comp[5])
+                return CustomSourceCodeTheme.decodedColor(from: (comp.indices.contains(13) && !comp[13].isEmpty) ? comp[13] : comp[5])
             case .keyword:
                 return CustomSourceCodeTheme.decodedColor(from: comp[6])
             case .number:
@@ -206,15 +196,17 @@ func ThemeFromData(_ data: Data) -> Theme? {
         var exceptionColor: UIColor
         
         var warningColor: UIColor
+        
+        var consoleBackgroundColor: UIColor
     }
     
-    return CustomTheme(keyboardAppearance: (userInterfaceStyle == .dark ? .dark : (userInterfaceStyle == .light ? .light : .default)), barStyle: (userInterfaceStyle == .dark ? .black : .default), sourceCodeTheme: CustomSourceCodeTheme(comp: comp), userInterfaceStyle: userInterfaceStyle, name: name, tintColor: tint, exceptionColor: CustomSourceCodeTheme.decodedColor(from: comp[11]), warningColor: CustomSourceCodeTheme.decodedColor(from: comp[12]))
+    let sourceCodeTheme = CustomSourceCodeTheme(comp: comp)
+    return CustomTheme(keyboardAppearance: (userInterfaceStyle == .dark ? .dark : (userInterfaceStyle == .light ? .light : .default)), barStyle: (userInterfaceStyle == .dark ? .black : .default), sourceCodeTheme: sourceCodeTheme, userInterfaceStyle: userInterfaceStyle, name: name, tintColor: tint, exceptionColor: CustomSourceCodeTheme.decodedColor(from: comp[11]), warningColor: CustomSourceCodeTheme.decodedColor(from: comp[12]), consoleBackgroundColor: (comp.indices.contains(14) && !comp[14].isEmpty) ? CustomSourceCodeTheme.decodedColor(from: comp[14]) : sourceCodeTheme.backgroundColor)
 }
 
 /// A dictionary with all themes.
 var Themes: [(name: String, value: Theme)] {
     var themes: [(name: String, value: Theme)] = [
-        (name: "Default", value: DefaultTheme()),
         (name: "Xcode Light", value: XcodeLightTheme()),
         (name: "Xcode Dark", value: XcodeDarkTheme()),
         (name: "Basic", value: BasicTheme()),

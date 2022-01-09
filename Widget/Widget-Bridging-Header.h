@@ -6,6 +6,6 @@
 //  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
-#import "../Python/Python.h"
+#import "Python.h"
 
 int init_python();

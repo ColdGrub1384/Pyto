@@ -9,4 +9,4 @@ export CXX="clang.sh"
 cd ../pyzmq
 python3 setup.py bdist --zmq=bundled
 python3 ../tools/make_frameworks.py pyzmq Zmq
-../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/zmq
+../tools/copy-scripts.sh build/lib*/* ../../../site-packages/zmq

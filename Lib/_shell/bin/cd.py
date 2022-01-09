@@ -1,8 +1,10 @@
-"""Change the current working directory.
+"""
+Change the current working directory.
 
 usage: cd [path]
 
-  path: the new working directory"""
+  path: the new working directory
+"""
 
 import os
 import sys

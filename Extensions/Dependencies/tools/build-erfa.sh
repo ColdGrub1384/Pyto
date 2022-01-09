@@ -22,4 +22,4 @@ export CPPFLAGS="$CPPFLAGS -I'liberfa/erfa' -I'$NUMPY1' -I'$NUMPY2'"
 
 python3 setup.py bdist
 python3 ../tools/make_frameworks.py erfa Erfa
-../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/erfa
+../tools/copy-scripts.sh build/lib*/* ../../../site-packages/erfa

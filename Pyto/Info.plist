@@ -25,6 +25,20 @@
 				<string>ch.ada.python-script</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Python Wheel</string>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ch.ada.pyto.wheel</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -181,9 +195,9 @@
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeSearch</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>PyPi</string>
+			<string>PyPI</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>PyPi</string>
+			<string>PyPI</string>
 		</dict>
 	</array>
 	<key>UIBackgroundModes</key>
@@ -246,19 +260,19 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.html</string>
+				<string>com.pkware.zip-archive</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>HTML+Python</string>
+			<string>Python Wheel</string>
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>ch.ada.htmpy</string>
+			<string>ch.ada.pyto.wheel</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>htmpy</string>
+					<string>whl</string>
 				</array>
 			</dict>
 		</dict>

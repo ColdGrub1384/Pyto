@@ -266,17 +266,26 @@ struct TextViewSearch: View {
                     updateResults()
                 }).toolbar {
                     ToolbarItemGroup(placement: .navigation) {
-                        Menu {
+                        if isiOSAppOnMac {
                             Picker(selection: $searchMode) {
                                 Text("Find").tag(SearchMode.find)
                                 Text("Replace").tag(SearchMode.replace)
                             } label: {
                                 Image(systemName: "chevron.up.chevron.down")
-                            }
-                        } label: {
-                            HStack {
-                                Text(searchMode == .find ? "Find" : "Replace").font(.largeTitle).bold()
-                                Image(systemName: "chevron.up.chevron.down")
+                            }.pickerStyle(.menu)
+                        } else {
+                            Menu {
+                                Picker(selection: $searchMode) {
+                                    Text("Find").tag(SearchMode.find)
+                                    Text("Replace").tag(SearchMode.replace)
+                                } label: {
+                                    Image(systemName: "chevron.up.chevron.down")
+                                }
+                            } label: {
+                                HStack {
+                                    Text(searchMode == .find ? "Find" : "Replace").font(.largeTitle).bold()
+                                    Image(systemName: "chevron.up.chevron.down")
+                                }
                             }
                         }
                     }

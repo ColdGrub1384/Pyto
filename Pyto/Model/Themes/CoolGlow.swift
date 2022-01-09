@@ -84,5 +84,9 @@ struct CoolGlowTheme: Theme {
         return Color(displayP3Red: 175/255, green: 127/255, blue: 196/255, alpha: 1)
     }
     
+    var consoleBackgroundColor: UIColor {
+        Color(displayP3Red: 87/255, green: 87/255, blue: 102/255, alpha: 1)
+    }
+    
     let name: String? = "Cool Glow"
 }

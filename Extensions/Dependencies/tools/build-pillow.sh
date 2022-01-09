@@ -22,11 +22,12 @@ popd
 
 source environment.sh
 
-export CFLAGS="$CFLAGS -I/usr/local/opt/zlib/include -I../../../libjpeg -I../../../libpng -I../../../freetype2-ios/include"
+export CFLAGS="$CFLAGS -I/usr/local/opt/zlib/include -I../../../libjpeg -I../../../libpng -I../../../Pods/freetype2/freetype/Classes"
 export LDFLAGS="$LDFLAGS -L/usr/local/opt/zlib/lib -L../tools"
 
 cd ../pillow
 python3 setup.py build_ext --disable-tiff --disable-jpeg200 --disable-lcms --disable-imagequant --disable-xcb --disable-platform-guessing --enable-jpeg --enable-zlib --enable-freetype
+python3 setup.py egg_info
 cp -r src/PIL/* build/lib*/PIL/
 python3 ../tools/make_frameworks.py Pillow PIL
 rm -rf ../../../site-packages/PIL

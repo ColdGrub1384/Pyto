@@ -19,7 +19,7 @@ class KeyboardHostingController: UIHostingController<KeyboardHostingController.C
             var viewController: UIViewController
             
             var body: some SwiftUI.View {
-                Container(viewController: viewController).ignoresSafeArea(isiOSAppOnMac ? .all : .container, edges: .all)
+                Container(viewController: viewController).ignoresSafeArea(.container, edges: .all)
             }
         }
         

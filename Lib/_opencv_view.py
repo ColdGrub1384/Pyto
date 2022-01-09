@@ -1,5 +1,4 @@
 import pyto_ui as ui
-import pyto_core as pc
 import sys
 from time import sleep
 
@@ -33,5 +32,5 @@ def show(img):
     view.size = img.size
 
     if not view._presented:
-        pc.show_view(view, ui.PRESENTATION_MODE_SHEET)
+        ui.show_view_without_waiting(view, ui.PRESENTATION_MODE_SHEET)
         view._presented = True

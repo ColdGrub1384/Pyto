@@ -11,6 +11,7 @@ from rubicon.objc import ObjCClass
 import _extensionsimporter
 import ctypes
 import threading
+from pyto import PyOutputHelper
 from importlib import util
 from importlib.machinery import ExtensionFileLoader, ModuleSpec, PathFinder
 
@@ -79,7 +80,27 @@ class FrameworkLoader(ExtensionFileLoader):
         mod = sys.modules.get(fullname)
         if mod is None:
             with warnings.catch_warnings(record=True) as w:
-                mod = _extensionsimporter.module_from_binary(fullname, spec)
+                try:
+                    mod = _extensionsimporter.module_from_binary(fullname, spec)
+                except ImportError:
+                    try:
+                        price = str(Python.shared.environment["UPGRADE_PRICE"])
+                    except KeyError:
+                        price = "5.99$"
+
+                    try:
+                        script_path = threading.current_thread().script_path
+                    except AttributeError:
+                        script_path = None
+
+                    PyOutputHelper.printLink(
+                        f"Upgrade to import C extensions {price}\n",
+                        url="pyto://upgrade",
+                        script=script_path,
+                    )
+
+                    raise __UpgradeException__()
+
                 mod.__repr__ = self.mod_repr
                 mod = Extension(mod)
                 sys.modules[fullname] = mod
@@ -172,117 +193,5 @@ class FrameworksImporter(PathFinder):
             return spec
 
 
-if "widget" not in os.environ:
 
-    # MARK: - Downloadable Content
-
-    class DownloadableImporter(object):
-        """
-        Meta path for importing downloadable libraries to be added to `sys.meta_path`.
-        """
-
-        __is_importing__ = False
-
-        def find_module(self, fullname, mpath=None):
-
-            if self.__is_importing__:
-                return
-
-            libname = fullname.split(".")[0]
-            if libname in (
-                "imageio",
-                "networkx",
-                "dask",
-                "jmespath",
-                "joblib",
-                "smart_open",
-                "boto",
-                "boto3",
-                "botocore",
-                "pywt",
-                "bcrypt",
-                "Bio",
-                "cryptography",
-                "cv2",
-                "gensim",
-                "lxml",
-                "matplotlib",
-                "nacl",
-                "numpy",
-                "pandas",
-                "regex",
-                "scipy",
-                "skimage",
-                "sklearn",
-                "statsmodels",
-                "zmq",
-                "astropy",
-                "erfa",
-            ):
-                return self
-
-            return
-
-        def is_package(self, i_dont_know_what_goes_here):
-            return True
-
-        def load_module(self, fullname):
-            self.__is_importing__ = True
-
-            try:
-                mod = __import__(fullname)
-                self.__is_importing__ = False
-                return mod
-            except ModuleNotFoundError:
-
-                if not have_internet():
-                    msg = f"The internet connection seems to be offline and the imported library {fullname.split('.')[0].lower()} is not downloaded. Make sure you are connected to internet. Once downloaded, the library will be available offline."
-                    raise ImportError(msg)
-
-                paths = Python.shared.access(fullname.split(".")[0].lower())
-                for path in paths:
-                    if str(path) == "error":
-                        self.__is_importing__ = False
-
-                        if len(paths) == 3 and str(paths[2]) == "upgrade":
-                            import threading
-                            from pyto import PyOutputHelper
-
-                            try:
-                                price = str(Python.shared.environment["UPGRADE_PRICE"])
-                            except KeyError:
-                                price = "5.99$"
-
-                            try:
-                                script_path = threading.current_thread().script_path
-                            except AttributeError:
-                                script_path = None
-
-                            PyOutputHelper.printLink(
-                                f"Upgrade {price}\n",
-                                url="pyto://upgrade",
-                                script=script_path,
-                            )
-
-                            raise __UpgradeException__(str(paths[1]))
-
-                        raise ImportError(str(paths[1]))
-                    
-                    _sys = __import__("sys")
-                    if not str(path) in _sys.path:
-                        _sys.path.insert(0, str(path))
-
-                try:
-                    return __import__(fullname)
-                finally:
-                    self.__is_importing__ = False
-
-            self.__is_importing__ = False
-
-    # MARK: - All
-
-    __all__ = ["FrameworksImporter", "DownloadableImporter"]
-
-else:
-
-    __all__ = ["FrameworksImporter"]
+__all__ = ["FrameworksImporter"]

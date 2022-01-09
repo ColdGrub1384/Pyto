@@ -11,8 +11,8 @@ export SKLEARN_NO_OPENMP=TRUE
 cd ../sklearn
 python3 setup.py bdist
 python3 ../tools/make_frameworks.py sklearn SkLearn
-../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/sklearn
+../tools/copy-scripts.sh build/lib*/* ../../../site-packages/sklearn
 
-cp -r sklearn/datasets/data ../../../downloadable-site-packages/compiled/sklearn/datasets
-cp -r sklearn/datasets/descr ../../../downloadable-site-packages/compiled/sklearn/datasets
-cp -r sklearn/datasets/images ../../../downloadable-site-packages/compiled/sklearn/datasets
+cp -r sklearn/datasets/data ../../../site-packages/sklearn/datasets
+cp -r sklearn/datasets/descr ../../../site-packages/sklearn/datasets
+cp -r sklearn/datasets/images ../../../site-packages/sklearn/datasets

@@ -21,95 +21,148 @@ import SwiftUI
 @objc open class ConsoleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, PictureInPictureDelegate, ParserDelegate {
             
     #if MAIN
-    /// The theme the user choosed.
-    static var choosenTheme: Theme {
-        set {
-            
-            DispatchQueue.main.async {
-                let themeID: Int
-                
-                switch newValue {
-                case is XcodeLightTheme:
-                    themeID = -1
-                case is DefaultTheme:
-                    themeID = 0
-                case is XcodeDarkTheme:
-                    themeID = 1
-                case is BasicTheme:
-                    themeID = 2
-                case is DuskTheme:
-                    themeID = 3
-                case is LowKeyTheme:
-                    themeID = 4
-                case is MidnightTheme:
-                    themeID = 5
-                case is SunsetTheme:
-                    themeID = 6
-                case is WWDC16Theme:
-                    themeID = 7
-                case is CoolGlowTheme:
-                    themeID = 8
-                case is SolarizedLightTheme:
-                    themeID = 9
-                case is SolarizedDarkTheme:
-                    themeID = 10
-                default:
-                    themeID = -2
-                }
-                
-                if themeID == -2 {
-                    UserDefaults.standard.set(newValue.data, forKey: "theme")
-                    UserDefaults.standard.synchronize()
-                } else {
-                    UserDefaults.standard.set(themeID, forKey: "theme")
-                    UserDefaults.standard.synchronize()
-                }
-                
-                if #available(iOS 13.0, *) {
-                    for scene in UIApplication.shared.connectedScenes {
-                        (scene.delegate as? UIWindowSceneDelegate)?.window??.tintColor = newValue.tintColor
-                        (scene.delegate as? UIWindowSceneDelegate)?.window??.overrideUserInterfaceStyle = newValue.userInterfaceStyle
-                    }
-                }
-                
-                NotificationCenter.default.post(name: ThemeDidChangeNotification, object: newValue)
+    static func set(theme: Theme, for userInterfaceStyle: UIUserInterfaceStyle) {
+        let themeID: Int
+        
+        switch theme {
+        case is XcodeLightTheme:
+            if userInterfaceStyle == .light {
+                themeID = 0
+            } else {
+                themeID = -1
             }
+        case is XcodeDarkTheme:
+            if userInterfaceStyle == .dark {
+                themeID = 0
+            } else {
+                themeID = 1
+            }
+        case is BasicTheme:
+            themeID = 2
+        case is DuskTheme:
+            themeID = 3
+        case is LowKeyTheme:
+            themeID = 4
+        case is MidnightTheme:
+            themeID = 5
+        case is SunsetTheme:
+            themeID = 6
+        case is WWDC16Theme:
+            themeID = 7
+        case is CoolGlowTheme:
+            themeID = 8
+        case is SolarizedLightTheme:
+            themeID = 9
+        case is SolarizedDarkTheme:
+            themeID = 10
+        default:
+            themeID = -2
         }
         
+        if themeID == -2 {
+            UserDefaults.standard.set(theme.data, forKey: "theme\(userInterfaceStyle == .dark ? ".dark" : ".light")")
+            UserDefaults.standard.synchronize()
+        } else {
+            UserDefaults.standard.set(themeID, forKey: "theme\(userInterfaceStyle == .dark ? ".dark" : ".light")")
+            UserDefaults.standard.synchronize()
+        }
+        
+        var _theme: Theme?
+        
+        for scene in UIApplication.shared.connectedScenes {
+            guard let style = (scene.delegate as? UIWindowSceneDelegate)?.window??.traitCollection.userInterfaceStyle else {
+                continue
+            }
+            _theme = self.theme(for: style)
+            (scene.delegate as? UIWindowSceneDelegate)?.window??.tintColor = _theme?.tintColor
+            (scene.delegate as? UIWindowSceneDelegate)?.window??.overrideUserInterfaceStyle = (_theme ?? theme).userInterfaceStyle
+        }
+        
+        NotificationCenter.default.post(name: ThemeDidChangeNotification, object: _theme ?? theme)
+    }
+    
+    static func theme(for userInterfaceStyle: UIUserInterfaceStyle) -> Theme {
+        if let data = UserDefaults.standard.data(forKey: "theme\(userInterfaceStyle == .dark ? ".dark" : ".light")"), let theme = ThemeFromData(data) {
+            return theme
+        }
+        
+        switch UserDefaults.standard.integer(forKey: "theme\(userInterfaceStyle == .dark ? ".dark" : ".light")") {
+        case -1:
+            return XcodeLightTheme()
+        case 0:
+            if userInterfaceStyle == .dark {
+                return XcodeDarkTheme()
+            } else {
+                return XcodeLightTheme()
+            }
+        case 1:
+            return XcodeDarkTheme()
+        case 2:
+            return BasicTheme()
+        case 3:
+            return DuskTheme()
+        case 4:
+            return LowKeyTheme()
+        case 5:
+            return MidnightTheme()
+        case 6:
+            return SunsetTheme()
+        case 7:
+            return WWDC16Theme()
+        case 8:
+            return CoolGlowTheme()
+        case 9:
+            return SolarizedLightTheme()
+        case 10:
+            return SolarizedDarkTheme()
+        default:
+            return XcodeLightTheme()
+        }
+    }
+    
+    private static var previousTheme: Theme?
+    
+    static var choosenTheme: Theme {
         get {
             
-            if let data = UserDefaults.standard.data(forKey: "theme"), let theme = ThemeFromData(data) {
-                return theme
+            let style = UIWindow().traitCollection.userInterfaceStyle
+            
+            let theme = self.theme(for: style)
+            
+            if previousTheme?.data != theme.data {
+                for scene in UIApplication.shared.connectedScenes {
+                    guard let _window = (scene.delegate as? UIWindowSceneDelegate)?.window, let window = _window else {
+                        continue
+                    }
+                    
+                    if window.tintColor != theme.tintColor {
+                        window.tintColor = theme.tintColor
+                    }
+                    
+                    if window.traitCollection.userInterfaceStyle != theme.userInterfaceStyle {
+                        window.overrideUserInterfaceStyle = theme.userInterfaceStyle
+                    }
+                }
             }
             
-            switch UserDefaults.standard.integer(forKey: "theme") {
-            case -1:
-                return XcodeLightTheme()
-            case 0:
-                return DefaultTheme()
-            case 1:
-                return XcodeDarkTheme()
-            case 2:
-                return BasicTheme()
-            case 3:
-                return DuskTheme()
-            case 4:
-                return LowKeyTheme()
-            case 5:
-                return MidnightTheme()
-            case 6:
-                return SunsetTheme()
-            case 7:
-                return WWDC16Theme()
-            case 8:
-                return CoolGlowTheme()
-            case 9:
-                return SolarizedLightTheme()
-            case 10:
-                return SolarizedDarkTheme()
-            default:
-                return DefaultTheme()
+            previousTheme = theme
+            
+            return theme
+        }
+        
+        set {
+            var style = UITraitCollection.current.userInterfaceStyle
+            
+            for scene in UIApplication.shared.connectedScenes {
+                guard let _style = (scene.delegate as? UIWindowSceneDelegate)?.window??.traitCollection.userInterfaceStyle else {
+                    continue
+                }
+                
+                style = _style
+                break
             }
+            
+            set(theme: newValue, for: style)
         }
     }
     
@@ -322,8 +375,8 @@ import SwiftUI
         self.prompt = prompt
         movableTextField?.setPrompt(prompt)
         #if MAIN
-        if !highlight || self.parent is REPLViewController {
-            // Don't automatically focus after a script was executed and the REPL is shown
+        if (!highlight || self.parent is REPLViewController) && !(self.parent is RunModuleViewController) {
+            // Don't automatically focus after a script was executed and the REPL is shown or from the Shell
             movableTextField?.focus()
         }
         #else
@@ -615,7 +668,7 @@ import SwiftUI
             disappear()
             
             let navVC = navigationController as? NavigationController
-            if let uiView = view.subviews.first, let view = PyView.values[uiView], let i = navVC?.pyViews.index(of: view) {
+            if let uiView = view.subviews.first, let view = PyView.values[uiView], let i = navVC?.pyViews.firstIndex(of: view) {
                 navVC?.pyViews.remove(at: i)
             }
             
@@ -1023,18 +1076,16 @@ import SwiftUI
         
         NotificationCenter.default.addObserver(forName: UIScene.didActivateNotification, object: nil, queue: nil) { [weak self] (notif) in
             self?.themeDidChange(notif)
-        }
-        
-        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { [weak self] (notif) in
-            self?.wasFirstResponder = self?.movableTextField?.textField.isFirstResponder ?? false
-        }
-        
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
+            
             if self?.wasFirstResponder == true {
                 self?.wasFirstResponder = false
                 self?.movableTextField?.textField.becomeFirstResponder()
             }
             self?.movableTextField?.applyTheme()
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIScene.didEnterBackgroundNotification, object: nil, queue: nil) { [weak self] (notif) in
+            self?.wasFirstResponder = self?.movableTextField?.textField.isFirstResponder ?? false
         }
         #endif
         
@@ -1043,7 +1094,8 @@ import SwiftUI
         title = NSLocalizedString("console", comment: "'Console' tab")
         
         webView.frame.size = view.frame.size
-        webView.autoresizingMask = [.flexibleWidth]
+        webView.frame.size.height -= 44
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webView.backgroundColor = .clear
         webView.isOpaque = false
         webView.configuration.userContentController.add(self, name: "pyto")
@@ -1065,6 +1117,7 @@ import SwiftUI
         super.traitCollectionDidChange(previousTraitCollection)
         
         themeDidChange(nil)
+        movableTextField?.applyTheme()
     }
     #endif
         
@@ -1084,19 +1137,15 @@ import SwiftUI
         }
     }
     
+    var addToHistory = true
+    
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        webView.frame.size.width = view.frame.width
-        
+                
         if !ConsoleViewController.visibles.contains(self) {
             ConsoleViewController.visibles.append(self)
         }
-        
-        webView.frame = view.safeAreaLayoutGuide.layoutFrame
-        webView.frame.size.height -= 44
-        webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        
+                
         if movableTextField == nil {
             movableTextField = MovableTextField(console: self)
             movableTextField?.setPrompt(prompt ?? "")
@@ -1181,7 +1230,7 @@ import SwiftUI
             
             self.movableTextField?.textField.text = ""
             
-            if !secureTextEntry {
+            if !secureTextEntry && self.addToHistory {
                 #if MAIN
                 
                 if let i = self.movableTextField?.history.firstIndex(of: text) {
@@ -1194,11 +1243,13 @@ import SwiftUI
                 #endif
             }
             
+            self.addToHistory = true
+            
             if !secureTextEntry {
                 Python.shared.output += text
                 
                 if self.highlightInput {
-                    ConsoleViewController.codeToHighlight = text
+                    ConsoleViewController.codeToHighlight = ShortenFilePaths(in: text)
                     
                     let sourceCodeTheme = Self.choosenTheme.sourceCodeTheme
                     
@@ -1213,7 +1264,7 @@ import SwiftUI
                     ], options: []))?.base64EncodedString() ?? "{}".data(using: .utf8)!.base64EncodedString()
                     Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: "import _codecompletion; import pyto; import base64; _codecompletion.printHighlightedCode(str(pyto.ConsoleViewController.codeToHighlight), base64.b64decode('\(theme)').decode('utf-8'), '\(self.editorSplitViewController?.editor?.document?.fileURL.path ?? "")')")
                 } else {
-                    self.print("\(text)\n")
+                    self.print("\(ShortenFilePaths(in: text))\n")
                 }
             } else {
                 
@@ -1273,36 +1324,13 @@ import SwiftUI
         movableTextField?.toolbar.frame.size.width = view.safeAreaLayoutGuide.layoutFrame.width
         movableTextField?.toolbar.frame.origin.x = view.safeAreaInsets.left
         
-        if !(movableTextField?.textField.isFirstResponder ?? false) {
-            movableTextField?.toolbar.frame.origin.y = view.frame.height-(movableTextField?.toolbar.frame.height ?? 0)
-        }
-
-        if !isiOSAppOnMac {
-            webView.frame = view.safeAreaLayoutGuide.layoutFrame
-            webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-            webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        }
+        webView.frame.size = view.frame.size
+        webView.frame.size.height -= 44
         
         movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
         #if MAIN
         movableTextField?.applyTheme()
         #endif
-    }
-    
-    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        let wasFirstResponder = self.movableTextField?.textField.isFirstResponder ?? false
-        
-        coordinator.animateAlongsideTransition(in: view, animation: { (_) in
-            if wasFirstResponder {
-                self.movableTextField?.textField.resignFirstResponder()
-            }
-        }) { (_) in
-            if wasFirstResponder {
-                self.movableTextField?.textField.becomeFirstResponder()
-            }
-        }
     }
     
     open override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
@@ -1324,50 +1352,10 @@ import SwiftUI
     // MARK: - Keyboard
     
     @objc func keyboardWillShow(_ notification:Notification) {
-        
-        if isiOSAppOnMac {
-            webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-94
-            return
-        }
-        
-        guard webView.frame.origin.y != view.safeAreaLayoutGuide.layoutFrame.origin.y else {
-            return
-        }
-        
-        if parent?.parent?.modalPresentationStyle != .popover || parent?.parent?.view.frame.width != parent?.parent?.preferredContentSize.width {
-            let d = notification.userInfo!
-            let r = d[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-            
-            let point = (view.window)?.convert(r.origin, to: view) ?? r.origin
-            
-            #if MAIN
-            let y =  point.y-(navigationController?.toolbar.frame.height ?? 44)
-            if webView.frame.size.height != y {
-                webView.frame.size.height = y
-            }
-            #else
-            webView.frame.size.height = point.y-(44+(view.safeAreaInsets.top))
-            #endif
-        } else {
-            webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-        }
-        
-        webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            self.webView.evaluateJavaScript("sendSize()", completionHandler: nil)
-        }
+        webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
-        #if MAIN
-        webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height-44
-        webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        #else
-        webView.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height
-        webView.frame.origin.y = view.safeAreaLayoutGuide.layoutFrame.origin.y
-        #endif
-        
         webView.evaluateJavaScript("sendSize()", completionHandler: nil)
     }
     

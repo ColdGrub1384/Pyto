@@ -66,12 +66,7 @@ mv cffi* cffi
 
 cd ../../
 
-# Pure Python dependencies
+# Dependencies
 
 cd site-packages
 ./install.sh
-
-# And C Extensions
-
-cd ../
-Extensions/Dependencies/tools/build.sh

@@ -9,15 +9,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "../Python/Python.h"
-#if MAIN
+#import "Python.h"
+#if MAIN || WIDGET
 #import "Pyto-Swift.h"
-#elif WIDGET
-#if Xcode11
-#import "TodayExtension-Swift.h"
-#else
-#import "WidgetExtension-Swift.h"
-#endif
 #endif
 
 #if MAIN || WIDGET && !Xcode11
@@ -33,7 +27,7 @@ void logToNSLog(const char* text) {
 }
 
 /// Returns the main bundle.
-NSBundle* mainBundle() {
+NSBundle* mainBundle(void) {
     #if MAIN
     return [NSBundle mainBundle];
     #elif WIDGET
@@ -83,7 +77,6 @@ NSBundle* mainBundle() {
 #if MAIN || WIDGET
 int initialize_python(int argc, char *argv[]) {
     
-    NSBundle *pythonBundle = Python.shared.bundle;
     // MARK: - Python env variables
     putenv("PYTHONOPTIMIZE=");
     putenv("PYTHONIOENCODING=utf-8");
@@ -92,9 +85,12 @@ int initialize_python(int argc, char *argv[]) {
     #endif
     NSString *site_packages = [mainBundle() pathForResource:@"site-packages" ofType:NULL];
     NSString *stdlib = [site_packages stringByAppendingPathComponent: @"python3.10"];
+    NSString *docs = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject].path;
+    
+    putenv((char *)[[NSString stringWithFormat:@"PATH=%@", [docs stringByAppendingPathComponent: @"bin"]] UTF8String]);
     
     putenv((char *)[[NSString stringWithFormat:@"TMP=%@", NSTemporaryDirectory()] UTF8String]);
-    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", stdlib] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"PYTHONHOME=%@", docs] UTF8String]);
     NSString* path = [NSString stringWithFormat:@"PYTHONPATH=%@:%@:%@:%@:%@", stdlib, [mainBundle() pathForResource: @"Lib" ofType:NULL], [mainBundle() pathForResource: @"Lib/objc" ofType:NULL], site_packages, [mainBundle() resourceURL].path];
     #if WIDGET
     path = [path stringByAppendingString: [NSString stringWithFormat:@":%@:%@", [NSFileManager.defaultManager sharedDirectory], [NSFileManager.defaultManager.sharedDirectory URLByAppendingPathComponent:@"modules"]]];
@@ -154,7 +150,6 @@ int initialize_python(int argc, char *argv[]) {
         }
         #endif
         
-        Py_SetPythonHome(Py_DecodeLocale([pythonBundle.bundlePath UTF8String], NULL));
         Py_Initialize();
         
         #if MAIN

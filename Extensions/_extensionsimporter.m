@@ -9,6 +9,7 @@
 #include <Python.h>
 #include <dlfcn.h>
 #import <Foundation/Foundation.h>
+#import "Pyto-Swift.h"
 
 #define SET_FILE() PyObject_SetAttrString(module, "__file__", PyUnicode_FromString(binaryURL.path.UTF8String));
 
@@ -90,6 +91,16 @@ static PyObject *_extensionsimporter_module_from_binary(PyObject *self, PyObject
     error = dlerror();
     if (error) {
         PyErr_SetString(PyExc_SystemError, error);
+        return NULL;
+    }
+    
+    NSString *libName = [NSString stringWithUTF8String:name];
+    libName = [libName componentsSeparatedByString:@"."].firstObject;
+    if (!libName) {
+        libName = [NSString stringWithUTF8String:name];
+    }
+    if ([Python.shared.fullVersionExclusives containsObject:libName]) {
+        PyErr_SetString(PyExc_ImportError, "");
         return NULL;
     }
     

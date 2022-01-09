@@ -51,7 +51,7 @@ class ScriptRunnerViewController: REPLViewController {
             editor?.pipItem = UIBarButtonItem(image: UIImage(systemName: "pip.enter"), style: .plain, target: editor, action: #selector(editor?.togglePIP))
         }
         
-        if editor != nil && AVPictureInPictureController.isPictureInPictureSupported() {
+        if editor != nil && AVPictureInPictureController.isPictureInPictureSupported() && !isiOSAppOnMac {
             navigationItem.rightBarButtonItems = [editor!.pipItem]
             parent?.navigationItem.rightBarButtonItems = [editor!.pipItem]
         }

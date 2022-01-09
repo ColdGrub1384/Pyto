@@ -99,10 +99,10 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     /// Applies theme.
     func applyTheme() {
                 
-        guard let view = console?.view, view.window?.windowScene?.activationState != .background && view.window?.windowScene?.activationState != .unattached && view.window != nil else {
+        guard let view = console?.view, (view.window?.windowScene?.activationState != .background && view.window?.windowScene?.activationState != .unattached && view.window != nil) || isiOSAppOnMac else {
             return
         }
-        
+              
         textField.inputAccessoryView = nil
         
         inputAssistant.leadingActions = (UIApplication.shared.orientation.isLandscape ? [InputAssistantAction(image: UIImage())] : [])+[
@@ -119,11 +119,6 @@ class MovableTextField: NSObject, UITextFieldDelegate {
         } else {
             textField.keyboardAppearance = .light
         }
-        if textField.keyboardAppearance == .dark {
-            _uiToolbar.barStyle = .black
-        } else {
-            _uiToolbar.barStyle = .default
-        }
         _uiToolbar.isTranslucent = true
         
         if #available(iOS 13.0, *) {
@@ -131,8 +126,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             textField.textColor = theme.sourceCodeTheme.color(for: .plain)
         }
         
-        inputAssistant.attach(to: textField)
-                
+        if !(isiOSAppOnMac && (console?.parent is ScriptRunnerViewController || console?.parent is PipInstallerViewController)) {
+            // There's a weird visual bug on Mac on the script runner with the input assistant
+            inputAssistant.attach(to: textField)
+        }
+        
         textField.backgroundColor = .clear
     }
     
@@ -188,10 +186,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
         }
         
-        if ((console.editorSplitViewController is REPLViewController) && !(console.editorSplitViewController is ScriptRunnerViewController)) || (console.editorSplitViewController is RunModuleViewController) {
-        } else {
-            listenToKeyboardNotifications()
-        }
+        listenToKeyboardNotifications()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -250,12 +245,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
             return
         }
         
-        guard let splitVC = console.editorSplitViewController, !(splitVC is ScriptRunnerViewController) else {
-            return
-        }
-        
-        if isiOSAppOnMac {
-            toolbar.frame.origin.y = console.view.frame.size.height-toolbar.frame.size.height
+        guard let splitVC = console.editorSplitViewController, !(splitVC is ScriptRunnerViewController), !(splitVC is PipInstallerViewController) else {
             return
         }
         
@@ -291,6 +281,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     }
     
     @objc private func keyboardDidHide(_ notification: NSNotification) {
+        
         #if MAIN
         toolbar.frame.origin.y = (console?.view.safeAreaLayoutGuide.layoutFrame.height ?? 0)-toolbar.frame.height
         #else
@@ -328,7 +319,15 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         
-        guard console?.editorSplitViewController?.superclass?.isSubclass(of: EditorSplitViewController.self) == false else {
+        guard let splitVC = console?.editorSplitViewController, splitVC.superclass != EditorSplitViewController.self else {
+            if !(console?.editorSplitViewController is PipInstallerViewController) && !(console?.editorSplitViewController is ScriptRunnerViewController) {
+                toolbar.frame.origin.y = console!.view.frame.height-toolbar.frame.height
+            }
+            return
+        }
+        
+        guard !isiOSAppOnMac else {
+            toolbar.frame.origin.y = console!.view.frame.height-toolbar.frame.height
             return
         }
         

@@ -71,7 +71,6 @@ The following modules are integrated with Pyto.
    library/sharing
    library/mainthread
    library/htmpy
-   library/pyto_core
 
 .. toctree::
    :maxdepth: 2

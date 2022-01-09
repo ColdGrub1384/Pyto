@@ -8,53 +8,8 @@
 
 import SwiftUI
 
-fileprivate var fullVersionLibrairies: [String] {
-    
-    // Pure Python libraires that can be install with PyPi but are included because they are dependencies of a library
-    let purePython = [
-        "dask",
-        "jmespath",
-        "joblib",
-        "smart_open",
-        "boto",
-        "boto3",
-        "botocore"
-    ]
-    
-    guard let url = Bundle.main.url(forResource: "OnDemandLibraries", withExtension: "plist") else {
-        return []
-    }
-    
-    guard let dict = NSDictionary(contentsOf: url) else {
-        return []
-    }
-    
-    var keys = [String]()
-    
-    for key in (dict.allKeys as? [String]) ?? [] {
-        if !purePython.contains(key) {
-            keys.append(key)
-        }
-    }
-    
-    keys.sort()
-    
-    if let i = keys.firstIndex(of: "matplotlib") {
-        keys.remove(at: i)
-        keys.insert("matplotlib", at: 0)
-    }
-    
-    if let i = keys.firstIndex(of: "pandas") {
-        keys.remove(at: i)
-        keys.insert("pandas", at: 0)
-    }
-    
-    if let i = keys.firstIndex(of: "numpy") {
-        keys.remove(at: i)
-        keys.insert("numpy", at: 0)
-    }
-    
-    return keys
+fileprivate var fullVersionLibraries: [String] {
+    Python.shared.fullVersionExclusives
 }
 
 @available(iOS 13.0.0, *)
@@ -222,7 +177,7 @@ public struct OnboardingView: View {
                     featureView(name: NSLocalizedString("onboarding.features.4", comment: "Feature 4"), lite: true)
                     featureView(name: NSLocalizedString("onboarding.features.5", comment: "Feature 5"), lite: true)
                     
-                    ForEach(fullVersionLibrairies, id: \.self) { lib in
+                    ForEach(fullVersionLibraries.sorted(), id: \.self) { lib in
                         featureView(name: lib.capitalized, lite: false)
                     }
                     

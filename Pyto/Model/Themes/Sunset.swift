@@ -77,5 +77,9 @@ struct SunsetTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = SunsetSourceCodeTheme()
     
+    var consoleBackgroundColor: UIColor {
+        Color(red: 255/255, green: 248/255, blue: 191/255, alpha: 1)
+    }
+    
     let name: String? = "Sunset"
 }

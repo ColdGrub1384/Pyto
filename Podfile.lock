@@ -2,6 +2,11 @@ PODS:
   - Color-Picker-for-iOS (2.0.3)
   - Down (0.8.6)
   - FileBrowser (1.0.0)
+  - freetype2 (2.10.1.16):
+    - freetype2/freetype (= 2.10.1.16)
+  - freetype2/freetype (2.10.1.16):
+    - freetype2/freetype/config (= 2.10.1.16)
+  - freetype2/freetype/config (2.10.1.16)
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
@@ -20,6 +25,7 @@ DEPENDENCIES:
   - Color-Picker-for-iOS (from `https://github.com/ColdGrub1384/Color-Picker-for-iOS.git`)
   - Down (from `https://github.com/ColdGrub1384/Down.git`)
   - FileBrowser (from `https://github.com/ColdGrub1384/FileBrowser.git`)
+  - freetype2
   - GCDWebServer (~> 3.0)
   - Highlightr (from `https://github.com/brunophilipe/Highlightr.git`)
   - MultiPeer
@@ -32,6 +38,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - freetype2
     - GCDWebServer
     - MultiPeer
     - ObjectUserDefaults
@@ -78,6 +85,7 @@ SPEC CHECKSUMS:
   Color-Picker-for-iOS: aaf433e40b18e83f248b4d89e7cb8f436e3d1db0
   Down: 065ea594046e99ea02a0990a53ebf585e9a50a7b
   FileBrowser: 42fe0e5dbb9602f13c6f7f742f4a4193b018eafd
+  freetype2: 638066e0b9baa2387a4ba577644cd07eeda67347
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   Highlightr: 09ddfc99e24e4ebd81dd711f712f1620f199f8fa
   MultiPeer: 8be1b3b47faa9d2e94b4c8c29a2d984eb0d68007
@@ -89,6 +97,6 @@ SPEC CHECKSUMS:
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 513d050ade24dd12e1cb91acd7b5f7a10ecf49ca
+PODFILE CHECKSUM: fa92479c02fe1a6782122081bc0fd3b33f7a4b0b
 
 COCOAPODS: 1.11.2

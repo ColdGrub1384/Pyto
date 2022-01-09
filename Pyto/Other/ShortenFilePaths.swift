@@ -25,19 +25,16 @@ func ShortenFilePaths(in str: String) -> String {
     text = text.replacingOccurrences(of: "/privateDocuments", with: "Documents")
     if let iCloudDrive = FileBrowserViewController.iCloudContainerURL {
         text = text.replacingOccurrences(of: iCloudDrive.path, with: "iCloud")
+        text = text.replacingOccurrences(of: iCloudDrive.deletingLastPathComponent().lastPathComponent, with: "iCloud Drive")
     }
     
     text = text.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
     text = text.replacingOccurrences(of: "/privatePyto.app", with: "Pyto.app")
-    
+        
     text = text.replacingOccurrences(of: (URL(fileURLWithPath: "/private").appendingPathComponent(docs.deletingLastPathComponent().path).path).replacingOccurrences(of: "//", with: "/")+"/", with: "")
     text = text.replacingOccurrences(of: URL(fileURLWithPath: "/private").appendingPathComponent(docs.deletingLastPathComponent().path).path.replacingOccurrences(of: "//", with: "/"), with: "")
     text = text.replacingOccurrences(of: docs.deletingLastPathComponent().path+"/", with: "")
     text = text.replacingOccurrences(of: docs.deletingLastPathComponent().path, with: "")
-
-    for mod in Python.shared.downloadedModules {
-        text = text.replacingOccurrences(of: mod, with: "OnDemand")
-    }
     
     return text
     #else

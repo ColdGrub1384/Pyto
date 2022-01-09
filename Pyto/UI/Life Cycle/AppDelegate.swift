@@ -281,29 +281,21 @@ import Zip
         let docs = FileBrowserViewController.localContainerURL
         let iCloudDriveContainer = FileBrowserViewController.iCloudContainerURL
         
-        do {
-            let modulesURL = docs.appendingPathComponent("site-packages")
-            let oldModulesURL = docs.appendingPathComponent("modules")
-            
-            if !UserDefaults.standard.bool(forKey: "movedSitePackages") && FileManager.default.fileExists(atPath: oldModulesURL.path) {
-                try? FileManager.default.moveItem(at: oldModulesURL, to: modulesURL)
+        let modulesURL = docs.appendingPathComponent("site-packages")
+        let oldModulesURL = docs.appendingPathComponent("modules")
+        
+        if !UserDefaults.standard.bool(forKey: "movedSitePackages") && FileManager.default.fileExists(atPath: oldModulesURL.path) {
+            try? FileManager.default.moveItem(at: oldModulesURL, to: modulesURL)
+        }
+        
+        UserDefaults.standard.set(true, forKey: "movedSitePackages")
+        
+        FoldersBrowserViewController.sitePackages = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/python3.1/site-packages")
+        
+        if let iCloudURL = iCloudDriveContainer {
+            if !FileManager.default.fileExists(atPath: iCloudURL.path) {
+                try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
             }
-            
-            UserDefaults.standard.set(true, forKey: "movedSitePackages")
-            
-            if !FileManager.default.fileExists(atPath: modulesURL.path) {
-                try FileManager.default.createDirectory(at: modulesURL, withIntermediateDirectories: false, attributes: nil)
-            }
-            
-            FoldersBrowserViewController.sitePackages = modulesURL
-            
-            if let iCloudURL = iCloudDriveContainer {
-                if !FileManager.default.fileExists(atPath: iCloudURL.path) {
-                    try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
-                }
-            }
-        } catch {
-            print(error.localizedDescription)
         }
         
         print(FoldersBrowserViewController.accessibleFolders)
@@ -373,6 +365,8 @@ import Zip
                     
                     completePurchase(id: purchase.productId)
                 case .failed, .purchasing, .deferred:
+                    break
+                @unknown default:
                     break
                 }
             }

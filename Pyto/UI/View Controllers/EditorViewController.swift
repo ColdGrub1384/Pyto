@@ -192,33 +192,26 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         set {
-            DispatchQueue.global().async { [weak self] in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                guard newValue != self.document?.fileURL.deletingLastPathComponent() else {
-                    if (try? self.document?.fileURL.extendedAttribute(forName: "currentDirectory")) != nil {
-                        do {
-                            try self.document?.fileURL.removeExtendedAttribute(forName: "currentDirectory")
-                        } catch {
-                            print(error.localizedDescription)
-                        }
-                    }
-                    return
-                }
-                
-                #if !SCREENSHOTS
-                if let data = try? newValue.bookmarkData() {
+            guard newValue != self.document?.fileURL.deletingLastPathComponent() else {
+                if (try? self.document?.fileURL.extendedAttribute(forName: "currentDirectory")) != nil {
                     do {
-                        try self.document?.fileURL.setExtendedAttribute(data: data, forName: "currentDirectory")
+                        try self.document?.fileURL.removeExtendedAttribute(forName: "currentDirectory")
                     } catch {
                         print(error.localizedDescription)
                     }
                 }
-                #endif
+                return
             }
+            
+            #if !SCREENSHOTS
+            if let data = try? newValue.bookmarkData() {
+                do {
+                    try self.document?.fileURL.setExtendedAttribute(data: data, forName: "currentDirectory")
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+            #endif
         }
     }
     
@@ -544,7 +537,7 @@ func directory(for scriptURL: URL) -> URL {
         let isPIPSupported = true
         #else
         let isPIPSupported: Bool
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, *), !isiOSAppOnMac {
             isPIPSupported = AVPictureInPictureController.isPictureInPictureSupported()
         } else {
             isPIPSupported = false
@@ -565,7 +558,6 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         makeDocsIfNeeded()
-        let documentationMenu = (documentationNavigationController?.viewControllers.first as? DocumentationViewController)?.makeDocumentationMenu()
         
         ellipsisButtonItem.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
         
@@ -577,18 +569,20 @@ func directory(for scriptURL: URL) -> URL {
                 self?.debug()
             }),
             
-        ] + ((documentationMenu != nil) ? [documentationMenu!] : []) + [UIAction(title: NSLocalizedString("runtime", comment: "'Runtime' button on the editor"), image: UIImage(systemName: "gear"), identifier: nil, discoverabilityTitle: NSLocalizedString("runtime", comment: "'Runtime' button on the editor"), attributes: [], state: .off, handler: { [weak self] action in
-            self?.showRuntimeSettings(action)
-        })] + (!isPIPSupported ? [] : [UIAction(title: (pipController?.isPictureInPictureActive == true) ? NSLocalizedString("pip.exit", comment: "'Exit PIP'") : NSLocalizedString("pip.enter", comment: "'Enter PIP'"), image: UIImage(systemName: "pip.enter"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
+            UIAction(title: NSLocalizedString("help.documentation", comment: "'Documentation' button"), image: UIImage(systemName: "book"), identifier: nil, discoverabilityTitle: NSLocalizedString("help.documentation", comment: "'Documentation' button"), attributes: [], state: .off, handler: { [weak self] action in
+                self?.showDocs(action)
+            }),
+            
+            UIAction(title: NSLocalizedString("runtime", comment: "'Runtime' button on the editor"), image: UIImage(systemName: "gear"), identifier: nil, discoverabilityTitle: NSLocalizedString("runtime", comment: "'Runtime' button on the editor"), attributes: [], state: .off, handler: { [weak self] action in
+                self?.showRuntimeSettings(action)
+            })
+            
+        ] + (!isPIPSupported ? [] : [UIAction(title: (pipController?.isPictureInPictureActive == true) ? NSLocalizedString("pip.exit", comment: "'Exit PIP'") : NSLocalizedString("pip.enter", comment: "'Enter PIP'"), image: UIImage(systemName: "pip.enter"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
             
             self?.togglePIP()
         })]) + [
             UIAction(title: NSLocalizedString("menuItems.share", comment: "The menu item to share a file"), image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: NSLocalizedString("menuItems.share", comment: "The menu item to share a file"), attributes: [], state: .off, handler: { [weak self] _ in
                 self?.share(self!.ellipsisButtonItem)
-            }),
-            
-            UIAction(title: NSLocalizedString("editorActionsTableViewController.title", comment: "The title of the view controller for managing editor actions."), image: UIImage(systemName: "pencil"), identifier: nil, discoverabilityTitle: NSLocalizedString("editorActionsTableViewController.title", comment: "The title of the view controller for managing editor actions."), attributes: [], state: .off, handler: { [weak self] _ in
-                self?.showEditorScripts(self!.ellipsisButtonItem!)
             })
         ])
         
@@ -759,11 +753,6 @@ func directory(for scriptURL: URL) -> URL {
         func openDoc() {
             guard let doc = self.document else {
                 return
-            }
-            
-            if #available(iOS 13.0, *), !areEditorButtonsSetup {
-                EditorViewController.setupEditorButton(self)
-                areEditorButtonsSetup = true
             }
             
             let path = doc.fileURL.path
@@ -982,139 +971,7 @@ func directory(for scriptURL: URL) -> URL {
         present(searchVC, animated: true, completion: nil)
     }
     
-    // MARK: - Plugin
-    
-    /// Setups the plugin button.
-    @objc static func setupEditorButton(_ editor: EditorViewController?) {
-        
-        if #available(iOS 13.0, *) {
-        } else {
-            return
-        }
-        
-        if !Thread.current.isMainThread {
-            return DispatchQueue.main.async {
-                self.setupEditorButton(editor)
-            }
-        }
-        
-        func addToEditor(_ editor: EditorViewController) {
-            PyCore.editorViewControllers.addObject(editor)
-            let i = PyCore.editorViewControllers.count-1
-            _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (timer) in
-                if Python.shared.isSetup {
-                    Python.shared.run(code: """
-                    try:
-                        import pyto_core as pc
-                        pc.__setup_editor_button__(\(i))
-                    except:
-                        import pyto_core as pc
-                        pc.__setup_editor_button__(\(i))
-                    """)
-                    timer.invalidate()
-                }
-            })
-        }
-        
-        if let editor = editor, !editor.buttonAdded {
-            addToEditor(editor)
-        }
-    }
-    
-    private var buttonAdded = false
-    
-    /// Calls the plugin editor actions.
-    @objc func callPlugin() {
-        Python.shared.runningScripts = NSArray(array: Python.shared.runningScripts.adding(document?.fileURL.path ?? ""))
-        Python.shared.run(code: """
-        try:
-            import pyto_core as pc
-            pc.__actions__[\(actionIndex)]()
-        except:
-            import pyto_core as pc
-            pc.__actions__[\(actionIndex)]()
-        """)
-    }
-    
-    /// The icon of the plugin.
-    @objc var editorIcon: UIImage? {
-        didSet {
-            let added = buttonAdded
-            buttonAdded = true
-            DispatchQueue.main.async { [weak self] in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                if !added {
-                    let item = UIBarButtonItem(image: self.editorIcon, style: .plain, target: self, action: #selector(self.callPlugin))
-                    self.parentVC?.toolbarItems?.insert(item, at: 2)
-                }
-            }
-        }
-    }
-    
-    /// The index of the function to call in the `pyto_core` module.
-    @objc var actionIndex = -1
-    
     // MARK: - Actions
-    
-    /// Shows scripts to run with this script as argument.
-    @objc func showEditorScripts(_ sender: Any) {
-        
-        class NavigationController: UINavigationController {
-            
-            var editor: EditorViewController?
-            
-            override func viewWillDisappear(_ animated: Bool) {
-                super.viewWillDisappear(animated)
-                
-                if let doc = editor?.document, let data = try? Data(contentsOf: doc.fileURL) {
-                    try? doc.load(fromContents: data, ofType: "public.python-script")
-                    editor?.textView.text = doc.text
-                }
-            }
-        }
-        
-        guard let fileURL = document?.fileURL else {
-            return
-        }
-        
-        save { (success) in
-            
-            func presentPopover() {
-                DispatchQueue.main.async { [weak self] in
-                    let tableVC = EditorActionsTableViewController(scriptURL: fileURL)
-                    tableVC.editor = self
-                    let vc = NavigationController(rootViewController: tableVC)
-                    vc.editor = self
-                    if !isiOSAppOnMac {
-                        vc.modalPresentationStyle = .popover
-                        vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-                        vc.popoverPresentationController?.delegate = tableVC
-                    } else {
-                        vc.modalPresentationStyle = .formSheet
-                    }
-                    
-                    self?.present(vc, animated: true, completion: nil)
-                }
-            }
-            
-            guard success else {
-                DispatchQueue.main.async { [weak self] in
-                    let alert = UIAlertController(title: NSLocalizedString("errors.errorWrittingToScript", comment: "Title of the alert shown when code cannot be written"), message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: { (_) in
-                        presentPopover()
-                    }))
-                    self?.present(alert, animated: true, completion: nil)
-                }
-                return
-            }
-            
-            presentPopover()
-        }
-    }
     
     private var definitionsNavVC: UINavigationController?
     

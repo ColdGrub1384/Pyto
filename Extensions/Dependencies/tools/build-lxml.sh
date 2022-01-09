@@ -49,4 +49,4 @@ cd $OLD_PWD
 cd ../lxml
 python3 setup.py bdist
 python3 ../tools/make_frameworks.py lxml Lxml
-../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/lxml
+../tools/copy-scripts.sh build/lib*/* ../../../site-packages/lxml

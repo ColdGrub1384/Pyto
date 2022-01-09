@@ -12,7 +12,7 @@ import SourceEditor
 import Highlightr
 
 /// A View controller for choosing a theme.
-class ThemeChooserTableViewController: UITableViewController {
+class ThemeChooserCollectionViewController: UICollectionViewController, UIContextMenuInteractionDelegate {
     
     private var textViews = [Data:UITextView]()
     
@@ -21,45 +21,37 @@ class ThemeChooserTableViewController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    /// Edits a theme.
-    @objc func editTheme(_ sender: UIButton) {
-        
-        guard #available(iOS 13.0, *) else {
-            return
-        }
-        
-        guard let title = sender.title(for: .disabled), let i = Int(title) else {
-            return
-        }
-        
-        let index = i-((Themes.count-ThemeMakerTableViewController.themes.count))
-        
-        guard ThemeMakerTableViewController.themes.indices.contains(index) else {
-            return
-        }
-        
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "themeMaker") as? ThemeMakerTableViewController else {
-            return
-        }
-        
-        vc.loadViewIfNeeded()
-        
-        vc.index = index
-        vc.theme = Themes[i].value
-        
-        present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+    var styleSegmentedControl: UISegmentedControl!
+    
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        (styleSegmentedControl?.selectedSegmentIndex ?? 0) == 0 ? .light : .dark
     }
     
-    // MARK: - Table view controller
+    @IBAction func didChangeStyle(_ sender: Any) {
+        collectionView.reloadData()
+    }
+    
+    // MARK: - Collection view controller
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let collectionLayout = UICollectionViewFlowLayout()
+        collectionLayout.itemSize = CGSize(width: 228, height: 145)
+        collectionLayout.sectionInset = UIEdgeInsets(top: 20, left: 25, bottom: 20, right: 25)
+        collectionLayout.headerReferenceSize = CGSize(width: collectionView.frame.size.width, height: 50)
+        
+        collectionView.collectionViewLayout = collectionLayout
         
         view.accessibilityIgnoresInvertColors = true
         
         if #available(iOS 13.0, *) {
         } else {
             navigationItem.rightBarButtonItems = nil
+        }
+        
+        NotificationCenter.default.addObserver(forName: ThemeDidChangeNotification, object: nil, queue: .main) { [weak self] _ in
+            self?.collectionView.reloadData()
         }
     }
     
@@ -68,25 +60,49 @@ class ThemeChooserTableViewController: UITableViewController {
         if #available(iOS 13.0, *) {
             view.backgroundColor = UIColor.systemBackground
         }
-        tableView.reloadData()
+        collectionView.reloadData()
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header", for: indexPath)
+
+        headerView.frame.size.height = 50
+        let _styleSegmentedControl = headerView.subviews.first as? UISegmentedControl
+        if styleSegmentedControl != _styleSegmentedControl {
+            styleSegmentedControl = _styleSegmentedControl
+            collectionView.reloadData()
+        }
+        
+        return headerView
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Themes.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .default, reuseIdentifier: nil)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
         let theme = Themes[indexPath.row].value
+        cell.overrideUserInterfaceStyle = theme.userInterfaceStyle
+        cell.contentView.clipsToBounds = true
+        cell.contentView.layer.cornerRadius = 6
+        cell.contentView.layer.borderWidth = 2
+        cell.contentView.isUserInteractionEnabled = false
+        UITraitCollection(userInterfaceStyle: theme.userInterfaceStyle).performAsCurrent {
+            cell.contentView.layer.borderColor = UIColor.secondaryLabel.cgColor
+        }
+        cell.addInteraction(UIContextMenuInteraction(delegate: self))
         
-        let label = cell.contentView.viewWithTag(1) as? UILabel
-        
+        let label = (cell.contentView.subviews.compactMap({ $0 as? UILabel })).first
         label?.textColor = theme.sourceCodeTheme.color(for: .plain)
         label?.text = Themes[indexPath.row].name
         
-        guard let containerView = cell.contentView.viewWithTag(2) else {
+        let checkmark = (cell.contentView.subviews.compactMap({ $0 as? UIImageView })).first
+        checkmark?.isHidden = theme.data != ConsoleViewController.theme(for: userInterfaceStyle).data
+        
+        guard let containerView = cell.contentView.subviews.filter({ !($0 is UILabel) && !($0 is UIImageView) }).first else {
             return cell
         }
         
@@ -106,7 +122,7 @@ class ThemeChooserTableViewController: UITableViewController {
             
             let highlightr = textStorage.highlightr
             highlightr.theme = HighlightrTheme(themeString: theme.css)
-            highlightr.theme.setCodeFont(EditorViewController.font.withSize(12))
+            highlightr.theme.setCodeFont(EditorViewController.font.withSize(6))
             
             textView = UITextView(frame: .zero, textContainer: container)
             textView.text = """
@@ -126,69 +142,19 @@ class ThemeChooserTableViewController: UITableViewController {
         
         textView.frame = containerView.frame
         textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        textView.isScrollEnabled = false
+        textView.isEditable = false
         containerView.addSubview(textView)
         
         textView.backgroundColor = theme.sourceCodeTheme.backgroundColor
-        cell.backgroundColor = theme.sourceCodeTheme.backgroundColor
-        
-        let button = cell.contentView.viewWithTag(3) as? UIButton
-        button?.tintColor = theme.sourceCodeTheme.color(for: .plain)
-        button?.setTitle("\(indexPath.row)", for: .disabled)
-        button?.isHidden = !self.tableView(tableView, canEditRowAt: indexPath)
-        button?.addTarget(self, action: #selector(editTheme(_:)), for: .touchUpInside)
+        cell.contentView.backgroundColor = theme.sourceCodeTheme.backgroundColor
         
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.popViewController(animated: true)
-        ConsoleViewController.choosenTheme = Themes[indexPath.row].value
-    }
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if #available(iOS 13.0, *) {
-            return indexPath.row > Themes.count-ThemeMakerTableViewController.themes.count-1
-        } else {
-            return false
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        /*
-         
-         Default themes:
-         
-         0
-         1
-         2
-         
-         Created by user:
-         
-         3 <- Selected
-         4
-         5
-         6
-         
-         Total: 7
-        
-         Index in themes created by user: 7-3-3-1 = 0
-         
-         */
-        
-        guard #available(iOS 13.0, *) else {
-            return
-        }
-        
-        let index = indexPath.row-((Themes.count-ThemeMakerTableViewController.themes.count))
-        
-        guard ThemeMakerTableViewController.themes.indices.contains(index) else {
-            return
-        }
-        
-        ThemeMakerTableViewController.themes.remove(at: index)
-        
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        ConsoleViewController.set(theme: Themes[indexPath.row].value, for: userInterfaceStyle)
+        collectionView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -201,10 +167,20 @@ class ThemeChooserTableViewController: UITableViewController {
         if segue.identifier == "customTheme" {
             let vc = (segue.destination as? UINavigationController)?.viewControllers.last as? ThemeMakerTableViewController
             
-            let theme = ConsoleViewController.choosenTheme
+            let theme = ConsoleViewController.theme(for: userInterfaceStyle)
+            
+            var name = theme.name ?? ""
+            var i = 1
+            while (Themes.map({ $0.value })+ThemeMakerTableViewController.themes).contains(where: { $0.name == name }) {
+                i += 1
+                name = "\(theme.name ?? "") \(i)"
+            }
+            
             ThemeMakerTableViewController.themes.append(theme)
             
             vc?.index = ThemeMakerTableViewController.themes.count-1
+            vc?.loadViewIfNeeded()
+            vc?.name = name
         }
     }
     
@@ -217,4 +193,61 @@ class ThemeChooserTableViewController: UITableViewController {
     func didChangeText(_ syntaxTextView: SyntaxTextView) {}
     
     func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {}
+    
+    // MARK: - Context menu interaction delegate
+    
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        
+        guard let cell = interaction.view as? UICollectionViewCell else {
+            return nil
+        }
+        
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            return nil
+        }
+        
+        let isCustom = ThemeMakerTableViewController.themes.indices.contains(indexPath.row-((Themes.count-ThemeMakerTableViewController.themes.count)))
+        
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
+                
+                UIAction(title: "Edit", image: UIImage(systemName: "pencil"), identifier: nil, discoverabilityTitle: "Edit", attributes: !isCustom ? .disabled : [], state: .off, handler: { [unowned self] _ in
+                    
+                    let i = indexPath.row
+                    
+                    let index = i-((Themes.count-ThemeMakerTableViewController.themes.count))
+                    
+                    guard ThemeMakerTableViewController.themes.indices.contains(index) else {
+                        return
+                    }
+                    
+                    guard let vc = storyboard?.instantiateViewController(withIdentifier: "themeMaker") as? ThemeMakerTableViewController else {
+                        return
+                    }
+                    
+                    vc.loadViewIfNeeded()
+                    
+                    vc.index = index
+                    vc.theme = Themes[i].value
+                    
+                    self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+                }),
+                
+                UIAction(title: "Delete", image: UIImage(systemName: "trash"), identifier: nil, discoverabilityTitle: "Delete", attributes: !isCustom ? [.disabled, .destructive] : [.destructive], state: .off, handler: { [unowned self] _ in
+                    
+                    let index = indexPath.row-((Themes.count-ThemeMakerTableViewController.themes.count))
+                    
+                    guard ThemeMakerTableViewController.themes.indices.contains(index) else {
+                        return
+                    }
+                    
+                    ThemeMakerTableViewController.themes.remove(at: index)
+                    
+                    self.collectionView.deleteItems(at: [indexPath])
+                })
+            ])
+        }
+        
+        return config
+    }
 }

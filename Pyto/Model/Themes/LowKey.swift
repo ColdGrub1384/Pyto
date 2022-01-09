@@ -77,5 +77,9 @@ struct LowKeyTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = LowKeySourceCodeTheme()
     
+    var consoleBackgroundColor: UIColor {
+        .secondarySystemBackground
+    }
+    
     let name: String? = "LowKey"
 }

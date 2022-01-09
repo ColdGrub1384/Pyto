@@ -73,12 +73,12 @@ import SafariServices
     
     /// Installs package.
     @objc func install() {
-        run(command: "--verbose install \(currentPackage?.name ?? "")\(version == nil ? "" : "==\(version!)")")
+        run(command: "install \(currentPackage?.name ?? "")\(version == nil ? "" : "==\(version!)")")
     }
     
     /// Removes package.
     @objc func remove() {
-        run(command: "--verbose uninstall \(currentPackage?.name ?? "") ")
+        run(command: "uninstall \(currentPackage?.name ?? "") ")
     }
     
     /// Bundled modules.
@@ -125,15 +125,32 @@ import SafariServices
     
     /// Returns `true` if the currently viewed package is installed.
     var isPackageInstalled: Bool {
+        
+        guard let name = currentPackage?.name else {
+            return false
+        }
+        
         let index = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("site-packages/.pypi_packages")
         if let str = (try? String(contentsOf: index)) {
             for line in str.components(separatedBy: .newlines) {
-                if line.hasPrefix("["), let packageName = line.slice(from: "[", to: "]"), currentPackage?.name?.lowercased() == packageName.lowercased() {
+                if line.hasPrefix("["), let packageName = line.slice(from: "[", to: "]"), name.lowercased() == packageName.lowercased() {
                     return true
                 }
             }
         }
-        return false
+        
+        let installed = Python.pythonShared?.perform(#selector(PythonRuntime.getString(_:)), with: """
+        import _pip
+        import json
+        s = json.dumps(_pip._get_modules())
+        """)
+        
+        if let list = (installed?.takeUnretainedValue() as? String)?.data(using: .utf8), let installedList = (try? JSONSerialization.jsonObject(with: list, options: .fragmentsAllowed)) as? [String] {
+            
+            return installedList.map({ $0.lowercased() }).contains(name)
+        } else {
+            return false
+        }
     }
     
     /// Closes this View controller.
@@ -175,7 +192,11 @@ import SafariServices
         case 1: // Requirements
             return currentPackage?.requirements.count ?? 0
         case 2: // Install
-            return 1
+            if isPackageInstalled && !Self.bundled.contains(currentPackage?.name ?? "<nil>") {
+                return 2
+            } else {
+                return 1
+            }
         case 3: // Project
             
             var count = 0
@@ -262,25 +283,27 @@ import SafariServices
         case 2: // Install
             let cell = tableView.dequeueReusableCell(withIdentifier: "install") ?? UITableViewCell()
             
-            if isPackageInstalled {
-                cell.contentView.tintColor = .systemRed
-                (cell.viewWithTag(1) as? UIButton)?.setTitle(NSString(format: NSLocalizedString("pypi.remove", comment: "Remove (package)") as NSString, currentPackage?.name ?? "package") as String, for: .normal)
-                if #available(iOS 13.0, *) {
-                    cell.imageView?.image = UIImage(systemName: "trash")
-                }
-            } else if let name = currentPackage?.name, PipViewController.bundled.contains(name) {
-                (cell.viewWithTag(1) as? UIButton)?.setTitle(NSLocalizedString("pypi.providedByPyto", comment: "Library is provided by Pyto"), for: .normal)
-                if #available(iOS 13.0, *) {
-                    cell.contentView.tintColor = .secondaryLabel
-                } else {
-                    cell.contentView.tintColor = .gray
-                }
-            } else {
+            if indexPath.row == 0 {
                 cell.contentView.tintColor = nil
                                 
                 (cell.viewWithTag(1) as? UIButton)?.setTitle(NSString(format: NSLocalizedString("pypi.install", comment: "Install (package)") as NSString, "\(currentPackage?.name ?? "package") \(version ?? "")") as String, for: .normal)
                 if #available(iOS 13.0, *) {
                     cell.imageView?.image = UIImage(systemName: "icloud.and.arrow.down")
+                }
+            } else {
+                if let name = currentPackage?.name, PipViewController.bundled.contains(name) {
+                    (cell.viewWithTag(1) as? UIButton)?.setTitle(NSLocalizedString("pypi.providedByPyto", comment: "Library is provided by Pyto"), for: .normal)
+                    if #available(iOS 13.0, *) {
+                        cell.contentView.tintColor = .secondaryLabel
+                    } else {
+                        cell.contentView.tintColor = .gray
+                    }
+                } else if isPackageInstalled {
+                    cell.contentView.tintColor = .systemRed
+                    (cell.viewWithTag(1) as? UIButton)?.setTitle(NSString(format: NSLocalizedString("pypi.remove", comment: "Remove (package)") as NSString, currentPackage?.name ?? "package") as String, for: .normal)
+                    if #available(iOS 13.0, *) {
+                        cell.imageView?.image = UIImage(systemName: "trash")
+                    }
                 }
             }
             

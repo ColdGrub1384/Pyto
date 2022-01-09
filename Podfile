@@ -24,6 +24,7 @@ target 'Pyto' do
   pod 'TrueTime'
   pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
   pod "GCDWebServer", "~> 3.0"
+  pod 'freetype2'
 end
 target 'SwiftUI Preview' do
 
@@ -31,6 +32,15 @@ use_frameworks!
 inhibit_all_warnings!
 
 pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
+
+end
+
+target 'WidgetExtension' do
+
+use_frameworks!
+inhibit_all_warnings!
+
+pod 'freetype2'
 
 end
 
@@ -53,6 +63,7 @@ target 'Pyto Screenshots' do
   pod 'ObjectUserDefaults'
   pod 'TrueTime'
   pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
+  pod 'freetype2'
 end
 
 # post install

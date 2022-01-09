@@ -77,5 +77,9 @@ struct SolarizedDarkTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = SolarizedDarkSourceCodeTheme()
     
+    var consoleBackgroundColor: UIColor {
+        Color(displayP3Red: 0/255, green: 78/255, blue: 97/255, alpha: 1)
+    }
+    
     let name: String? = "Solarized Dark"
 }

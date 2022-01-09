@@ -19,8 +19,8 @@ import time
 import ctypes
 import weakref
 import json
-from types import ModuleType as Module
 import builtins
+from types import ModuleType as Module
 
 
 if "sphinx" not in sys.modules:
@@ -50,11 +50,6 @@ if "widget" not in os.environ and not "sphinx" in sys.modules:
 
         def ObjCClass(class_name):
             return None
-
-    try:
-        import pyto_core as pc
-    except ImportError:
-        pass
 
 namespaces = {}
 
@@ -188,7 +183,8 @@ def return_excepthook(exc, value, tb, limit=None):
 
 
 def excepthook(exc, value, tb, limit=None):
-    builtins.print(return_excepthook(exc, value, tb, limit), end="")
+    if exc is not __UpgradeException__:
+        builtins.print(return_excepthook(exc, value, tb, limit), end="")
 
 
 __repl_namespace__ = {}
@@ -276,11 +272,6 @@ def __clear_mods__():
         pass
 
     try:
-        del sys.modules["pyto_core"]
-    except KeyError:
-        pass
-
-    try:
         del sys.modules["ui_constants"]
     except KeyError:
         pass
@@ -328,7 +319,7 @@ def __clear_mods__():
                 os.access(mod.__file__, os.W_OK)
                 and not "/Library/python38" in mod.__file__
                 and key != "<run_path>"
-            ):
+            ) or mod.startswith("setuptools") or mod.startswith("distutils"):
                 del sys.modules[key]
         except AttributeError:
             pass

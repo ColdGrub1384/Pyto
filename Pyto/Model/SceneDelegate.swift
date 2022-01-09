@@ -10,7 +10,6 @@ import UIKit
 import StoreKit
 import SwiftUI
 import UniformTypeIdentifiers
-import Dynamic
 
 /// The scene delegate.
 @objc class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -112,15 +111,6 @@ import Dynamic
         #endif
         
         window?.tintColor = ConsoleViewController.choosenTheme.tintColor
-        
-        if isiOSAppOnMac {
-            Dynamic(window?.windowScene).titlebar.titleVisibility = 1
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
-                for window in Dynamic.NSApplication.sharedApplication.windows.asArray ?? [] {
-                   Dynamic(window).styleMask = 32783
-                }
-            }
-        }
         
         #if targetEnvironment(simulator)
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
@@ -338,9 +328,22 @@ import Dynamic
         
         _ = inputURL.startAccessingSecurityScopedResource()
         
-        // Reveal / import the document at the URL
-        
-        openDocument(at: inputURL, run: false, folder: nil, isShortcut: false)
+        if inputURL.pathExtension.lowercased() == "whl" {
+            if !Python.shared.isSetup || sidebarSplitViewController == nil {
+                _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { timer in
+                    if Python.shared.isSetup && self.sidebarSplitViewController != nil {
+                        self.sidebarSplitViewController?.sidebar?.install(wheel: inputURL)
+                        timer.invalidate()
+                    }
+                })
+            } else {
+                sidebarSplitViewController?.sidebar?.install(wheel: inputURL)
+            }
+        } else {
+            // Reveal / import the document at the URL
+            
+            openDocument(at: inputURL, run: false, folder: nil, isShortcut: false)
+        }
     }
 }
 

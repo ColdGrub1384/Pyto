@@ -2,9 +2,9 @@
 Exits the Shell.
 """
 
-import __main__
+import _shell
 
-ShellExit = __main__.shell.ShellExit
+ShellExit = _shell.shell.ShellExit
 
 
 def main():

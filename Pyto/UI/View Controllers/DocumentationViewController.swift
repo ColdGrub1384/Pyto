@@ -34,18 +34,6 @@ class DocumentationViewController: UIViewController, WKNavigationDelegate {
         
         /// Python's documentation
         static let python = Documentation(name: "Python", url: Bundle.main.url(forResource: "python-3.10.0-docs-html/index", withExtension: "html")!, pageURL: Bundle.main.url(forResource: "python-3.10.0-docs-html/index", withExtension: "html")!)
-        
-        /// Returns documentation downloaded by the user.
-        static func getDownloaded() -> [Documentation] {
-            var url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("documentation")
-            
-            for content in (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])) ?? [] {
-                url = url.appendingPathComponent(content.lastPathComponent)
-                break
-            }
-            
-            return ((try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])) ?? []).map({ Documentation(name: $0.deletingLastPathComponent().lastPathComponent.localizedCapitalized, url: $0.appendingPathComponent("index.html")) })
-        }
     }
     
     /// The button for changing documentation.

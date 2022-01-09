@@ -77,5 +77,9 @@ struct DuskTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = DuskSourceCodeTheme()
     
+    var consoleBackgroundColor: UIColor {
+        Color(red: 70/255, green: 70/255, blue: 80/255, alpha: 1)
+    }
+    
     let name: String? = "Dusk"
 }

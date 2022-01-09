@@ -280,6 +280,7 @@ struct ExceptionView: View {
             line = newString as NSString
         }
         
+        #if !PREVIEW
         show(url: URL(fileURLWithPath: frame.file_path)) { editor in
             let text = (editor.textView.text as NSString)
             let range = NSRange(location: 0, length: text.length)
@@ -300,6 +301,7 @@ struct ExceptionView: View {
                 i += 1
             }
         }
+        #endif
     }
     
     var shouldInsertComma: Bool {
@@ -334,6 +336,7 @@ struct ExceptionView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
+    #if !PREVIEW
     func show(url: URL, completion: @escaping ((EditorViewController) -> Void)) {
         
         guard let splitVC = editor.parent as? EditorSplitViewController else {
@@ -358,6 +361,7 @@ struct ExceptionView: View {
             }
         })
     }
+    #endif
     
     var body: some View {
         ZStack {

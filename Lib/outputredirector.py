@@ -4,9 +4,6 @@ Module used internally by Pyto for redirecting output.
 
 import sys
 
-oldStdout = sys.__stdout__
-
-
 class Reader:
     """
     Class used as file to be passed to `sys.stdout` and `sys.stderr`.
@@ -27,6 +24,9 @@ class Reader:
     @property
     def closed(self):
         return False
+    
+    def close(self):
+        pass
 
     def __init__(self, handler):
         """
@@ -49,7 +49,6 @@ class Reader:
     def write(self, txt):
         if txt.__class__ is str:
             self.__handler__(txt)
-            oldStdout.write(txt)
         elif txt.__class__ is bytes:
             text = txt.decode()
             self.write(text)

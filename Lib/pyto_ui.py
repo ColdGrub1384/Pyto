@@ -6193,6 +6193,23 @@ def image_with_system_name(name: str) -> UIImage:
     return image
 
 
+def show_view_without_waiting(view: ui.View, mode: ui.PRESENTATION_MODE):
+    """
+    Shows a PytoUI :class:`~pyto_ui.View`.
+
+    Use this function to show a view on a plugin running in background. That will show the view on any screen of the app on the key window.
+    Also, this function returns before the view is closed, so that's also useful for running code after showing the view.
+
+    :param view: The :class:`~pyto_ui.View` object to present.
+    :param mode: The presentation mode to use. The value will be ignored on a widget. See `Presentation Mode <constants.html#presentation-mode>`_ constants for possible values.
+    """
+
+    def showview():
+        show_view(view, mode)
+
+    threading.Thread(target=showview).start()
+
+
 def show_view(view: View, mode: PRESENTATION_MODE):
     """
     Presents the given view.

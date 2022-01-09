@@ -20,4 +20,4 @@ mv _sodium.abi3.so ../lib*/nacl/
 popd
 
 python3 ../tools/make_frameworks.py nacl PyNacl
-../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/nacl
+../tools/copy-scripts.sh build/lib*/* ../../../site-packages/nacl

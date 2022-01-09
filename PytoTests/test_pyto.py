@@ -12,7 +12,7 @@ class TestPyto(unittest.TestCase):
     def test_lib(self):
         from Lib import (apps, location, mainthread, motion,
         multipeer, music, notifications,
-        pasteboard, photos, pyto_core, pyto_ui,
+        pasteboard, photos, pyto_ui,
         remote_notifications, sharing, sound, speech, userkeys,
         xcallback)
 

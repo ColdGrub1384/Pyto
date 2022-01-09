@@ -20,4 +20,4 @@ cp ../tools/npy_common.h numpy/core/include/numpy/
 python3 setup.py bdist --force
 python3 ../tools/make_frameworks.py numpy NumPy
 cp build/temp*/*.a ../../NumPy
-../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/numpy
+../tools/copy-scripts.sh build/lib*/* ../../../site-packages/numpy

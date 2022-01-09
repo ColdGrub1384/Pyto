@@ -92,6 +92,13 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
         }
     }
     
+    var consoleBackground: UIColor! {
+        didSet {
+            consoleBackgroundView.backgroundColor = consoleBackground
+            previewTheme()
+        }
+    }
+    
     var plain: UIColor! {
         didSet {
             plainView.backgroundColor = plain
@@ -116,6 +123,7 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
     
     var builtin: UIColor! {
         didSet {
+            builtinView.backgroundColor = builtin
             previewTheme()
         }
     }
@@ -141,20 +149,6 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
         }
     }
     
-    var exception_: UIColor! {
-        didSet {
-            exceptionView.backgroundColor = exception_
-            previewTheme()
-        }
-    }
-    
-    var warning: UIColor! {
-        didSet {
-            warningView.backgroundColor = warning
-            previewTheme()
-        }
-    }
-    
     func makeTheme() -> Theme {
         
         struct CustomTheme: Theme {
@@ -170,10 +164,8 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
             var name: String?
             
             var tintColor: UIColor?
-            
-            var exceptionColor: UIColor
-            
-            var warningColor: UIColor
+                                    
+            var consoleBackgroundColor: UIColor
         }
         
         struct CustomSourceCodeTheme: SourceCodeTheme {
@@ -230,7 +222,7 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
             }
         }
         
-        return CustomTheme(keyboardAppearance: (interfaceStyle == .dark ? .dark : (interfaceStyle == .light ? .light : .default)), barStyle: (interfaceStyle == .dark ? .black : .default), sourceCodeTheme: CustomSourceCodeTheme(themeMaker: self), userInterfaceStyle: interfaceStyle, name: name, tintColor: tint, exceptionColor: exception_, warningColor: warning)
+        return CustomTheme(keyboardAppearance: (interfaceStyle == .dark ? .dark : (interfaceStyle == .light ? .light : .default)), barStyle: (interfaceStyle == .dark ? .black : .default), sourceCodeTheme: CustomSourceCodeTheme(themeMaker: self), userInterfaceStyle: interfaceStyle, name: name, tintColor: tint, consoleBackgroundColor: consoleBackground)
     }
     
     // MARK: - UI Elements
@@ -266,21 +258,21 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
     
     @IBOutlet weak var backgroundView: UIView!
     
+    @IBOutlet weak var consoleBackgroundView: UIView!
+    
     @IBOutlet weak var plainView: UIView!
     
     @IBOutlet weak var commentView: UIView!
     
     @IBOutlet weak var identifierView: UIView!
     
+    @IBOutlet weak var builtinView: UIView!
+    
     @IBOutlet weak var keywordView: UIView!
     
     @IBOutlet weak var numberView: UIView!
     
     @IBOutlet weak var stringView: UIView!
-    
-    @IBOutlet weak var exceptionView: UIView!
-    
-    @IBOutlet weak var warningView: UIView!
     
     // MARK: - Actions
     
@@ -368,18 +360,18 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
             ThemeMakerTableViewController.themes = themes
         }
         
-        (((presentingVC as? UINavigationController)?.viewControllers.last as? ThemeChooserTableViewController) ?? presentingVC as? ThemeChooserTableViewController)?.tableView.reloadData()
+        (((presentingVC as? UINavigationController)?.viewControllers.last as? ThemeChooserCollectionViewController) ?? presentingVC as? ThemeChooserCollectionViewController)?.collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        for view in [tintView, backgroundView, plainView, commentView, identifierView, keywordView, numberView, stringView] {
+        for view in [tintView, backgroundView, consoleBackgroundView, plainView, commentView, identifierView, builtinView, keywordView, numberView, stringView] {
             view?.layer.borderColor = UIColor.systemFill.cgColor
             view?.layer.borderWidth = 1
         }
         
-        name = theme.name ?? ""
+        name =  !name.isEmpty ? name : (theme.name ?? "")
         
         interfaceStyle = theme.userInterfaceStyle
         tint = theme.tintColor ?? .systemBlue
@@ -387,6 +379,7 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
         previewAfterSettingProperties = false
         
         background = theme.sourceCodeTheme.backgroundColor
+        consoleBackground = theme.consoleBackgroundColor
         plain = theme.sourceCodeTheme.color(for: .plain)
         comment = theme.sourceCodeTheme.color(for: .comment)
         identifier = theme.sourceCodeTheme.color(for: .identifier)
@@ -394,10 +387,7 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
         keyword = theme.sourceCodeTheme.color(for: .keyword)
         number = theme.sourceCodeTheme.color(for: .number)
         string = theme.sourceCodeTheme.color(for: .string)
-        
-        exception_ = theme.exceptionColor
-        warning = theme.warningColor
-        
+                
         previewAfterSettingProperties = true
         
         previewTheme()
@@ -483,36 +473,36 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
                 self.background = color
             }
         case IndexPath(row: 1, section: 3):
+            pickColor(color: consoleBackground) { (color) in
+                self.consoleBackground = color
+            }
+        case IndexPath(row: 2, section: 3):
             pickColor(color: plain) { (color) in
                 self.plain = color
             }
-        case IndexPath(row: 2, section: 3):
+        case IndexPath(row: 3, section: 3):
             pickColor(color: comment) { (color) in
                 self.comment = color
             }
-        case IndexPath(row: 3, section: 3):
+        case IndexPath(row: 4, section: 3):
             pickColor(color: identifier) { (color) in
                 self.identifier = color
             }
-        case IndexPath(row: 4, section: 3):
+        case IndexPath(row: 5, section: 3):
+            pickColor(color: builtin) { (color) in
+                self.builtin = color
+            }
+        case IndexPath(row: 6, section: 3):
             pickColor(color: keyword) { (color) in
                 self.keyword = color
             }
-        case IndexPath(row: 5, section: 3):
+        case IndexPath(row: 7, section: 3):
             pickColor(color: number) { (color) in
                 self.number = color
             }
-        case IndexPath(row: 6, section: 3):
+        case IndexPath(row: 8, section: 3):
             pickColor(color: string) { (color) in
                 self.string = color
-            }
-        case IndexPath(row: 0, section: 4):
-            pickColor(color: exception_) { (color) in
-                self.exception_ = color
-            }
-        case IndexPath(row: 1, section: 4):
-            pickColor(color: warning) { (color) in
-                self.warning = color
             }
         default:
             break

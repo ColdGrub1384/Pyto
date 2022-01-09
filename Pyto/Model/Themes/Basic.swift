@@ -77,5 +77,9 @@ struct BasicTheme: Theme {
     
     let sourceCodeTheme: SourceCodeTheme = BasicSourceCodeTheme()
     
+    var consoleBackgroundColor: UIColor {
+        .secondarySystemBackground
+    }
+    
     let name: String? = "Basic"
 }

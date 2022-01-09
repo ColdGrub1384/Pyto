@@ -19,6 +19,6 @@ popd
 
 
 python3 ../tools/make_frameworks.py astropy Astropy
-../tools/copy-scripts.sh build/lib*/* ../../../downloadable-site-packages/compiled/astropy
-find ../../../downloadable-site-packages/compiled/astropy -name .hidden_file.txt -delete
-find ../../../downloadable-site-packages/compiled/astropy -name "*.sh" -delete
+../tools/copy-scripts.sh build/lib*/* ../../../site-packages/astropy
+find ../../../site-packages/astropy -name .hidden_file.txt -delete
+find ../../../site-packages/astropy -name "*.sh" -delete

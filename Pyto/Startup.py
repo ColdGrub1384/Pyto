@@ -2,8 +2,22 @@ try:
     import sys
     import os
     import zipfile
+    import site
+    import shutil
 
-    sys.path.insert(-1, os.path.expanduser("~/Documents/site-packages"))
+    sys.path.insert(-1, site.getusersitepackages())
+
+    if not os.path.isdir(site.getusersitepackages()):
+        os.makedirs(site.getusersitepackages(), exist_ok=True)
+
+    old_site_packages = os.path.expanduser("~/Documents/site-packages")
+    if os.path.isdir(old_site_packages):
+        file_names = os.listdir(old_site_packages)
+    
+        for file_name in file_names:
+            shutil.move(os.path.join(old_site_packages, file_name), site.getusersitepackages())
+        
+        shutil.rmtree(old_site_packages)
 
     import io
     import console
@@ -24,11 +38,18 @@ try:
     import _signal
     import traceback
     import unittest
-    from pip import BUNDLED_MODULES
+    from _pip import BUNDLED_MODULES
     from ctypes import CDLL
     from time import sleep
     import collections
-    import shutil
+    import subprocess
+    import runpy
+    import mimetypes
+    import _ios_popen
+    
+    # MARK: - MIME types
+    
+    mimetypes.knownfiles = os.path.join(os.path.dirname(sys.executable), "mime.types")
     
     # MARK: - Warnings
 
@@ -52,9 +73,25 @@ try:
         
         _message = warnings.formatwarning(message, category, filename, lineno, line)
         
-        if "ImportWarning: DownloadableImporter.find_spec()" in _message or "DeprecationWarning: the load_module() method is deprecated" in _message or "DeprecationWarning: PathFinder.find_module() is deprecated":
+        if "ImportWarning: FullVersionImporter.find_spec()" in _message or "DeprecationWarning: the load_module() method is deprecated" in _message or "DeprecationWarning: PathFinder.find_module() is deprecated" in _message:
             # TODO: Fix those warnings instead of hiding them
             return
+        
+        # Well I think the next warnings are not my fault
+        if "DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12." in _message:
+            return
+        
+        if "DeprecationWarning: The distutils.sysconfig module is deprecated, use sysconfig instead" in _message:
+            return
+            
+        if "DeprecationWarning: Creating a LegacyVersion has been deprecated and will be removed in the next major release":
+            return
+        
+        try:
+            if category.__name__ == "SetuptoolsDeprecationWarning":
+                return
+        except AttributeError:
+            pass
         
         try:
             pyto.PyOutputHelper.printWarning(_message, script=threading.current_thread().script_path)
@@ -65,14 +102,21 @@ try:
     warnings.showwarning = __send_warnings_to_log__
     warnings.filterwarnings("default")
 
-    # MARK: - Allow / Disallow subprocesses
+    # MARK: - Subprocesses
 
     os.allows_subprocesses = (not sys.platform == "ios")
+    subprocess.Popen = _ios_popen.Popen
     
     # MARK: - Per thread chdir
     
+    _old_chdir = os.chdir
+    
     def chdir(dir):
-        CDLL(None).pthread_chdir_np(os.path.realpath(dir).encode())
+        path = os.path.realpath(dir)
+        if not os.path.isdir(path) or not os.access(path, os.R_OK):
+            return _old_chdir(dir)
+        
+        CDLL(None).pthread_chdir_np(path.encode())
     
     os.chdir = chdir
 
@@ -89,7 +133,7 @@ try:
         except NameError:
             import console
 
-        if (threading.currentThread() in console.ignoredThreads):
+        if (threading.current_thread() in console.ignoredThreads):
             return ""
         else:
             return console.input(prompt)
@@ -120,7 +164,7 @@ try:
         except NameError:
             import threading
 
-        if ("widget" not in os.environ) and (threading.currentThread() in console.ignoredThreads):
+        if ("widget" not in os.environ) and (threading.current_thread() in console.ignoredThreads):
             return
         
         if txt.__class__ is str:
@@ -155,8 +199,7 @@ try:
 
     # MARK: - Modules
 
-    sys.meta_path.insert(0, DownloadableImporter())
-    sys.meta_path.insert(1, FrameworksImporter())
+    sys.meta_path.insert(0, FrameworksImporter())
 
     # MARK: - Pre-import modules
 

@@ -15,7 +15,9 @@ class AcknowledgmentsViewController: DocumentationViewController {
         super.viewDidLoad()
         
         webView.stopLoading()
-        let url = Bundle.main.url(forResource: "docs_build", withExtension: nil)!
-        webView.loadFileURL(url.appendingPathComponent("html/third_party.html"), allowingReadAccessTo: url)
+        
+        var doc = Documentation.pyto
+        doc.pageURL = doc.url.deletingLastPathComponent().appendingPathComponent("third_party.html")
+        selectedDocumentation = doc
     }
 }

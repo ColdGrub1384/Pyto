@@ -4,15 +4,9 @@ A shell for running Python modules
 
 import sys
 import os
-
-bin_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bin")
-
-
-if bin_path not in sys.path:
-    sys.path.append(bin_path)
-
-
 from . import shell
+
+bin_path = os.path.expanduser("~/Documents/bin")
 
 def main(print_header=True):
     
@@ -23,6 +17,10 @@ def main(print_header=True):
         while True:
             
             command = shell.input()
+
+            if bin_path not in sys.path:
+                sys.path.insert(0, bin_path)
+            
             try:
                 shell.process_command(command)
             except shell.ShellExit:
@@ -33,6 +31,11 @@ def main(print_header=True):
                 print(type(e).__name__+": "+str(e))
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
+        main(print_header=False)
+    except Exception as e:
+        print(type(e).__name__+": "+str(e))
+        main(print_header=False)
+    except SystemExit:
         main(print_header=False)
 
 if __name__ == "__main__":
