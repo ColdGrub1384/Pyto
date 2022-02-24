@@ -11,8 +11,8 @@ brew install zlib
 
 # Python
 
-curl -L https://briefcase-support.org/python\?platform\=iOS\&version\=3.10 -o Python-3.10-iOS-support.b1.tar.gz
 mkdir python-apple-support
+curl -L https://briefcase-support.org/python\?platform\=iOS\&version\=3.10 -o python-apple-support/Python-3.10-iOS-support.b1.tar.gz
 cd python-apple-support
 
 tar -xzvf Python-3.10-iOS-support.b1.tar.gz
