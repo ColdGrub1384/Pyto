@@ -758,7 +758,7 @@ func directory(for scriptURL: URL) -> URL {
             let path = doc.fileURL.path
             
             switch document?.fileURL.pathExtension.lowercased() ?? "" {
-            case "py":
+            case "py", "pyx":
                 (textView.textStorage as? CodeAttributedString)?.language = "python"
             case "html":
                 (textView.textStorage as? CodeAttributedString)?.language = "html"

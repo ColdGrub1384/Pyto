@@ -55,9 +55,10 @@ def process_command(cmd, name="__main__"):
     except IndexError:
         return
 
-    for mod in list(sys.modules.keys()):
-        if mod.startswith("setuptools") or mod.startswith("distutils") or mod.startswith("pkg_resources") or mod.startswith("pip") or mod.startswith("wheel"):
-            del sys.modules[mod]
+    if prog == "pip":
+        for mod in list(sys.modules.keys()):
+            if mod.startswith("distutils") or mod.startswith("pkg_resources") or mod.startswith("pip") or mod.startswith("wheel"):
+                del sys.modules[mod]
     
     _dict = None
 

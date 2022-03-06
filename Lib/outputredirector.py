@@ -13,6 +13,8 @@ class Reader:
 
     errors = "surrogateescape"  # ???
 
+    encoding = "utf-8"
+
     @property
     def buffer(self):
         return self._buffer

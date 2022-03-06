@@ -15,3 +15,9 @@ No matter the name of the framework, the function `PyInit__c` needs to be presen
 ## Dependencies
 
 Some libraries like `lxml` have dependencies. The `lxml-deps` framework contains the symbols for `libxml2` and `libxslt`. So, given a module called `a.b._c`, the framework `a-deps.framework` will be loaded.
+
+# Bitcode loading
+
+C Extensions can also be loaded from LLVM IR code. They are interpreted with the 'lli' interpreter. They can be placed in a package like any OS, but a main() function must be injected.
+
+The app cannot call functions from the interpreter without crashing, so the interpreter waits for the app to send a pointer of a function and its arguments and run it itself. The arguments and the return value are send through global variables.

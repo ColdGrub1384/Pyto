@@ -1,0 +1,26 @@
+Add:
+
+
+void Cext_Py_DECREF(PyObject *op);
+
+#undef Py_DECREF
+#define Py_DECREF(op) Cext_Py_DECREF(_PyObject_CAST(op))
+
+
+#undef PyObject_HEAD
+#define PyObject_HEAD PyObject ob_base; \
+PyObject *weakreflist;
+
+
+typedef struct {
+    PyObject_HEAD
+} __WeakrefObjectDummy__;
+
+#undef PyVarObject_HEAD_INIT
+#define PyVarObject_HEAD_INIT(type, size) _PyObject_EXTRA_INIT \
+1, type, size, \
+.tp_weaklistoffset = offsetof(__WeakrefObjectDummy__, weakreflist),
+
+
+
+And define PyObject_GC_UnTrack to a function defined in cext_glue.c in objimpl.h

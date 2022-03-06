@@ -57,10 +57,6 @@ try:
 
     def __send_warnings_to_log__(message, category, filename, lineno, file=None, line=None):
 
-        import platform
-        if platform.uname()[4] == "x86_64":
-            return
-
         try:
             warnings
         except:
@@ -200,6 +196,7 @@ try:
     # MARK: - Modules
 
     sys.meta_path.insert(0, FrameworksImporter())
+    sys.meta_path.insert(1, BitcodeImporter())
 
     # MARK: - Pre-import modules
 
@@ -240,13 +237,6 @@ try:
             pass
 
     importModules()
-
-    def addOnDemandPaths():
-        paths = pyto.Python.shared.accessibleOnDemandPaths
-        for path in paths:
-            sys.path.append(str(path))
-
-    threading.Thread(target=addOnDemandPaths).start()
 
     # MARK: - Terminal size
     

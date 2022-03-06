@@ -1095,7 +1095,7 @@ import SwiftUI
         
         webView.frame.size = view.frame.size
         webView.frame.size.height -= 44
-        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
         webView.backgroundColor = .clear
         webView.isOpaque = false
         webView.configuration.userContentController.add(self, name: "pyto")
@@ -1326,6 +1326,7 @@ import SwiftUI
         
         webView.frame.size = view.frame.size
         webView.frame.size.height -= 44
+        webView.frame.origin.y = 0
         
         movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
         #if MAIN

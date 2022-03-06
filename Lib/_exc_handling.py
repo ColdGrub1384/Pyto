@@ -2,6 +2,7 @@ import traceback
 import json
 import ctypes
 import os
+from extensionsimporter import BitcodeValue
 
 offer_suggestion_prototype = ctypes.PYFUNCTYPE(    
     ctypes.c_char_p,                

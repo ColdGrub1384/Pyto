@@ -5,9 +5,11 @@ usage: python [-c cmd | -m mod | file] [arg]
 """
 
 import sys
-import os.path
+import os
 import runpy
 import code
+import _shell
+import shlex
 
 _usage = "usage: python [-c cmd | -m mod | file | -] [arg]"
 
@@ -46,11 +48,6 @@ def main():
         except IndexError:
             print(_usage)
     elif sys.argv[1] == "-m":
-        
-        bin = os.path.expanduser("~/Documents/stash_extensions/bin")
-        if not bin in sys.path:
-            sys.path.insert(-1, bin)
-        
         sys.argv.pop(0)
         sys.argv.pop(0)
 
@@ -58,10 +55,7 @@ def main():
             if mod.startswith(sys.argv[0]):
                 del sys.modules[mod]
 
-        runpy._run_module_as_main(sys.argv[0])
-        
-        if bin in sys.path:
-            sys.path.remove(bin)
+        _shell.shell.process_command(shlex.join(sys.argv))
 
     elif os.path.isfile(sys.argv[1]):
         

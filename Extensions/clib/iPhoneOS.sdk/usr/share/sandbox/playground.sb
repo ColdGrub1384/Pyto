@@ -1,0 +1,19 @@
+(version 1)
+
+(import "system.sb")
+(system-network)
+
+(allow mach-task-name (target self))
+
+(allow file-read* (extension "com.apple.xcode.playground.read"))
+(allow file-read* file-write* (extension "com.apple.xcode.playground.read-write"))
+(allow network-outbound (extension "com.apple.xcode.playground.socket"))
+
+(allow file-read-metadata)
+(allow ipc-posix-shm (ipc-posix-name "apple.sim.cfprefs.daemonv1"))
+(allow ipc-posix-shm (ipc-posix-name-regex #"^sim\.not\."))
+(allow ipc-posix-shm (ipc-posix-name-regex #"^AudioIO"))
+(allow mach-lookup)
+(allow network-inbound (local ip))
+(allow network-outbound (remote ip))
+(allow network-outbound (literal "/private/var/run/mDNSResponder"))

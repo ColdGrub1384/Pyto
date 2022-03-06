@@ -117,6 +117,18 @@ int initialize_python(int argc, char *argv[]) {
     // SKLearn data
     putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);
     
+    // Clang
+    putenv("TERM=xterm-color");
+    putenv((char *)[NSString stringWithFormat:@"SYSROOT=%@", [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent: @"iPhoneOS.sdk"].path].UTF8String);
+    putenv("CC=Pyto -m clang");
+    putenv("CFLAGS=-S -emit-llvm");
+    putenv("LDSHARED=Pyto -m _link_modules");
+    
+    // Encoding
+    putenv("LANG=en_US.UTF-8");
+    putenv("LANGUAGE=en_US.UTF-8");
+    putenv("LC_ALL=en_US.UTF-8");
+    
     // MARK: - Init Python
     
     #if MAIN || WIDGET && !Xcode11

@@ -5,7 +5,6 @@ usage: mkdir [-h] [-p] directories [directories ...]
 """
 
 import argparse
-import shutil
 import os
 
 

@@ -29,6 +29,17 @@ cp -r Python/Resources/lib/python3.10 ../site-packages/python3.10
 cd ../
 rm -rf python-apple-support
 
+# LLVM
+
+pushd Extensions/Dependencies/ios_system
+
+curl -L -O https://github.com/ColdGrub1384/llvm-project/releases/download/v.1.0.0-python/llvm-project-ios-arm64.zip -o llvm-project
+unzip llvm-project-ios-arm64.zip
+rm -rf __MACOSX
+rm llvm-project-ios-arm64.zip
+
+popd
+
 # OpenCV
 
 rm -rf opencv2.framework

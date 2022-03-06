@@ -89,5 +89,5 @@ for extension in extensions:
     f = open(os.path.join(framework_path, "Info.plist"), "w+")
     f.write(info.format(extension.split("/")[-1], "".join(parts).replace("_", ""), name))
     f.close()
-
+    print(framework_path)
     shutil.copy(extension, framework_path)

@@ -265,6 +265,61 @@ import Zip
                     print(error.localizedDescription)
                 }
             }
+            
+            let newInclude = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("include")
+            let newSDK = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("iPhoneOS.sdk")
+            let newClang = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/clang")
+            let newStdlib = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/stdlib")
+            let newCextGlue = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/cext_glue.c")
+            let bundleHeaders = Bundle.main.url(forResource: "clib", withExtension: "zip")!
+            
+            if FileManager.default.fileExists(atPath: newInclude.path) {
+                try? FileManager.default.removeItem(at: newInclude)
+            }
+            
+            if FileManager.default.fileExists(atPath: newSDK.path) {
+                try? FileManager.default.removeItem(at: newSDK)
+            }
+            
+            if FileManager.default.fileExists(atPath: newClang.path) {
+                try? FileManager.default.removeItem(at: newClang)
+            }
+            
+            if FileManager.default.fileExists(atPath: newStdlib.path) {
+                try? FileManager.default.removeItem(at: newStdlib)
+            }
+            
+            if FileManager.default.fileExists(atPath: newCextGlue.path) {
+                try? FileManager.default.removeItem(at: newCextGlue)
+            }
+            
+            putenv("C_INCLUDE_PATH=\(newClang.appendingPathComponent("13.0.0/include").path):\(newInclude.path)".cValue)
+            putenv("CPLUS_INCLUDE_PATH=\(newStdlib.appendingPathComponent("c++/v1").path):\(newStdlib.path):\(newInclude.path)".cValue)
+            
+            let clib = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("clib")
+            
+            if FileManager.default.fileExists(atPath: clib.path) {
+                try? FileManager.default.removeItem(at: clib)
+            }
+            
+            do {
+                let url = try Zip.quickUnzipFile(bundleHeaders)
+                try FileManager.default.moveItem(at: url.appendingPathComponent("include"), to: newInclude)
+                try FileManager.default.moveItem(at: url.appendingPathComponent("iPhoneOS.sdk"), to: newSDK)
+                
+                let libURL = url.deletingLastPathComponent().appendingPathComponent("lib")
+                if !FileManager.default.fileExists(atPath: libURL.path) {
+                    try FileManager.default.createDirectory(at: libURL, withIntermediateDirectories: false, attributes: nil)
+                }
+                
+                try FileManager.default.moveItem(at: url.appendingPathComponent("lib/clang"), to: libURL.appendingPathComponent("clang"))
+                try FileManager.default.moveItem(at: url.appendingPathComponent("lib/stdlib"), to: newStdlib)
+                try FileManager.default.moveItem(at: url.appendingPathComponent("lib/cext_glue.c"), to: newCextGlue)
+                
+                try FileManager.default.removeItem(at: url)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)

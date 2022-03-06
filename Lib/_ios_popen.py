@@ -44,7 +44,7 @@ class Popen(_Popen):
         
         sys = __import__("sys")
 
-        if (len(args) > 0 and args[0] == sys.executable) or (executable == sys.executable):
+        if (len(args) > 0 and (args[0] == sys.executable or args[0] == "Pyto")) or (executable == sys.executable or executable == "Pyto"):
             if executable == sys.executable and args[0] != sys.executable:
                 args.insert(0, sys.executable)
             
@@ -99,6 +99,11 @@ class Popen(_Popen):
             self._waitpid_lock = threading.Lock()
             self._input = None
 
+            if bool(text) or bool(universal_newlines):
+                self.text = True
+            else:
+                self.text = False
+
             try:
                 from _shell.bin import python
                 python.main()
@@ -121,6 +126,18 @@ class Popen(_Popen):
                 os.chdir(_cwd)
 
                 self.stdout, self.stderr = self.communicate()
+        elif len(args) > 0 and args[0] == "uname":
+            new_args = list(args)
+            new_args.insert(0, sys.executable)
+            new_args.insert(1, "-m")
+            self.__init__(args=new_args, bufsize=bufsize, executable=executable, 
+                          stdin=stdin, stdout=stdout, stderr=stderr, 
+                          preexec_fn=preexec_fn, close_fds=close_fds, 
+                          shell=shell, cwd=cwd, env=env, universal_newlines=universal_newlines, 
+                          startupinfo=startupinfo, creationflags=creationflags,
+                          restore_signals=restore_signals, start_new_session=start_new_session,
+                          pass_fds=pass_fds, user=user, group=group, extra_groups=extra_groups,
+                          encoding=encoding, errors=errors, text=text, umask=umask, pipesize=pipesize)
         else:
             super().__init__(args=args, bufsize=bufsize, executable=executable, 
                              stdin=stdin, stdout=stdout, stderr=stderr, 
@@ -143,13 +160,19 @@ class Popen(_Popen):
     def communicate(self, input=None, timeout=None):
 
         if isinstance(self.stdout, OutputReader):
-            stdout = io.StringIO(self.stdout.output)
+            if self.text:
+                stdout = self.stdout.output
+            else:
+                stdout = io.StringIO(self.stdout.output)
         else:
             stdout = self.stdout
 
 
         if isinstance(self.stderr, OutputReader):
-            stderr = io.StringIO(self.stderr.output)
+            if self.text:
+                stderr = self.stderr.output
+            else:
+                stderr = io.StringIO(self.stderr.output)
         else:
             stderr = self.stderr
 
