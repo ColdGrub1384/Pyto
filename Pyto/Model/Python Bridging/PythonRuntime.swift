@@ -14,6 +14,8 @@ import Foundation
     
     @objc func runScript(_ script: String)
     
+    @objc func runShortcut(_ script: String, withInput: String)
+    
     @objc func exitScript(_ script: String)
     
     @objc func interruptScript(_ script: String)

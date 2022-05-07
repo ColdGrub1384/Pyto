@@ -22,6 +22,9 @@
 /* Title of the menu bar item to install the Automator action */
 "automator.install" = "Installer l'Action Automator";
 
+/* The title of the bookmarked pages section */
+"bookmarks" = "Signets";
+
 /* 'Browse' */
 "browse" = "Naviguer";
 
@@ -70,6 +73,9 @@
 /* The title of the button shown for creating a script */
 "creation.createScriptTitle" = "Créer script";
 
+/* A file */
+"creation.file" = "Fichier";
+
 /* A folder */
 "creation.folder" = "Dossier";
 
@@ -88,6 +94,9 @@
 /* 'Debugger' */
 "debugger" = "Débogueur";
 
+/* Something is decompressing */
+"decompressing" = "Décompression...";
+
 /* No comment provided by engineer. */
 "Definitions" = "Définitions";
 
@@ -96,6 +105,18 @@
 
 /* Done button */
 "done" = "OK";
+
+/* Download something */
+"download" = "Télécharger";
+
+/* Download all */
+"downloadAll" = "Tout télecharger";
+
+/* A dialog asking the user if they want to download the documentation(s). Replace %@ by the documentations to download. */
+"downloadDocumentation" = "Voulez vous télécharger les documentations pour %@?";
+
+/* The title of the downloadable documentations view */
+"downloads" = "Téléchargements";
 
 /* The message of the alert for adding an editor action. */
 "editorActionsTableViewController.createEditorActionAlertMessage" = "Entrez la command à exécuter. Le premier argument est le programme Python. Entrez \"$SCRIPT\" pour passer le chemin script edité.\n\n Exemple:\npy2to3 -w $SCRIPT";
@@ -166,6 +187,9 @@
 /* 'Documentation' button */
 "help.documentation" = "Documentation";
 
+/* The title of the documentations section */
+"help.documentations" = "Documentations";
+
 /* 'Help' button */
 "help.help" = "Aide";
 
@@ -204,6 +228,15 @@
 
 /* The menu item for setting breakpoint */
 "menuItems.breakpoint" = "Breakpoint";
+
+/* The menu item to build a project */
+"menuItems.build" = "Build";
+
+/* The menu item to build a project's documentation */
+"menuItems.buildDocs" = "Build documentation";
+
+/* The menu item to clean a project */
+"menuItems.clean" = "Clean";
 
 /* The 'Copy' menu item */
 "menuItems.copy" = "Copier";
@@ -266,7 +299,7 @@
 "onboarding.beginFreeTrial" = "Commencer l'essai gratuit (3 jours)";
 
 /* The second presented feature */
-"onboarding.editor" = "Éditez du code avec de la coloration syntaxique et la complétion du code.";
+"onboarding.editor" = "Éditez du code avec de la coloration syntaxique et la complétion du code";
 
 /* The first featured feature */
 "onboarding.features.1" = "Éditer et exécuter le code";
@@ -275,7 +308,7 @@
 "onboarding.features.2" = "Intégration avec Shortcuts";
 
 /* The third featured feature */
-"onboarding.features.3" = "Widgets";
+"onboarding.features.3" = "Codez des Widgets et des UIs";
 
 /* The fourth featured feature */
 "onboarding.features.4" = "APIs du système";
@@ -308,16 +341,16 @@
 "onboarding.purchaseWarning" = "Pour des raisons techniques, aucune autre bibliothèque avec des extensions C ne peut être installée à partir de PyPI. C'est pourquoi elles doivent être inclus dans l'application.";
 
 /* The third presented feature */
-"onboarding.pypi" = "Installez des modules en Python pur avec PyPI.";
+"onboarding.pypi" = "Installer des modules en Python pur avec PyPI";
 
 /* The button for restoring purchases */
 "onboarding.restore" = "Restaurer";
 
 /* The first presented feature */
-"onboarding.runCode" = "Exécutez du code Python localement.";
+"onboarding.runCode" = "Exécutez du code Python localement";
 
 /* The fourth presented feature */
-"onboarding.shortcuts" = "Exécutez des scripts ou du code personnalisé avec les raccourcis Siri.";
+"onboarding.shortcuts" = "Exécutez des scripts ou du code personnalisé avec les raccourcis Siri";
 
 /* The text below the title */
 "onboarding.subtitle" = "Vous pouvez essayer Pyto gratuitement pendant 3 jours. Une fois votre essai gratuit expiré, vous devrez acheter l'une des deux options ci-dessous pour continuer à utiliser l'application.";
@@ -338,7 +371,7 @@
 "onboarding.twoPricesAvailable" = "Deux prix disponibles";
 
 /* The fifth presented feature */
-"onboarding.widgets" = "Widgets";
+"onboarding.widgetsuis" = "Codez des Widgets et des UIs";
 
 /* 1 file */
 "oneFile" = "1 fichier";
@@ -355,6 +388,9 @@
 /* 'Exit PIP' */
 "pip.exit" = "Fermer PIP";
 
+/* Project */
+"project" = "Projet";
+
 /* 'Open' & NEW */
 "projectsBrowser.open" = "Ouvrir";
 
@@ -364,17 +400,53 @@
 /* 'Projects' & NEW */
 "projectsBrowser.title" = "Projets";
 
+/* The author of the project */
+"projectCreator.author" = "Auteurice";
+
+/* The description of the project */
+"projectCreator.description" = "Description";
+
+/* The name of the project */
+"projectCreator.name" = "Nom";
+
+/* The label of the switch for toggling Sphinx Docs */
+"projectCreator.sphinxDocumentation" = "Documentation Sphinx";
+
+/* The title of the project creator */
+"projectCreator.title" = "Nouveau projet";
+
+/* The URL of the project */
+"projectCreator.url" = "URL";
+
 /* Author */
-"pypi.author" = "Auteur";
+"pypi.author" = "Auteurice";
+
+/* Bundled packages */
+"pypi.bundled" = "Pre-installé";
 
 /* Credits displayed on the bottom of the PyPi installer */
 "pypi.credits" = "UI inspirée par ";
+
+/* The subtitle of a package that is full version exclusive */
+"pypi.fullversion" = "Version complète";
+
+/* The text displayed when a package has C extensions */
+"pypi.hasCext" = "Ce paquet ne peut pas être installé car il doit être compilé et les applications iOS ne peuvent pas charger dynamiquement des binaires externes.";
 
 /* Text displayed on the PyPi installer */
 "pypi.info" = "Installez des packages Python purs avec PyPI.";
 
 /* Install (package) */
-"pypi.install" = "Installer %@";
+"pypi.install" = "Installer";
+
+/* Installed packages */
+"pypi.installed" = "Installé";
+
+/* Button for installing a wheel */
+"pypi.installWheel" = "Installer une wheel";
+
+/* The message of the alert shown before installing a wheel */
+"pypi.installWheelDialog" = "Voulez vous installer cette wheel?";
 
 /* The title of the 'Links' section */
 "pypi.links" = "Liens";
@@ -405,6 +477,21 @@
 
 /* Select a version */
 "pypi.selectVersion" = "Sélectionnez une version";
+
+/* Uninstall a package */
+"pypi.uninstall" = "Désinstaller";
+
+/* Update */
+"pypi.update" = "Mettre à jour";
+
+/* Update all */
+"pypi.updateAll" = "Tout mettre à jour";
+
+/* Updatable packages */
+"pypi.updates" = "Mises à jours";
+
+/* Unlock a full version exclusive package. Replace %@ by the price */
+"pypi.unlock %@" = "Débloquer %@";
 
 /* Version */
 "pypi.version" = "Version";
@@ -471,6 +558,9 @@
 
 /* Settings */
 "settings" = "Réglages";
+
+/* The working directory on compact view */
+"sidebar.cwd" = "Répertoire de travail";
 
 /* Edit sidebar */
 "sidebar.editSidebar" = "Éditer la barre latérale";

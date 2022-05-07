@@ -207,7 +207,7 @@ class RunScriptIntentHandler: NSObject, RunScriptIntentHandling {
                 return
             }
             
-            RunShortcutsScript(at: script, arguments: intent.arguments ?? [])
+            RunShortcutsScript(at: script, arguments: intent.arguments ?? [], input: intent.input ?? "", workingDirectory: intent.workingDirectory?.fileURL)
             
             return completion(.init(code: .success, userActivity: nil))
         }

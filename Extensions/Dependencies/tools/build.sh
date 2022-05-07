@@ -17,3 +17,5 @@ sh $f
 fi
 
 done
+
+sh build-docs.sh

@@ -20,16 +20,15 @@ fileprivate extension IndexPath {
     static let font = IndexPath(row: 3, section: 0)
     static let showConsoleAtBottom = IndexPath(row: 4, section: 0)
     static let showSeparator = IndexPath(row: 5, section: 0)
-        
-    static let downloadAll = IndexPath(row: 0, section: 1)
+    static let defaultDirectory = IndexPath(row: 6, section: 0)
     
-    static let watchScript = IndexPath(row: 0, section: 2)
-    static let inputSugestions = IndexPath(row: 1, section: 2)
+    static let watchScript = IndexPath(row: 0, section: 1)
+    static let inputSugestions = IndexPath(row: 1, section: 1)
     
-    static let contact = IndexPath(row: 0, section: 4)
+    static let contact = IndexPath(row: 0, section: 3)
     
-    static let acknowledgments = IndexPath(row: 0, section: 5)
-    static let sourceCode = IndexPath(row: 1, section: 5)
+    static let acknowledgments = IndexPath(row: 0, section: 4)
+    static let sourceCode = IndexPath(row: 1, section: 4)
 }
 
 /// A View controller with settings and info.
@@ -202,6 +201,8 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
                 cell.contentView.alpha = 0.5
                 cell.detailTextLabel?.text = "\(UIDevice.current.userInterfaceIdiom == .pad ? "iPadOS" : "iOS") 13+"
             }
+        } else if indexPath == .defaultDirectory {
+            cell.detailTextLabel?.text = FileManager.default.displayName(atPath: FileBrowserViewController.defaultDirectory.path)
         }
         
         if indexPath == .watchScript || indexPath == .inputSugestions {
@@ -231,21 +232,10 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             } else {
                 viewControllerToPresent = nil
             }
-        case .downloadAll:
-            
-            viewControllerToPresent = nil
-            
-            NSLog("Download")
-            guard let script = Bundle.main.url(forResource: "download_all", withExtension: "py") else {
-                NSLog("Nil")
-                return
-            }
-            
-            NSLog("Will present")
-            let splitVC = (view.window?.windowScene?.delegate as? SceneDelegate)?.sidebarSplitViewController
-            dismiss(animated: true) {
-                splitVC?.sidebar?.open(url: script)
-            }
+        case .defaultDirectory:
+            let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
+            picker.delegate = self
+            viewControllerToPresent = picker
         case .watchScript:
             let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.pythonScript])
             picker.delegate = self
@@ -271,7 +261,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         }
         
         if indexPath == .theme {
-            if vc is UIDocumentPickerViewController {
+            if vc is UIDocumentPickerViewController { // WHY ????
                 present(vc, animated: true, completion: nil)
             } else {
                 navigationController?.pushViewController(vc, animated: true)
@@ -297,6 +287,8 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             }
             UserDefaults.standard.synchronize()
             WCSession.default.transferCurrentComplicationUserInfo(["Reload":"All"])
+        } else if lastIndex == IndexPath.defaultDirectory {
+            FileBrowserViewController.defaultDirectory = urls[0]
         }
         
         tableView.reloadData()

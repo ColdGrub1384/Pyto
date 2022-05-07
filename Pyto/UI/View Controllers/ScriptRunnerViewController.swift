@@ -46,6 +46,8 @@ class ScriptRunnerViewController: REPLViewController {
         
         title = scriptURL.deletingPathExtension().lastPathComponent
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        
         if editor?.pipItem == nil {
             editor?.loadViewIfNeeded()
             editor?.pipItem = UIBarButtonItem(image: UIImage(systemName: "pip.enter"), style: .plain, target: editor, action: #selector(editor?.togglePIP))

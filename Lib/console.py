@@ -21,17 +21,17 @@ import weakref
 import json
 import builtins
 from types import ModuleType as Module
+from _docsupport import is_sphinx
 
-
-if "sphinx" not in sys.modules:
+if not is_sphinx:
     from extensionsimporter import __UpgradeException__
 
 
-if "widget" not in os.environ and not "sphinx" in sys.modules:
+if "widget" not in os.environ and not is_sphinx:
     from code import interact, InteractiveConsole
     import importlib.util
     from importlib import reload
-    import pdb
+    import pyto_pdb as pdb
     from colorama import Fore, Back, Style
     from json import dumps
     from collections.abc import Mapping
@@ -238,7 +238,9 @@ def __runREPL__(repl_name="", namespace={}, banner=None):
         return input(prompt, highlight=True)
 
     if banner is None:
-        banner = f"Python {sys.version}\n{str(__Class__('SidebarViewController').pytoVersion)}\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\nType \"clear()\" to clear the console."
+        banner = f'Python {sys.version} on {sys.platform}\nType "help", "copyright", "credits" or "license" for more information.'
+        banner += '\nType "clear()" to clear the console.'
+
     try:
         interact(readfunc=read, local=__namespace__, banner=banner)
     except SystemExit:
@@ -249,6 +251,7 @@ def __runREPL__(repl_name="", namespace={}, banner=None):
 
 
 def __clear_mods__():
+
     try:
         del sys.modules["pip"]
     except KeyError:
@@ -256,13 +259,6 @@ def __clear_mods__():
 
     try:
         del sys.modules["pdb"]
-    except KeyError:
-        pass
-
-    try:
-        del sys.modules["logging"]
-        del sys.modules["logging.config"]
-        del sys.modules["logging.handlers"]
     except KeyError:
         pass
 
@@ -275,7 +271,6 @@ def __clear_mods__():
         del sys.modules["ui_constants"]
     except KeyError:
         pass
-    sys.modules["ui_constants"] = __import__("ui_constants") # reload
 
     try:
         del sys.modules["watch"]
@@ -319,7 +314,7 @@ def __clear_mods__():
                 os.access(mod.__file__, os.W_OK)
                 and not "/Library/python38" in mod.__file__
                 and key != "<run_path>"
-            ) or mod.startswith("setuptools") or mod.startswith("distutils"):
+            ) or key.startswith("setuptools") or key.startswith("distutils"):
                 del sys.modules[key]
         except AttributeError:
             pass
@@ -343,7 +338,7 @@ if "widget" not in os.environ:
 
     _are_breakpoints_set = True
 
-    def run_script(path, replMode=False, debug=False, breakpoints="[]", runREPL=True, args=[], cwd="/"):
+    def run_script(path, replMode=False, debug=False, breakpoints="[]", runREPL=True, args=[], cwd="/", _input=None, is_shortcut=False):
         """
         Run the script at given path catching exceptions.
     
@@ -360,6 +355,9 @@ if "widget" not in os.environ:
         """
         
         sys = __import__("sys")
+        if _input is not None:
+            sys.stdin = _input
+        sys.__is_shortcut__ = is_shortcut
 
         __repl_namespace__[path.split("/")[-1]] = {}
         __clear_mods__()
@@ -575,7 +573,7 @@ if "widget" not in os.environ:
                         end_offset = e.end_offset
                         count = 0
 
-                    _json = get_json(exc_tb, exc_obj, as_text, count, offset, end_offset)
+                    _json = get_json(exc_tb, exc_obj, as_text, count, offset, end_offset, vars(__script__))
 
                     traceback_shown = False
                     for console in ConsoleViewController.objcVisibles:
@@ -681,10 +679,6 @@ if "widget" not in os.environ:
 
             watch.__show_ui_if_needed__()
 
-        __clear_mods__()
-
-        # time.sleep(0.2)
-
         if Python.shared.tooMuchUsedMemory:
             Python.shared.runBlankScript()
 
@@ -729,7 +723,7 @@ def clear():
 __PyInputHelper__ = PyInputHelper
 
 
-def input(prompt: str = None, highlight=False):
+def input(prompt: str = None, highlight=False, print_prompt=True):
     """
     Requests input with given prompt.
 
@@ -743,7 +737,18 @@ def input(prompt: str = None, highlight=False):
     if prompt is None:
         prompt = ""
 
-    print(prompt, end="")
+    if print_prompt:
+        print(prompt, end="")
+
+    _sys = __import__("sys")
+        
+    if not _sys.stdin.isatty():
+        line = _sys.stdin.readline()
+        if line == "":
+            msg = "EOF when reading a line"
+            raise EOFError(msg)
+        else:
+            return line
 
     try:
         path = threading.current_thread().script_path

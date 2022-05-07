@@ -50,7 +50,7 @@ class MobileSafari(webbrowser.BaseBrowser):
     '''
     
     def open(self, url, new=0, autoraise=True):
-        import sharing
+        import _sharing as sharing
         sharing.open_url(url)
         return True
 
@@ -65,7 +65,7 @@ import PIL.ImageShow
 def show_image(image, title=None, **options):
     import os
     import tempfile
-    import sharing
+    import _sharing as sharing
     
     imgPath = tempfile.gettempdir()+"/image.png"
     

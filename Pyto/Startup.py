@@ -27,16 +27,13 @@ try:
     import importlib
     import threading
     from time import sleep
-    from outputredirector import Reader
+    from outputredirector import Reader, InputReader
     from extensionsimporter import *
     import warnings
     import logging
-    from _ios_getpass import getpass as _ios_getpass
-    import getpass
     import webbrowser
-    import sharing
+    import _sharing as sharing
     import _signal
-    import traceback
     import unittest
     from _pip import BUNDLED_MODULES
     from ctypes import CDLL
@@ -46,14 +43,32 @@ try:
     import runpy
     import mimetypes
     import _ios_popen
+    import pydoc
+    import _ios_getpass
+    import getpass
+    from _extensionsimporter import system
+    
+    def with_docstring(object, doc):
+        object.__doc__ = doc
+        return object
+        
+    # MARK: - getpass
+    
+    getpass.getpass = with_docstring(_ios_getpass.getpass, getpass.getpass.__doc__)
     
     # MARK: - MIME types
     
     mimetypes.knownfiles = os.path.join(os.path.dirname(sys.executable), "mime.types")
     
+    # MARK: - Help
+    
+    def help(obj):
+        text = pydoc.render_doc(obj, renderer=pydoc.plaintext)
+        print(text)
+        
+    __builtins__.help = with_docstring(help, __builtins__.help.__doc__)
+    
     # MARK: - Warnings
-
-    logging.basicConfig(level=logging.INFO)
 
     def __send_warnings_to_log__(message, category, filename, lineno, file=None, line=None):
 
@@ -80,7 +95,16 @@ try:
         if "DeprecationWarning: The distutils.sysconfig module is deprecated, use sysconfig instead" in _message:
             return
             
-        if "DeprecationWarning: Creating a LegacyVersion has been deprecated and will be removed in the next major release":
+        if "DeprecationWarning: Creating a LegacyVersion has been deprecated and will be removed in the next major release" in _message:
+            return
+        
+        if "UserWarning: Distutils was imported before Setuptools," in _message:
+            return
+        
+        if "DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead." in _message:
+            return
+            
+        if "UserWarning: Setuptools is replacing distutils." in _message:
             return
         
         try:
@@ -100,8 +124,8 @@ try:
 
     # MARK: - Subprocesses
 
-    os.allows_subprocesses = (not sys.platform == "ios")
-    subprocess.Popen = _ios_popen.Popen
+    os.allows_subprocesses = True
+    subprocess.Popen = with_docstring(_ios_popen.Popen, subprocess.Popen.__doc__)
     
     # MARK: - Per thread chdir
     
@@ -114,7 +138,7 @@ try:
         
         CDLL(None).pthread_chdir_np(path.encode())
     
-    os.chdir = chdir
+    os.chdir = with_docstring(chdir, os.chdir.__doc__)
 
     # MARK: - Input
 
@@ -134,9 +158,7 @@ try:
         else:
             return console.input(prompt)
 
-    __builtins__.input = askForInput
-
-    getpass.getpass = _ios_getpass
+    __builtins__.input = with_docstring(askForInput, __builtins__.input.__doc__)
 
     # MARK: - Output
 
@@ -169,6 +191,9 @@ try:
             text = txt.decode()
             write(text)
 
+    def read_input(*args):
+        return askForInput("")
+
     standardOutput = Reader(read)
     standardOutput._buffer = io.BufferedWriter(standardOutput)
     standardOutput.buffer.write = write
@@ -176,9 +201,29 @@ try:
     standardError = Reader(read)
     standardError._buffer = io.BufferedWriter(standardError)
     standardError.buffer.write = write
+    
+    standardInput = InputReader()
+    standardInput._buffer = io.BufferedReader(standardInput)
+    standardInput.buffer.read = read_input
 
-    sys.stdout = standardOutput
-    sys.stderr = standardError
+    sys.stdout = with_docstring(standardOutput, sys.stdout.__doc__)
+    sys.stderr = with_docstring(standardError, sys.stderr.__doc__)
+    sys.stdin = with_docstring(standardInput, sys.stdin.__doc__)
+    
+    sys.__stdout__ = sys.stdout
+    sys.__stderr__ = sys.__stderr__
+    sys.__stdin__ = sys.__stdin__
+
+    old_print = __builtins__.print
+    def print(*values, sep=None, end=None, file=None, flush=False):
+        if file is None:
+            file = __import__("sys").stdout
+        
+        return old_print(*values, sep=sep, end=end, file=file, flush=flush)
+    
+    __builtins__.print = with_docstring(print, old_print.__doc__)
+    
+    logging.basicConfig(level=logging.INFO)
 
     # MARK: - Web browser
 
@@ -213,7 +258,7 @@ try:
             def show_image(image, title=None, **options):
                 import os
                 import tempfile
-                import sharing
+                import _sharing as sharing
                 import _opencv_view as ocv
                 
                 if title == "OpenCV":
@@ -326,12 +371,24 @@ try:
         def __dir__(self):
             return dir(self.sys)
         
+        __doc__ = sys.__doc__
+        
         def setup_properties_if_needed(self, script_path):
             if not script_path in self.__class__.instances:
                 path = []
                 for location in self.sys.__path__:
                     path.append(location)
-                self.__class__.instances[script_path] = { "path": path, "argv": [] }
+                self.__class__.instances[script_path] = {
+                    "path": path,
+                    "argv": [],
+                    "stdout": self.sys.stdout,
+                    "stderr": self.sys.stderr,
+                    "stdin": self.sys.stdin,
+                    "__stdout__": self.sys.stdout,
+                    "__stderr__": self.sys.stderr,
+                    "__stdin__": self.sys.stdin,
+                     "__is_shortcut__": False
+                }
         
         def __setattr__(self, attr, value):
             if attr == "sys":
@@ -378,6 +435,9 @@ try:
 
 
     # MARK: - OS
+    
+    def getpgid():
+        raise OSError()
 
     def fork():
         pass
@@ -385,9 +445,12 @@ try:
     def waitpid(pid, options):
         return (-1, 0)
 
+    os.getpgid = getpgid
     os.fork = fork
     os.waitpid = waitpid
-    os._exit = sys.exit        
+    os._exit = sys.exit
+    
+    os.system = system
 
     # MARK: - Handle signal called outside main thread
 
@@ -430,7 +493,7 @@ try:
     unittest.main = _unittest_main
 
     # MARK: - Run script
-        
+    
     def run():
         SourceFileLoader("main", "%@").load_module()
         sleep(0.2)
@@ -440,7 +503,7 @@ try:
 
     threading.Event().wait()
 
-except Exception as e:
+except BaseException as e:
     import traceback
     from ctypes import CDLL
     

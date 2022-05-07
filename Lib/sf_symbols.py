@@ -34,6 +34,7 @@ Usage
 
 from UIKit import UIDevice
 import sys
+from _docsupport import is_sphinx
 
 if (
     UIDevice is not None
@@ -44,7 +45,7 @@ if (
 
 class Symbol(str):
     def __repr__(self):
-        if "sphinx" in sys.modules:
+        if is_sphinx:
             return ""
         else:
             return "Symbol '" + self + "'"

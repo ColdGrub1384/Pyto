@@ -1,6 +1,7 @@
 import sys
+from _docsupport import is_sphinx
 
-if "sphinx" in sys.modules:
+if is_sphinx:
 
     class JSObject:
         pass

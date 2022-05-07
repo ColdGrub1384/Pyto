@@ -19,7 +19,7 @@ func RelativePathForScript(_ url: URL) -> String {
     var filePath = url.path
     filePath = filePath.replacingFirstOccurrence(of: FileBrowserViewController.localContainerURL.path, with: "")
     if let iCloudPath = FileBrowserViewController.iCloudContainerURL?.path {
-        filePath = filePath.replacingFirstOccurrence(of: iCloudPath, with: "iCloud/")
+        filePath = filePath.replacingFirstOccurrence(of: iCloudPath, with: "iCloud Drive/")
     }
     
     if filePath.hasPrefix("/private") {

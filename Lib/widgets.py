@@ -26,10 +26,11 @@ import sys
 import __image__
 import threading
 from pyto import Python
+from _docsupport import is_sphinx
 
 
 try:
-    if "sphinx" in sys.modules:
+    if is_sphinx:
         raise ValueError
 
     from rubicon.objc import ObjCClass, CGFloat
@@ -493,7 +494,7 @@ class Color:
             return False
 
 
-if "pyto_ui" in sys.modules and "sphinx" not in sys.modules:
+if "pyto_ui" in sys.modules and not is_sphinx:
     try:
         Color = sys.modules["pyto_ui"].Color
     except AttributeError:

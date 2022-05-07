@@ -78,6 +78,7 @@ if __isMainApp__():
     ModulesTableViewController = __Class__("ModulesTableViewController")
     PyCallbackHelper = __Class__("PyCallbackHelper")
     PytoUIPreviewViewController = __Class__("PytoUIPreviewViewController")
+    FileBrowserViewController = __Class__("FileBrowserViewController")
 else:
     QuickLookHelper = None
     PySelector = None
@@ -90,6 +91,7 @@ else:
     ModulesTableViewController = None
     PyCallbackHelper = None
     PytoUIPreviewViewController = None
+    FileBrowserViewController = None
 
 all = [
     "PyMainThread",
@@ -114,4 +116,6 @@ all = [
     "PyMotionHelper",
     "PyTurtle",
     "PySpeech",
+    "FileBrowserViewController",
+    "MacSupport"
 ]

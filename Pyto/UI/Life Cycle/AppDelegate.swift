@@ -178,7 +178,7 @@ import Zip
         }
         
         for file in (try? FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil, options: [])) ?? [] {
-            if file.lastPathComponent == "__init__.py" || file.lastPathComponent == "__main__.py" {
+            if file.lastPathComponent == "__init__.py" {
                 try? FileManager.default.removeItem(at: file)
             }
         }
@@ -191,17 +191,13 @@ import Zip
                 
                 var name = url.lastPathComponent
                 
-                if name == "__init__.py" || name == "__main__.py" {
+                if name == "__init__.py" {
                     name = name+" (\(url.deletingLastPathComponent().lastPathComponent))"
                 }
                 
                 if name.hasPrefix("__init__.py (") && FileManager.default.fileExists(atPath: docs.appendingPathComponent(name.replacingOccurrences(of: "__init__.py", with: "__main__.py")).path) {
-                    return // Just keep __main__.py
-                }
-                
-                if name.hasPrefix("__main__.py (") && FileManager.default.fileExists(atPath: docs.appendingPathComponent(name.replacingOccurrences(of: "__main__.py", with: "__init__.py")).path) {
-                    // Remove __init__.py replace it by __main__
-                    try? FileManager.default.removeItem(at: docs.appendingPathComponent(name.replacingOccurrences(of: "__main__.py", with: "__init__.py")))
+                    // Remove __main__.py replace it by __init__
+                    try? FileManager.default.removeItem(at: docs.appendingPathComponent(name.replacingOccurrences(of: "__init__.py", with: "__main__.py")))
                 }
                 
                 try data.write(to: docs.appendingPathComponent(name))
@@ -253,25 +249,12 @@ import Zip
         FocusSystemObserver.startObserving()
         
         DispatchQueue.global().async {
-            if let bundledDocs = Bundle.main.url(forResource: "docs", withExtension: "zip") {
-                
-                do {
-                    let libsURL = DocumentationViewController.Documentation.pyto.url.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
-                    if FileManager.default.fileExists(atPath: libsURL.appendingPathComponent("docs_build").path) {
-                        try? FileManager.default.removeItem(at: libsURL.appendingPathComponent("docs_build"))
-                    }
-                    try Zip.unzipFile(bundledDocs, destination: libsURL, overwrite: true, password: nil)
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-            
             let newInclude = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("include")
             let newSDK = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("iPhoneOS.sdk")
             let newClang = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/clang")
             let newStdlib = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/stdlib")
             let newCextGlue = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/cext_glue.c")
-            let bundleHeaders = Bundle.main.url(forResource: "clib", withExtension: "zip")!
+            //let bundleHeaders = Bundle.main.url(forResource: "clib", withExtension: "zip")!
             
             if FileManager.default.fileExists(atPath: newInclude.path) {
                 try? FileManager.default.removeItem(at: newInclude)
@@ -302,7 +285,7 @@ import Zip
                 try? FileManager.default.removeItem(at: clib)
             }
             
-            do {
+            /*do {
                 let url = try Zip.quickUnzipFile(bundleHeaders)
                 try FileManager.default.moveItem(at: url.appendingPathComponent("include"), to: newInclude)
                 try FileManager.default.moveItem(at: url.appendingPathComponent("iPhoneOS.sdk"), to: newSDK)
@@ -319,7 +302,7 @@ import Zip
                 try FileManager.default.removeItem(at: url)
             } catch {
                 print(error.localizedDescription)
-            }
+            }*/
         }
         
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)
@@ -345,11 +328,20 @@ import Zip
         
         UserDefaults.standard.set(true, forKey: "movedSitePackages")
         
-        FoldersBrowserViewController.sitePackages = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/python3.1/site-packages")
+        let site = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/python3.1/site-packages")
+        FoldersBrowserViewController.sitePackages = site
         
         if let iCloudURL = iCloudDriveContainer {
             if !FileManager.default.fileExists(atPath: iCloudURL.path) {
                 try? FileManager.default.createDirectory(at: iCloudURL, withIntermediateDirectories: true, attributes: nil)
+            }
+        }
+        
+        if let sphinx_rtd_theme = Bundle.main.url(forResource: "site-packages/sphinx_rtd_theme", withExtension: "zip") { // Fonts
+            do {
+               try Zip.unzipFile(sphinx_rtd_theme, destination: site, overwrite: true, password: nil)
+            } catch {
+                print(error.localizedDescription)
             }
         }
         
@@ -579,6 +571,8 @@ import Zip
             return RunScriptIntentHandler()
         } else if intent is RunCodeIntent {
             return RunCodeIntentHandler()
+        } else if intent is RunCommandIntent {
+            return RunCommandIntentHandler()
         } else if intent is StartHandlingWidgetsInAppIntent {
             return StartHandlingWidgetsInAppIntentHandler()
         } else {

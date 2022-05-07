@@ -9,13 +9,19 @@
 import SwiftUI
 
 fileprivate var fullVersionLibraries: [String] {
+    #if PREVIEW
+    ["numpy", "pandas", "matplotlib", "blah blah blah"]
+    #else
     Python.shared.fullVersionExclusives
+    #endif
 }
 
 @available(iOS 13.0.0, *)
 public struct OnboardingView: View {
     
     @Environment(\.verticalSizeClass) var vertical
+    
+    @Environment(\.horizontalSizeClass) var horizontal
         
     public var isTrialEnded: Bool
     
@@ -50,7 +56,7 @@ public struct OnboardingView: View {
             self.restore()
         }) {
             Text("onboarding.restore", comment: "The button for restoring purchases")
-        }.padding()
+        }
     }
     
     var trialButton: some View {
@@ -106,8 +112,8 @@ public struct OnboardingView: View {
     
     var purchaseView: some View {
         VStack {
-            Button(action: {
-                self.isPricingSheetPresented = true
+            NavigationLink(destination: {
+                pricingView
             }, label: {
                 Text("onboarding.purchase", comment: "The button for choosing a pricing")
                     .foregroundColor(.white)
@@ -117,14 +123,6 @@ public struct OnboardingView: View {
             })
             
             .cornerRadius(12)
-            .sheet(isPresented: $isPricingSheetPresented, content: {
-                pricingView
-            })
-            
-            Text("onboarding.twoPricesAvailable", comment: "The text below the purchase button")
-            .font(.footnote)
-            .frame(width: 200)
-            .padding()
         }
     }
     
@@ -145,25 +143,7 @@ public struct OnboardingView: View {
     
     var pricingView: some View {
         VStack {
-                        
-            HStack {
-                Spacer()
-                Button(action: {
-                    isPricingSheetPresented = false
-                }, label: {
-                    Text("done").fontWeight(.bold)
-                }).hover().padding()
-            }
-            
             ScrollView {
-                
-                if vertical != .compact {
-                    HStack {
-                        Text("onboarding.purchase", comment: "The button for choosing a pricing").font(.largeTitle).fontWeight(.bold)
-                        Spacer()
-                    }.padding()
-                }
-                
                 VStack {
                     HStack {
                         Spacer()
@@ -189,7 +169,7 @@ public struct OnboardingView: View {
             
             Divider()
             
-            if vertical == .compact {
+            if horizontal == .regular || vertical == .compact {
                 HStack {
                     fullFeaturedView
                     liteView
@@ -198,8 +178,11 @@ public struct OnboardingView: View {
                 VStack {
                     fullFeaturedView
                     liteView
-                    restoreButton
                 }.padding()
+            }
+        }.navigationTitle(Text("onboarding.purchase", comment: "The button for choosing a pricing")).navigationBarTitleDisplayMode(.inline).toolbar {
+            if horizontal == .compact {
+                restoreButton
             }
         }
     }
@@ -217,95 +200,138 @@ public struct OnboardingView: View {
                 attr = AttributedString(localized: "onboarding.title.ios15.genderless", comment: "The title of the onboarding view")
             }
             
-            return Text(attr)
+            return Text(attr).bold()
         } else {
-            return Text("onboarding.title", comment: "The title of the onboarding view")
+            return Text("onboarding.title", comment: "The title of the onboarding view").bold()
         }
     }
     
     public var body: some View {
-        VStack {
-            
-            welcome
-                .font(.largeTitle)
-                .padding()
-                            
-            Text("onboarding.subtitle", comment: "The text below the title")
-                .padding()
-            
-            Spacer()
-            
-            if vertical != .compact {
-                VStack {
-                    ScrollView {
-                        VStack {
-                            
+        NavigationView {
+            VStack {
+                
+                welcome
+                    .font(.largeTitle)
+                    .padding()
+                                
+                Text("onboarding.subtitle", comment: "The text below the title")
+                    .padding()
+                
+                Spacer()
+                
+                if vertical != .compact {
+                    VStack {
+                        ScrollView {
                             HStack {
-                                Image(systemName: "play")
-                                Text("onboarding.runCode", comment: "The first presented feature")
-                                Spacer()
+                                if horizontal == .regular {
+                                    Spacer()
+                                }
+                                VStack(alignment: .leading) {
+                                    
+                                    HStack {
+                                        if #available(iOS 15.0, *) {
+                                            Image(systemName: "play.fill").foregroundColor(.green).symbolRenderingMode(.multicolor).font(.largeTitle).frame(width: 50, height: 50)
+                                        } else {
+                                            Image(systemName: "play.fill")
+                                        }
+                                        Text("onboarding.runCode", comment: "The first presented feature")
+                                        if horizontal == .compact {
+                                            Spacer()
+                                        }
+                                    }
+                                                                    
+                                    HStack {
+                                        if #available(iOS 15.0, *) {
+                                            Image(systemName: "keyboard.fill").foregroundColor(.red).symbolRenderingMode(.multicolor).font(.largeTitle).frame(width: 50, height: 50)
+                                        } else {
+                                            Image(systemName: "keyboard.fill")
+                                        }
+                                        Text("onboarding.editor", comment: "The second presented feature")
+                                        if horizontal == .compact {
+                                            Spacer()
+                                        }
+                                    }
+                                                                    
+                                    HStack {
+                                        if #available(iOS 15.0, *) {
+                                            Image(systemName: "cube.box.fill").foregroundColor(.brown).symbolRenderingMode(.multicolor).font(.largeTitle).frame(width: 50, height: 50)
+                                        } else {
+                                            Image(systemName: "cube.box.fill")
+                                        }
+                                        Text("onboarding.pypi", comment: "The third presented feature")
+                                        if horizontal == .compact {
+                                            Spacer()
+                                        }
+                                    }
+                                                                    
+                                    HStack {
+                                        if #available(iOS 15.0, *) {
+                                            Image(systemName: "mic.fill").symbolRenderingMode(.multicolor).font(.largeTitle).frame(width: 50, height: 50)
+                                        } else {
+                                            Image(systemName: "mic.fill")
+                                        }
+                                        Text("onboarding.shortcuts", comment: "The fourth presented feature")
+                                        if horizontal == .compact {
+                                            Spacer()
+                                        }
+                                    }
+                                    
+                                                                    
+                                    Group {
+                                        HStack {
+                                            if #available(iOS 15.0, *) {
+                                                Image(systemName: "app.badge.fill").foregroundColor(.blue).symbolRenderingMode(.multicolor).font(.largeTitle).frame(width: 50, height: 50)
+                                            } else {
+                                                Image(systemName: "app.badge.fill")
+                                            }
+                                            Text("onboarding.widgetsuis", comment: "The fifth presented feature")
+                                            if horizontal == .compact {
+                                                Spacer()
+                                            }
+                                        }
+                                        
+                                        
+                                    }
+                                }.padding()
+                                
+                                if horizontal == .regular {
+                                    Spacer()
+                                }
+                            }.font(horizontal == .regular ? .title3 : .body)
                             }
-                            
-                            Divider()
-                            
-                            HStack {
-                                Image(systemName: "keyboard")
-                                Text("onboarding.editor", comment: "The second presented feature")
-                                Spacer()
-                            }
-                            
-                            Divider()
-                            
-                            HStack {
-                                Image(systemName: "cube.box")
-                                Text("onboarding.pypi", comment: "The third presented feature")
-                                Spacer()
-                            }
-                            
-                            Divider()
-                            
-                            HStack {
-                                Image(systemName: "mic")
-                                Text("onboarding.shortcuts", comment: "The fourth presented feature")
-                                Spacer()
-                            }
-                            
-                            Divider()
-                            
-                            HStack {
-                                Image(systemName: "apps.iphone")
-                                Text("onboarding.widgets", comment: "The fifth presented feature")
-                                Spacer()
-                            }
-                        }.padding()
-                    }
-                    
-                    Spacer()
-                }
-            }
                         
-            purchaseView
-            
-            if vertical == .compact {
-                HStack {
-                    trialButton
-                    restoreButton
+                        Spacer()
+                    }
                 }
-                Spacer()
-            } else {
-                trialButton
                 
-                Spacer()
                 
-                restoreButton
-            }
-        }
+                if horizontal == .compact && vertical == .regular {
+                    trialButton
+                    purchaseView
+                } else {
+                    HStack {
+                        purchaseView
+                        trialButton
+                        restoreButton.padding()
+                    }
+                }
+            }.navigationBarHidden(true)
+        }.navigationViewStyle(.stack)
     }
 }
 
 @available(iOS 13.0.0, *)
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(isTrialEnded: true, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {})
+        OnboardingView(isTrialEnded: false, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {}).previewDevice(.init(rawValue: "iPhone 13 mini"))
+        
+        if #available(iOS 15.0, *) {
+            OnboardingView(isTrialEnded: true, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {}).previewDevice(.init(rawValue: "iPhone 13 mini")).previewInterfaceOrientation(.landscapeRight)
+        }
+        
+        if #available(iOS 15.0, *) {
+            OnboardingView(isTrialEnded: false, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {}).previewDevice(.init(rawValue: "iPad Pro (11-inch) (3rd generation)")).previewInterfaceOrientation(.landscapeRight)
+        }
+        OnboardingView(isTrialEnded: true, fullFeaturedPrice: "9.99$", noExtensionsPrice: "2.99$", startFreeTrial: {}, purchaseFull: {}, purchaseLite: {}, restore: {}).previewDevice(.init(rawValue: "iPad Pro (11-inch) (3rd generation)"))
     }
 }

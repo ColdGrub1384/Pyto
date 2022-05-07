@@ -10,58 +10,62 @@ import UIKit
 import SwiftUI
 import MobileCoreServices
 import Dynamic
+import QuickLook
 
-fileprivate struct Item: Hashable {
-    let title: String?
-    let image: UIImage?
-    let section: Section
-    private let identifier = UUID()
-}
+@objc class SidebarViewController: UICollectionViewController, UIDocumentPickerDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDelegate, QLPreviewControllerDataSource {
+    
+    private let tabsItems = [
+        Item(title: NSLocalizedString("Create", comment: "Create script"), image: UIImage(systemName: "plus.square.fill"), section: .tabs),
+        Item(title: NSLocalizedString("Open script", comment: "Open script"), image: UIImage(systemName: "square.and.arrow.down"), section: .tabs),
+        Item(title: NSLocalizedString("Open directory", comment: "Open directory"), image: UIImage(systemName: "folder"), section: .tabs)
+    ]
 
-fileprivate let tabsItems = [
-    Item(title: NSLocalizedString("Create", comment: "Create script"), image: UIImage(systemName: "plus.square.fill"), section: .tabs),
-    Item(title: NSLocalizedString("Open script", comment: "Open script"), image: UIImage(systemName: "square.and.arrow.down"), section: .tabs),
-    Item(title: NSLocalizedString("Open directory", comment: "Open directory"), image: UIImage(systemName: "folder"), section: .tabs)
-]
-
-fileprivate let pythonItems = [
-    Item(title: NSLocalizedString("repl", comment: "The REPL"), image: UIImage(systemName: "play"), section: .python),
-    Item(title: "Shell", image: UIImage(systemName: "chevron.left.forwardslash.chevron.right"), section: .python),
-    Item(title: NSLocalizedString("sidebar.pypi", comment: "PyPI"), image: UIImage(systemName: "cloud"), section: .python),
-    Item(title: "site-packages", image: UIImage(systemName: "shippingbox"), section: .python),
-    Item(title: NSLocalizedString("sidebar.loadedModules", comment: "Loaded modules"), image: UIImage(systemName: "info.circle"), section: .python)
-]
+    private let pythonItems = [
+        Item(title: "Terminal", image: UIImage(systemName: "terminal"), section: .python),
+        Item(title: NSLocalizedString("sidebar.pypi", comment: "PyPI"), image: UIImage(systemName: "cloud"), section: .python),
+        Item(title: "site-packages", image: UIImage(systemName: "shippingbox"), section: .python),
+        Item(title: NSLocalizedString("sidebar.loadedModules", comment: "Loaded modules"), image: UIImage(systemName: "info.circle"), section: .python)
+    ]
+        
+    private let resourcesItems = [
+        Item(title: NSLocalizedString("sidebar.examples", comment: "Examples"), image: UIImage(systemName: "bookmark"), section: .resources),
+        Item(title: NSLocalizedString("help.documentation", comment: "'Documentation' button"), image: UIImage(systemName: "book"), section: .resources),
+    ]
     
-fileprivate let resourcesItems = [
-    Item(title: NSLocalizedString("sidebar.examples", comment: "Examples"), image: UIImage(systemName: "bookmark"), section: .resources),
-    Item(title: NSLocalizedString("help.documentation", comment: "'Documentation' button"), image: UIImage(systemName: "book"), section: .resources),
-]
-    
-fileprivate enum Section: String {
-    
-    var localizedString: String {
-        switch self {
-        case .recents:
-            return NSLocalizedString("sidebar.recent", comment: "'Recents' section header")
-        case .favorites:
-            return NSLocalizedString("sidebar.favorites", comment: "'Favorites' section header")
-        case .python:
-            return NSLocalizedString("sidebar.python", comment: "'Python' section header")
-        case .resources:
-            return NSLocalizedString("sidebar.resources", comment: "'Resources' section header")
-        case .tabs:
-            return ""
-        }
+    struct Item: Hashable {
+        var title: String?
+        var image: UIImage?
+        var section: Section
+        var imageColor: UIColor? = nil
+        private let identifier = UUID()
     }
     
-    case tabs
-    case recents = "sidebar.recent"
-    case favorites = "sidebar.favorites"
-    case python = "sidebar.python"
-    case resources = "sidebar.resources"
-}
-
-@objc class SidebarViewController: UICollectionViewController, UIDocumentPickerDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
+    enum Section: String {
+        
+        var localizedString: String {
+            switch self {
+            case .recents:
+                return NSLocalizedString("sidebar.recent", comment: "'Recents' section header")
+            case .favorites:
+                return NSLocalizedString("sidebar.favorites", comment: "'Favorites' section header")
+            case .python:
+                return NSLocalizedString("sidebar.python", comment: "'Python' section header")
+            case .resources:
+                return NSLocalizedString("sidebar.resources", comment: "'Resources' section header")
+            case .workingDirectory:
+                return NSLocalizedString("sidebar.cwd", comment: "The working directory on compact view")
+            case .tabs:
+                return ""
+            }
+        }
+        
+        case tabs
+        case workingDirectory = "sidebar.cwd"
+        case recents = "sidebar.recent"
+        case favorites = "sidebar.favorites"
+        case python = "sidebar.python"
+        case resources = "sidebar.resources"
+    }
     
     /// The Pyto version.
     @objc static var pytoVersion: String {
@@ -104,7 +108,7 @@ fileprivate enum Section: String {
         }
     }
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
+    var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
     
     var repl: NavigationController?
     
@@ -127,6 +131,14 @@ fileprivate enum Section: String {
     static func makePyPiView() -> UIViewController {
         
         class ViewController: UIViewController {
+                        
+            override func viewDidLoad() {
+                super.viewDidLoad()
+                
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("pypi.installWheel", comment: "Button for installing a wheel"), image: nil, primaryAction: UIAction(handler: { _ in
+                    NotificationCenter.default.post(name: DidPressInstallWheelButtonNotificationName, object: nil)
+                }), menu: nil)
+            }
             
             override func viewDidAppear(_ animated: Bool) {
                 super.viewDidAppear(animated)
@@ -151,37 +163,35 @@ fileprivate enum Section: String {
         let view = PyPiView(hostingController: vc) { package, install, remove in
             
             if install {
-                run(command: "--verbose install \(package)")
+                run(command: "install \(package)")
             } else if remove {
-                run(command: "--verbose uninstall \(package)")
+                run(command: "uninstall -y \(package)")
             } else {
-                if let pypi = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "pypi") as? PipViewController {
+                let pypi = PipViewController()
+                let loadingVC = UIViewController()
+                loadingVC.view = UIActivityIndicatorView(style: .medium)
+                (loadingVC.view as! UIActivityIndicatorView).startAnimating()
+                loadingVC.view.backgroundColor = .systemBackground
+                
+                vc.show(loadingVC, sender: nil)
+                
+                DispatchQueue.global().async {
+                    let pyPackage = PyPackage(name: package)
                     
-                    let loadingVC = UIViewController()
-                    loadingVC.view = UIActivityIndicatorView(style: .medium)
-                    (loadingVC.view as! UIActivityIndicatorView).startAnimating()
-                    loadingVC.view.backgroundColor = .systemBackground
-                    
-                    vc.show(loadingVC, sender: nil)
-                    
-                    DispatchQueue.global().async {
-                        let pyPackage = PyPackage(name: package)
+                    DispatchQueue.main.async {
                         
-                        DispatchQueue.main.async {
-                            
-                            pypi.currentPackage = pyPackage
-                            if let name = pyPackage?.name {
-                                pypi.title = name
-                            }
-                            
-                            let navVC = loadingVC.navigationController
-                            
-                            if let i = navVC?.viewControllers.firstIndex(of: loadingVC) {
-                                navVC?.viewControllers.remove(at: i)
-                            }
-                            
-                            navVC?.pushViewController(pypi, animated: false)
+                        pypi.package = pyPackage
+                        if let name = pyPackage?.name {
+                            pypi.title = name
                         }
+                        
+                        let navVC = loadingVC.navigationController
+                        
+                        if let i = navVC?.viewControllers.firstIndex(of: loadingVC) {
+                            navVC?.viewControllers.remove(at: i)
+                        }
+                        
+                        navVC?.pushViewController(pypi, animated: false)
                     }
                 }
             }
@@ -202,7 +212,7 @@ fileprivate enum Section: String {
         super.init(collectionViewLayout: UICollectionViewCompositionalLayout { section, layoutEnvironment in
             var config = UICollectionLayoutListConfiguration(appearance: .sidebar)
             config.headerMode = section == 0 ? .none : .firstItemInSection
-            config.footerMode = section == 4 ? .supplementary : .none
+            config.footerMode = section == (compact ? 5 : 4) ? .supplementary : .none
             
             return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
         })
@@ -215,32 +225,56 @@ fileprivate enum Section: String {
     
     var recent = [URL]()
     
+    static func image(for url: URL) -> (image: UIImage?, color: UIColor?) {
+        var isDir: ObjCBool = false
+        if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) && isDir.boolValue {
+            if FileManager.default.fileExists(atPath: url.appendingPathComponent("__init__.py").path) || FileManager.default.fileExists(atPath: url.appendingPathComponent("__main__.py").path) {
+                return (image: UIImage(systemName: "shippingbox.fill"), color: .systemBrown)
+            } else {
+                return (image: UIImage(systemName: "folder.fill"), color: .systemBlue)
+            }
+        } else {
+            if !(url.pathExtension == "icloud" && url.lastPathComponent.hasPrefix(".")) {
+                if url.pathExtension.lowercased() == "py" {
+                    return (image: UIImage(named: "python.SFSymbol")?.withRenderingMode(.alwaysOriginal), color: nil)
+                } else {
+                    return (image: UIImage(systemName: "doc.fill"), color: nil)
+                }
+            } else {
+                return (image: UIImage(systemName: "icloud.and.arrow.down.fill"), color: .systemBlue)
+            }
+        }
+    }
+    
+    func loadWorkingDirectory() {
+        guard compact else {
+            return
+        }
+        
+        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+        sectionSnapshot.append([Item(title: Section.workingDirectory.localizedString, image: nil, section: .workingDirectory)])
+        
+        if compact, let dir = (splitViewController as? SidebarSplitViewController)?.compactFileBrowser.directory {
+            sectionSnapshot.append([Item(title: dir == FileBrowserViewController.iCloudContainerURL ? "iCloud Drive" : FileManager.default.displayName(atPath: dir.path), image: UIImage(systemName: "folder.fill"), section: .workingDirectory, imageColor: .systemBlue)])
+        }
+        
+        dataSource.apply(sectionSnapshot, to: .workingDirectory)
+    }
+    
     func loadRecents() {
         let section = Section.recents
         var items = [Item]()
         
         recent = []
-        var recentItems = RecentDataSource.shared.recent
-        
-        if compact {
-            recentItems.append((splitViewController as! SidebarSplitViewController).compactFileBrowser.directory)
-        }
+        let recentItems = RecentDataSource.shared.recent
         
         for item in recentItems.reversed() {
             recent.append(item)
             
             let image: UIImage!
+            let color: UIColor?
             
-            var isDir: ObjCBool = false
-            if FileManager.default.fileExists(atPath: item.path, isDirectory: &isDir) && isDir.boolValue {
-                image = UIImage(systemName: "folder")
-            } else {
-                if item.pathExtension.lowercased() == "py" {
-                    image = UIImage(named: "python.SFSymbol")
-                } else {
-                    image = UIImage(systemName: "doc.fill")
-                }
-            }
+            (image, color) = Self.image(for: item)
             
             let title: String
             if item == FileBrowserViewController.iCloudContainerURL {
@@ -248,7 +282,7 @@ fileprivate enum Section: String {
             } else {
                 title = item.lastPathComponent
             }
-            items.append(Item(title: title, image: image, section: .recents))
+            items.append(Item(title: title, image: image, section: .recents, imageColor: color))
         }
         
         loadViewIfNeeded()
@@ -296,17 +330,8 @@ fileprivate enum Section: String {
             favorites.append(item)
             
             let image: UIImage!
-            
-            var isDir: ObjCBool = false
-            if FileManager.default.fileExists(atPath: item.path, isDirectory: &isDir) && isDir.boolValue {
-                image = UIImage(systemName: "folder")
-            } else {
-                if item.pathExtension.lowercased() == "py" {
-                    image = UIImage(named: "python.SFSymbol")
-                } else {
-                    image = UIImage(systemName: "doc.fill")
-                }
-            }
+            let color: UIColor?
+            (image, color) = Self.image(for: item)
             
             let title: String
             if item == FileBrowserViewController.iCloudContainerURL {
@@ -314,8 +339,10 @@ fileprivate enum Section: String {
             } else {
                 title = item.lastPathComponent
             }
-            items.append(Item(title: title, image: image, section: .favorites))
+            items.append(Item(title: title, image: image, section: .favorites, imageColor: color))
         }
+        
+        items.append(Item(title: NSLocalizedString("add", comment: "Add"), image: UIImage(systemName: "plus"), section: .favorites))
         
         loadViewIfNeeded()
         
@@ -325,6 +352,10 @@ fileprivate enum Section: String {
         sectionSnapshot.append(items, to: headerItem)
         sectionSnapshot.expand([headerItem])
         dataSource.apply(sectionSnapshot, to: section)
+        
+        DispatchQueue.main.async {
+            self.reloadFavorites()
+        }
     }
     
     @objc func showSettings() {
@@ -347,14 +378,19 @@ fileprivate enum Section: String {
         show(vc: examples!)
     }
     
-    @objc func showDocumentationOnSplitView() {
+    func makeDocumentationViewControllerIfNeeded() {
         if documentation == nil {
             documentation = NavigationController(rootViewController: DocumentationViewController())
             documentation?.navigationBar.prefersLargeTitles = false
         }
-            
+    }
+    
+    @objc func showDocumentationOnSplitView() {
+        makeDocumentationViewControllerIfNeeded()
         show(vc: documentation!)
     }
+    
+    var isPickingWheel = false
     
     @objc func showPyPI() {
         if pypi == nil {
@@ -397,9 +433,9 @@ fileprivate enum Section: String {
         
         let isShellRunning = self.moduleRunner?.vc != nil
         
-        let alert = UIAlertController(title: wheel.lastPathComponent.components(separatedBy: "-").first ?? wheel.lastPathComponent, message: "Do you want to install this wheel?", preferredStyle: .alert)
+        let alert = UIAlertController(title: wheel.lastPathComponent.components(separatedBy: "-").first ?? wheel.lastPathComponent, message: NSLocalizedString("pypi.installWheelDialog", comment: "The message of the alert shown before installing a wheel"), preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Install", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("pypi.install", comment: "Install"), style: .default, handler: { _ in
             self.showModuleRunner()
             DispatchQueue.main.asyncAfter(deadline: .now()+(isShellRunning ? 0.2 : 2.5)) {
                 let console = (self.moduleRunner?.vc as? RunModuleViewController)?.console
@@ -408,7 +444,7 @@ fileprivate enum Section: String {
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
@@ -430,7 +466,7 @@ fileprivate enum Section: String {
         if #available(iOS 15.0, *) {
             let creator = ProjectCreator { [weak self] url in
                 self?.dismiss(animated: true, completion: {
-                    self?.documentPicker(UIDocumentPickerViewController(forExporting: [url]), didPickDocumentsAt: [url])
+                    self?.documentPicker(UIDocumentPickerViewController(forOpeningContentTypes: [.folder]), didPickDocumentsAt: [url])
                 })
             }
             self.present(UIHostingController(rootView: creator), animated: true, completion: nil)
@@ -444,10 +480,18 @@ fileprivate enum Section: String {
                 self?.showSettings()
             }),
             
-            UIAction(title: NSLocalizedString("sidebar.editSidebar", comment: "Edit sidebar"), image: nil, identifier: nil, discoverabilityTitle: NSLocalizedString("sidebar.editSidebar", comment: "Edit sidebar"), attributes: [], state: .off, handler: { [weak self] _ in
+            UIAction(title: NSLocalizedString("sidebar.editSidebar", comment: "Edit sidebar"), image: UIImage(systemName: "pencil"), identifier: nil, discoverabilityTitle: NSLocalizedString("sidebar.editSidebar", comment: "Edit sidebar"), attributes: [], state: .off, handler: { [weak self] _ in
                 self?.setEditing(true, animated: true)
             })
         ]))
+    }
+    
+    var favoritesPicker: UIDocumentPickerViewController?
+    
+    func addToFavorites(folder: Bool) {
+        favoritesPicker = UIDocumentPickerViewController(forOpeningContentTypes: folder ? [.folder] : [.item], asCopy: false)
+        favoritesPicker!.delegate = self
+        present(favoritesPicker!, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -468,10 +512,12 @@ fileprivate enum Section: String {
             var content = cell.defaultContentConfiguration()
             content.text = item.title
             content.image = item.image
-            if (indexPath.section == 1 || indexPath.section == 2) && item.title?.lowercased().hasSuffix(".py") == true {
+            if (indexPath.section == 1 || indexPath.section == 2 || indexPath.section == 3) && item.title?.lowercased().hasSuffix(".py") == true {
                 content.imageProperties.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .largeTitle, compatibleWith: nil))
             }
 
+            content.imageProperties.tintColor = item.imageColor ?? .systemGreen
+            
             cell.contentConfiguration = content
             
             if item.section == .tabs && indexPath.row == 0 {
@@ -486,12 +532,12 @@ fileprivate enum Section: String {
                     iOS15 = false
                 }
                 
-                button.menu = UIMenu(title: "Create", image: nil, identifier: nil, options: [], children: [
+                button.menu = UIMenu(title: NSLocalizedString("Create", comment: "'Create' button"), image: nil, identifier: nil, options: [], children: [
                     UIAction(title: "Script", image: UIImage(systemName: "curlybraces"), identifier: nil, discoverabilityTitle: "Script", attributes: [], state: .off, handler: { [weak self] _ in
                         self?.newScript()
                     }),
                     
-                    UIAction(title: "Project", image: UIImage(systemName: "shippingbox"), identifier: nil, discoverabilityTitle: "Project", attributes: !iOS15 ? [.disabled] : [], state: .off, handler: { [weak self] _ in
+                    UIAction(title: NSLocalizedString("project", comment: "Project"), image: UIImage(systemName: "shippingbox"), identifier: nil, discoverabilityTitle: NSLocalizedString("project", comment: "Project"), attributes: !iOS15 ? [.disabled] : [], state: .off, handler: { [weak self] _ in
                         if #available(iOS 15.0, *) {
                             self?.newProject()
                         }
@@ -500,13 +546,40 @@ fileprivate enum Section: String {
                 button.showsMenuAsPrimaryAction = true
                 cell.contentView.addSubview(button)
             } else if item.section == .favorites {
-                cell.accessories = [.delete(actionHandler: { [weak self] in
-                    if self?.favorites.indices.contains(indexPath.row-1) == true {
-                        self?.favorites.remove(at: indexPath.row-1)
-                        Self.favorites = self!.favorites
-                        self?.loadFavorites()
+                if indexPath.row == self.favorites.count+1 { // Add
+                    let button = UIButton()
+                    button.tag = 5434
+                    button.frame = cell.contentView.frame
+                    button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                    
+                    
+                    button.menu = UIMenu(title: NSLocalizedString("add", comment: "Add"), image: nil, identifier: nil, options: [], children: [
+                        UIAction(title: NSLocalizedString("creation.file", comment: "A file"), image: UIImage(systemName: "doc"), identifier: nil, discoverabilityTitle: NSLocalizedString("creation.file", comment: "A file"), attributes: [], state: .off, handler: { [weak self] _ in
+                            self?.addToFavorites(folder: false)
+                        }),
+                        
+                        UIAction(title: NSLocalizedString("creation.folder", comment: "A folder"), image: UIImage(systemName: "folder"), identifier: nil, discoverabilityTitle: NSLocalizedString("creation.folder", comment: "A folder"), attributes: [], state: .off, handler: { [weak self] _ in
+                            self?.addToFavorites(folder: true)
+                        }),
+                    ])
+                    button.showsMenuAsPrimaryAction = true
+                    cell.contentView.addSubview(button)
+                } else { // Open
+                    cell.accessories = [.delete(actionHandler: { [weak self] in
+                        if self?.favorites.indices.contains(indexPath.row-1) == true {
+                            self?.favorites.remove(at: indexPath.row-1)
+                            Self.favorites = self!.favorites
+                            self?.loadFavorites()
+                        }
+                    }), .reorder()]
+                    
+                    for view in cell.contentView.subviews {
+                        if view is UIButton {
+                            view.removeFromSuperview()
+                            break
+                        }
                     }
-                }), .reorder()]
+                }
             } else if item.section == .recents {
                 cell.accessories = [.delete(actionHandler: { [weak self] in
                     var recent = Array(RecentDataSource.shared.recent.reversed())
@@ -521,6 +594,15 @@ fileprivate enum Section: String {
                 })]
             } else {
                 cell.accessories = []
+            }
+            
+            if item.section != .favorites {
+                for view in cell.contentView.subviews {
+                    if view.tag == 5434 {
+                        view.removeFromSuperview()
+                        break
+                    }
+                }
             }
         }
         
@@ -539,18 +621,20 @@ fileprivate enum Section: String {
         }
 
         // Creating the datasource
-        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, item: Item) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) { [weak self] (collectionView: UICollectionView, indexPath: IndexPath, item: Item) -> UICollectionViewCell? in
             
-            if indexPath.item == 0 && indexPath.section != 0 {
+            if self?.compact == true && indexPath.section == 1 {
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+            } else if indexPath.item == 0 && indexPath.section != 0 {
                 return collectionView.dequeueConfiguredReusableCell(using: headerRegistration, for: indexPath, item: item)
             } else {
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             }
         }
         
-        dataSource.supplementaryViewProvider = { (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
+        dataSource.supplementaryViewProvider = { [weak self] (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
             
-            if indexPath.section == 4 && elementKind == UICollectionView.elementKindSectionFooter {
+            if indexPath.section == (self?.compact == true ? 5 : 4) && elementKind == UICollectionView.elementKindSectionFooter {
                 return collectionView.dequeueConfiguredReusableSupplementary(
                     using: footerRegistration, for: indexPath)
             } else {
@@ -559,7 +643,7 @@ fileprivate enum Section: String {
         }
         
         // Creating and applying snapshots
-        let sections: [Section] = [.tabs, .recents, .favorites, .python, .resources]
+        let sections: [Section] = [.tabs]+(compact ? [.workingDirectory] : [])+[.recents, .favorites, .python, .resources]
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections(sections)
 
@@ -569,6 +653,8 @@ fileprivate enum Section: String {
                 var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
                 sectionSnapshot.append(tabsItems)
                 dataSource.apply(sectionSnapshot, to: section)
+            case .workingDirectory:
+                loadWorkingDirectory()
             case .recents:
                 loadRecents()
             case .favorites:
@@ -687,7 +773,41 @@ fileprivate enum Section: String {
         return splitVC
     }
     
+    func showFilebrowserSidebar() {
+        
+        guard let sidebar = splitViewController as? SidebarSplitViewController else {
+            return
+        }
+        
+        let fileBrowserNavVC = SidebarViewController.NavigationController(rootViewController: sidebar.fileBrowser)
+        fileBrowserNavVC.navigationBar.prefersLargeTitles = true
+        fileBrowserNavVC.view.backgroundColor = .systemBackground
+        
+        sidebar.fileBrowserNavVC = fileBrowserNavVC
+        splitViewController?.setViewController(fileBrowserNavVC, for: .supplementary)
+    }
+    
+    func showDocumentationSidebar() {
+        makeDocumentationViewControllerIfNeeded()
+        let docs = documentation?.viewControllers.first as? DocumentationViewController
+        splitViewController?.setViewController(DocumentationViewController.SidebarViewController(documentationViewController: docs), for: .supplementary)
+    }
+    
+    var previewingFile: URL?
+    
     func open(url: URL, reloadRecents: Bool = false, run: Bool = false, completion: ((EditorViewController) -> Void)? = nil) {
+        
+        guard url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "html" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .text) == true || (try? String(contentsOf: url)) != nil else { // Quick look
+            
+            let vc = QLPreviewController()
+            previewingFile = url
+            vc.delegate = self
+            vc.dataSource = self
+            present(vc, animated: true, completion: nil)
+            
+            return
+        }
+        
         if self.editor == nil {
             if let editor = openDocument(url, run: false, folder: nil) {
                 let navVC = NavigationController(rootViewController: editor)
@@ -698,6 +818,8 @@ fileprivate enum Section: String {
                 return
             }
         }
+        
+        showFilebrowserSidebar()
         
         if let editor = (self.editor?.vc as? EditorSplitViewController)?.editor {
             (editor.parent as? EditorSplitViewController)?.killREPL()
@@ -767,10 +889,20 @@ fileprivate enum Section: String {
         present(docPicker, animated: true, completion: nil)
     }
     
+    func reloadFavorites() {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadSections([.favorites])
+        dataSource.apply(snapshot)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        switch indexPath.section {
-        case 0:
+        guard let item = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        switch item.section {
+        case .tabs:
             // Pyto
             switch indexPath.row {
             case 1:
@@ -784,7 +916,14 @@ fileprivate enum Section: String {
             default:
                 break
             }
-        case 1:
+        case .workingDirectory:
+            // Working directory
+            if let dir = (splitViewController as? SidebarSplitViewController)?.compactFileBrowser.directory {
+                let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
+                documentPicker(picker, didPickDocumentsAt: [dir])
+            }
+            return
+        case .recents:
             // Recent
             var isDir: ObjCBool = false
             if FileManager.default.fileExists(atPath: recent[indexPath.row-1].path, isDirectory: &isDir) && isDir.boolValue {
@@ -794,8 +933,13 @@ fileprivate enum Section: String {
             } else {
                 open(url: recent[indexPath.row-1])
             }
-        case 2:
+        case .favorites:
             // Favorites
+            
+            guard favorites.indices.contains(indexPath.row-1) else {
+                return
+            }
+            
             var isDir: ObjCBool = false
             if FileManager.default.fileExists(atPath: favorites[indexPath.row-1].path, isDirectory: &isDir) && isDir.boolValue {
                 (splitViewController as! SidebarSplitViewController).compactFileBrowser.directory = favorites[indexPath.row-1]
@@ -807,24 +951,27 @@ fileprivate enum Section: String {
                 
                 if splitViewController?.isCollapsed == true {
                     show(vc: (splitViewController as! SidebarSplitViewController).compactFileBrowserNavVC)
+                } else {
+                    showFilebrowserSidebar()
                 }
             } else {
                 open(url: favorites[indexPath.row-1])
             }
-        case 3:
+        case .python:
             // Python
             switch indexPath.row-1 {
             case 0:
-                // REPL
-                showREPL()
-            case 1:
                 // Run module
+                showFilebrowserSidebar()
                 showModuleRunner()
-            case 2:
+            case 1:
                 // PyPI
+                showFilebrowserSidebar()
                 showPyPI()
-            case 3:
+            case 2:
                 // site-packages
+                
+                showFilebrowserSidebar()
                 
                 let browser = FileBrowserViewController()
                 
@@ -849,49 +996,59 @@ fileprivate enum Section: String {
                 } else {
                     show(vc: NavigationController(rootViewController: browser))
                 }
-            case 4:
+            case 3:
                 // Loaded modules
+                showFilebrowserSidebar()
                 showLoadedModules()
             default:
                 break
             }
-        case 4:
+        case .resources:
             // Resources
             switch indexPath.row-1 {
             case 0:
                 // Examples
                 
+                showFilebrowserSidebar()
                 showExamples()
             case 1:
                 // Documentation
+                showDocumentationSidebar()
                 showDocumentationOnSplitView()
             default:
                 break
             }
-        default:
-            break
         }
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        _ = urls.first?.startAccessingSecurityScopedResource()
-        
-        var isDir: ObjCBool = false
-        if FileManager.default.fileExists(atPath: urls.first!.path, isDirectory:  &isDir) && isDir.boolValue {
+        if controller == favoritesPicker { // Add to favorites
             
-            (splitViewController as? SidebarSplitViewController)?.compactFileBrowser.directory = urls.first!
-            (splitViewController as? SidebarSplitViewController)?.fileBrowser.directory = urls.first!
+            favoritesPicker = nil
+            favorites.append(urls[0])
+            Self.favorites = favorites
+            loadFavorites()
             
-            loadRecents()
+        } else { // Open
+            _ = urls.first?.startAccessingSecurityScopedResource()
             
-            if (splitViewController?.isCollapsed == true), let browser = (splitViewController as? SidebarSplitViewController)?.compactFileBrowserNavVC {
-                show(vc: browser)
+            var isDir: ObjCBool = false
+            if FileManager.default.fileExists(atPath: urls.first!.path, isDirectory:  &isDir) && isDir.boolValue {
+                
+                (splitViewController as? SidebarSplitViewController)?.compactFileBrowser.directory = urls.first!
+                (splitViewController as? SidebarSplitViewController)?.fileBrowser.directory = urls.first!
+                
+                loadWorkingDirectory()
+                
+                if (splitViewController?.isCollapsed == true), let browser = (splitViewController as? SidebarSplitViewController)?.compactFileBrowserNavVC {
+                    show(vc: browser)
+                }
+                
+                (repl?.vc as? REPLViewController)?.documentPicker(controller, didPickDocumentsAt: urls)
+                (moduleRunner?.vc as? RunModuleViewController)?.documentPicker(controller, didPickDocumentsAt: urls)
+            } else {
+                open(url: urls.first!, reloadRecents: true)
             }
-            
-            (repl?.vc as? REPLViewController)?.documentPicker(controller, didPickDocumentsAt: urls)
-            (moduleRunner?.vc as? RunModuleViewController)?.documentPicker(controller, didPickDocumentsAt: urls)
-        } else {
-            open(url: urls.first!, reloadRecents: true)
         }
     }
     
@@ -953,5 +1110,17 @@ fileprivate enum Section: String {
         } else {
             return []
         }
+    }
+    
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+        previewingFile != nil ? 1 : 0
+    }
+    
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        previewingFile! as QLPreviewItem
+    }
+    
+    func previewControllerDidDismiss(_ controller: QLPreviewController) {
+        previewingFile = nil
     }
 }

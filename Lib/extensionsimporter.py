@@ -28,7 +28,7 @@ class __UpgradeException__(Exception):
 
 
 if "widget" not in os.environ:
-    from sharing import open_url
+    from _sharing import open_url
     import urllib.parse
     from pyto import Python, __Class__
 
@@ -162,92 +162,96 @@ def find_extension(path, name):
             return os.path.join(path, file)
 
 
-# llvm_call_function
-llvm_call_function = ctypes.CDLL(None).llvm_call_function
-llvm_call_function.argtypes = [
-    ctypes.c_char_p, ctypes.py_object, ctypes.c_bool, ctypes.py_object, ctypes.py_object, ctypes.py_object,
-    ctypes.py_object, ctypes.py_object, ctypes.py_object,
-]
-llvm_call_function.restype = ctypes.py_object
+try:
 
-# llvm_create_instance
-llvm_create_instance = ctypes.CDLL(None).llvm_create_instance
-llvm_create_instance.argtypes = [
-    ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.py_object,
-    ctypes.py_object, ctypes.py_object, ctypes.py_object
-]
-llvm_create_instance.restype = ctypes.py_object
+    # llvm_call_function
+    llvm_call_function = ctypes.CDLL(None).llvm_call_function
+    llvm_call_function.argtypes = [
+        ctypes.c_char_p, ctypes.py_object, ctypes.c_bool, ctypes.py_object, ctypes.py_object, ctypes.py_object,
+        ctypes.py_object, ctypes.py_object, ctypes.py_object,
+    ]
+    llvm_call_function.restype = ctypes.py_object
 
-# llvm_call_getter
-llvm_call_getter = ctypes.CDLL(None).llvm_call_getter
-llvm_call_getter.argtypes = [
-    ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.c_char_p
-]
-llvm_call_getter.restype = ctypes.py_object
+    # llvm_create_instance
+    llvm_create_instance = ctypes.CDLL(None).llvm_create_instance
+    llvm_create_instance.argtypes = [
+        ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.py_object,
+        ctypes.py_object, ctypes.py_object, ctypes.py_object
+    ]
+    llvm_create_instance.restype = ctypes.py_object
 
-# llvm_call_setter
-llvm_call_setter = ctypes.CDLL(None).llvm_call_setter
-llvm_call_setter.argtypes = [
-    ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.c_char_p, ctypes.py_object
-]
-llvm_call_setter.restype = ctypes.py_object
+    # llvm_call_getter
+    llvm_call_getter = ctypes.CDLL(None).llvm_call_getter
+    llvm_call_getter.argtypes = [
+        ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.c_char_p
+    ]
+    llvm_call_getter.restype = ctypes.py_object
 
-# llvm_has_getter
-llvm_has_getter = ctypes.CDLL(None).llvm_has_getter
-llvm_has_getter.argtypes = [
-    ctypes.py_object, ctypes.c_char_p
-]
-llvm_has_getter.restype = ctypes.c_bool
+    # llvm_call_setter
+    llvm_call_setter = ctypes.CDLL(None).llvm_call_setter
+    llvm_call_setter.argtypes = [
+        ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.c_char_p, ctypes.py_object
+    ]
+    llvm_call_setter.restype = ctypes.py_object
 
-# llvm_has_setter
-llvm_has_setter = ctypes.CDLL(None).llvm_has_setter
-llvm_has_setter.argtypes = [
-    ctypes.py_object, ctypes.c_char_p
-]
-llvm_has_setter.restype = ctypes.c_bool
+    # llvm_has_getter
+    llvm_has_getter = ctypes.CDLL(None).llvm_has_getter
+    llvm_has_getter.argtypes = [
+        ctypes.py_object, ctypes.c_char_p
+    ]
+    llvm_has_getter.restype = ctypes.c_bool
 
-# llvm_has_getattr
-llvm_has_getattr = ctypes.CDLL(None).llvm_has_getattr
-llvm_has_getattr.argtypes = [
-    ctypes.py_object
-]
-llvm_has_getattr.restype = ctypes.c_bool
+    # llvm_has_setter
+    llvm_has_setter = ctypes.CDLL(None).llvm_has_setter
+    llvm_has_setter.argtypes = [
+        ctypes.py_object, ctypes.c_char_p
+    ]
+    llvm_has_setter.restype = ctypes.c_bool
 
-# llvm_has_setattr
-llvm_has_setattr = ctypes.CDLL(None).llvm_has_setattr
-llvm_has_setattr.argtypes = [
-    ctypes.py_object
-]
-llvm_has_setattr.restype = ctypes.c_bool
+    # llvm_has_getattr
+    llvm_has_getattr = ctypes.CDLL(None).llvm_has_getattr
+    llvm_has_getattr.argtypes = [
+        ctypes.py_object
+    ]
+    llvm_has_getattr.restype = ctypes.c_bool
 
-# llvm_call_getattro
-llvm_call_getattro = ctypes.CDLL(None).llvm_call_getattro
-llvm_call_getattro.argtypes = [
-    ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.py_object
-]
-llvm_call_getattro.restype = ctypes.py_object
+    # llvm_has_setattr
+    llvm_has_setattr = ctypes.CDLL(None).llvm_has_setattr
+    llvm_has_setattr.argtypes = [
+        ctypes.py_object
+    ]
+    llvm_has_setattr.restype = ctypes.c_bool
 
-# void llvm_call_setattro(PyObject *cls, PyObject *__self, PyObject *module, PyObject *name, PyObject *value)
-llvm_call_setattro = ctypes.CDLL(None).llvm_call_setattro
-llvm_call_setattro.argtypes = [
-    ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.py_object
-]
-llvm_call_setattro.restype = None
+    # llvm_call_getattro
+    llvm_call_getattro = ctypes.CDLL(None).llvm_call_getattro
+    llvm_call_getattro.argtypes = [
+        ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.py_object
+    ]
+    llvm_call_getattro.restype = ctypes.py_object
 
-# llvm_is_cfunction
-llvm_is_cfunction = ctypes.CDLL(None).llvm_is_cfunction
-llvm_is_cfunction.argtypes = [ctypes.py_object]
-llvm_is_cfunction.restype = ctypes.c_bool
+    # void llvm_call_setattro(PyObject *cls, PyObject *__self, PyObject *module, PyObject *name, PyObject *value)
+    llvm_call_setattro = ctypes.CDLL(None).llvm_call_setattro
+    llvm_call_setattro.argtypes = [
+        ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.py_object, ctypes.py_object
+    ]
+    llvm_call_setattro.restype = None
 
-# llvm_delete_module
-llvm_delete_module = ctypes.CDLL(None).llvm_delete_module
-llvm_delete_module.argtypes = [ctypes.py_object]
-llvm_delete_module.restype = ctypes.c_void_p
+    # llvm_is_cfunction
+    llvm_is_cfunction = ctypes.CDLL(None).llvm_is_cfunction
+    llvm_is_cfunction.argtypes = [ctypes.py_object]
+    llvm_is_cfunction.restype = ctypes.c_bool
 
-# llvm_free_objects
-llvm_free_objects = ctypes.CDLL(None).llvm_free_objects
-llvm_free_objects.restype = ctypes.c_void_p
+    # llvm_delete_module
+    llvm_delete_module = ctypes.CDLL(None).llvm_delete_module
+    llvm_delete_module.argtypes = [ctypes.py_object]
+    llvm_delete_module.restype = ctypes.c_void_p
 
+    # llvm_free_objects
+    llvm_free_objects = ctypes.CDLL(None).llvm_free_objects
+    llvm_free_objects.restype = ctypes.c_void_p
+
+except AttributeError:
+    pass
 
 def object_to_bitcode_value(obj, module=None, attribute_name=None):
     if obj is None:
@@ -507,6 +511,8 @@ class BitcodeLoader(ExtensionFileLoader):
         __import__("Cython.Compiler.FlowControl")
 
         mod = _extensionsimporter.module_from_bitcode(self.path, spec)
+        if mod is None:
+            raise RuntimeError("'{}' is not a valid module.".format(self.fullname))
         running_modules.append(weakref.ref(mod))
         mod = BitcodeModule(mod)
         sys.modules[self.fullname] = mod

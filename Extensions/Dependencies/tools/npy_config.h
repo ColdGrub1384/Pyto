@@ -1,6 +1,8 @@
 #ifndef _NPY_NPY_CONFIG_H_
 #define _NPY_NPY_CONFIG_H_
 
+#define NUMPY_CORE_SRC_COMMON_NPY_CONFIG_H_
+
 #include "config.h"
 #include "npy_cpu_features.h"
 #include "npy_cpu_dispatch.h"

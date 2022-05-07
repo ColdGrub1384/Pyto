@@ -9,6 +9,7 @@ import pyto
 import threading
 import base64
 import os
+import warnings
 from typing import List
 
 try:
@@ -24,12 +25,22 @@ __PySharingHelper__ = pyto.PySharingHelper
 NSURL = ObjCClass("NSURL")
 
 
+def deprecation_msg(name, instead):
+     return f"'sharing.{name}' is deprecated and kept exclusively for internal usage. Use '{instead}' instead."
+
+def deprecated(name, instead="file_system"):
+    msg = deprecation_msg(name, instead)
+    warnings.warn(msg, DeprecationWarning)
+
+
 def share_items(items: object):
     """
     Opens a share sheet with given items.
 
     :param items: Items to be shared with the sheet.
     """
+
+    deprecated("share_items")
 
     __PySharingHelper__.share(items)
 
@@ -44,6 +55,8 @@ if "widget" not in os.environ:
 
         :param path: Path of the image to preview.
         """
+
+        deprecated("quick_look")
 
         file = open(path, "rb")  # open binary file in read mode
         file_read = file.read()
@@ -95,6 +108,16 @@ class FilePicker:
     Document types that can be opened.
     """
 
+    file_extensions = []
+    """
+    File extensions that can be opened.
+    """
+
+    mime_types = []
+    """
+    Mime types that can be opened.
+    """
+
     allows_multiple_selection = False
     """
     Allow multiple selection or not.
@@ -113,6 +136,8 @@ class FilePicker:
     def __objcFilePicker__(self):
         filePicker = pyto.FilePicker.new()
         filePicker.fileTypes = self.file_types
+        filePicker.fileExtensions = self.file_extensions
+        filePicker.mimeTypes = self.mime_types
         filePicker.allowsMultipleSelection = self.allows_multiple_selection
         filePicker.completion = self.completion
 
@@ -130,6 +155,8 @@ def pick_documents(filePicker: FilePicker):
     :param filePicker: The parameters of the file picker to be presented.
     """
 
+    deprecated("pick_documents")
+
     script_path = None
     try:
         script_path = threading.current_thread().script_path
@@ -145,6 +172,8 @@ def picked_files() -> List[str]:
     """
     Returns paths of files picked with ``pickDocumentsWithFilePicker``.
     """
+
+    deprecated("picked_files")
 
     urls = pyto.FilePicker.urls
     if len(urls) == 0:
@@ -165,6 +194,8 @@ def open_url(url: str):
 
     :param url: URL to open. Can be a String or an Objective-C ``NSURL``.
     """
+
+    deprecated("open_url", "webbrowser")
 
     __url__ = None
 

@@ -9,11 +9,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>1zhe5j</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>21A559</string>
+	<string>21E258</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>13A233</string>
+	<string>13E500a</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>13.0</string>
+	<string>13.3.1</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -28,14 +28,25 @@
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentInput</key>
-			<string>arguments</string>
+			<string>items</string>
 			<key>INIntentKeyParameter</key>
 			<string>code</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>9</integer>
+			<integer>12</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>code,arguments,showConsole,items</key>
+				<key>code,arguments,items,showConsole,workingDirectory</key>
+				<dict>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Run with ${arguments}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>94RANP</string>
+					<key>INIntentParameterCombinationUpdatesLinked</key>
+					<true/>
+				</dict>
+				<key>code,arguments,showConsole,items,input,workingDirectory</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
@@ -192,11 +203,54 @@
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
+					<string>Working Directory</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>Ehskbw</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>4</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCustomUTIs</key>
+						<array>
+							<dict>
+								<key>UTI</key>
+								<string>public.folder</string>
+							</dict>
+						</array>
+						<key>INIntentParameterMetadataType</key>
+						<string>Custom</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>workingDirectory</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterTag</key>
+					<integer>12</integer>
+					<key>INIntentParameterType</key>
+					<string>File</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
 					<string>Show Console</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>mksMNI</string>
 					<key>INIntentParameterDisplayPriority</key>
-					<integer>4</integer>
+					<integer>5</integer>
 					<key>INIntentParameterMetadata</key>
 					<dict>
 						<key>INIntentParameterMetadataFalseDisplayName</key>
@@ -229,6 +283,59 @@
 					<integer>7</integer>
 					<key>INIntentParameterType</key>
 					<string>Boolean</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>sys.stdin</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>3OSudR</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>6</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>None</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>Uurx4X</string>
+						<key>INIntentParameterMetadataDisableAutocorrect</key>
+						<true/>
+						<key>INIntentParameterMetadataDisableSmartDashes</key>
+						<true/>
+						<key>INIntentParameterMetadataDisableSmartQuotes</key>
+						<true/>
+						<key>INIntentParameterMetadataMultiline</key>
+						<true/>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>input</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterRelationship</key>
+					<dict>
+						<key>INIntentParameterRelationshipParentName</key>
+						<string>showConsole</string>
+						<key>INIntentParameterRelationshipPredicateName</key>
+						<string>BooleanHasExactValue</string>
+					</dict>
+					<key>INIntentParameterTag</key>
+					<integer>10</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
 				</dict>
 			</array>
 			<key>INIntentResponse</key>
@@ -347,14 +454,25 @@
 			<key>INIntentDescriptionID</key>
 			<string>3Ywctx</string>
 			<key>INIntentInput</key>
-			<string>arguments</string>
+			<string>items</string>
 			<key>INIntentKeyParameter</key>
 			<string>script</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>25</integer>
+			<integer>29</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>script,arguments,showConsole,items</key>
+				<key>script,arguments,items,showConsole,workingDirectory</key>
+				<dict>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Run ${script} with ${arguments}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>38MfkJ</string>
+					<key>INIntentParameterCombinationUpdatesLinked</key>
+					<true/>
+				</dict>
+				<key>script,arguments,showConsole,items,input,workingDirectory</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
@@ -393,6 +511,17 @@
 					<string>Run ${script}</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>Mlh0n0</string>
+				</dict>
+				<key>script,arguments,items,showConsole,workingDirectory</key>
+				<dict>
+					<key>INIntentParameterCombinationIsLinked</key>
+					<true/>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Run ${script} with ${arguments}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>Pw9bN2</string>
 				</dict>
 			</dict>
 			<key>INIntentParameters</key>
@@ -563,11 +692,54 @@
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
+					<string>Working Directory</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>U4tStG</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>4</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCustomUTIs</key>
+						<array>
+							<dict>
+								<key>UTI</key>
+								<string>public.folder</string>
+							</dict>
+						</array>
+						<key>INIntentParameterMetadataType</key>
+						<string>Custom</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>workingDirectory</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterTag</key>
+					<integer>29</integer>
+					<key>INIntentParameterType</key>
+					<string>File</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
 					<string>Show Console</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>6VwO9t</string>
 					<key>INIntentParameterDisplayPriority</key>
-					<integer>4</integer>
+					<integer>5</integer>
 					<key>INIntentParameterMetadata</key>
 					<dict>
 						<key>INIntentParameterMetadataFalseDisplayName</key>
@@ -600,6 +772,59 @@
 					<integer>22</integer>
 					<key>INIntentParameterType</key>
 					<string>Boolean</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>sys.stdin</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>jnUl9v</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>6</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>None</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>GMSRAI</string>
+						<key>INIntentParameterMetadataDisableAutocorrect</key>
+						<true/>
+						<key>INIntentParameterMetadataDisableSmartDashes</key>
+						<true/>
+						<key>INIntentParameterMetadataDisableSmartQuotes</key>
+						<true/>
+						<key>INIntentParameterMetadataMultiline</key>
+						<true/>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>input</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterRelationship</key>
+					<dict>
+						<key>INIntentParameterRelationshipParentName</key>
+						<string>showConsole</string>
+						<key>INIntentParameterRelationshipPredicateName</key>
+						<string>BooleanHasExactValue</string>
+					</dict>
+					<key>INIntentParameterTag</key>
+					<integer>28</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
 				</dict>
 			</array>
 			<key>INIntentResponse</key>
@@ -791,6 +1016,342 @@
 			<string>Custom</string>
 			<key>INIntentVerb</key>
 			<string>Start</string>
+		</dict>
+		<dict>
+			<key>INIntentCategory</key>
+			<string>generic</string>
+			<key>INIntentConfigurable</key>
+			<true/>
+			<key>INIntentDescription</key>
+			<string>Runs a command.</string>
+			<key>INIntentDescriptionID</key>
+			<string>bHJZUK</string>
+			<key>INIntentInput</key>
+			<string>items</string>
+			<key>INIntentKeyParameter</key>
+			<string>command</string>
+			<key>INIntentLastParameterTag</key>
+			<integer>7</integer>
+			<key>INIntentManagedParameterCombinations</key>
+			<dict>
+				<key>command,showConsole,input,workingDirectory,items</key>
+				<dict>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Run ${command}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>2P8MF4</string>
+					<key>INIntentParameterCombinationUpdatesLinked</key>
+					<true/>
+				</dict>
+				<key>command,showConsole,workingDirectory,items</key>
+				<dict>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Run ${command}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>M8GYvv</string>
+					<key>INIntentParameterCombinationUpdatesLinked</key>
+					<true/>
+				</dict>
+			</dict>
+			<key>INIntentName</key>
+			<string>RunCommand</string>
+			<key>INIntentParameterCombinations</key>
+			<dict>
+				<key>command,showConsole,input,workingDirectory,items</key>
+				<dict>
+					<key>INIntentParameterCombinationIsLinked</key>
+					<true/>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Run ${command}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>sIPsJt</string>
+				</dict>
+				<key>command,showConsole,workingDirectory,items</key>
+				<dict>
+					<key>INIntentParameterCombinationIsLinked</key>
+					<true/>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Run ${command}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>i4Z4sa</string>
+				</dict>
+			</dict>
+			<key>INIntentParameters</key>
+			<array>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Command</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>pe1psN</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>1</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>None</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>FkhB4N</string>
+						<key>INIntentParameterMetadataDisableAutocorrect</key>
+						<true/>
+						<key>INIntentParameterMetadataDisableSmartDashes</key>
+						<true/>
+						<key>INIntentParameterMetadataDisableSmartQuotes</key>
+						<true/>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>command</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>2</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Attachments</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>S5DOGJ</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>2</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCustomUTIs</key>
+						<array>
+							<dict>
+								<key>UTI</key>
+								<string>public.item</string>
+							</dict>
+						</array>
+						<key>INIntentParameterMetadataType</key>
+						<string>Custom</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>items</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>What items would you like to pass?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>aSD3I6</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<true/>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>7</integer>
+					<key>INIntentParameterType</key>
+					<string>File</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Working Directory</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>mkfoX7</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>3</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCustomUTIs</key>
+						<array>
+							<dict>
+								<key>UTI</key>
+								<string>public.folder</string>
+							</dict>
+						</array>
+						<key>INIntentParameterMetadataType</key>
+						<string>Custom</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>workingDirectory</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterTag</key>
+					<integer>6</integer>
+					<key>INIntentParameterType</key>
+					<string>File</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Show Console</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>8aDiNw</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>4</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataFalseDisplayName</key>
+						<string>false</string>
+						<key>INIntentParameterMetadataFalseDisplayNameID</key>
+						<string>v3pNI9</string>
+						<key>INIntentParameterMetadataTrueDisplayName</key>
+						<string>true</string>
+						<key>INIntentParameterMetadataTrueDisplayNameID</key>
+						<string>rPtDuw</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>showConsole</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Show console?</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>qQ8ebj</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>4</integer>
+					<key>INIntentParameterType</key>
+					<string>Boolean</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>sys.stdin</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>dQ1q0B</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>5</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>None</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>AvcXpb</string>
+						<key>INIntentParameterMetadataDisableAutocorrect</key>
+						<true/>
+						<key>INIntentParameterMetadataDisableSmartDashes</key>
+						<true/>
+						<key>INIntentParameterMetadataDisableSmartQuotes</key>
+						<true/>
+						<key>INIntentParameterMetadataMultiline</key>
+						<true/>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>input</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterRelationship</key>
+					<dict>
+						<key>INIntentParameterRelationshipParentName</key>
+						<string>showConsole</string>
+						<key>INIntentParameterRelationshipPredicateName</key>
+						<string>BooleanHasExactValue</string>
+					</dict>
+					<key>INIntentParameterTag</key>
+					<integer>5</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+			</array>
+			<key>INIntentResponse</key>
+			<dict>
+				<key>INIntentResponseCodes</key>
+				<array>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>success</string>
+						<key>INIntentResponseCodeSuccess</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>failure</string>
+					</dict>
+				</array>
+			</dict>
+			<key>INIntentTitle</key>
+			<string>Run Command</string>
+			<key>INIntentTitleID</key>
+			<string>IjD5HJ</string>
+			<key>INIntentType</key>
+			<string>Custom</string>
+			<key>INIntentVerb</key>
+			<string>Run</string>
 		</dict>
 	</array>
 	<key>INTypes</key>

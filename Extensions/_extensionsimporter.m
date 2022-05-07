@@ -519,13 +519,15 @@ PyObject *_extensionsimporter_module_from_bitcode(PyObject *self, PyObject *args
             };
             FILE *output = fdopen(outputPipe.fileHandleForWriting.fileDescriptor, "w");
             session = output;
+            #if 0
             ios_switchSession(output);
             ios_setStreams(stdin, output, output);
+            #endif
             #else
             session = NULL;
             #endif
             
-            #if MAIN
+            #if MAIN && 0
             ios_system([NSString stringWithFormat:@"lli '%@'", [[NSString stringWithUTF8String:path] stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"]].UTF8String);
             #endif
             if (lli_semaphore) {
@@ -537,7 +539,8 @@ PyObject *_extensionsimporter_module_from_bitcode(PyObject *self, PyObject *args
         
         // Convert PyModuleDef from the interpeter
         if (!last_llvm_module || PyObject_TypeCheck(last_llvm_module, &PyModuleDef_Type)) {
-            PyErr_SetString(PyExc_RuntimeError, "The LLVM bitcode is not a valid Python module.");
+            module = Py_None;
+            dispatch_semaphore_signal(semaphore);
             return;
         }
         
@@ -671,42 +674,135 @@ static PyObject *_extensionsimporter_module_from_binary(PyObject *self, PyObject
 static char _extensionsimporter_system_docstring[] =
 "Executes the given command with ios_system";
 
+FILE *makeInputFile(NSString *string) {
+    NSURL *url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
+    [string writeToURL:url atomically:NO encoding:NSUTF8StringEncoding error:NULL];
+    return fopen(url.path.UTF8String, "r");
+}
+
 static PyObject *_extensionsimporter_system(PyObject *self, PyObject *args) {
     
     const char *cmd;
     if(!PyArg_ParseTuple(args, "s", &cmd)) {
         return NULL;
     }
+    
+    PyObject *threading = PyImport_Import(PyUnicode_FromString("threading"));
+    PyObject *currentThread = PyObject_CallNoArgs(PyObject_GetAttrString(threading, "current_thread"));
+    PyObject *scriptPathObject = PyObject_GetAttrString(currentThread, "script_path");
+    
+    PyObject *shutil = PyImport_Import(PyUnicode_FromString("shutil"));
+    PyObject *terminalSize = PyObject_CallNoArgs(PyObject_GetAttrString(shutil, "get_terminal_size"));
+    PyObject *columnsObject = PyObject_GetAttrString(terminalSize, "columns");
+    PyObject *linesObject = PyObject_GetAttrString(terminalSize, "lines");
         
+    PyObject* scriptPathAndSize = Py_BuildValue("(OOO)", scriptPathObject, columnsObject, linesObject);
+    if (!scriptPathAndSize) return Py_None;
+    const char* scriptPath;
+    int columns, lines;
+    if (!PyArg_ParseTuple(scriptPathAndSize, "sii", &scriptPath, &columns, &lines)) {
+      Py_DECREF(args);
+      return Py_None;
+    }
+
+    Py_DECREF(args);
+    
     #if !WIDGET
     NSString *cwd = [NSFileManager.defaultManager currentDirectoryPath];
     #endif
     
     #if !WIDGET
+    
+    PyObject *sys = PyImport_Import(PyUnicode_FromString("sys"));
+    PyObject *_stdout = PyObject_GetAttrString(sys, "stdout");
+    PyObject *_stdin = PyObject_GetAttrString(sys, "stdin");
+    PyObject *stdoutWrite = PyObject_GetAttrString(_stdout, "write");
+    PyObject *stdinRead = PyObject_GetAttrString(_stdin, "read");
+    
+    if (PyObject_IsTrue(PyObject_CallMethodNoArgs(_stdout, PyUnicode_FromString("isatty")))) {
+        putenv("CLICOLOR=1");
+    } else {
+        columns = 0;
+        lines = 0;
+        unsetenv("CLICOLOR");
+    }
+    
+    PyObject *stderrWrite = PyObject_GetAttrString(PyObject_GetAttrString(sys, "stderr"), "write");
+    
     NSPipe *outputPipe = [[NSPipe alloc] init];
+    NSMutableString *outputString = [[NSMutableString alloc] init];
     outputPipe.fileHandleForReading.readabilityHandler = ^void((NSFileHandle *handle)) {
         NSString *str = [[NSString alloc] initWithData:handle.availableData encoding:NSUTF8StringEncoding];
         if (str) {
-            dispatch_async(dispatch_queue_create(NULL, NULL), ^{
-                [PyOutputHelper print:str script:NULL];
-            });
+            [outputString appendString: str];
+            PyGILState_STATE tstate = PyGILState_Ensure();
+            
+            PyObject *thread = PyObject_CallMethodNoArgs(threading, PyUnicode_FromString("current_thread"));
+            PyObject_SetAttrString(thread, "script_path", scriptPathObject);
+            
+            PyObject_CallOneArg(stdoutWrite, PyUnicode_FromString([str UTF8String]));
+            PyGILState_Release(tstate);
         }
     };
     
     FILE *output = fdopen(outputPipe.fileHandleForWriting.fileDescriptor, "w");
+                                    
+    NSPipe *errorPipe = [[NSPipe alloc] init];
+    NSMutableString *errorString = [[NSMutableString alloc] init];
+    errorPipe.fileHandleForReading.readabilityHandler = ^void((NSFileHandle *handle)) {
+        NSString *str = [[NSString alloc] initWithData:handle.availableData encoding:NSUTF8StringEncoding];
+        if (str) {
+            [errorString appendString: str];
+            PyGILState_STATE tstate = PyGILState_Ensure();
+            
+            PyObject *thread = PyObject_CallMethodNoArgs(threading, PyUnicode_FromString("current_thread"));
+            PyObject_SetAttrString(thread, "script_path", scriptPathObject);
+            
+            PyObject_CallOneArg(stderrWrite, PyUnicode_FromString([str UTF8String]));
+            PyGILState_Release(tstate);
+        }
+    };
+    
+    FILE *error = fdopen(errorPipe.fileHandleForWriting.fileDescriptor, "w");
+    
+    const char *input;
+    
+    if (PyObject_IsTrue(PyObject_CallMethodNoArgs(_stdin, PyUnicode_FromString("isatty")))) {
+        input = "";
+    } else {
+        PyObject *passedInputObject = Py_BuildValue("(O)", PyObject_CallNoArgs(stdinRead));
+        if (!passedInputObject) return Py_None;
+        if (!PyArg_ParseTuple(passedInputObject, "s", &input)) {
+          return Py_None;
+        }
+    }
+    
+    NSString *inputString = [NSString stringWithUTF8String: input];
+    FILE *inputFile = makeInputFile(inputString);
+    
     ios_switchSession(output);
-    ios_setStreams(stdin, output, output);
+    ios_setWindowSize(columns, lines, output);
+    ios_setStreams(inputFile, output, error);
     ios_setDirectoryURL([NSURL fileURLWithPath: cwd]);
     #endif
     
     #if MAIN
     PyObject *ret = PyLong_FromDouble(ios_system(cmd));
+    fclose(inputFile);
     #else
     PyObject *ret = Py_None;
     #endif
+    
     #if !WIDGET
+    if (![outputString hasSuffix: @"\n"] && ![outputString hasSuffix: @"\n\r"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [PyOutputHelper print:@"\n\x1b[0m" script:[NSString stringWithUTF8String: scriptPath]]; 
+        });
+    }
     fclose(output);
+    fclose(error);
     #endif
+    
     return ret;
 }
 

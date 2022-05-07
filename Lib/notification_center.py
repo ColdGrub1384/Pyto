@@ -3,8 +3,9 @@ from pyto import __Class__
 from types import ModuleType
 import sys
 import warnings
+from _docsupport import is_sphinx
 
-if "sphinx" not in sys.modules:
+if not is_sphinx:
     msg = "Notification Center Widgets are no longer supported since Pyto 17."
     raise ImportError(msg)
 

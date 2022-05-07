@@ -24,6 +24,22 @@ import WatchConnectivity
         }
     }
     
+    static var scriptsWaitingForGetch = [String]()
+    
+    @objc static func addGetchScript(_ scriptPath: String) {
+        scriptsWaitingForGetch.append(scriptPath)
+    }
+    
+    @objc static func removeGetchScript(_ scriptPath: String) {
+        if let i = scriptsWaitingForGetch.firstIndex(of: scriptPath) {
+            scriptsWaitingForGetch.remove(at: i)
+        }
+    }
+    
+    @objc static func isScriptRunningGetch(_ scriptURL: URL) -> Bool {
+        return scriptsWaitingForGetch.map({ URL(fileURLWithPath: $0).resolvingSymlinksInPath() }).contains(where: { $0.path == scriptURL.resolvingSymlinksInPath().path })
+    }
+    
     /// Semaphores waiting for user input.
     static var semaphores = [String:DispatchSemaphore]()
     

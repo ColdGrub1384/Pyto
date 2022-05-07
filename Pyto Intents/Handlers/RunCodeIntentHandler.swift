@@ -40,7 +40,7 @@ class RunCodeIntentHandler: NSObject, RunCodeIntentHandling {
             }
             FileManager.default.createFile(atPath: url.path, contents: code.data(using: .utf8), attributes: nil)
             
-            RunShortcutsScript(at: url, arguments: intent.arguments ?? [])
+            RunShortcutsScript(at: url, arguments: intent.arguments ?? [], input: intent.input ?? "", workingDirectory: intent.workingDirectory?.fileURL)
             
             return completion(.init(code: .success, userActivity: nil))
         }

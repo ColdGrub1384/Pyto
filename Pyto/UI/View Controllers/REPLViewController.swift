@@ -71,7 +71,7 @@ import UIKit
         
         ratio = 0
         
-        if let repl = Bundle.main.url(forResource: "UserREPL", withExtension: "py") {
+        if let repl = Bundle.main.url(forResource: "user_repl", withExtension: "py") {
             
             /// Taken from https://stackoverflow.com/a/26845710/7515957
             func randomString(length: Int) -> String {

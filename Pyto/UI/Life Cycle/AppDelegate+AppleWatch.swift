@@ -208,7 +208,7 @@ extension AppDelegate: WCSessionDelegate {
                     import runpy
 
                     script = str(ObjCClass("Pyto.AppDelegate").shared.watchScript)
-                    runpy.run_path(script)
+                    runpy.run_path(script, run_name="__main__")
                     """, workingDirectory: directory(for: url).path))
                 }
                 

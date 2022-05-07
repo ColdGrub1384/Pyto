@@ -89,7 +89,7 @@ import WebKit
     }
     
     deinit {
-        PyView.values[view] = nil
+        
     }
     
     let id = UUID()

@@ -2,6 +2,9 @@ import traceback
 import json
 import ctypes
 import os
+import random
+import console
+import weakref
 from extensionsimporter import BitcodeValue
 
 offer_suggestion_prototype = ctypes.PYFUNCTYPE(    
@@ -15,7 +18,14 @@ class Breakpoint(BaseException):
     pass
 
 
-def get_json(tb, exc, text, remove, offset=0, end_offset=0):
+class NamespaceHolder:
+
+    def __init__(self, local, _global):
+        self.local = local
+        self._global = _global
+
+
+def get_json(tb, exc, text, remove, offset=0, end_offset=0, _globals=None):
         
     if isinstance(tb, list): # tb can be a traceback or a list of frames
         msg = ""
@@ -65,6 +75,16 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0):
         del stack[0]
 
     try:
+        frame_stack = [exc.__traceback__]
+        while frame_stack[-1].tb_next is not None:
+            frame_stack.append(frame_stack[-1].tb_next)
+
+        frame_stack.reverse()
+    except AttributeError:
+        frame_stack = None
+
+
+    try:
         def get_filename():
             if isinstance(tb, list):
                 return os.path.abspath(stack[0].f_code.co_filename)
@@ -74,6 +94,7 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0):
 
         while len(stack) > 0 and (get_filename().endswith("/Lib/console.py") or get_filename().startswith("<frozen importlib")):
             del stack[0]
+            del frame_stack[0]
     except IndexError:
         pass
         
@@ -84,7 +105,26 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0):
 
     stack.reverse()
     i = 0
+
+    if frame_stack is not None:
+        _id = ''.join(random.choice([chr(i) for i in range(ord('a'),ord('z'))]) for _ in range(10))
+        holders = []
+        strong = []
+        for _frame in frame_stack:
+            _frame = _frame.tb_frame
+            holder = NamespaceHolder(_frame.f_locals, _frame.f_globals)
+            strong.append(holder)
+            holders.append(weakref.ref(holder))
+
+        if _globals is not None:
+            _globals["__namespaces__"] = strong
+
+        console.namespaces[_id] = holders
+    else:
+        _id = None
+
     for frame in stack:
+
         if isinstance(tb, list):
             
             path = os.path.abspath(frame.f_code.co_filename)
@@ -103,7 +143,8 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0):
                 "lineno": frame.f_lineno,
                 "line": line,
                 "name": frame.f_code.co_name,
-                "index": i
+                "index": i,
+                "_id": None,
             })
         else:
             stack_json.append({
@@ -111,7 +152,8 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0):
                 "lineno": frame.lineno,
                 "line": frame.line,
                 "name": frame.name,
-                "index": i
+                "index": i,
+                "_id": _id
             })
         i += 1
     

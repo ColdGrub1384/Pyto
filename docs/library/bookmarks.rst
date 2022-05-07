@@ -1,6 +1,0 @@
-bookmarks
-=========
-
-.. automodule:: bookmarks
-   :members:
-

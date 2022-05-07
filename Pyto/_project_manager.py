@@ -1,7 +1,7 @@
 import sys
 import os
 import shutil
-import sharing
+import _sharing as sharing
 from glob import glob
 from _shell.bin import python
 from Foundation import NSURL

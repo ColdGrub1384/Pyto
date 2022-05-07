@@ -7,7 +7,8 @@ def _show(block=None):
     active_manager = Gcf.get_active()
     
     if active_manager:
-        import sharing, tempfile, os
+        import _sharing as sharing
+        import tempfile, os
         filepath = os.path.join(tempfile.gettempdir(), 'figure.png')
                 
         remove_previous = (block == False)

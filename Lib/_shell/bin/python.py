@@ -7,9 +7,10 @@ usage: python [-c cmd | -m mod | file] [arg]
 import sys
 import os
 import runpy
-import code
 import _shell
 import shlex
+import traceback as tb
+from user_repl import main as repl_main
 
 _usage = "usage: python [-c cmd | -m mod | file | -] [arg]"
 
@@ -31,7 +32,10 @@ class Path:
 
 def main():
     if len(sys.argv) == 1:
-        code.interact()
+        if sys.stdin.isatty():
+            repl_main()
+        else:
+            exec(sys.stdin.read())
         return
 
     if sys.argv[1] == "-u":
@@ -43,29 +47,39 @@ def main():
             sys.argv.pop(0) # -c "import sys; print(sys.argv)" foo bar
             sys.argv.pop(0) # "import sys; print(sys.argv)" foo bar
             sys.argv[0] = "-c" # -c foo bar
-
-            exec(_code)
         except IndexError:
-            print(_usage)
+            print(_usage, file=sys.stderr)
+            sys.exit(1)
+        
+        exec(_code)
     elif sys.argv[1] == "-m":
-        sys.argv.pop(0)
-        sys.argv.pop(0)
+        try:
+            sys.argv.pop(0)
+            sys.argv.pop(0)
 
-        for mod in list(sys.modules.keys()):
-            if mod.startswith(sys.argv[0]):
-                del sys.modules[mod]
+            for mod in list(sys.modules.keys()):
+                if mod.startswith(sys.argv[0]):
+                    del sys.modules[mod]
+        except IndexError:
+            print(_usage, file=sys.stderr)
+            sys.exit(1)
 
-        _shell.shell.process_command(shlex.join(sys.argv))
+        runpy.run_module(sys.argv[0], run_name="__main__")
 
-    elif os.path.isfile(sys.argv[1]):
-        
-        sys.argv.pop(0)
-        
-        with Path(sys.path+[os.path.dirname(sys.argv[0])]):
-            runpy.run_path(sys.argv[0], run_name="__main__")
+    elif sys.argv[1] == "-h" or sys.argv[1] == "--help":
+        print(_usage, file=sys.stderr)
+        sys.exit(1)
 
     else:
-        print(_usage)
+        
+        sys.argv.pop(0)
+        
+        try:
+            with Path(sys.path+[os.path.dirname(sys.argv[0])]):
+                runpy.run_path(sys.argv[0], run_name="__main__")
+        except Exception as e:
+            tb.print_exc()
+            sys.exit(1)
 
 if __name__ == "__main__":
     main()

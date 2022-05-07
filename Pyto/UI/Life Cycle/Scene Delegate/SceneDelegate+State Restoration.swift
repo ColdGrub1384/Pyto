@@ -24,7 +24,7 @@ extension SceneDelegate {
         
         if let sceneStateData = userActivity.userInfo?["sceneState"] as? Data, #available(iOS 14.0, *) {
             
-            if sidebarSplitViewController == nil {
+            if sidebarSplitViewController?.sidebar == nil {
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.1) { [weak self] in
                     self?.continueActivity(userActivity)
                 }
@@ -67,7 +67,7 @@ extension SceneDelegate {
                 let url = try URL(resolvingBookmarkData: data, bookmarkDataIsStale: &isStale)
                 
                 if let arguments = (userActivity.userInfo?["arguments"] as? [String]) ?? (userActivity.interaction?.intent as? RunScriptIntent)?.arguments {
-                    UserDefaults.standard.set(arguments, forKey: "arguments\(url.path.replacingOccurrences(of: "//", with: "/"))")
+                    UserDefaults.standard.set(arguments, forKey: "arguments\(url.resolvingSymlinksInPath().path.replacingOccurrences(of: "//", with: "/"))")
                 }
                 
                 openDocument(at: url, run: true, folder: nil, isShortcut: true)
@@ -88,7 +88,7 @@ extension SceneDelegate {
             }
             
             if let arguments = userActivity.userInfo?["arguments"] as? [String] {
-                UserDefaults.standard.set(arguments, forKey: "arguments\(fileURL.path.replacingOccurrences(of: "//", with: "/"))")
+                UserDefaults.standard.set(arguments, forKey: "arguments\(fileURL.resolvingSymlinksInPath().path.replacingOccurrences(of: "//", with: "/"))")
             }
             
             FileManager.default.createFile(atPath: fileURL.path, contents: code.data(using: .utf8), attributes: nil)
@@ -111,7 +111,7 @@ extension SceneDelegate {
         do {
             let activity = NSUserActivity(activityType: "pyto.stateRestoration")
             
-            guard let directoryBookmarkData = try sidebarSplitViewController?.fileBrowser.directory.bookmarkData() else {
+            guard let directoryBookmarkData = try sidebarSplitViewController?.fileBrowser.directory?.bookmarkData() else {
                 return nil
             }
             
@@ -119,12 +119,8 @@ extension SceneDelegate {
             
             let vc = (sidebarSplitViewController?.viewController(for: sidebarSplitViewController?.isCollapsed == true ? .compact : .secondary) as? UINavigationController)?.viewControllers.first
             switch vc {
-                
-            case is REPLViewController:
-                section = .repl
-            
             case is RunModuleViewController:
-                section = .runModule
+                section = .terminal
             
             case is UIHostingController<PyPiView>:
                 section = .pypi
@@ -141,6 +137,9 @@ extension SceneDelegate {
             case is EditorSplitViewController:
                 section = .editor(try (vc as! EditorSplitViewController).editor!.document!.fileURL.bookmarkData())
                 
+            case is FileBrowserViewController:
+                section = .fileBrowser
+            
             default:
                 section = nil
             }

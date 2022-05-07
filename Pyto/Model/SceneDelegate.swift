@@ -23,11 +23,11 @@ import UniformTypeIdentifiers
             /// An editor with the bookmark data
             case editor(Data)
             
-            /// The URL.
-            case repl
+            /// Open the file browser if the view is compact and the terminal with the file browser on the side if not.
+            case fileBrowser
             
-            /// Run module
-            case runModule
+            /// The terminal
+            case terminal
             
             /// PyPI
             case pypi
@@ -80,10 +80,14 @@ import UniformTypeIdentifiers
             if let splitVC = self.sidebarSplitViewController {
                 
                 if run {
-                    let runner = ScriptRunnerViewController(scriptURL: url)
-                    let navVC = UINavigationController(rootViewController: runner)
-                    navVC.modalPresentationStyle = .fullScreen
-                    splitVC.topViewController.present(navVC, animated: true, completion: nil)
+                    var vc: UIViewController = ScriptRunnerViewController(scriptURL: url)
+                    if !ProcessInfo.processInfo.isiOSAppOnMac {
+                        vc = KeyboardHostingController(viewController: UINavigationController(rootViewController: vc))
+                    } else {
+                        vc = UINavigationController(rootViewController: vc)
+                    }
+                    vc.modalPresentationStyle = .fullScreen
+                    splitVC.topViewController.present(vc, animated: true, completion: nil)
                 } else {
                     splitVC.sidebar?.open(url: url, completion: completion)
                 }
@@ -297,7 +301,7 @@ import UniformTypeIdentifiers
                                     ParseArgs(&args)
                                 }
                                 
-                                RunShortcutsScript(at: url, arguments: args, sendOutput: false)
+                                RunShortcutsScript(at: url, arguments: args, sendOutput: false, input: "", workingDirectory: nil)
                             } else {
                                 self?.openDocument(at: url, run: true, folder: nil, isShortcut: false)
                             }

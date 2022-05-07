@@ -11,10 +11,11 @@ It can be returned from :func:`~pasteboard.item_provider` or from :func:`~pasteb
 When you copy text for example, it may have formatting. So an :class:`~pasteboard.ItemProvider` object can in this case retrieve the clipboard as plain text or as an rtf file containing the text format.
 
 .. autoclass:: ItemProvider
+   :members:
 
 .. autofunction:: item_provider
 
-.. autofunction: shortcuts_attachments
+.. autofunction:: shortcuts_attachments
 
 Strings
 *******

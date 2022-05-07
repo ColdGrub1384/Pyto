@@ -67,6 +67,9 @@ struct PyPackage {
     /// Links of the project.
     var links = [(title: String, url: URL)]()
     
+    /// `True` if download links for multiple platforms were found.
+    var foundExtensions = false
+    
     /// Initializes the package from its name. Values will be filled from PyPi API, so don't call this initializer from the main thread.
     ///
     /// - Parameters:
@@ -108,7 +111,7 @@ struct PyPackage {
                 guard let info = jsonResponse["info"] as? [String: Any] else {
                     return
                 }
-                
+                                
                 self.name = name
                 self.description = info["summary"] as? String
                 self.author = info["author"] as? String
@@ -136,6 +139,29 @@ struct PyPackage {
                     }
                 }
                 self.links = links
+                
+                self.foundExtensions = (jsonResponse["urls"] as? [[String:Any]])?.contains(where: {
+                    guard let filename = $0["filename"] as? String else {
+                        return false
+                    }
+                    
+                    for platform in [
+                        "arm64",
+                        "aarch64",
+                        "x86_64",
+                        "amd64",
+                        "i686",
+                        "",
+                        "win32"
+                        
+                    ] {
+                        if filename.contains(platform) {
+                            return true
+                        }
+                    }
+                    
+                    return false
+                }) == true
             } catch {
                 return nil
             }

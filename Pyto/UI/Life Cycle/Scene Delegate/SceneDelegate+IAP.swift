@@ -1,7 +1,6 @@
 //
 //  SceneDelegate+IAP.swift
 //  Pyto
-//
 //  Created by Emma Labbé on 02-07-20.
 //  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //

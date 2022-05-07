@@ -103,6 +103,14 @@ int initialize_python(int argc, char *argv[]) {
     putenv("PYTHONMALLOC=malloc");
     #endif
     
+    // Pip
+    putenv("PIP_DISABLE_PIP_VERSION_CHECK=1");
+    
+    // Jupyter
+    NSString *jupyterDataDir = [docs stringByAppendingPathComponent: @"Resources/share"];
+    putenv((char *)[[NSString stringWithFormat:@"XDG_DATA_HOME=%@", jupyterDataDir] UTF8String]);
+    putenv((char *)[[NSString stringWithFormat:@"JUPYTER_CONFIG_DIR=%@", [docs stringByAppendingPathComponent: @"jupyter"]] UTF8String]);
+    
     // Astropy
     NSString *caches = [NSFileManager.defaultManager URLsForDirectory:NSCachesDirectory inDomains:NSAllDomainsMask].firstObject.path;
     NSString *astropyCaches = [caches stringByAppendingPathComponent:@"astropy"];
@@ -128,6 +136,9 @@ int initialize_python(int argc, char *argv[]) {
     putenv("LANG=en_US.UTF-8");
     putenv("LANGUAGE=en_US.UTF-8");
     putenv("LC_ALL=en_US.UTF-8");
+    
+    // Terminal
+    putenv("LSCOLORS=GxFxCxDxBxegedabagaced");
     
     // MARK: - Init Python
     
@@ -162,6 +173,7 @@ int initialize_python(int argc, char *argv[]) {
         }
         #endif
         
+    #ifndef SCREENSHOTS
         Py_Initialize();
         
         #if MAIN
@@ -177,6 +189,7 @@ int initialize_python(int argc, char *argv[]) {
         #if !WIDGET
         [Python.shared runScriptAt:[[NSBundle mainBundle] URLForResource:@"scripts_runner" withExtension:@"py"]];
         #endif
+    #endif
     #if MAIN
     });
     #endif

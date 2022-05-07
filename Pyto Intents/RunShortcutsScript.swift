@@ -9,12 +9,12 @@
 import UIKit
 
 /// Runs the script passed to Shortcuts.
-func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = true, triedDownloading: Bool = false) {
+func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = true, triedDownloading: Bool = false, input: String, workingDirectory: URL?) {
     
     if !FileManager.default.fileExists(atPath: url.path) && !triedDownloading { // Try downloading
         let doc = PyDocument(fileURL: url)
         doc.open { (_) in
-            RunShortcutsScript(at: doc.fileURL, arguments: arguments, sendOutput: sendOutput, triedDownloading: true)
+            RunShortcutsScript(at: doc.fileURL, arguments: arguments, sendOutput: sendOutput, triedDownloading: true, input: input, workingDirectory: workingDirectory)
         }
         return
     }
@@ -38,8 +38,9 @@ func RunShortcutsScript(at url: URL, arguments: [String], sendOutput: Bool = tru
     }
     
     func run() {
+        _ = workingDirectory?.startAccessingSecurityScopedResource()
         DispatchQueue.global().async {
-            Python.pythonShared?.perform(#selector(PythonRuntime.runScript(_:)), with: Python.Script(path: url.path, args: arguments as NSArray, workingDirectory: directory(for: url).path, debug: false, runREPL: false))
+            Python.pythonShared?.perform(#selector(PythonRuntime.runShortcut(_:withInput:)), with: Python.Script(path: url.path, args: arguments as NSArray, workingDirectory: workingDirectory?.path ?? directory(for: url).path, debug: false, runREPL: false), with: input)
         }
         
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (timer) in

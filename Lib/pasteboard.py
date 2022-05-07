@@ -125,7 +125,9 @@ class ItemProvider:
 
 def shortcuts_attachments() -> List[ItemProvider]:
     """
-    If the script is running from Shortcuts, returns a list of files passed to the ``Attachments`` parameter as :class:`~pasteboard.ItemProvider` objects.
+    If the script is running from Shortcuts, returns a list of files passed to the ``Attachments`` parameter.
+
+    :rtype: List[ItemProvider]
     """
 
     array = []

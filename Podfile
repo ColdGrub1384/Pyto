@@ -25,6 +25,7 @@ target 'Pyto' do
   pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
   pod "GCDWebServer", "~> 3.0"
   pod 'freetype2'
+  pod 'SwiftSoup'
 end
 target 'SwiftUI Preview' do
 
@@ -64,6 +65,7 @@ target 'Pyto Screenshots' do
   pod 'TrueTime'
   pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
   pod 'freetype2'
+  pod 'SwiftSoup'
 end
 
 # post install

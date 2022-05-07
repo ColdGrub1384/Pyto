@@ -22,6 +22,9 @@
 /* Title of the menu bar item to install the Automator action */
 "automator.install" = "Installieren Sie die Automator Aktion";
 
+/* The title of the bookmarked pages section */
+"bookmarks" = "Lesezeichen";
+
 /* 'Browse' */
 "browse" = "Durchsuche";
 
@@ -70,6 +73,9 @@
 /* The title of the button shown for creating a script */
 "creation.createScriptTitle" = "Erstell Skript";
 
+/* A file */
+"creation.file" = "Datei";
+
 /* A folder */
 "creation.folder" = "Ordner";
 
@@ -88,6 +94,9 @@
 /* 'Debugger' */
 "debugger" = "Debugger";
 
+/* Something is decompressing */
+"decompressing" = "Dekomprimieren...";
+
 /* No comment provided by engineer. */
 "Definitions" = "Definitionen";
 
@@ -96,6 +105,18 @@
 
 /* Done button */
 "done" = "Fertig";
+
+/* Download something */
+"download" = "Download";
+
+/* A dialog asking the user if they want to download the documentation(s). Replace %@ by the documentations to download. */
+"downloadDocumentation" = "Möchten Sie die Dokumentationen für %@ herunterladen?";
+
+/* Download all */
+"downloadAll" = "Alles herunterladen";
+
+/* The title of the downloadable documentations view */
+"downloads" = "Downloads";
 
 /* The message of the alert for adding an editor action. */
 "editorActionsTableViewController.createEditorActionAlertMessage" = "Geben Sie unten den auszuführenden Befehl ein. Das erste Argument ist das auszuführende Python-Programm. Geben Sie \"$SCRIPT\" ein, um den Pfad des bearbeiteten Skripts zu übergeben. \n \n Beispiel:\n py2to3 -w $SCRIPT";
@@ -166,6 +187,9 @@
 /* 'Documentation' button */
 "help.documentation" = "Dokumentation";
 
+/* The title of the documentations section */
+"help.documentations" = "Dokumentationen";
+
 /* 'Help' button */
 "help.help" = "Hilfe";
 
@@ -204,6 +228,15 @@
 
 /* The menu item for setting breakpoint */
 "menuItems.breakpoint" = "Breakpoint";
+
+/* The menu item to build a project */
+"menuItems.build" = "Build";
+
+/* The menu item to build a project's documentation */
+"menuItems.buildDocs" = "Build documentation";
+
+/* The menu item to clean a project */
+"menuItems.clean" = "Clean";
 
 /* The 'Copy' menu item */
 "menuItems.copy" = "Ausschneiden";
@@ -275,7 +308,7 @@
 "onboarding.features.2" = "Integration mit Kurzbefehle";
 
 /* The third featured feature */
-"onboarding.features.3" = "Widgets";
+"onboarding.features.3" = "Code Widgets und UIs";
 
 /* The fourth featured feature */
 "onboarding.features.4" = "System APIs";
@@ -338,7 +371,7 @@
 "onboarding.twoPricesAvailable" = "Zwei Preise verfügbar";
 
 /* The fifth presented feature */
-"onboarding.widgets" = "Widgets";
+"onboarding.widgetsuis" = "Code Widgets und Benutzeroberflächen";
 
 /* 1 file */
 "oneFile" = "1 Datei";
@@ -355,6 +388,9 @@
 /* 'Exit PIP' */
 "pip.exit" = "PIP beenden";
 
+/* Project */
+"project" = "Projekt";
+
 /* 'Open' & NEW */
 "projectsBrowser.open" = "Öffnen";
 
@@ -364,17 +400,53 @@
 /* 'Projects' & NEW */
 "projectsBrowser.title" = "Projekte";
 
+/* The author of the project */
+"projectCreator.author" = "Autor_in";
+
+/* The description of the project */
+"projectCreator.description" = "Beschreibung";
+
+/* The name of the project */
+"projectCreator.name" = "Name";
+
+/* The label of the switch for toggling Sphinx Docs */
+"projectCreator.sphinxDocumentation" = "Sphinx Dokumentation";
+
+/* The title of the project creator */
+"projectCreator.title" = "Neues Projekt";
+
+/* The URL of the project */
+"projectCreator.url" = "URL";
+
 /* Author */
-"pypi.author" = "Autor";
+"pypi.author" = "Autor_in";
+
+/* Bundled packages */
+"pypi.bundled" = "Vorinstalliert";
 
 /* Credits displayed on the bottom of the PyPi installer */
 "pypi.credits" = "UI inspiriert von ";
 
+/* The subtitle of a package that is full version exclusive */
+"pypi.fullversion" = "Vollversion";
+
+/* The text displayed when a package has C extensions */
+"pypi.hasCext" = "Dieses Paket kann nicht installiert werden, da es kompiliert werden muss und iOS-Apps externe Binärdateien nicht dynamisch laden können.";
+
 /* Text displayed on the PyPi installer */
 "pypi.info" = "Installieren Sie reine Python-Pakete mit PyPI.";
 
-/* Install (package) */
-"pypi.install" = "Installieren %@";
+/* Install */
+"pypi.install" = "Installieren";
+
+/* Installed packages */
+"pypi.installed" = "Eingerichtet";
+
+/* Button for installing a wheel */
+"pypi.installWheel" = "Installieren wheel";
+
+/* The message of the alert shown before installing a wheel */
+"pypi.installWheelDialog" = "Möchten Sie dieses Rad einbauen?";
 
 /* The title of the 'Links' section */
 "pypi.links" = "Links";
@@ -405,6 +477,21 @@
 
 /* Select a version */
 "pypi.selectVersion" = "Wähle eine Version";
+
+/* Uninstall a package */
+"pypi.uninstall" = "Deinstallieren";
+
+/* Update */
+"pypi.update" = "Aktualisieren";
+
+/* Update all */
+"pypi.updateAll" = "Alle aktualisieren";
+
+/* Updatable packages */
+"pypi.updates" = "Aktualisierung";
+
+/* Unlock a full version exclusive package. Replace %@ by the price */
+"pypi.unlock %@" = "Freischalten %@";
 
 /* Version */
 "pypi.version" = "Version";
@@ -471,6 +558,9 @@
 
 /* Settings */
 "settings" = "Einstellungen";
+
+/* The working directory on compact view */
+"sidebar.cwd" = "Arbeitsverzeichnis";
 
 /* Edit sidebar */
 "sidebar.editSidebar" = "Seitenleiste bearbeiten";

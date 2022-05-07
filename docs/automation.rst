@@ -4,23 +4,37 @@ Automation with Shortcuts and x-callback URLs
 Shortcuts
 ---------
 
-Pyto provides Shortcuts for running scripts and code. Shortcuts will open Pyto to execute the code and it's not possible to retrieve the result. See `x-callback URLs <#x-callback URLs>`_ for getting callbacks.
+Pyto provides Shortcuts for running scripts and code.
+Shortcuts will open Pyto if the ``Show Console`` parameter is enabled, if not, the code will run asynchronously in background and you can use the ``Get Script Output`` action to wait for the script and get the output.
 
-``Run Code`` will execute the given code with the given arguments. Can be executed in app or without leaving Shortcuts.
+Actions
+*******
 
-``Run Script`` will execute the given script with the given arguments. Can be executed in app or without leaving Shortcuts.
+``Run Code`` will execute the given code with the given arguments.
+
+``Run Script`` will execute the given script with the given arguments.
+
+``Run Command`` will execute the given Shell command.
 
 ``Get Script Output`` will wait for a script to be executed and returns its output.
 
-The code executes asynchronously unless ``Get Script Output`` is ran.
-The ``Run Code`` and ``Run Script`` actions support an ``Attachments`` parameter. You can pass files to it and they can be access with the :func:`~pasteboard.shortcuts_attachments()` API.
+Parameters
+**********
+
+- ``Attachments``: Pass files to your scripts. Retrieve them with :py:func:`pasteboard.shortcuts_attachments`.
+
+- ``Working Directory``: The current directory.
+
+- ``Show Console``: Open the app in foreground.
+
+- ``sys.stdin``: The input passed to the script if 'Show Console' is disabled.
 
 x-callback URLs
 ---------------
 
 Pyto supports `x-callback URLs <http://x-callback-url.com>`__ for running scripts from other apps and getting the result.
 
-With this method you can only run code and not a script but you can use the `runpy <https://docs.python.org/3/library/runpy.html>`__ module for running scripts in a location like ``~/Documents`` or ``~/Documents/site-packages``.
+With this method you can only run code and not a script but you can use the `runpy <https://docs.python.org/3/library/runpy.html>`__ module for running scripts.
 
 This is the structure that should be used for running code:
 

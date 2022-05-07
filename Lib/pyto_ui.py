@@ -33,6 +33,7 @@ import json
 import warnings
 import re
 from timeit import default_timer as timer
+from _docsupport import is_sphinx
 
 try:
     from rubicon.objc import ObjCClass, CGFloat
@@ -52,7 +53,7 @@ if "widget" not in os.environ:
         pass
 
 
-if "sphinx" not in sys.modules:
+if not is_sphinx:
     from toga_iOS.widgets.box import Box as iOSBox
     from toga_iOS.colors import native_color
     import toga
@@ -4266,7 +4267,7 @@ class TableView(View):
         self._setup_subclass()
 
     @property
-    def reload_action(self) -> Callable[TableView, None]:
+    def reload_action(self) -> Callable[[TableView], None]:
         """
         A function called when the button item is pressed. Takes the button item as parameter.
 
@@ -6335,7 +6336,7 @@ def pick_font(size: float = None) -> Font:
 
 # MARK: - Toga
 
-if "sphinx" in sys.modules:
+if is_sphinx:
 
     iOSBox = object
 

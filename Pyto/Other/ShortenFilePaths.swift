@@ -24,7 +24,7 @@ func ShortenFilePaths(in str: String) -> String {
     text = str.replacingOccurrences(of: docs.path, with: "Documents")
     text = text.replacingOccurrences(of: "/privateDocuments", with: "Documents")
     if let iCloudDrive = FileBrowserViewController.iCloudContainerURL {
-        text = text.replacingOccurrences(of: iCloudDrive.path, with: "iCloud")
+        text = text.replacingOccurrences(of: iCloudDrive.path, with: "iCloud Drive")
         text = text.replacingOccurrences(of: iCloudDrive.deletingLastPathComponent().lastPathComponent, with: "iCloud Drive")
     }
     

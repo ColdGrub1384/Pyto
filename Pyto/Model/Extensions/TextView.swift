@@ -7,6 +7,40 @@ extension UITextView {
     
     // MARK: - Words
     
+    /// Returns the range of the selected word with underscores.
+    var currentWordWithUnderscoreRange: UITextRange? {
+        guard var range = currentWordRange else {
+            return nil
+        }
+        
+        var text = self.text(in: range) ?? ""
+        while !text.isEmpty && ![
+            "\t",
+            " ",
+            "(",
+            "[",
+            "{",
+            "\"",
+            "\'",
+            "\n",
+            ",",
+            "."
+        ].contains(String(text.first ?? Character(""))) {
+            guard let newStart = position(from: range.start, offset: -1), let newPos = textRange(from: newStart, to: range.end) else {
+                break
+            }
+            
+            range = newPos
+            text = self.text(in: range) ?? ""
+        }
+        
+        if let pos = position(from: range.start, offset: 1), let newRange = textRange(from: pos, to: range.end) {
+            range = newRange
+        }
+        
+        return range
+    }
+    
     /// Returns the range of the selected word.
     var currentWordRange: UITextRange? {
         let beginning = beginningOfDocument

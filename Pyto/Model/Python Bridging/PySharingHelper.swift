@@ -49,6 +49,35 @@ import UniformTypeIdentifiers
         }
     }
     
+    /// Exports a file.
+    @objc static func export(_ path: String, scriptPath: String?) {
+        semaphore = DispatchSemaphore(value: 0)
+        let filePicker = PyFilePicker()
+        DispatchQueue.main.async {
+            let picker = UIDocumentPickerViewController(forExporting: [URL(fileURLWithPath: path)], asCopy: true)
+            picker.delegate = filePicker
+            #if WIDGET
+            ConsoleViewController.visible.present(picker, animated: true, completion: nil)
+            #elseif !MAIN
+            ConsoleViewController.visibles.first?.present(picker, animated: true, completion: nil)
+            #else
+            for console in ConsoleViewController.visibles {
+                
+                if scriptPath == nil {
+                    (console.presentedViewController ?? console).present(picker, animated: true, completion: nil)
+                    break
+                }
+                
+                if console.editorSplitViewController?.editor?.document?.fileURL.path == scriptPath {
+                    (console.presentedViewController ?? console).present(picker, animated: true, completion: nil)
+                    break
+                }
+            }
+            #endif
+        }
+        semaphore?.wait()
+    }
+    
     /// Presents a file picker with given settings in the main thread.
     ///
     /// - Parameters:
@@ -57,7 +86,7 @@ import UniformTypeIdentifiers
     @objc static func presentFilePicker(_ filePicker: PyFilePicker, scriptPath: String?) {
         semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.main.async {
-            let picker = UIDocumentPickerViewController(forOpeningContentTypes: ((filePicker.fileTypes as? [String]) ?? []).map({ UTType($0) ?? UTType.item }))
+            let picker = UIDocumentPickerViewController(forOpeningContentTypes: ((filePicker.fileTypes as? [String]) ?? []).compactMap({ UTType($0) })+((filePicker.fileExtensions as? [String]) ?? []).compactMap({ UTType(filenameExtension: $0) })+((filePicker.mimeTypes as? [String]) ?? []).compactMap({ UTType(mimeType: $0) }))
             picker.allowsMultipleSelection = filePicker.allowsMultipleSelection
             picker.delegate = filePicker
             #if WIDGET

@@ -60,6 +60,8 @@ fileprivate class ImageAttachment: NSTextAttachment {
         }
     }
     
+    private var semaphore: Python.Semaphore?
+    
     private init(filePaths: [String]) {
         self.filePaths = filePaths
     }
@@ -163,6 +165,33 @@ fileprivate class ImageAttachment: NSTextAttachment {
         semaphore.wait()
     }
     
+    /// Quick looks the given files.
+    @objc static func quickLook(_ path: [String], scriptPath: String?) {
+        let semaphore = Python.Semaphore(value: 0)
+        
+        let helper = QuickLookHelper(filePaths: path)
+        
+        DispatchQueue.main.async {
+            let vc = QLPreviewController()
+            vc.dataSource = helper
+            vc.delegate = helper
+            helper.semaphore = semaphore
+            
+            for console in ConsoleViewController.visibles {
+                
+                if scriptPath != nil {
+                    guard console.editorSplitViewController?.editor?.document?.fileURL.path == scriptPath else {
+                        continue
+                    }
+                }
+                
+                console.present(vc, animated: true, completion: nil)
+            }
+        }
+        
+        semaphore.wait()
+    }
+    
     // MARK: - Preview controller data source
     
     func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
@@ -178,5 +207,6 @@ fileprivate class ImageAttachment: NSTextAttachment {
     
     func previewControllerDidDismiss(_ controller: QLPreviewController) {
         QuickLookHelper.visible = nil
+        semaphore?.signal()
     }
 }

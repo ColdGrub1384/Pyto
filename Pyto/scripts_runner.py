@@ -7,12 +7,22 @@ import traceback
 import stopit
 import sys
 import os
+import io
 import ctypes
 import gc
 import random
 import string
 import __pyto_ui_garbage_collector__ as _gc
 import extensionsimporter
+import jedi
+
+def complete_modules(): # Fixes a lag
+    source = '''
+import s'''
+    script = jedi.Script(source, path=__file__)
+    completions = script.complete(2, len('import s'))
+
+threading.Thread(target=complete_modules).start()
 
 c = ctypes.CDLL(None)
 
@@ -62,42 +72,55 @@ def release_views(views):
             except ValueError:
                 pass
 
+def run(script, input=None, is_shortcut=False):
+
+    gc.collect()
+        
+    release_thread = Thread(target=release_views, args=(_gc.collected,))
+    ignored_threads_on_crash.append(release_thread)
+    release_thread.start()
+        
+    _gc.collected = []
+        
+    args = []
+    try:
+        py_args = list(script.args)
+    except TypeError as e:
+        py_args = []
+    
+    for arg in py_args:
+        args.append(str(arg))
+    
+    if args == [""]:
+        args = []
+    
+    cwd = str(script.workingDirectory)
+    
+    if str(script.path) in sys.__class__.instances:
+        del sys.__class__.instances[str(script.path)]
+    
+    if input is None:
+        input = sys.stdin
+    else:
+        input = io.StringIO(input)
+    
+    thread = Thread(target=run_script, args=(str(script.path), False, script.debug,str(script.breakpoints), script.runREPL, args, cwd, input, is_shortcut))
+    try:
+        thread.script_path = str(script.pagePath)
+    except AttributeError:
+        thread.script_path = str(script.path)
+    thread.start()
+
+
 class PythonImplementation(NSObject):
 
     @objc_method
+    def runShortcut_withInput_(self, script, input):
+        run(script, str(input), True)
+
+    @objc_method
     def runScript_(self, script):
-
-        gc.collect()
-
-        release_thread = Thread(target=release_views, args=(_gc.collected,))
-        ignored_threads_on_crash.append(release_thread)
-        release_thread.start()
-            
-        _gc.collected = []
-
-        args = []
-        try:
-            py_args = list(script.args)
-        except TypeError as e:
-            py_args = []
-
-        for arg in py_args:
-            args.append(str(arg))
-        
-        if args == [""]:
-            args = []
-        
-        cwd = str(script.workingDirectory)
-
-        if str(script.path) in sys.__class__.instances:
-            del sys.__class__.instances[str(script.path)]
-
-        thread = Thread(target=run_script, args=(str(script.path), False, script.debug, str(script.breakpoints), script.runREPL, args, cwd))
-        try:
-            thread.script_path = str(script.pagePath)
-        except AttributeError:
-            thread.script_path = str(script.path)
-        thread.start()
+        run(script)
     
     @objc_method
     def runCode_(self, code):

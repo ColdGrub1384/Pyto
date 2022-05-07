@@ -17,6 +17,10 @@ import UIKit
     /// Document types that can be opened.
     @objc var fileTypes = NSArray()
     
+    @objc var fileExtensions = NSArray()
+    
+    @objc var mimeTypes = NSArray()
+    
     /// Allow multiple selection or not.
     @objc var allowsMultipleSelection = false
     

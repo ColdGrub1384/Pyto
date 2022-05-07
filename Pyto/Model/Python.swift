@@ -11,7 +11,9 @@ import AVFoundation
 #if MAIN
 import UIKit
 import Dynamic
+#if false
 import ios_system
+#endif
 #elseif os(iOS) && !WIDGET
 @_silgen_name("PyRun_SimpleStringFlags")
 func PyRun_SimpleStringFlags(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Any>!)

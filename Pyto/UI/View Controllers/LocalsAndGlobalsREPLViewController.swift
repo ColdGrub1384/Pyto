@@ -7,6 +7,19 @@
 //
 
 import UIKit
+import SwiftUI
+
+struct LocalsAndGlobalsREPL: UIViewControllerRepresentable {
+    
+    var repl: LocalsAndGlobalsREPLViewController
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        repl
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    }
+}
 
 class LocalsAndGlobalsREPLViewController: ScriptRunnerViewController {
     
@@ -14,7 +27,7 @@ class LocalsAndGlobalsREPLViewController: ScriptRunnerViewController {
     
     var url: URL?
     
-    init(id: String, line: String, url: URL) {
+    init(id: String, index: Int = -1, line: String, url: URL) {
         
         func randomString(length: Int) -> String {
           let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -26,6 +39,7 @@ class LocalsAndGlobalsREPLViewController: ScriptRunnerViewController {
         
         var scriptContent = try! String(contentsOf: scriptURL)
         scriptContent = scriptContent.replacingOccurrences(of: "%ID%", with: id)
+        scriptContent = scriptContent.replacingOccurrences(of: "%INDEX%", with: "\(index)")
         scriptContent = scriptContent.replacingOccurrences(of: "%LINE%", with: line.replacingOccurrences(of: "\"", with: "\\\""))
         try? scriptContent.write(to: newURL, atomically: false, encoding: .utf8)
         

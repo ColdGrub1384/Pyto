@@ -84,6 +84,8 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
             let directory = try URL(resolvingBookmarkData: sceneState.directoryBookmarkData, bookmarkDataIsStale: &isStale)
             fileBrowser.directory = directory
             compactFileBrowser.directory = directory
+            sidebar?.loadViewIfNeeded()
+            sidebar?.loadWorkingDirectory()
         } catch {
             print(error.localizedDescription)
         }
@@ -101,9 +103,13 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
             } catch {
                 print(error.localizedDescription)
             }
-        case .repl:
-            sidebar?.showREPL()
-        case .runModule:
+        case .fileBrowser:
+            if isCollapsed, let browser = compactFileBrowserNavVC {
+                sidebar?.show(vc: browser)
+            } else {
+                sidebar?.showModuleRunner()
+            }
+        case .terminal:
             sidebar?.showModuleRunner()
         case .examples:
             sidebar?.showExamples()
@@ -125,13 +131,13 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
         
         view.backgroundColor = .systemBackground
         
-        fileBrowser.directory = FileBrowserViewController.iCloudContainerURL ?? FileBrowserViewController.localContainerURL
+        fileBrowser.directory = FileBrowserViewController.defaultDirectory
         
         fileBrowserNavVC = .init(rootViewController: fileBrowser)
         fileBrowserNavVC.navigationBar.prefersLargeTitles = true
         fileBrowserNavVC.view.backgroundColor = .systemBackground
         
-        compactFileBrowser.directory = FileBrowserViewController.iCloudContainerURL ?? FileBrowserViewController.localContainerURL
+        compactFileBrowser.directory = FileBrowserViewController.defaultDirectory
         
         compactFileBrowserNavVC = .init(rootViewController: compactFileBrowser)
         compactFileBrowserNavVC.navigationBar.prefersLargeTitles = true
@@ -201,6 +207,8 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
         } else if traitCollection.horizontalSizeClass == .regular && previousTraitCollection?.horizontalSizeClass != .regular {
             preferredDisplayMode = .oneBesideSecondary
         }
+        
+        view.backgroundColor = .systemBackground // It's sometimes set to white for some reason?
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {

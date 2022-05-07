@@ -26,10 +26,10 @@
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeName</key>
-			<string>Python Wheel</string>
 			<key>CFBundleTypeIconFiles</key>
 			<array/>
+			<key>CFBundleTypeName</key>
+			<string>Python Wheel</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
@@ -104,6 +104,7 @@
 		<string>RunScriptIntent</string>
 		<string>RunCodeIntent</string>
 		<string>StartHandlingWidgetsInAppIntent</string>
+		<string>RunCommandIntent</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
@@ -121,17 +122,17 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Scripts can play music.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow camera usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require photo library access.</string>
+	<string>Allow camera usage if you want to allow scripts accessing to it. The app itself doesn't require photo library access.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Allow contacts usage if you want to allow scripts to use them.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Scripts can access location.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow microphone usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require access to the microphone.</string>
+	<string>Allow microphone usage if you want to allow scripts accessing to it. The app itself doesn't require access to the microphone.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allow photo library usage if you want to allow scripts accessing to it or if you want to save Matplotlib figures. The app itself doesn&apos;t require photo library access.</string>
+	<string>Allow photo library usage if you want to allow scripts accessing to it or if you want to save Matplotlib figures. The app itself doesn't require photo library access.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow photo library usage if you want to allow scripts accessing to it. The app itself doesn&apos;t require photo library access.</string>
+	<string>Allow photo library usage if you want to allow scripts accessing to it. The app itself doesn't require photo library access.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.ch.marcela.ada.Pyto</key>
@@ -155,6 +156,7 @@
 		<string>ReloadWidgetIntent</string>
 		<string>ReloadWidgetsIntent</string>
 		<string>RunCodeIntent</string>
+		<string>RunCommandIntent</string>
 		<string>RunScriptIntent</string>
 		<string>ScriptIntent</string>
 		<string>SetContentInAppIntent</string>

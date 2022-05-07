@@ -8,27 +8,41 @@
 
 import SwiftUI
 
+// MARK: - Template
+
+/// A template.
 struct Template: Codable {
     
+    /// The path of the template.
     var path: String
     
+    /// The file extension.
     var `extension`: String
     
+    /// The localized key for the name.
     var localized_name: String
     
+    /// The URL.
     var url: URL? {
         Bundle.main.url(forResource: path, withExtension: nil)
     }
 }
 
+// MARK: - TemplateChooser
+
+/// A view to choose a template.
 struct TemplateChooser: View {
     
+    /// The view controller presenting this view.
     var parent: UIViewController
     
+    /// If set to `true`, an alert to set the new file name will be presented.
     var chooseName: Bool
     
+    /// The block called when a template is imported. The parameters are the URL of the template and the `UIDocumentBrowserViewController.ImportMode` if the handler is from the document browser.
     var importHandler: ((URL?, UIDocumentBrowserViewController.ImportMode) -> Void)
     
+    /// A list of bundled templates.
     var bundledTemplates: [Template] {
         do {
             guard let url = Bundle.main.url(forResource: "templates", withExtension: "json") else {
@@ -41,10 +55,14 @@ struct TemplateChooser: View {
         }
     }
     
+    /// The URL of the directory containing all of the user's template.
     var userTemplatesURL: URL {
         FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("templates")
     }
     
+    /// Returns the templates that the user manually added.
+    ///
+    /// - Returns: A list of `URL`s added by the user.
     func getUserTemplates() -> [URL] {
         var urls = (try? FileManager.default.contentsOfDirectory(at: userTemplatesURL, includingPropertiesForKeys: nil, options: [])) ?? []
         urls = urls.sorted(by: { a, b in
@@ -53,33 +71,42 @@ struct TemplateChooser: View {
         return urls
     }
     
+    /// The user's template.
     @State var userTemplates = [URL]()
     
-    func create(templateURL: URL) {
-        func create(name: String) {
-            let importHandler = self.importHandler
+    /// Imports a  template with the given name.
+    ///
+    ///     - Parameters: The name of the new file / folder
+    ///     - templateURL: The template to import.
+    func create(name: String, templateURL: URL) {
+        let importHandler = self.importHandler
+        
+        func callHandler() {
+            let newURL = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask)[0].appendingPathComponent(name)
             
-            func callHandler() {
-                let newURL = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask)[0].appendingPathComponent(name)
-                
-                if FileManager.default.fileExists(atPath: newURL.path) {
-                    try? FileManager.default.removeItem(at: newURL)
-                }
-                
-                try? FileManager.default.copyItem(at: templateURL, to: newURL)
-                
-                importHandler(newURL, .move)
+            if FileManager.default.fileExists(atPath: newURL.path) {
+                try? FileManager.default.removeItem(at: newURL)
             }
             
-            if chooseName {
-                parent.dismiss(animated: true) {
-                    callHandler()
-                }
-            } else {
-                callHandler()
-            }
+            try? FileManager.default.copyItem(at: templateURL, to: newURL)
+            
+            importHandler(newURL, .move)
         }
         
+        if chooseName {
+            parent.dismiss(animated: true) {
+                callHandler()
+            }
+        } else {
+            callHandler()
+        }
+    }
+    
+    /// Imports the given template
+    ///
+    /// - Parameters:
+    ///         templateURL: The URL of the template to import.
+    func create(templateURL: URL) {
         if chooseName {
             let alert = UIAlertController(title: NSLocalizedString("creation.createScriptTitle", comment: "The title of the button shown for creating a script"), message: NSLocalizedString("creation.typeFileName", comment: "The message of the alert shown for creating a file"), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
@@ -100,14 +127,15 @@ struct TemplateChooser: View {
                     name = (name as NSString).appendingPathExtension(templateURL.deletingPathExtension().pathExtension) ?? ""
                 }
                 
-                create(name: name)
+                create(name: name, templateURL: templateURL)
             }))
             alert.addTextField { (textField) in
                 textField.placeholder = NSLocalizedString("untitled", comment: "Untitled")
             }
             parent.presentedViewController?.present(alert, animated: true, completion: nil)
         } else {
-            create(name: NSLocalizedString("untitled", comment: "Untitled")+".py")
+            var isDir: ObjCBool = false
+            create(name: NSLocalizedString("untitled", comment: "Untitled")+"\((FileManager.default.fileExists(atPath: templateURL.path, isDirectory: &isDir) && isDir.boolValue) ? "" : ".py")", templateURL: templateURL)
         }
     }
     

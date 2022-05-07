@@ -27,10 +27,12 @@ struct ProjectCreator: View {
     
     @State var projectURL: URL?
     
+    @State var docs = true
+    
     var creationHandler: (URL) -> ()
     
     func create() {
-        guard let templateURL = Bundle.main.url(forResource: "_project_template", withExtension: nil) else {
+        guard let templateURL = Bundle.main.url(forResource: "Samples/_project_template", withExtension: nil) else {
             return
         }
         
@@ -42,21 +44,35 @@ struct ProjectCreator: View {
         
         do {
             try FileManager.default.copyItem(at: templateURL, to: tmpURL)
-            for file in (try FileManager.default.contentsOfDirectory(at: tmpURL, includingPropertiesForKeys: nil, options: [])) {
+            let docs = tmpURL.appendingPathComponent("docs")
+            if !self.docs {
+                try FileManager.default.removeItem(at: docs)
+            }
+            
+            let docsContent = (try? FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil, options: [])) ?? []
+            for file in (try FileManager.default.contentsOfDirectory(at: tmpURL.appendingPathComponent("{name}"), includingPropertiesForKeys: nil, options: []))+(try FileManager.default.contentsOfDirectory(at: tmpURL, includingPropertiesForKeys: nil, options: []))+docsContent {
                 
-                let packageName = name.lowercased().replacingOccurrences(of: " ", with: "_")
+                let packageName = name.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: "-", with: "_")
                 
                 if file.lastPathComponent == "{name}" {
                     try FileManager.default.moveItem(at: file, to: file.deletingLastPathComponent().appendingPathComponent(packageName))
                     continue
                 }
                 
+                var isDir: ObjCBool = false
+                guard FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) && !isDir.boolValue else {
+                    continue
+                }
+                
                 var string = try String(contentsOf: file)
                 string = string.replacingOccurrences(of: "{name}", with: name.replacingOccurrences(of: " ", with: "-"))
                 string = string.replacingOccurrences(of: "{pkg}", with: packageName)
+                string = string.replacingOccurrences(of: "{cmd}", with: packageName.replacingOccurrences(of: "_", with: "-"))
                 string = string.replacingOccurrences(of: "{author}", with: author)
                 string = string.replacingOccurrences(of: "{description}", with: description)
                 string = string.replacingOccurrences(of: "{url}", with: url)
+                string = string.replacingOccurrences(of: "{year}", with: "\(Calendar.current.dateComponents([.year], from: Date()).year ?? 2022)")
+                string = string.replacingOccurrences(of: "{doctitle}", with: String(repeating: "=", count: "Welcome to \(name.replacingOccurrences(of: " ", with: "-"))'s documentation!".count))
                 
                 try string.write(to: file, atomically: false, encoding: .utf8)
             }
@@ -77,30 +93,36 @@ struct ProjectCreator: View {
             VStack {
                 List {
                     HStack {
-                        Text("Name")
+                        Text("projectCreator.name", comment: "The name of the project")
                         TextField("", text: $name, prompt: nil).textInputAutocapitalization(.none)
                     }
                     
                     HStack {
-                        Text("Author")
+                        Text("projectCreator.author", comment: "The author of the project")
                         TextField("", text: $author, prompt: nil).textContentType(.name)
                     }
                     
                     HStack {
-                        Text("URL")
+                        Text("projectCreator.url", comment: "The URL of the project")
                         TextField("", text: $url, prompt: nil).textContentType(.URL)
                     }
                     
                     HStack {
-                        Text("Description")
+                        Text("projectCreator.description", comment: "The description of the project")
                         TextField("", text: $description, prompt: nil)
                     }
-                }.disableAutocorrection(true).navigationTitle(Text("New project")).toolbar(content: {
+                    
+                    HStack {
+                        Toggle(isOn: $docs) {
+                            Text("projectCreator.sphinxDocumentation", comment: "The label of the switch for toggling Sphinx Docs")
+                        }
+                    }
+                }.disableAutocorrection(true).navigationTitle(Text("projectCreator.title", comment: "The title of the project creator")).toolbar(content: {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         Button {
                             dismiss()
                         } label: {
-                            Text("Cancel")
+                            Text("cancel", comment: "'Cancel' button")
                         }
                     }
                     
@@ -108,7 +130,7 @@ struct ProjectCreator: View {
                         Button {
                             create()
                         } label: {
-                            Text("Create").bold()
+                            Text("create", comment: "'Create' button").bold()
                         }.disabled(name.isEmpty)
                     }
                 })
@@ -116,7 +138,7 @@ struct ProjectCreator: View {
                 if error != nil {
                     Text(error!).foregroundColor(.red)
                 }
-            }
+            }.textInputAutocapitalization(.never)
         }.navigationViewStyle(.stack).fileImporter(isPresented: $isExporting, allowedContentTypes: [.folder]) { result in
             switch result {
             case .failure(let error):
@@ -132,11 +154,28 @@ struct ProjectCreator: View {
                 do {
                     try FileManager.default.moveItem(at: projectURL, to: newURL)
                     creationHandler(newURL)
+                    
+                    DispatchQueue.global().async {
+                        Python.shared.run(code: """
+                        import runpy
+                        import sys
+                        import os
+                        import threading
+                        
+                        threading.current_thread().script_path = '\(UUID().uuidString)'
+                        
+                        os.chdir('\(newURL.path.replacingOccurrences(of: "'", with: "\\'"))')
+                        
+                        sys.argv = ['pip', 'install', '.']
+                        try:
+                            runpy.run_module('pip', run_name='__main__')
+                        except SystemExit:
+                            pass
+                        """)
+                    }
                 } catch {
                     self.error = error.localizedDescription
-                }
-                
-                url.stopAccessingSecurityScopedResource()
+                }                
             }
         }
     }

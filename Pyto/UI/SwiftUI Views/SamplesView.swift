@@ -84,6 +84,7 @@ public struct SamplesView: View {
         samples.sort { (a, _) -> Bool in
             return SamplesView.isDirectory(a)
         }
+        samples = samples.filter({ $0.lastPathComponent != "_project_template" })
         
         if shortcuts?.isEmpty == false && !isiOSAppOnMac {
             samples.insert(URL(fileURLWithPath: "/Shortcuts"), at: 0)

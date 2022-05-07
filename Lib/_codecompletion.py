@@ -1,15 +1,23 @@
+import os
+import io
 import jedi
 import sys
 import json
+import shlex
 import traceback
-from rubicon.objc import at
-from Foundation import NSAutoreleasePool, NSBundle
+import threading
+import shutil
+import cmd
+from _shell import shell
+from Foundation import NSBundle
 from pygments import highlight
 from pygments import lexers
 from pygments.formatters.terminal256 import TerminalTrueColorFormatter
 from pygments.token import Keyword, Name, Comment, String, Number, Operator
 from pygments.style import Style
-from pyto import PyOutputHelper, ConsoleViewController, Python
+from pyto import ConsoleViewController
+from _shell.bin.which import commands
+from _shell.shell import get_scripts
 
 _completions_queue = 0
 
@@ -17,7 +25,7 @@ lexer = lexers.get_lexer_by_name('python')
 
 downloadable_path = str(NSBundle.mainBundle.pathForResource("Lib/_downloadable_packages", ofType=""))
 
-def printHighlightedCode(code, _theme, path):
+def highlightedCode(code, _theme):
 
     theme = json.loads(_theme)
 
@@ -32,7 +40,10 @@ def printHighlightedCode(code, _theme, path):
         Operator:               theme["number"],
     }})
     formatter = TerminalTrueColorFormatter(full=True, style=style)
-    PyOutputHelper.print(highlight(code, lexer, formatter), script=path)
+    return highlight(code, lexer, formatter)
+
+
+completion_objects = []
 
 def suggestForCode(code, index, path, get_definitions=False):
     global _completions_queue
@@ -78,7 +89,7 @@ def suggestForCode(code, index, path, get_definitions=False):
                 visibleEditor.docStrings = None
                 return
         except Exception as e:
-            sys.__stdout__.write("Code completion:\n " + traceback.format_exc() + "\n")
+            #sys.__stdout__.write("Code completion:\n " + traceback.format_exc() + "\n")
             return
 
         try:
@@ -152,39 +163,92 @@ def suggestForCode(code, index, path, get_definitions=False):
                     signature = _signature.to_string()
                     break
 
+            types = {}
+            signatures = {}
+
+
+            param_suggestions = []
+            param_completions = []
+
+            fuzzy_suggestions = []
+            fuzzy_completions = []
+
             _completions = script.complete(line, column)
-            for completion in _completions:
+            _fuzzy_completions = script.complete(line, column, fuzzy=True)
+
+            global completion_objects
+            completion_objects = _completions+_fuzzy_completions
+
+            for completion in completion_objects:
                 suggestion = completion.name
 
-                if completion.complete.startswith("."):
-                    suggestion = "." + suggestion
+                if suggestion in suggestions or suggestion in param_suggestions or suggestion in fuzzy_suggestions:
+                    continue
 
                 complete = completion.complete
+                if complete is None:
+                    complete = suggestion
+
+                if complete.startswith("."):
+                    suggestion = "." + suggestion
+                
                 if complete.endswith("="):
                     complete = complete[:-1]
 
-                suggestions.append(suggestion)
-                completions.append(complete)
+                if completion._is_fuzzy:
+                    complete = "__is_fuzzy__"
+                    fuzzy_suggestions.append(suggestion)
+                    fuzzy_completions.append(complete)
+                elif not suggestion.endswith("="):
+                    suggestions.append(suggestion)
+                    completions.append(complete)
+                else:
+                    param_suggestions.append(suggestion)
+                    param_completions.append(complete)
 
-                docs[suggestion] = ""
+                #docstring = completion.docstring(raw=True, fast=True)
+                docstring = ""
+                types[suggestion] = completion.type
 
-                if complete == "" and signature != "":
-                    completions = []
-                    suggestions = []
-                    break
+                #for _signature in completion.get_signatures():
+                #    if _signature.to_string() == "NoneType()":
+                #        continue
+
+                #    signatures[suggestion] = _signature.to_string()
+                
+                signatures[suggestion] = ""
+                
+                try:
+                    lines = docstring.split("\n")
+                    if lines[0].endswith(")") and lines[0].startswith(suggestion):
+                        lines.pop(0)
+
+                    while len(lines) > 0 and lines[0] == "":
+                        lines.pop(0)
+                    
+                    docstring = "\n".join(lines)
+                except IndexError:
+                    pass
+
+                docs[suggestion] = docstring
             
             if path.endswith(".py") and visibleEditor.text != code:
                 return
             
+            suggestions = param_suggestions+suggestions+fuzzy_suggestions
+            completions = param_completions+completions+fuzzy_completions
+
             visibleEditor.lastCodeFromCompletions = code
             visibleEditor.signature = signature
+            visibleEditor.suggestionsType = types
             visibleEditor.completions = completions
             visibleEditor.suggestions = suggestions
             visibleEditor.docStrings = docs
+            visibleEditor.signatures = signatures
 
         except Exception as e:
 
-            sys.__stdout__.write("Code completion:\n " + traceback.format_exc() + "\n")
+            #sys.__stdout__.write("Code completion:\n " + traceback.format_exc() + "\n")
 
             if visibleEditor is None:
                 return
@@ -196,6 +260,7 @@ def suggestForCode(code, index, path, get_definitions=False):
 
     if downloadable_path in sys.path:
         sys.path.remove(downloadable_path)
+
 
 def suggestionsForCode(code, path=None):
 
@@ -233,3 +298,142 @@ def suggestionsForCode(code, path=None):
             sys.path.remove(downloadable_path)
 
         return {}
+
+
+def complete_files(arg, cwd):
+
+    os.chdir(cwd)
+
+    files = []
+
+    path = arg.split("/")
+
+    if len(path) == 1: # foo
+        try:
+            for file in os.listdir(cwd): # look in cwd
+                if file.startswith("."):
+                    continue
+
+                files.append(file)
+        except OSError:
+            return ([], [])
+    elif arg.endswith("/"):
+        dir_path = os.path.join(*tuple(path))
+        try:
+            for file in os.listdir(dir_path): # look in arg
+
+                if file.startswith("."):
+                    continue
+
+                files.append(os.path.join(dir_path, file))
+        except OSError:
+            return  ([], [])
+    else:
+        return  ([], [])
+    
+    def add_slashes_to_dirs(file):
+        if os.path.isdir(file) or os.path.isdir(os.path.join(*tuple(path), file)):
+            return file+"/"
+        else:
+            return file
+
+    files = list(filter(lambda file: file.startswith(arg), files))
+    completions = list(map(lambda file: file.replace(arg, "", 1), files))
+    files = list(map(lambda file: os.path.basename(file), files))
+    files = list(map(add_slashes_to_dirs, files))
+
+    slashed_completions = []
+    i = 0
+    for file in files:
+        if file.endswith("/"):
+            slashed_completions.append(completions[i].replace(" ", "\\ ")+"/")
+        else:
+            slashed_completions.append(completions[i].replace(" ", "\\ "))
+        i += 1
+
+    return (files, slashed_completions)
+
+
+def complete_shell_command(command):
+
+    if " " in command:
+        # Files
+
+        try:
+            cwd = shell.working_directories[threading.current_thread().script_path]
+        except (AttributeError, KeyError):
+            cwd = "/"
+
+        args = shlex.split(command)
+        if len(args) == 1:
+            return complete_files("", cwd)
+        else:
+            return complete_files(args[-1], cwd)
+
+    # Modules
+
+    def filter_llvm(prog):
+        return prog != "clang" and prog != "llvm-link" and prog != "lli"
+
+    modules = list(filter(filter_llvm, list(commands.keys())))+list(get_scripts().keys())
+
+    pyto_lib = os.path.dirname(os.path.abspath(__file__))
+    shell_commands = os.path.join(pyto_lib, "_shell", "bin")
+    for cmd in os.listdir(shell_commands):
+        if cmd == "_link_modules.py" or cmd == "llvm-link.py" or cmd == "_system.py" or cmd == "clang.py":
+            continue
+        modules.append(cmd)
+
+    user_bin = os.path.join(os.path.expanduser("~"), "Documents", "bin")
+    
+    try:
+        modules += os.listdir(user_bin)
+    except OSError:
+        pass
+
+    def filter_other_files(module):
+        ext = os.path.splitext(module)[1]
+        return ((ext == "" or ext == ".py") and not module.startswith(".") and not (module.startswith("__") and module.endswith("__")))
+    
+    def remove_extension(module):
+        if module.endswith(".py"):
+            return module[:-3]
+        else:
+            return module
+
+    modules = map(remove_extension, modules)
+    modules = list(filter(filter_other_files, modules))
+    
+    no_duplicates = []
+    for module in modules:
+        if "_" in module and module.replace("_", "-") in modules:
+            # Use youtube-dl instead of youtube_dl for example
+            continue
+
+        if module not in no_duplicates and module != "python3.10":
+            no_duplicates.append(module)
+    
+    modules = no_duplicates
+    modules.sort()
+
+    modules = list(filter(lambda module: module.startswith(command), modules))
+
+    # yout
+    # youtube-dl -> ube-dl
+    completions = list(map(lambda module: module.replace(command, "", 1), modules))
+    return (modules, completions)
+
+
+def columnize_suggestions(suggestions):
+    suggestions = json.loads(suggestions)
+
+    buf = io.StringIO()
+    cli = cmd.Cmd(stdout=buf)
+
+    cli.columnize(suggestions, displaywidth=shutil.get_terminal_size().columns)
+
+    buf.seek(0)
+    ret = buf.read()
+    buf.close()
+
+    return ret

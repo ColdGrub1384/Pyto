@@ -37,7 +37,35 @@ import UIKit
         present(picker, animated: true, completion: nil)
     }
     
+    var titleView: UIStackView!
+    
+    var previousTitle = ""
+    
+    func setTitle(_ title: String) {
+        let size = console?.terminalSize
+        self.title = "\(ShortenFilePaths(in: title)) — \(size?.columns ?? 0)x\(size?.rows ?? 0)"
+    }
+    
+    private var chdir = false
+    
     // MARK: - Editor split view controller
+    
+    override var title: String? {
+        didSet {
+            for view in titleView.subviews {
+                if let label = view as? UILabel {
+                    label.text = title
+                    label.sizeToFit()
+                    titleView.sizeToFit()
+                    break
+                }
+            }
+            
+            if view.window != nil {
+                view.window?.windowScene?.title = title
+            }
+        }
+    }
     
     override var keyCommands: [UIKeyCommand]? {
         return [UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: NSLocalizedString("interrupt", comment: "Description for CTRL+C key command."))]
@@ -67,9 +95,26 @@ import UIKit
     }
     
     override func viewDidLoad() {
+        
+        let chdirButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
+        chdirButton.setImage(UIImage(systemName: "folder.fill"), for: .normal)
+        chdirButton.tintColor = .systemBlue
+        chdirButton.addTarget(self, action: #selector(setCurrentDirectory), for: .touchUpInside)
+        
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+        
+        titleView = UIStackView(arrangedSubviews: [chdirButton, titleLabel])
+        titleView.spacing = 10 
+        titleView.axis = .horizontal
+        titleLabel.sizeToFit()
+        titleView.sizeToFit()
+        
+        navigationItem.titleView = titleView
+        
         super.viewDidLoad()
         
-        title = "Shell"
+        title = ""
         
         firstChild = editor
         secondChild = console
@@ -84,12 +129,10 @@ import UIKit
         
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(setCurrentDirectory))
         if !isiOSAppOnMac && splitViewController == nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goToFileBrowser))
         }
         navigationController?.isToolbarHidden = true
-        title = "Shell"
         parent?.title = title
         parent?.navigationItem.title = title
         parent?.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
@@ -99,16 +142,24 @@ import UIKit
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        view.window?.windowScene?.title = nil
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if chdir {
+            console?.input = ""
+            console?.webView.enter()
+            chdir = false
+        }
         
         guard !viewAppeared else {
             return
         }
-        
-        #if SCREENSHOTS
-        console?.print("\u{1B}[2J\u{1B}[H\u{1B}[3JType the name of a module to run it as \'__main__\'.\nRun \'help\' to show a list of executable modules.\n\u{1B}[32mDocuments\u{1B}[39m $ ls\n\u{1B}[34mProjects\u{1B}[39m\n\u{1B}[34mTemplates\u{1B}[39m\n\u{1B}[34mWidgets\u{1B}[39m\nmy_script.py\n\u{1B}[34mtest\u{1B}[39m\n\u{1B}[32mDocuments\u{1B}[39m $ edit my_script.py\nSave as [my_script.py] (^c to not save): \n\u{1B}[32mDocuments\u{1B}[39m $ python my_script.py\nThis script is executed from the shell\nArguments: [\'my_script.py\']\n\u{1B}[32mDocuments\u{1B}[39m $ pip uninstall sympy\nPackage removed.\nRemoving dependency: mpmath\nPackage removed.\n\u{1B}[32mDocuments\u{1B}[39m $ help\n\u{1B}[1mBuiltins\u{1B}[0m\ncd, clear, edit, exit, help, ls, man, pip, python, rm\n\n\u{1B}[1m* Everything in sys.path\u{1B}[0m\n\u{1B}[32mDocuments\u{1B}[39m $ ")
-        #endif
         
         viewAppeared = true
         
@@ -123,6 +174,8 @@ import UIKit
             }
         })
         #endif
+        
+        view.window?.windowScene?.title = title
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {}
@@ -130,10 +183,14 @@ import UIKit
     // MARK: Document picker view controller
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        console?.movableTextField?.focus()
         _ = urls[0].startAccessingSecurityScopedResource()
         REPLViewController.pickedDirectory[editor!.document!.fileURL.path] = urls[0].path
-        console?.movableTextField?.handler?("")
+        if view.window == nil {
+            chdir = true // chdir on viewDidAppear
+        } else {
+            console?.input = ""
+            console?.webView.enter()
+        }
     }
 }
 

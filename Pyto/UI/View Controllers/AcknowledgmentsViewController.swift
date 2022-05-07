@@ -16,8 +16,15 @@ class AcknowledgmentsViewController: DocumentationViewController {
         
         webView.stopLoading()
         
-        var doc = Documentation.pyto
-        doc.pageURL = doc.url.deletingLastPathComponent().appendingPathComponent("third_party.html")
-        selectedDocumentation = doc
+        Task {
+            let _doc = try await Self.getPytoDocumentation()
+            await MainActor.run {
+                guard var doc = _doc else {
+                    return
+                }
+                doc.pageURL = doc.url.deletingLastPathComponent().appendingPathComponent("third_party.html")
+                selectedDocumentation = doc
+            }
+        }
     }
 }

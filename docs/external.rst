@@ -8,7 +8,42 @@ Current Directory
 
 Scripts stored in the Pyto container can access scripts in the same directory. If access isn't granted, a lock icon is displayed at the bottom of the code editor. Pressing this button shows a folder picker. You can change the current directory, or just select the folder containing the script. This will not work for third party cloud providers such as Google Drive or Dropbox because they don't have a real file system.
 
-Bookmarks
----------
+file_system
+-----------
 
-Another good option to open external files is to use the `bookmarks <bookmarks.html>`__ module. This can be used to access files from different places without having to change the current directory.
+The `file_system <library/file_system.html>`_ module has APIs for importing files and directories at runtime.
+
+File picker dialog
+******************
+
+Files:
+
+.. highlight:: python
+.. code-block::
+
+    import file_system as fs
+    
+    file_path = fs.import_file()
+    with open(file_path, "rb") as f:
+        ...
+
+Directories:
+
+.. highlight:: python
+.. code-block::
+
+    import file_system as fs
+    import os
+    
+    directory_path = fs.pick_directory()
+    os.chdir(directory_path)
+
+Or temporarily change the current directory:
+
+.. highlight:: python
+.. code-block::
+
+    import file_system as fs
+    
+    with fs.open_directory():
+        ...

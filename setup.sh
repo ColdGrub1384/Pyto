@@ -7,11 +7,14 @@ python3 -m pip install Cython
 python3 -m pip install numpy
 python3 -m pip install jinja2
 python3 -m pip install wheel
+python3 -m pip install sphinx
+python3 -m pip install sphinx-rtd-theme
+python3 -m pip install pbxproj
 brew install zlib
 
 # Python
 
-curl -L https://briefcase-support.org/python\?platform\=iOS\&version\=3.10 -o Python-3.10-iOS-support.b1.tar.gz
+curl -L https://github.com/ColdGrub1384/Python-Apple-support/releases/download/3.10/Python-3.10-iOS-support.b1.tar.gz -o Python-3.10-iOS-support.b1.tar.gz
 mkdir python-apple-support
 cd python-apple-support
 
@@ -29,15 +32,25 @@ cp -r Python/Resources/lib/python3.10 ../site-packages/python3.10
 cd ../
 rm -rf python-apple-support
 
-# LLVM
+# ios_system
 
 pushd Extensions/Dependencies/ios_system
 
-curl -L -O https://github.com/ColdGrub1384/llvm-project/releases/download/v.1.0.0-python/llvm-project-ios-arm64.zip -o llvm-project
-unzip llvm-project-ios-arm64.zip
-rm -rf __MACOSX
-rm llvm-project-ios-arm64.zip
+curl -L -O https://github.com/holzschu/ios_system/releases/download/v3.0.0/awk.xcframework.zip
+curl -L -O https://github.com/holzschu/ios_system/releases/download/v3.0.0/curl_ios.xcframework.zip
+curl -L -O https://github.com/holzschu/ios_system/releases/download/v3.0.0/files.xcframework.zip
+curl -L -O https://github.com/holzschu/ios_system/releases/download/v3.0.0/files.xcframework.zip
+curl -L -O https://github.com/holzschu/ios_system/releases/download/v3.0.0/shell.xcframework.zip
+curl -L -O https://github.com/holzschu/network_ios/releases/download/v0.2/network_ios.xcframework.zip
+curl -L -O https://github.com/holzschu/ios_system/releases/download/v3.0.0/tar.xcframework.zip
+curl -L -O https://github.com/holzschu/ios_system/releases/download/v3.0.0/tar.xcframework.zip
+curl -L -O https://github.com/holzschu/ios_system/releases/download/v3.0.0/text.xcframework.zip
+find . -name "*.zip" -exec unzip {} \;
+rm *.zip
+popd
 
+pushd Extensions/Dependencies/libssh2
+curl -L -O https://github.com/Frugghi/SwiftSH/raw/master/libssh2/libssh2.a
 popd
 
 # OpenCV
@@ -76,6 +89,18 @@ rm -rf cffi
 mv cffi* cffi
 
 cd ../../
+
+# Documentation
+
+cd documentations
+curl -L https://docs.python.org/3.10/archives/python-3.10.0-docs-html.zip -o Python.zip
+unzip Python.zip
+rm Python.zip
+cd ../
+
+cd docs
+make html
+cd ../
 
 # Dependencies
 

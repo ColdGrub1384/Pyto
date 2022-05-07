@@ -1,6 +1,10 @@
 """
 Bookmark files and folders
 
+.. warning::
+
+    The 'bookmarks' module is deprecated in favor of :module:`~file_system`, which has a more APIs to work with files.
+
 The ``bookmark`` module is a pythonic API for ``NSURL`` bookmarks.
 On iOS and iPadOS, files and folders can often change their path. So hard coding paths isn't a good idea.
 Instead, this module saves bookmarks in the disk for selected files.
@@ -23,8 +27,9 @@ Example:
 """
 
 import os
-import sharing
+import _sharing as sharing
 import userkeys
+import warnings
 from __check_type__ import check
 
 try:
@@ -33,6 +38,10 @@ except ValueError:
 
     def ObjCClass(class_name):
         return None
+
+
+deprecation_msg = "'bookmarks' is deprecated. Use 'file_system' instead."
+warnings.warn(deprecation_msg, DeprecationWarning)
 
 
 NSURL = ObjCClass("NSURL")
@@ -80,6 +89,8 @@ class StoredBookmark:
         userkeys.set(bm, __key__)
 
     def __init__(self, name: str = None, path: str = None):
+
+        warnings.warn(deprecation_msg, UserWarning)
 
         check(name, "name", [str, None])
         check(path, "path", [str, None])

@@ -8,6 +8,7 @@ import threading
 import os
 import io
 import sys
+import shlex
 
 
 def close():
@@ -43,6 +44,12 @@ class Popen(_Popen):
                  encoding=None, errors=None, text=None, umask=-1, pipesize=-1):
         
         sys = __import__("sys")
+
+        if isinstance(args, str):
+            args = shlex.join(args)
+        args = list(args)
+
+        _args = args
 
         if (len(args) > 0 and (args[0] == sys.executable or args[0] == "Pyto")) or (executable == sys.executable or executable == "Pyto"):
             if executable == sys.executable and args[0] != sys.executable:
@@ -86,7 +93,7 @@ class Popen(_Popen):
             if cwd is not None:
                 os.chdir(cwd)
 
-            self.args = args
+            self.args = _args
             self.stdin = stdin
             self.stdout = stdout
             self.stderr = stderr
@@ -139,14 +146,18 @@ class Popen(_Popen):
                           pass_fds=pass_fds, user=user, group=group, extra_groups=extra_groups,
                           encoding=encoding, errors=errors, text=text, umask=umask, pipesize=pipesize)
         else:
-            super().__init__(args=args, bufsize=bufsize, executable=executable, 
-                             stdin=stdin, stdout=stdout, stderr=stderr, 
-                             preexec_fn=preexec_fn, close_fds=close_fds, 
-                             shell=shell, cwd=cwd, env=env, universal_newlines=universal_newlines, 
-                             startupinfo=startupinfo, creationflags=creationflags,
-                             restore_signals=restore_signals, start_new_session=start_new_session,
-                             pass_fds=pass_fds, user=user, group=group, extra_groups=extra_groups,
-                             encoding=encoding, errors=errors, text=text, umask=umask, pipesize=pipesize)
+            new_args = list(args)
+            new_args.insert(0, sys.executable)
+            new_args.insert(1, "-m")
+            new_args.insert(2, "_system")
+            self.__init__(args=new_args, bufsize=bufsize, executable=executable, 
+                          stdin=stdin, stdout=stdout, stderr=stderr, 
+                          preexec_fn=preexec_fn, close_fds=close_fds, 
+                          shell=shell, cwd=cwd, env=env, universal_newlines=universal_newlines, 
+                          startupinfo=startupinfo, creationflags=creationflags,
+                          restore_signals=restore_signals, start_new_session=start_new_session,
+                          pass_fds=pass_fds, user=user, group=group, extra_groups=extra_groups,
+                          encoding=encoding, errors=errors, text=text, umask=umask, pipesize=pipesize)
     
     def kill(self):
         pass

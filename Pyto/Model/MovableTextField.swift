@@ -19,11 +19,11 @@ class TerminalTextField: UITextField {
     var isTabbing = false
     
     @objc func down() {
-        console?.down()
+        
     }
     
     @objc func up() {
-        console?.up()
+        
     }
     
     @objc func nextSuggestion() {
@@ -48,9 +48,24 @@ class TerminalTextField: UITextField {
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         for press in presses {
             
+            if let url = console?.editorSplitViewController?.editor?.document?.fileURL, PyInputHelper.isScriptRunningGetch(url), let c = press.key?.characters, !c.isEmpty {
+                console?.movableTextField?.handler?(c)
+                return
+            }
+            
             if press.key?.keyCode == .keyboardTab && press.key?.modifierFlags == [] {
                 isTabbing = true
                 nextSuggestion()
+                return
+            }
+            
+            if press.key?.keyCode == .keyboardUpArrow && (press.key?.modifierFlags == [.numericPad] || press.key?.modifierFlags == []) {
+                up()
+                return
+            }
+            
+            if press.key?.keyCode == .keyboardDownArrow && (press.key?.modifierFlags == [.numericPad] || press.key?.modifierFlags == []) {
+                down()
                 return
             }
             
@@ -62,8 +77,6 @@ class TerminalTextField: UITextField {
     
     override var keyCommands: [UIKeyCommand]? {
         var commands = [
-            UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [], action: #selector(down)),
-            UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(up)),
             UIKeyCommand.command(input: "C", modifierFlags: .control, action: #selector(interrupt), discoverabilityTitle: NSLocalizedString("interrupt", comment: "Description for CTRL+C key command."))
         ]
         
@@ -156,7 +169,7 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     ///
     /// - Parameters:
     ///     - prompt: The prompt to display.
-    func setPrompt(_ prompt: String) {        
+    func setPrompt(_ prompt: String) {
         textField.placeholder = prompt
     }
     
@@ -400,6 +413,11 @@ class MovableTextField: NSObject, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let url = console?.editorSplitViewController?.editor?.document?.fileURL, PyInputHelper.isScriptRunningGetch(url) {
+            handler?(string)
+            return false
+        }
         
         if string == "\n" {
             return false
