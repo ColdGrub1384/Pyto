@@ -58,63 +58,55 @@ void llvm_set_thread_id_for_module(pthread_t thread, PyObject *module);
 // Crashes with 2+ parameters
 PyObject *cython_print_result(PyObject *self, PyObject *args, PyObject *kw);
 
-static PyObject * __Pyx_CyFunction_CallMethod(PyObject *func, PyObject *self, PyObject *arg, PyObject *kw) {
+PyObject *__pyx_pw_4cext_6primes_1primes(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds);
+
+static PyObject *llvm_CyFunction_CallMethod(PyObject *func, PyObject *self, PyObject *arg, PyObject *kw) {
     PyCFunctionObject* f = (PyCFunctionObject*)func;
     Py_ssize_t size;
-    printf("__Pyx_CyFunction_CallMethod: 1\n");
-    PyCFunction meth = llvm_get_calling_function();
-    printf("__Pyx_CyFunction_CallMethod: 2\n");
+    PyCFunction meth = f->m_ml->ml_meth;
     switch (f->m_ml->ml_flags & (METH_VARARGS | METH_KEYWORDS | METH_NOARGS | METH_O)) {
-    case METH_VARARGS:
-        printf("__Pyx_CyFunction_CallMethod: METH_VARARGS\n");
-        return Py_None;
-        if (likely(kw == NULL || PyDict_Size(kw) == 0))
-            return (*meth)(self, arg);
-        break;
-    case METH_VARARGS | METH_KEYWORDS:
-        printf("__Pyx_CyFunction_CallMethod: METH_VARARGS | METH_KEYWORDS\n");
-        return cython_print_result(self, arg, kw);
-        return (*(PyCFunctionWithKeywords)(void*)meth)(self, arg, kw);
-    case METH_NOARGS:
-        printf("__Pyx_CyFunction_CallMethod: METH_NOARGS\n");
-        return Py_None;
-        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
-            size = PyTuple_GET_SIZE(arg);
-            if (likely(size == 0))
-                return (*meth)(self, NULL);
-            PyErr_Format(PyExc_TypeError,
-                "%.200s() takes no arguments (%" CYTHON_FORMAT_SSIZE_T "d given)",
-                f->m_ml->ml_name, size);
-            return NULL;
-        }
-        break;
-    case METH_O:
-        printf("__Pyx_CyFunction_CallMethod: METH_O\n");
-        return Py_None;
-        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
-            size = PyTuple_GET_SIZE(arg);
-            if (likely(size == 1)) {
-                PyObject *result, *arg0;
-                #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                arg0 = PyTuple_GET_ITEM(arg, 0);
-                #else
-                arg0 = PySequence_ITEM(arg, 0); if (unlikely(!arg0)) return NULL;
-                #endif
-                result = (*meth)(self, arg0);
-                #if !(CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS)
-                Py_DECREF(arg0);
-                #endif
-                return result;
+        case METH_VARARGS:
+            if (likely(kw == NULL || PyDict_Size(kw) == 0))
+                return (*meth)(self, arg);
+            break;
+        case METH_VARARGS | METH_KEYWORDS:
+            return ((PyCFunctionWithKeywords)meth)(self, arg, kw);
+        case METH_NOARGS:
+            if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+                size = PyTuple_GET_SIZE(arg);
+                if (likely(size == 0))
+                    return (*meth)(self, NULL);
+                PyErr_Format(PyExc_TypeError,
+                             "%.200s() takes no arguments (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                             f->m_ml->ml_name, size);
+                return NULL;
             }
-            PyErr_Format(PyExc_TypeError,
-                "%.200s() takes exactly one argument (%" CYTHON_FORMAT_SSIZE_T "d given)",
-                f->m_ml->ml_name, size);
+            break;
+        case METH_O:
+            if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+                size = PyTuple_GET_SIZE(arg);
+                if (likely(size == 1)) {
+                    PyObject *result, *arg0;
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                    arg0 = PyTuple_GET_ITEM(arg, 0);
+#else
+                    arg0 = PySequence_ITEM(arg, 0); if (unlikely(!arg0)) return NULL;
+#endif
+                    result = (*meth)(self, arg0);
+#if !(CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS)
+                    Py_DECREF(arg0);
+#endif
+                    return result;
+                }
+                PyErr_Format(PyExc_TypeError,
+                             "%.200s() takes exactly one argument (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                             f->m_ml->ml_name, size);
+                return NULL;
+            }
+            break;
+        default:
+            PyErr_SetString(PyExc_SystemError, "Bad call flags for CyFunction");
             return NULL;
-        }
-        break;
-    default:
-        PyErr_SetString(PyExc_SystemError, "Bad call flags for CyFunction");
-        return NULL;
     }
     PyErr_Format(PyExc_TypeError, "%.200s() takes no keyword arguments",
                  f->m_ml->ml_name);
@@ -122,7 +114,7 @@ static PyObject * __Pyx_CyFunction_CallMethod(PyObject *func, PyObject *self, Py
 }
 
 void Cext_Py_DECREF(PyObject *op) {
-        
+    
 #if defined(Py_REF_DEBUG) && defined(Py_LIMITED_API) && Py_LIMITED_API+0 >= 0x030A0000
     // Stable ABI for Python 3.10 built in debug mode.
     _Py_DecRef(op);
@@ -155,9 +147,9 @@ static inline void _PyObject_GC_UNTRACK(PyObject *op) {
     PyGC_Head *prev = _PyGCHead_PREV(gc);
     PyGC_Head *next = _PyGCHead_NEXT(gc);
     /*_PyGCHead_SET_NEXT(prev, next);
-    _PyGCHead_SET_PREV(next, prev);
-    gc->_gc_next = 0;
-    gc->_gc_prev &= _PyGC_PREV_MASK_FINALIZED;*/
+     _PyGCHead_SET_PREV(next, prev);
+     gc->_gc_next = 0;
+     gc->_gc_prev &= _PyGC_PREV_MASK_FINALIZED;*/
 }
 
 void Cext_PyObject_GC_UnTrack(void *op_raw) {
@@ -176,16 +168,16 @@ void Cext_PyObjectFree(void *self) {
 
 int llvm_wait_for_functions(PyObject *module) {
     PyObject* deleting = llvm_wait_for_calling_function(module);
-        
+    
     if (deleting == module) {
         llvm_stop_waiting(module, Py_None, NULL, NULL);
         return 0;
     }
     
     if (llvm_get_calling_function()) {
-    
+        
         PyGILState_STATE gstate = PyGILState_Ensure();
-    
+        
         // Call the function
         PyObject *self = llvm_calling_function_get_self();
         PyObject *args = llvm_calling_function_get_args();
@@ -199,7 +191,7 @@ int llvm_wait_for_functions(PyObject *module) {
         const char *name = llvm_calling_function_get_name();
         
         if (llvm_get_free_objects_list()) { // Free objects
-                        
+            
             size_t i;
             for (i = 0; i <= llvm_get_free_size(); i+=1) {
                 PyObject *obj = llvm_get_free_objects_list()[i];
@@ -210,8 +202,9 @@ int llvm_wait_for_functions(PyObject *module) {
             llvm_stop_waiting(module, Py_None, NULL, NULL);
             return llvm_wait_for_functions(module);
         } else if (llvm_get_cython_function()) { // Call Cython function
-            PyObject *ret_value = __Pyx_CyFunction_CallMethod(llvm_get_cython_function(), self, args, kwargs);
             
+            PyObject *ret_value = llvm_CyFunction_CallMethod(llvm_get_cython_function(), self, args, kwargs);
+                        
             FETCH_ERROR;
             
             PyGILState_Release(gstate);
@@ -237,7 +230,7 @@ int llvm_wait_for_functions(PyObject *module) {
             
             PyTypeObject *cls = (PyTypeObject *)llvm_calling_function_get_cls();
             PyGetSetDef *getset = ((PyTypeObject *)cls)->tp_getset;
-                        
+            
             PyObject *value = NULL;
             
             int i = 0;
@@ -307,12 +300,12 @@ int llvm_wait_for_functions(PyObject *module) {
             _PyCFunctionFast func = (_PyCFunctionFast)function;
             Py_ssize_t size = PyList_Size(args);
             PyObject **args_array = malloc(size*sizeof(PyObject));
-               
+            
             int i;
             for(i=0; i < (int)size; i++) {
                 args_array[i] = PyList_GetItem(args, i);
             }
-               
+            
             ret = func(self, (PyObject *const *)args_array, size);
         } else if (flags == METH_NOARGS) {
             PyCFunction func = function;
@@ -325,7 +318,7 @@ int llvm_wait_for_functions(PyObject *module) {
         if (!ret) { // Exception
             ret = Py_None;
         }
-
+        
         FETCH_ERROR;
         
         PyGILState_Release(gstate);
@@ -347,11 +340,11 @@ PyObject* PYINIT_FUNCTION(void);
 int add_methods_to_object(PyObject *module, PyObject *name, PyMethodDef *functions) {
     PyObject *func;
     PyMethodDef *fdef;
-
+    
     for (fdef = functions; fdef->ml_name != NULL; fdef++) {
         if ((fdef->ml_flags & METH_CLASS) ||
             (fdef->ml_flags & METH_STATIC)) {
-
+            
             return -1;
         }
         func = PyCFunction_NewEx(fdef, (PyObject*)module, name);
@@ -364,7 +357,7 @@ int add_methods_to_object(PyObject *module, PyObject *name, PyMethodDef *functio
         }
         Py_DECREF(func);
     }
-
+    
     return 0;
 }
 
@@ -376,9 +369,9 @@ PyObject * LLVMModule_FromDefAndSpec(struct PyModuleDef* def, PyObject *spec) {
     int has_execution_slots = 0;
     const char *name;
     int ret;
-
+    
     PyModuleDef_Init(def);
-
+    
     nameobj = PyObject_GetAttrString(spec, "name");
     if (nameobj == NULL) {
         return NULL;
@@ -387,11 +380,11 @@ PyObject * LLVMModule_FromDefAndSpec(struct PyModuleDef* def, PyObject *spec) {
     if (name == NULL) {
         goto error;
     }
-
+    
     if (def->m_size < 0) {
         goto error;
     }
-
+    
     for (cur_slot = def->m_slots; cur_slot && cur_slot->slot; cur_slot++) {
         if (cur_slot->slot == Py_mod_create) {
         } else if (cur_slot->slot < 0 || cur_slot->slot > _Py_mod_LAST_SLOT) {
@@ -399,12 +392,12 @@ PyObject * LLVMModule_FromDefAndSpec(struct PyModuleDef* def, PyObject *spec) {
             has_execution_slots = 1;
         }
     }
-
+    
     m = PyModule_NewObject(nameobj);
     if (m == NULL) {
         goto error;
     }
-
+    
     if (PyModule_Check(m)) {
         ((PyModuleObject*)m)->md_state = NULL;
         ((PyModuleObject*)m)->md_def = def;
@@ -416,24 +409,24 @@ PyObject * LLVMModule_FromDefAndSpec(struct PyModuleDef* def, PyObject *spec) {
             goto error;
         }
     }
-
+    
     if (def->m_methods != NULL) {
         ret = add_methods_to_object(m, nameobj, def->m_methods);
         if (ret != 0) {
             goto error;
         }
     }
-
+    
     if (def->m_doc != NULL) {
         ret = PyModule_SetDocString(m, def->m_doc);
         if (ret != 0) {
             goto error;
         }
     }
-
+    
     Py_DECREF(nameobj);
     return m;
-
+    
 error:
     Py_DECREF(nameobj);
     Py_XDECREF(m);
@@ -441,7 +434,7 @@ error:
 }
 
 int main() {
-   
+    
     PyGILState_STATE gstate = llvm_ensure_gil();
     
     PyObject *module = PYINIT_FUNCTION();
@@ -453,7 +446,7 @@ int main() {
         PyModuleDef_Slot* cur_slot;
         PyObject *(*create)(PyObject *, PyModuleDef*) = NULL;
         int (*exec)(PyObject *) = NULL;
-            
+        
         for (cur_slot = def->m_slots; cur_slot && cur_slot->slot; cur_slot++) {
             if (cur_slot->slot == Py_mod_create) {
                 if (create) {
@@ -475,7 +468,7 @@ int main() {
         } else {
             module = LLVMModule_FromDefAndSpec(def, llvm_importing_module_get_spec());
         }
-                
+        
         if (!module) {
             PyGILState_Release(gstate);
             llvm_set_bitcode_module(Py_None);
@@ -502,3 +495,4 @@ int main() {
     
     return llvm_wait_for_functions(module);
 }
+

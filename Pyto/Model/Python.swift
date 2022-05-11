@@ -78,6 +78,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
             return
         }
         
+        #if MAIN
+        guard !is_bitcode_thread() else {
+            return
+        }
+        #endif
+        
         let signalString: String
         switch signal {
         case SIGKILL:

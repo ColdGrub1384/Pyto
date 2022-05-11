@@ -218,11 +218,6 @@ def parse_args(comp: list[str], name: str, _stdout = None, _stdin = None):
     except IndexError:
         return
 
-    if prog == "pip":
-        for mod in list(sys.modules.keys()):
-            if mod.startswith("distutils") or mod.startswith("pkg_resources") or mod.startswith("pip") or mod.startswith("wheel"):
-                del sys.modules[mod]
-    
     _dict = None
 
     __clear_mods__()        
@@ -288,6 +283,10 @@ def parse_args(comp: list[str], name: str, _stdout = None, _stdin = None):
             stdout.close()
         if stdin_path is not None:
             stdin.close()
+    
+    for key in list(sys.modules.keys()):
+        if key.startswith("setuptools") or key.startswith("distutils") or key.startswith("_distutils"):
+            del sys.modules[key]
 
     if _dict is not None and "__file__" in _dict:
         return _dict["__file__"] 

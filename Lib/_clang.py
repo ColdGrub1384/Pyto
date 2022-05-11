@@ -18,7 +18,7 @@ def main():
     except ValueError:
         pass
 
-    system("clang -DCYTHON_LIMITED_API=1"+shlex.join(args))
+    sys.exit(system("clang -DCYTHON_LIMITED_API=1"+shlex.join(args)))
 
 if __name__ == "__main__":
     main()

@@ -26,6 +26,10 @@ typealias thread = pthread_t
     
     static var semaphores = [UnsafeMutablePointer<PyObject>:LLVMSemaphores]()
     
+    @objc static var objcSemaphores: [LLVMSemaphores] {
+        Array<LLVMSemaphores>(semaphores.values)
+    }
+    
     @objc static func semaphores(for object: UnsafeMutablePointer<PyObject>) -> LLVMSemaphores {
         if let semaphores = self.semaphores[object] {
             return semaphores

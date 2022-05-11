@@ -327,6 +327,12 @@
 		B5AB6C232768F343001C5472 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */; };
 		B5AB6C3B276977AB001C5472 /* libffi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AB6C34276977A4001C5472 /* libffi.a */; };
 		B5AE82112760F73A000AF4B1 /* ReloadWidgetsIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA38442535675E00ABDA80 /* ReloadWidgetsIntentHandler.swift */; };
+		B5AEA555282699AF00821FFA /* clang.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50E6AAF2809FEC400D15A68 /* clang.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5AEA556282699B300821FFA /* libLLVM.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50E6AAC2809FEC400D15A68 /* libLLVM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5AEA557282699B700821FFA /* link.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50E6AA82809FEC400D15A68 /* link.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5AEA558282699BB00821FFA /* lli.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50E6AB02809FEC400D15A68 /* lli.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5AEA55A282727CE00821FFA /* libLLVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5559A3A278DF2AC001D6BA7 /* libLLVM.framework */; };
+		B5AEA55C2827283500821FFA /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AEA55B2827283500821FFA /* libc++.1.tbd */; };
 		B5B0B88A274EA1BB00F5030F /* ConsolePipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526B593274C60780094FCBB /* ConsolePipView.swift */; };
 		B5B0B88D274EA1D600F5030F /* TextViewSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526B5882747902A0094FCBB /* TextViewSearch.swift */; };
 		B5B0B88E274EA1E100F5030F /* ScriptRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55490272736D51B00BEB778 /* ScriptRunnerViewController.swift */; };
@@ -1787,6 +1793,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B5AEA558282699BB00821FFA /* lli.framework in Embed Frameworks */,
+				B5AEA557282699B700821FFA /* link.framework in Embed Frameworks */,
+				B5AEA556282699B300821FFA /* libLLVM.framework in Embed Frameworks */,
+				B5AEA555282699AF00821FFA /* clang.framework in Embed Frameworks */,
 				B50E6B14280A0D8D00D15A68 /* openssl.framework in Embed Frameworks */,
 				B50E6AD7280A087D00D15A68 /* libssh2.framework in Embed Frameworks */,
 				B50E6B1B280A263100D15A68 /* network_ios.xcframework in Embed Frameworks */,
@@ -2509,6 +2519,7 @@
 		B5AB6C27276943EB001C5472 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B5AB6C282769779B001C5472 /* libffi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libffi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AB6C2A276977A3001C5472 /* libffi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libffi.xcodeproj; path = "/Users/emma/Developer/Pyto/python3_ios/Python3_ios/libffi-3.4.2/libffi.xcodeproj"; sourceTree = "<absolute>"; };
+		B5AEA55B2827283500821FFA /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		B5B7CDDD27F9D4FE00F7A526 /* python-3.10.0-docs-html.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "python-3.10.0-docs-html.zip"; path = "documentations/python-3.10.0-docs-html.zip"; sourceTree = "<group>"; };
 		B5B8B93B278F9B880079A1E2 /* clang.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = clang.framework; path = Dependencies/ios_system/clang.framework; sourceTree = "<group>"; };
 		B5B8B93D278FA1490079A1E2 /* ios_system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ios_system.framework; path = Dependencies/ios_system/ios_system.framework; sourceTree = "<group>"; };
@@ -3460,6 +3471,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5AEA55C2827283500821FFA /* libc++.1.tbd in Frameworks */,
+				B5AEA55A282727CE00821FFA /* libLLVM.framework in Frameworks */,
 				B50E6AB92809FEFB00D15A68 /* ios_system.framework in Frameworks */,
 				B5AB6C3B276977AB001C5472 /* libffi.a in Frameworks */,
 				C312BAEC259D25D1000A6BAD /* Dynamic in Frameworks */,
@@ -3494,6 +3507,7 @@
 		777F5989381586AA988D5FF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5AEA55B2827283500821FFA /* libc++.1.tbd */,
 				B507C1DA276B09FE0079A44C /* Highlightr.framework */,
 				B5AB6C282769779B001C5472 /* libffi.a */,
 				B5174FA327503A61002CDE6C /* libcrypto.a */,
@@ -5703,10 +5717,10 @@
 				B556F2FB281B592400A6700E /* Remove dynamic libraries */,
 				C9FCFD53214428AE00A07974 /* Resources */,
 				D910EE956F1871789C77F1DA /* [CP] Embed Pods Frameworks */,
+				C97B023823E9F82C00032925 /* Embed Watch Content */,
 				C9FCFD52214428AE00A07974 /* Frameworks */,
 				C9EAB4CA214D95C500DFC9A4 /* Embed Frameworks */,
 				C946A5BA22074EAA00F78C5C /* Embed App Extensions */,
-				C97B023823E9F82C00032925 /* Embed Watch Content */,
 				C91D079B25B62F8F0050FD86 /* Zip Automator Bundle */,
 				B5FDC87C27CBC4AE00C75FC4 /* Zip clib */,
 			);
@@ -6510,7 +6524,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0\n\nZIP=\"clib.zip\"\n\ncd \"$SRCROOT/Extensions/clib/\"\n\nzip -r $ZIP *\n\nmv \"$ZIP\" \"$BUILT_PRODUCTS_DIR/Pyto.app/clib.zip\"\n";
+			shellScript = "ZIP=\"clib.zip\"\n\ncd \"$SRCROOT/Extensions/clib/\"\n\nzip -r $ZIP *\n\nmv \"$ZIP\" \"$BUILT_PRODUCTS_DIR/Pyto.app/clib.zip\"\n";
 		};
 		C91D079B25B62F8F0050FD86 /* Zip Automator Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8903,6 +8917,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Intents/Pyto Intents-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Pyto-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -9598,6 +9613,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Intents/Pyto Intents-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Pyto-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -9631,6 +9647,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pyto Intents/Pyto Intents-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Pyto-Swift.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

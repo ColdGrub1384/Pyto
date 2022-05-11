@@ -11,6 +11,7 @@ import _shell
 import shlex
 import traceback as tb
 from user_repl import main as repl_main
+from console import __clear_mods__
 
 _usage = "usage: python [-c cmd | -m mod | file | -] [arg]"
 
@@ -26,7 +27,7 @@ class Path:
     
     def __exit__(self, exc_type, exc, tb):
         sys.path = self.old_path
-        if exc is not None and exc_type is not SystemExit:
+        if exc is not None:
             raise exc
 
 
@@ -37,6 +38,8 @@ def main():
         else:
             exec(sys.stdin.read())
         return
+
+    __clear_mods__()
 
     if sys.argv[1] == "-u":
         del sys.argv[1]

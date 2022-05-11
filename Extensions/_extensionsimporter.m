@@ -6,21 +6,18 @@
 //  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
-#include <Python.h>
-#include <dlfcn.h>
-#import <Foundation/Foundation.h>
+#include "_extensionsimporter.h"
 #import "Pyto-Swift.h"
-#if MAIN
-#import "ios_system.h"
-#endif
-#include <stdlib.h>
-
-#define SET_FILE() PyObject_SetAttrString(module, "__file__", PyUnicode_FromString(binaryURL.path.UTF8String));
 
 static char _extensionsimporter_module_docstring[] =
     "Import frameworks and LLVM bitcode.";
 
 // MARK: - module_from_bitcode
+
+PyObject *cython_print_result(PyObject *self, PyObject *args, PyObject *kw) {
+    printf("ª\n");
+    return Py_None;
+}
 
 static char _extensionsimporter_module_from_bitcode_docstring[] =
     "Returns a module from the path of an LLVM bitcode file.";
@@ -486,6 +483,16 @@ void llvm_set_thread_id_for_module(pthread_t thread, PyObject *module) {
     [[LLVMSemaphores semaphoresFor:module] setModuleThread: thread];
 }
 
+bool is_bitcode_thread(void) {
+    pthread_t current = pthread_self();
+    for (LLVMSemaphores *semaphore in LLVMSemaphores.objcSemaphores) {
+        if (pthread_equal(current, (pthread_t)semaphore.moduleThread)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 PyObject *_extensionsimporter_module_from_bitcode(PyObject *self, PyObject *args) {
     
     const char *path;
@@ -519,15 +526,13 @@ PyObject *_extensionsimporter_module_from_bitcode(PyObject *self, PyObject *args
             };
             FILE *output = fdopen(outputPipe.fileHandleForWriting.fileDescriptor, "w");
             session = output;
-            #if 0
             ios_switchSession(output);
             ios_setStreams(stdin, output, output);
-            #endif
             #else
             session = NULL;
             #endif
             
-            #if MAIN && 0
+            #if MAIN
             ios_system([NSString stringWithFormat:@"lli '%@'", [[NSString stringWithUTF8String:path] stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"]].UTF8String);
             #endif
             if (lli_semaphore) {
@@ -680,6 +685,12 @@ FILE *makeInputFile(NSString *string) {
     return fopen(url.path.UTF8String, "r");
 }
 
+bool startsWith(const char *pre, const char *str) {
+    size_t lenpre = strlen(pre),
+           lenstr = strlen(str);
+    return lenstr < lenpre ? false : memcmp(pre, str, lenpre) == 0;
+}
+
 static PyObject *_extensionsimporter_system(PyObject *self, PyObject *args) {
     
     const char *cmd;
@@ -739,6 +750,9 @@ static PyObject *_extensionsimporter_system(PyObject *self, PyObject *args) {
             
             PyObject *thread = PyObject_CallMethodNoArgs(threading, PyUnicode_FromString("current_thread"));
             PyObject_SetAttrString(thread, "script_path", scriptPathObject);
+            if (startsWith("clang ", cmd)) {
+                [PyOutputHelper print: str script: [NSString stringWithUTF8String: scriptPath]];
+            }
             
             PyObject_CallOneArg(stdoutWrite, PyUnicode_FromString([str UTF8String]));
             PyGILState_Release(tstate);
@@ -760,6 +774,9 @@ static PyObject *_extensionsimporter_system(PyObject *self, PyObject *args) {
             
             PyObject_CallOneArg(stderrWrite, PyUnicode_FromString([str UTF8String]));
             PyGILState_Release(tstate);
+            if (startsWith("clang ", cmd)) {
+                [PyOutputHelper print: str script: [NSString stringWithUTF8String: scriptPath]];
+            }
         }
     };
     

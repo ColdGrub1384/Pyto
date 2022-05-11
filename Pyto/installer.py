@@ -4,7 +4,7 @@ from _shell.bin import python
 
 def main():
     
-    if hasattr("sys", sys):
+    if hasattr(sys, "sys"):
         sys.sys.stdout = sys.sys.__stdout__
         sys.sys.stderr = sys.sys.__stderr__
         sys.stdout = sys.sys.stdout

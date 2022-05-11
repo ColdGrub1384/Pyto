@@ -254,7 +254,7 @@ import Zip
             let newClang = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/clang")
             let newStdlib = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/stdlib")
             let newCextGlue = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/cext_glue.c")
-            //let bundleHeaders = Bundle.main.url(forResource: "clib", withExtension: "zip")!
+            let bundleHeaders = Bundle.main.url(forResource: "clib", withExtension: "zip")!
             
             if FileManager.default.fileExists(atPath: newInclude.path) {
                 try? FileManager.default.removeItem(at: newInclude)
@@ -276,8 +276,8 @@ import Zip
                 try? FileManager.default.removeItem(at: newCextGlue)
             }
             
-            putenv("C_INCLUDE_PATH=\(newClang.appendingPathComponent("13.0.0/include").path):\(newInclude.path)".cValue)
-            putenv("CPLUS_INCLUDE_PATH=\(newStdlib.appendingPathComponent("c++/v1").path):\(newStdlib.path):\(newInclude.path)".cValue)
+            putenv("C_INCLUDE_PATH=\(newClang.appendingPathComponent("13.0.0/include").path):\(newInclude.path):\(newStdlib.path)".cValue)
+            putenv("CPLUS_INCLUDE_PATH=\(newClang.appendingPathComponent("13.0.0/include").path):\(newStdlib.appendingPathComponent("c++/v1").path):\(newStdlib.path):\(newInclude.path)".cValue)
             
             let clib = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("clib")
             
@@ -285,7 +285,7 @@ import Zip
                 try? FileManager.default.removeItem(at: clib)
             }
             
-            /*do {
+            do {
                 let url = try Zip.quickUnzipFile(bundleHeaders)
                 try FileManager.default.moveItem(at: url.appendingPathComponent("include"), to: newInclude)
                 try FileManager.default.moveItem(at: url.appendingPathComponent("iPhoneOS.sdk"), to: newSDK)
@@ -302,7 +302,7 @@ import Zip
                 try FileManager.default.removeItem(at: url)
             } catch {
                 print(error.localizedDescription)
-            }*/
+            }
         }
         
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)

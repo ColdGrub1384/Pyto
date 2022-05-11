@@ -9,6 +9,7 @@ import os
 import io
 import sys
 import shlex
+import traceback
 
 
 def close():
@@ -117,12 +118,10 @@ class Popen(_Popen):
                 self.returncode = 0
             except SystemExit as e:
                 if e.code is not None and isinstance(e.code, int):
-                    print(e.code)
                     self.returncode = e.code
                 else:
                     self.returncode = 0
             except Exception as e:
-                print(e)
                 self.returncode = 1
             finally:
                 sys.stdin = _stdin

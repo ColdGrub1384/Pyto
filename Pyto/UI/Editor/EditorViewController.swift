@@ -796,8 +796,10 @@ func directory(for scriptURL: URL) -> URL {
             let path = doc.fileURL.path
             
             switch document?.fileURL.pathExtension.lowercased() ?? "" {
-            case "py", "pyx", "pyi":
+            case "py", "pyi":
                 (textView.textStorage as? CodeAttributedString)?.language = "python"
+            case "pyx", "pxd", "pxi":
+                (textView.textStorage as? CodeAttributedString)?.language = "cython"
             case "html":
                 (textView.textStorage as? CodeAttributedString)?.language = "html"
             default:
@@ -2258,7 +2260,7 @@ func directory(for scriptURL: URL) -> URL {
                 inputAssistant.reloadData()
                 codeCompletionManager.isDocStringExpanded = false
                 codeCompletionManager.selectedIndex = 0
-                completionsHostingController.view.isHidden = (textView.inputAccessoryView != nil || numberOfSuggestionsInInputAssistantView() == 0)
+                completionsHostingController.view.isHidden = ((textView.inputAccessoryView != nil || numberOfSuggestionsInInputAssistantView() == 0) || parent is RunModuleViewController)
                 if completionsHostingController.view?.isHidden == false {
                     placeCompletionsView()
                 }
@@ -2269,7 +2271,7 @@ func directory(for scriptURL: URL) -> URL {
             DispatchQueue.main.async { [weak self] in
                 self?.inputAssistant.reloadData()
                 self?.codeCompletionManager.selectedIndex = 0
-                self?.completionsHostingController.view.isHidden = (self?.textView.inputAccessoryView != nil || self?.numberOfSuggestionsInInputAssistantView() == 0)
+                self?.completionsHostingController.view.isHidden = ((self?.textView.inputAccessoryView != nil || self?.numberOfSuggestionsInInputAssistantView() == 0) || self?.parent is RunModuleViewController)
                 self?.codeCompletionManager.suggestions = newValue
                 if self?.completionsHostingController.view?.isHidden == false {
                     self?.placeCompletionsView()
@@ -2734,7 +2736,7 @@ func directory(for scriptURL: URL) -> URL {
                         "{"
                     ].contains(textView.text(in: range) ?? "") {
                         return suggestions.count
-                    } else if let currentLineStart = textView.currentLineRange?.start, let cursor = textView.selectedTextRange?.start, let range = textView.textRange(from: currentLineStart, to: cursor), let text = textView.text(in: range), text.replacingOccurrences(of: " ", with: "").hasSuffix(",") {
+                    } else if let currentLineStart = textView.currentLineRange?.start, let cursor = textView.selectedTextRange?.start, let range = textView.textRange(from: currentLineStart, to: cursor), let text = textView.text(in: range), text.replacingOccurrences(of: " ", with: "").hasSuffix(","), cursor != textView.currentLineRange?.end {
                         return suggestions.count
                     } else {
                         return 0

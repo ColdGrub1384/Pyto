@@ -7,10 +7,22 @@
 //
 
 #include <Python.h>
+#include <dlfcn.h>
+#import <Foundation/Foundation.h>
+#if MAIN
+#import "ios_system.h"
+#endif
+#include <stdlib.h>
+
+#define SET_FILE() PyObject_SetAttrString(module, "__file__", PyUnicode_FromString(binaryURL.path.UTF8String));
 
 #ifndef _extensionsimporter_h
 #define _extensionsimporter_h
 
 PyMODINIT_FUNC PyInit__extensionsimporter(void);
+
+#if MAIN
+bool is_bitcode_thread(void);
+#endif
 
 #endif /* _extensionsimporter_h */

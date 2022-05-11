@@ -19,6 +19,7 @@
 #if MAIN
 #import "../TextKit_LineNumbers/LineNumberTextView/LineNumberTextView.h"
 #import "../Blink/KBWebViewBase.h"
+#import "../Extensions/_extensionsimporter.h"
 #endif
 
 #include <os/proc.h>

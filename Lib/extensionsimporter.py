@@ -470,6 +470,7 @@ class BitcodeFunction(BitcodeValue):
             encoded_name = name.encode("utf-8")
             ret = llvm_call_function(encoded_name, self.__bitcode_pointer__, (self.__class__ is BitcodeCythonFunction), self.__llvm_module__, args, kwargs, first, all_args, kwnames)
             _extensionsimporter.raise_exception_if_needed()
+            sleep(0.5)
         else:
             ret = self.__bitcode_pointer__(*args, **kwargs)
         return object_to_bitcode_value(ret, self.__llvm_module__)
@@ -510,7 +511,13 @@ class BitcodeLoader(ExtensionFileLoader):
 
         __import__("Cython.Compiler.FlowControl")
 
-        mod = _extensionsimporter.module_from_bitcode(self.path, spec)
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                action='ignore',
+                category=RuntimeWarning,
+            )
+            mod = _extensionsimporter.module_from_bitcode(self.path, spec)
+        
         if mod is None:
             raise RuntimeError("'{}' is not a valid module.".format(self.fullname))
         running_modules.append(weakref.ref(mod))

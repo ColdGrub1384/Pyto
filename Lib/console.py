@@ -314,7 +314,7 @@ def __clear_mods__():
                 os.access(mod.__file__, os.W_OK)
                 and not "/Library/python38" in mod.__file__
                 and key != "<run_path>"
-            ) or key.startswith("setuptools") or key.startswith("distutils"):
+            ):
                 del sys.modules[key]
         except AttributeError:
             pass
@@ -322,7 +322,6 @@ def __clear_mods__():
             pass
         except KeyError:
             pass
-
 
 __widget_id__ = None
 

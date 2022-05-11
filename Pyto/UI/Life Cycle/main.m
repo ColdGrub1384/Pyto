@@ -128,7 +128,7 @@ int initialize_python(int argc, char *argv[]) {
     // Clang
     putenv("TERM=xterm-color");
     putenv((char *)[NSString stringWithFormat:@"SYSROOT=%@", [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent: @"iPhoneOS.sdk"].path].UTF8String);
-    putenv("CC=Pyto -m clang");
+    putenv("CC=Pyto -m _clang");
     putenv("CFLAGS=-S -emit-llvm");
     putenv("LDSHARED=Pyto -m _link_modules");
     
