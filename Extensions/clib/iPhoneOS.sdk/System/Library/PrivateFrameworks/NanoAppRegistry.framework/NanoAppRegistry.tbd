@@ -1,0 +1,23 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NanoAppRegistry.framework/NanoAppRegistry
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NARApplicationsChangedNotification, _NARItemNameKey, _NARSyncedInfoPlistKeys,
+                          _NARSyncedLocalizedInfoPlistKeys, _NARSyncediTunesPlistKeys, _NARVendorNameKey,
+                          _NARWorkspaceServiceInterface, _nar_sync_log, _nar_workspace_log ]
+    objc-classes:       [ _NARApplication, _NARApplicationState, _NARApplicationWorkspace, _NARGlance, _NARWorkspaceInfo ]
+    objc-ivars:         [ _NARApplication._appState, _NARApplication._appTags, _NARApplication._iTunesPlistStrings,
+                          _NARApplication._infoPlist, _NARApplication._launchServicesBundleType,
+                          _NARApplication._localizedStrings, _NARApplication._parentApplicationBundleIdentifier,
+                          _NARApplication._sequenceNumber, _NARApplication._supportsForegroundApplication,
+                          _NARApplicationState._removedSystemApp, _NARApplicationState._restricted,
+                          _NARApplicationWorkspace._connection, _NARApplicationWorkspace._queue, _NARGlance._appID,
+                          _NARGlance._displayName, _NARGlance._glanceID, _NARGlance._localizedDisplayNameMap,
+                          _NARWorkspaceInfo._UUID, _NARWorkspaceInfo._applications, _NARWorkspaceInfo._sequenceNumber,
+                          _NARWorkspaceInfo._standaloneGlances ]
+...

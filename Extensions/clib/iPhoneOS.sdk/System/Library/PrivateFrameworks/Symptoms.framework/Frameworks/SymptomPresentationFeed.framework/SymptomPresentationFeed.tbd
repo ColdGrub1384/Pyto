@@ -1,0 +1,70 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Symptoms.framework/Frameworks/SymptomPresentationFeed.framework/SymptomPresentationFeed
+current-version:       1238
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _advisoryToString, _kDarwinNotificationHasAlternateAdvice,
+                          _kDarwinNotificationMaterialLinkQualityChange, _kEstTransferTimeConfidence, _kEstTransferTimeDLSecs,
+                          _kEstTransferTimeULSecs, _kNOIDiscretionaryInvitesWhenForegroundToo, _kPayloadInfoDLKB,
+                          _kPayloadInfoULKB, _kPerformanceFlowAvgUsecsEstabTime, _kPerformanceFlowConnAttempts,
+                          _kPerformanceFlowConnSuccesses, _kPerformanceFlowOverallTime, _kPerformanceFlowRemoteID,
+                          _kPerformanceFlowTimesThresholded, _kPerformanceFlowTxFailPackets, _kPerformanceFlowTxPackets,
+                          _kPerformanceFlowTxReTxInterval, _kPerformanceFlowTxReTxPackets, _kPerformanceNetAttachAdminDisables,
+                          _kPerformanceNetAttachBytesIn, _kPerformanceNetAttachBytesOut, _kPerformanceNetAttachCertificateErrors,
+                          _kPerformanceNetAttachConnAttempts, _kPerformanceNetAttachConnSuccesses,
+                          _kPerformanceNetAttachDataStalls, _kPerformanceNetAttachEpochs, _kPerformanceNetAttachFaultyStay,
+                          _kPerformanceNetAttachHotSpot, _kPerformanceNetAttachIdentifier, _kPerformanceNetAttachKnownGood,
+                          _kPerformanceNetAttachLowInternetDL, _kPerformanceNetAttachLowInternetUL,
+                          _kPerformanceNetAttachLowLqmStay, _kPerformanceNetAttachLowQualyStay,
+                          _kPerformanceNetAttachLqmTransitionCount, _kPerformanceNetAttachLqmTransitionRate,
+                          _kPerformanceNetAttachOverallStay, _kPerformanceNetAttachPacketsIn, _kPerformanceNetAttachPacketsOut,
+                          _kPerformanceNetAttachPassiveCaptivityDetections, _kPerformanceNetAttachReTxBytes,
+                          _kPerformanceNetAttachRttAvg, _kPerformanceNetAttachRttMin, _kPerformanceNetAttachRttVar,
+                          _kPerformanceNetAttachRxDupeBytes, _kPerformanceNetAttachRxOOOBytes, _kPerformanceNetAttachSinceTime,
+                          _kPerformanceNetAttachTimeStamp, _kPerformanceNetAttachTopDownloadRate,
+                          _kUsageCalendarDayResolution96slots, _kUsageCalendarDaySlot, _kUsageCalendarTier1,
+                          _kUsageCalendarTier2, _kUsageCalendarTier3, _kUsageCalendarTier4, _kUsageCalendarTier5,
+                          _kUsageCalendarWeekSlot, _kUsageFeed, _kUsageLastTime, _kUsageNetworkAwdl, _kUsageNetworkAwdlInBytes,
+                          _kUsageNetworkAwdlInBytes_mean, _kUsageNetworkAwdlInBytes_var, _kUsageNetworkAwdlOutBytes,
+                          _kUsageNetworkAwdlOutBytes_mean, _kUsageNetworkAwdlOutBytes_var, _kUsageNetworkAwdlSampleCount,
+                          _kUsageNetworkCell, _kUsageNetworkCellInBytes, _kUsageNetworkCellInBytes_mean,
+                          _kUsageNetworkCellInBytes_var, _kUsageNetworkCellOutBytes, _kUsageNetworkCellOutBytes_mean,
+                          _kUsageNetworkCellOutBytes_var, _kUsageNetworkCellSampleCount, _kUsageNetworkExpensive,
+                          _kUsageNetworkExpensiveInBytes, _kUsageNetworkExpensiveInBytes_mean,
+                          _kUsageNetworkExpensiveInBytes_var, _kUsageNetworkExpensiveOutBytes,
+                          _kUsageNetworkExpensiveOutBytes_mean, _kUsageNetworkExpensiveOutBytes_var,
+                          _kUsageNetworkExpensiveSampleCount, _kUsageNetworkWiFi, _kUsageNetworkWiFiInBytes,
+                          _kUsageNetworkWiFiInBytes_mean, _kUsageNetworkWiFiInBytes_var, _kUsageNetworkWiFiOutBytes,
+                          _kUsageNetworkWiFiOutBytes_mean, _kUsageNetworkWiFiOutBytes_var, _kUsageNetworkWiFiSampleCount,
+                          _kUsageNetworkWired, _kUsageNetworkWiredInBytes, _kUsageNetworkWiredInBytes_mean,
+                          _kUsageNetworkWiredInBytes_var, _kUsageNetworkWiredOutBytes, _kUsageNetworkWiredOutBytes_mean,
+                          _kUsageNetworkWiredOutBytes_var, _kUsageNetworkWiredSampleCount, _kUsageProcessBundleName,
+                          _kUsageProcessProcName, _kUsageSinceTime ]
+    objc-classes:       [ _NWAppAdvice, _NWNetworkAdviceUpdate, _NWNetworkOfInterest, _NWNetworkOfInterestManager,
+                          _NWNetworkPredictions, _NetworkInterfaceUtils, _NetworkPerformanceFeed,
+                          _ProcessNetStatsIndividualEntity, _UsageFeed ]
+    objc-ivars:         [ _NWAppAdvice._bundleIdentifier, _NWAppAdvice._reason, _NWAppAdvice._state,
+                          _NWNetworkAdviceUpdate._applications, _NWNetworkAdviceUpdate._level,
+                          _NWNetworkOfInterest._considerAlternate, _NWNetworkOfInterest._considerAlternateUpdate,
+                          _NWNetworkOfInterest._customSignature, _NWNetworkOfInterest._discretionaryTrafficInvited,
+                          _NWNetworkOfInterest._flags, _NWNetworkOfInterest._interface, _NWNetworkOfInterest._isAny,
+                          _NWNetworkOfInterest._isBuiltin, _NWNetworkOfInterest._isTrafficEligible,
+                          _NWNetworkOfInterest._linkQuality, _NWNetworkOfInterest._powerCostDL,
+                          _NWNetworkOfInterest._powerCostUL, _NWNetworkOfInterest._predictions,
+                          _NWNetworkOfInterest._predictionsGeneratedAt, _NWNetworkOfInterest._scopedToLOI,
+                          _NWNetworkOfInterest._version, _NWNetworkOfInterest._willGetDiscretionaryTrafficInvites,
+                          _NWNetworkOfInterestManager._callerQueue, _NWNetworkOfInterestManager._connection,
+                          _NWNetworkOfInterestManager._delegate, _NWNetworkOfInterestManager._service,
+                          _NWNetworkOfInterestManager.closing, _NWNetworkOfInterestManager.notifyToken,
+                          _NWNetworkOfInterestManager.registryNOI, _NWNetworkOfInterestManager.workspace,
+                          _NWNetworkPredictions._changePointAt, _NWNetworkPredictions._confidence,
+                          _NWNetworkPredictions._resolutionSeconds, _NWNetworkPredictions._toQuality,
+                          _NetworkInterfaceUtils._hasPrimaryInterface, _NetworkPerformanceFeed._delegate,
+                          _NetworkPerformanceFeed.callerQueue, _NetworkPerformanceFeed.internalQueue,
+                          _NetworkPerformanceFeed.workspace, _UsageFeed._delegate, _UsageFeed._processFeedData,
+                          _UsageFeed.handleAnalytics, _UsageFeed.workspace ]
+...

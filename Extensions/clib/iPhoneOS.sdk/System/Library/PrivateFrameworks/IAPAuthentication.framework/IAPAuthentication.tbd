@@ -1,0 +1,19 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/IAPAuthentication.framework/IAPAuthentication
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _AllocCapsFromAuthCert, _CanChargeHighVoltage, _CanChargeInductive, _CanUseAccPwrLoV,
+                          _CanUseAccPwrUHPM, _EraseSigningContext, _FinalizeSigningContext, _GetCertClass, _GetRandomDigest,
+                          _GetSecCertRef, _IapAuthCertSerial, _IapAuthCertVerifyAuthVersion, _IapAuthChallengeRespond,
+                          _IapAuthChallengeRespondSync, _IapAuthChallengeVerify, _IapAuthGetAppCert, _IapAuthGetAppCertP7,
+                          _IapAuthGetAppCertP7Sync, _IapAuthGetCertClassAuthV2, _IapAuthRandomNumber,
+                          _IapAuthVerifyCertSerialNumber, _InitSigningContext, _IsAppleAccessory, _IsAppleHWModule,
+                          _IsAppleMFiAccessory, _MFiVerifyCertificateSerialNumber, _UpdateSigningContext, _VerifyCertAuthority,
+                          _VerifyCertAuthorityDictionary, _VerifyCertSerialNumber, _VerifyNonceSigned, _kAuthCertBufferKey,
+                          _kAuthNonceBufferKey, _kAuthResponseBufferKey, _kAuthVersionKey ]
+...

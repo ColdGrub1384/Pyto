@@ -1,0 +1,23 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Accessibility.framework/Frameworks/AXTapToSpeakTime.framework/AXTapToSpeakTime
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _AXStringFromTapToSpeakTimeVoice, _AXTapToSpeakTimeVersionNumber, _AXTapToSpeakTimeVersionString ]
+    objc-classes:       [ _AXTapToSpeakTimeManager, _AXTapticChimeAsset, _AXTapticChimesScheduler, _AXTimeOutputPreferences ]
+    objc-ivars:         [ _AXTapToSpeakTimeManager._cachedRingerIsMuted, _AXTapToSpeakTimeManager._dateFormatter,
+                          _AXTapToSpeakTimeManager._lastMediaVolume, _AXTapToSpeakTimeManager._queue,
+                          _AXTapToSpeakTimeManager._ringerStateNotifyToken, _AXTapToSpeakTimeManager._tapticTimeManager,
+                          _AXTapToSpeakTimeManager._vsSpeechSynthesizer, _AXTapticChimeAsset._audioFilePath,
+                          _AXTapticChimeAsset._hapticDictionary, _AXTapticChimeAsset._prePlayTimeInterval,
+                          _AXTapticChimeAsset._volume, _AXTapticChimesScheduler._audioPlaybackPowerAssertionID,
+                          _AXTapticChimesScheduler._audioPlayer, _AXTapticChimesScheduler._chimeTimer,
+                          _AXTapticChimesScheduler._currentChimeAsset, _AXTapticChimesScheduler._lastActualChimeTime,
+                          _AXTapticChimesScheduler._lastActualWakeTime, _AXTapticChimesScheduler._lastExpectedChimeTime,
+                          _AXTapticChimesScheduler._lastExpectedWakeTime, _AXTapticChimesScheduler._lastMediaVolume,
+                          _AXTapticChimesScheduler._previousAudioSessionCategory, _AXTimeOutputPreferences._domainAccessor ]
+...

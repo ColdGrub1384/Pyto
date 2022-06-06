@@ -1,0 +1,25 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/StoreBookkeeperClient.framework/StoreBookkeeperClient
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _propertyMonitor ]
+    objc-classes:       [ _SBCClientConfiguration, _SBCMusicLibraryPlaybackPositionDomain, _SBCPlaybackPositionDomain,
+                          _SBCPlaybackPositionEntity, _SBCPlaybackPositionService, _SBCPlaybackPositionServiceInterface,
+                          _SBCPlaybackPositionSyncService, _SBCPlaybackPositionValueService, _SBCXPCService,
+                          _SBCXPCServiceInterface ]
+    objc-ivars:         [ _SBCClientConfiguration._playbackPositionDomain, _SBCPlaybackPositionDomain._domainIdentifier,
+                          _SBCPlaybackPositionDomain._foreignDatabasePath, _SBCPlaybackPositionDomain._supportsSyncProtocol,
+                          _SBCPlaybackPositionDomain._ubiquitousDatabasePath, _SBCPlaybackPositionEntity._bookmarkTime,
+                          _SBCPlaybackPositionEntity._bookmarkTimestamp, _SBCPlaybackPositionEntity._foreignDatabaseEntityID,
+                          _SBCPlaybackPositionEntity._hasBeenPlayed, _SBCPlaybackPositionEntity._playbackPositionDomain,
+                          _SBCPlaybackPositionEntity._ubiquitousIdentifier, _SBCPlaybackPositionEntity._userPlayCount,
+                          _SBCPlaybackPositionService._playbackPositionDomain,
+                          _SBCPlaybackPositionService._usingPlaybackPositions, _SBCXPCService._XPCServiceInterface,
+                          _SBCXPCService._clientConfiguration, _SBCXPCService._connectionConfigured, _SBCXPCService._queue,
+                          _SBCXPCService._xpcConnection ]
+...

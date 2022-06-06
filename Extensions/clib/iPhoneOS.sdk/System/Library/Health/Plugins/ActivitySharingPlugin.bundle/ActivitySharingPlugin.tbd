@@ -1,0 +1,61 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/Health/Plugins/ActivitySharingPlugin.bundle/ActivitySharingPlugin
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ASAllDatabaseCompetitionKeys, _ASAllDatabaseCompetitionListEntryKeys,
+                          _ASCloudKitActivityDataRecordZoneName, _ASCloudKitContainerIdentifier, _ASCloudKitManagerErrorDomain,
+                          _ASCloudKitRelationshipRecordZoneName, _ASCloudKitShareParticipantsAreEqual,
+                          _ASCompetitionCompetitionUUIDKey, _ASCompetitionCurrentCacheIndexKey,
+                          _ASCompetitionDurationDateComponentsKey, _ASCompetitionFriendUUIDKey,
+                          _ASCompetitionLastPushedCacheIndexKey, _ASCompetitionListCKSystemFieldsKey,
+                          _ASCompetitionListFriendUUIDKey, _ASCompetitionListOwnerKey, _ASCompetitionListTypeKey,
+                          _ASCompetitionMaximumNumberOfPointsPerDayKey, _ASCompetitionOpponentScoreKey,
+                          _ASCompetitionPreferredVictoryBadgeStylesKey, _ASCompetitionScoreKey,
+                          _ASCompetitionStartDateComponentsKey, _ASCompetitionTypeKey, _ASDeleteLegacyContactsCache,
+                          _ASFakeAchievementTemplateUniqueNameFallback, _ASFakeAchievementTemplateUniqueNameKey,
+                          _ASFakeAchievementValueFallback, _ASFakeAchievementValueKey, _ASFakeAchievementWorkoutTypeFallback,
+                          _ASFakeAchievementWorkoutTypeKey, _ASFakeCompetitionBadgeStyleKey, _ASFakeCompetitionMyWinCountKey,
+                          _ASFakeCompetitionOpponentWinCountKey, _ASFakeCompetitionOpponentWonPreviouslyKey,
+                          _ASFakeContactAddressFallback, _ASFakeContactAddressKey, _ASFakeContactNameFallback,
+                          _ASFakeContactNameKey, _ASFakeFriendUUIDKey, _ASFakeWorkoutDistanceFallback, _ASFakeWorkoutDistanceKey,
+                          _ASFakeWorkoutDurationFallback, _ASFakeWorkoutDurationKey, _ASFakeWorkoutEnergyBurnedFallback,
+                          _ASFakeWorkoutEnergyBurnedKey, _ASFakeWorkoutGoalFallback, _ASFakeWorkoutGoalKey,
+                          _ASFakeWorkoutGoalTypeFallback, _ASFakeWorkoutGoalTypeKey, _ASFakeWorkoutIndoorFallback,
+                          _ASFakeWorkoutIndoorKey, _ASFakeWorkoutTypeFallback, _ASFakeWorkoutTypeKey,
+                          _ASFindContactWithDestinationsInContacts, _ASKeyValueDomain, _ASMaxMessageRetryCount,
+                          _ASMessagePayloadKey, _ASMessageRetryCountKey, _ASMessageSenderAddressKey, _ASMessageTypeKey,
+                          _ASPeriodicUpdateActivityIdentifier, _ASPeriodicUpdateFetchMinimumInterval,
+                          _ASReadContactFromDiskCache, _ASReadContactsFromDiskCache, _ASRelationshipManagerErrorDomain,
+                          _ASRelationshipReconcileContactChangeCoalesceInterval, _ASRelationshipTransaction,
+                          _ASRemoveAllActivitySharingUserDefaults, _ASWriteContactToDiskCache, _ASWriteContactsToDiskCache,
+                          _CodableAchievementBulletinForFriendAchievement, _CodableBulletinForFriends,
+                          _CodableCompetitionAcceptedBulletinForFriend, _CodableCompetitionBulletinForFriendForTypeWithTitle,
+                          _CodableCompetitionEndedBulletinForFriend, _CodableCompetitionRequestBulletinForFriend,
+                          _CodableCompetitionScoreCapCelebrationBulletinForFriends,
+                          _CodableGoalCompletionBulletinForFriendActivitySnapshot, _CodableWorkoutBulletinForFriendWorkout,
+                          _NSStringFromASMessageType, _RegisterFitnessAppBadgeCountProvider, _RequestFitnessAppBadgeCountUpdate,
+                          __ASCloudKitSubscriptionIdentifier, __ContactCachePathForUUID, __ContactsCacheDirectoryPath,
+                          __ContactsCacheFilenames, __CreateContactsCacheDirectory, __CreateSubscription,
+                          __SanitizedBoolCompletion, __SanitizedError, __SanitizedSuccessCompletion, _kASKeyValueDomain,
+                          _kASNotificationLocalDefaultsDomain, _kASNotificationNanoUserDefaultsDomain ]
+    objc-classes:       [ _ASAchievementManager, _ASActivityDataBulletinManager, _ASActivityDataManager,
+                          _ASActivityDataNotificationManager, _ASActivitySharingManager, _ASActivitySharingPlugin,
+                          _ASActivitySharingProfileExtension, _ASAsyncTransactionQueue, _ASCloudKitManager,
+                          _ASCloudKitServerChangeTokenCache, _ASCloudKitUtility, _ASCompanionBulletinPostingManager,
+                          _ASCompetitionAwardingSource, _ASCompetitionBulletinManager, _ASCompetitionManager,
+                          _ASCompetitionStore, _ASCompetitionTemplateSource, _ASContactsManager,
+                          _ASDatabaeCompetitionListEntryBulkDeletionJournalEntry, _ASDatabaseCompetitionBulkDeletionJournalEntry,
+                          _ASDatabaseCompetitionDeletionJournalEntry, _ASDatabaseCompetitionEntity,
+                          _ASDatabaseCompetitionJournalEntry, _ASDatabaseCompetitionListEntryEncoder,
+                          _ASDatabaseCompetitionListEntryEntity, _ASDatabaseCompetitionListEntryJournalEntry,
+                          _ASDatabseCompetitionEncoder, _ASFakeBulletinManager, _ASFakingManager, _ASFriendInviteBulletinManager,
+                          _ASFriendListManager, _ASFriendListQueryServer, _ASGatewayManager, _ASGizmoBulletinPostingManager,
+                          _ASIDSMessageCenter, _ASMessage, _ASMessageHandler, _ASMessageQueue, _ASNotificationStep,
+                          _ASOnWristMonitor, _ASPeriodicUpdateManager, _ASRelationshipBeganPlaceholder, _ASRelationshipManager,
+                          _ASServer, _ASSetupManager, __ASContactPlaceholder ]
+...

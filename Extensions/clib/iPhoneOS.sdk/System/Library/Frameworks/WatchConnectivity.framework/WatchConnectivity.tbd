@@ -1,0 +1,58 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 75570633-A6F1-34E8-8B2F-460AAA018007', 'armv7s: 85AFE37B-A011-31F7-8DED-28DE8D2BF3B2', 
+                   'arm64: 6E0BB5A5-98BC-3FEB-9900-F8D55E493509', 'arm64e: C331E262-911B-3526-8B21-0F1AAF9D9111' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/WatchConnectivity.framework/WatchConnectivity'
+current-version: 185
+exports:         
+  - archs:           [ armv7, armv7s ]
+    symbols:         [ _LZ4_compress, _LZ4_compressBound, _LZ4_compress_continue, 
+                       _LZ4_compress_default, _LZ4_compress_destSize, _LZ4_compress_fast, 
+                       _LZ4_compress_fast_continue, _LZ4_compress_fast_extState, 
+                       _LZ4_compress_fast_force, _LZ4_compress_forceExtDict, _LZ4_compress_limitedOutput, 
+                       _LZ4_compress_limitedOutput_continue, _LZ4_compress_limitedOutput_withState, 
+                       _LZ4_compress_withState, _LZ4_create, _LZ4_createStream, _LZ4_createStreamDecode, 
+                       _LZ4_decompress_fast, _LZ4_decompress_fast_continue, _LZ4_decompress_fast_usingDict, 
+                       _LZ4_decompress_fast_withPrefix64k, _LZ4_decompress_safe, 
+                       _LZ4_decompress_safe_continue, _LZ4_decompress_safe_forceExtDict, 
+                       _LZ4_decompress_safe_partial, _LZ4_decompress_safe_usingDict, 
+                       _LZ4_decompress_safe_withPrefix64k, _LZ4_freeStream, _LZ4_freeStreamDecode, 
+                       _LZ4_loadDict, _LZ4_resetStream, _LZ4_resetStreamState, _LZ4_saveDict, 
+                       _LZ4_setStreamDecode, _LZ4_sizeofState, _LZ4_sizeofStreamState, 
+                       _LZ4_slideInputBuffer, _LZ4_uncompress, _LZ4_uncompress_unknownOutputSize, 
+                       _LZ4_versionNumber, _PizBufGenerate, _PizBufGenerateCompressed, 
+                       _PizBufGenerateRaw, _PizBufParse, _PizBufParseRaw, _WCCurrentComplicationIdentifierSuffix, 
+                       _WCDIndexFileName, _WCQueueMessageMaxRetries, _WCSessionLegacyActivationTimeout, 
+                       _WatchConnectivityVersionNumber, _WatchConnectivityVersionString, 
+                       _isAllowedFileForProcess ]
+    objc-classes:    [ WCQueuedMessage ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _WCApplicationContextFileName, _WCApplicationSupportURLInContainer, 
+                       _WCCheckFileAndConsumeSandboxTokenForProcessID, _WCCheckFileAndCreateExtensionForProcess, 
+                       _WCCompactStringFromCollection, _WCComplicationUserInfoIDFileName, 
+                       _WCDProtoUserInfoTransferReadFrom, _WCDashboardLog, _WCDashboardLogJSON, 
+                       _WCDeleteItemAtURL, _WCDeserializePayloadData, _WCErrorDomain, 
+                       _WCFileTransferDataFileName, _WCFileTransferResultErrorKey, 
+                       _WCFileTransferResultsFileName, _WCFileTransfersURLInContainer, 
+                       _WCInboxAppContextFolderURLInContainer, _WCInboxURLInContainer, 
+                       _WCInternalErrorDomain, _WCIsDataAcceptableSizeForType, _WCIsFileDirectory, 
+                       _WCIsSizeAcceptableForType, _WCPayloadSizeLimitApplicationContext, 
+                       _WCPayloadSizeLimitMessage, _WCPayloadSizeLimitUserInfo, _WCPrivateServiceComplicationsManagerEntitlement, 
+                       _WCPrivateServiceShouldConnectNotification, _WCPrivateServiceTestToolEntitlement, 
+                       _WCSerializePayloadDictionary, _WCServiceAlwaysReachableEntitlement, 
+                       _WCServiceIncreasedPriorityTrafficEntitlement, _WCServiceListenerResumedNotification, 
+                       _WCSessionFilePersistentFileName, _WCSessionFilesURLInContainer, 
+                       _WCTransferIdentifierFromComplicationIdentifier, _WCTransferredFilesURLInContainer, 
+                       _WCTransferredUserInfoInboxURLInContainer, _WCUserInfoTransferObjectFileName, 
+                       _WCUserInfoTransferResultErrorKey, _WCUserInfoTransferResultsFileName, 
+                       _WCUserInfoTransferWireDataFileName, _WCUserInfoTransfersInContainer, 
+                       _WCWakeDaemonNotification, _WCWatchDirectoryLocationInContainer, 
+                       _wc_log, _wc_pushkit_log ]
+    objc-classes:    [ WCActiveDeviceSwitchTask, WCComplicationManager, WCContentIndex, 
+                       WCDProtoUserInfoTransfer, WCDataMessageRecord, WCDictionaryMessageRecord, 
+                       WCFileStorage, WCMessage, WCMessageRecord, WCMessageRequest, 
+                       WCMessageResponse, WCPrivateXPCManager, WCQueueManager, WCSession, 
+                       WCSessionFile, WCSessionFileTransfer, WCSessionState, WCSessionUserInfoTransfer, 
+                       WCUserInfo, WCXPCManager ]
+...

@@ -1,0 +1,15 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/UserFS.framework/UserFS
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:       [ _LiveFSUSBLocalStorageClient, _UserFSFile, _UserFSFolder, _UserFSItem, _UserFSStream, _UserFSVolume ]
+    objc-ivars:         [ _UserFSItem._createdDate, _UserFSItem._isDirectory, _UserFSItem._length, _UserFSItem._locked,
+                          _UserFSItem._modifiedDate, _UserFSItem._name, _UserFSItem._path, _UserFSItem._volume,
+                          _UserFSStream._connection, _UserFSStream._item, _UserFSStream._length, _UserFSVolume._connection,
+                          _UserFSVolume._deviceName, _UserFSVolume._isLocked ]
+...

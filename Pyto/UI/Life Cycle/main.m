@@ -105,6 +105,7 @@ int initialize_python(int argc, char *argv[]) {
     
     // Pip
     putenv("PIP_DISABLE_PIP_VERSION_CHECK=1");
+    putenv("_PYTHON_HOST_PLATFORM=pyto_ios");
     
     // Jupyter
     NSString *jupyterDataDir = [docs stringByAppendingPathComponent: @"Resources/share"];

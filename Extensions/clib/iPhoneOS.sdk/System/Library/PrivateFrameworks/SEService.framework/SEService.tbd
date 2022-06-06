@@ -1,0 +1,70 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SEService.framework/SEService
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _DERAlgorithmIdItemSpecs, _DERDecodeItem, _DERDecodeItemPartialBuffer,
+                          _DERDecodeItemPartialBufferGetLength, _DERDecodeSeqContentInit, _DERDecodeSeqInit, _DERDecodeSeqNext,
+                          _DEREncodeItem, _DEREncodeLength, _DEREncodeSequence, _DERLengthOfEncodedSequence, _DERLengthOfItem,
+                          _DERLengthOfLength, _DERNumAlgorithmIdItemSpecs, _DERNumRSAKeyPairItemSpecs,
+                          _DERNumRSAPrivKeyCRTItemSpecs, _DERNumRSAPubKeyAppleItemSpecs, _DERNumRSAPubKeyPKCS1ItemSpecs,
+                          _DERNumSubjPubKeyInfoItemSpecs, _DERParseBitString, _DERParseBoolean, _DERParseBooleanWithDefault,
+                          _DERParseInteger, _DERParseInteger64, _DERParseSequence, _DERParseSequenceContent,
+                          _DERRSAKeyPairItemSpecs, _DERRSAPrivKeyCRTItemSpecs, _DERRSAPubKeyAppleItemSpecs,
+                          _DERRSAPubKeyPKCS1ItemSpecs, _DERSubjPubKeyInfoItemSpecs, _ECDSASigValueSpec, _SESDError,
+                          _SESEndPointAuthorize, _SESEndPointCertificateAuthorityList, _SESEndPointConfigureMailBoxes,
+                          _SESEndPointCreate, _SESEndPointCreateCertificateAuthority, _SESEndPointCreateEncryptionKey,
+                          _SESEndPointDelete, _SESEndPointDeleteCertificateAuthority,
+                          _SESEndPointDisablePersistentVisibilityOnContacless, _SESEndPointDisablePersistentVisibilityOnWired,
+                          _SESEndPointDisableVolatileVisibilityOnContacless, _SESEndPointDisableVolatileVisibilityOnWired,
+                          _SESEndPointEnablePersistentVisibilityOnContacless, _SESEndPointEnablePersistentVisibilityOnWired,
+                          _SESEndPointEnableVolatileVisibilityOnContacless, _SESEndPointEnableVolatileVisibilityOnWired,
+                          _SESEndPointGetPrivateData, _SESEndPointList, _SESEndPointPrivacyDecryption,
+                          _SESEndPointPrivacyEncryption, _SESEndPointRevoke, _SESEndPointSetConfidentialData,
+                          _SESEndPointSetMetaData, _SESEndPointSetPrivacyEncryptionKey, _SESEndPointSetPrivateData,
+                          _SESEndPointSignData, _SESFrameworkError, _SESKeyCreate, _SESKeyCreateCertificate,
+                          _SESKeyCreateSEBAASCertificate, _SESKeyCreateWithExtractedACLs, _SESKeyDecryptData, _SESKeyDelete,
+                          _SESKeyEncryptData, _SESKeyExchange, _SESKeyPublicKey, _SESKeyRewrapData, _SESKeySignData,
+                          _SEServiceVersionNumber, _SEServiceVersionString, _encodeDERItem, _encodeItem, _encodeSequence,
+                          _framework_os_log, _getPublicKeyBytes, _kSEKeyCertOIDAccessControls, _kSEKeyCertOIDAppletVersion,
+                          _kSEKeyCertOIDDeviceIdentifiers, _kSEKeyCertOIDDeviceOSInformation, _kSEKeyCertOIDHardwareProperties,
+                          _kSEKeyCertOIDKeyUsageProperties, _kSEKeyCertOIDNonce, _kSEKeyCertOIDSEID,
+                          _kSEKeyCertOIDUCRTDeviceIdentifiers, _libDERErrorString, _ptc_KeyNumberDataToNSUInteger,
+                          _ptc_KeyNumberToNSUInteger, _ptc_keyData_GetAssetACL, _ptc_keyData_GetAssetACLAttestation,
+                          _ptc_keyData_GetKeyBlob, _ptc_keyData_GetKeyNumber, _ptc_keyData_GetPublicKey,
+                          _ptc_keyData_GetWrappedKeyBlob, _seserviced_os_log ]
+    objc-classes:       [ _SEEndPoint, _SEEndPointAuthorizeResponse, _SEEndPointCertificateAuthority, _SEEndPointConfiguration,
+                          _SEEndPointSignatureResponse, _SESClient, _SESTLV ]
+    objc-ivars:         [ _SEEndPoint._authorizedKeys, _SEEndPoint._certificates, _SEEndPoint._confidentialMailBoxSize,
+                          _SEEndPoint._configuration, _SEEndPoint._counter, _SEEndPoint._identifier,
+                          _SEEndPoint._issuerIdentifier, _SEEndPoint._keyIdentifier, _SEEndPoint._metaData,
+                          _SEEndPoint._privacyKeyIdentifier, _SEEndPoint._privateMailBoxSize, _SEEndPoint._publicKey,
+                          _SEEndPoint._publicKeyIdentifier, _SEEndPoint._readerIdentifier, _SEEndPoint._readerPublicKey,
+                          _SEEndPoint._revocationAttestation, _SEEndPoint._subjectIdentifier,
+                          _SEEndPointAuthorizeResponse._encryptedData, _SEEndPointAuthorizeResponse._encryptionPublicKeyData,
+                          _SEEndPointAuthorizeResponse._endPointAttestationData, _SEEndPointCertificateAuthority._certificate,
+                          _SEEndPointCertificateAuthority._certificates, _SEEndPointCertificateAuthority._identifier,
+                          _SEEndPointCertificateAuthority._secureElementAttestation,
+                          _SEEndPointCertificateAuthority._subjectIdentifier, _SEEndPointConfiguration._authorizeEndPointAllowed,
+                          _SEEndPointConfiguration._authorizeEndPointWithAuthorizeAllowed,
+                          _SEEndPointConfiguration._confidentialDataAllowed, _SEEndPointConfiguration._enabledOnContactless,
+                          _SEEndPointConfiguration._enabledOnWire, _SEEndPointConfiguration._exchangeAllowedInFastFlow,
+                          _SEEndPointConfiguration._exchangeAllowedOnWire,
+                          _SEEndPointConfiguration._exportEraseConfidentialMailBox,
+                          _SEEndPointConfiguration._fastFlowAllowedOnContactless,
+                          _SEEndPointConfiguration._fastFlowAllowedOnWire, _SEEndPointConfiguration._lengthConfidentialMailBox,
+                          _SEEndPointConfiguration._lengthPrivateMailBox,
+                          _SEEndPointConfiguration._localValidationMayBeRequested,
+                          _SEEndPointConfiguration._localValidationOnContactless,
+                          _SEEndPointConfiguration._localValidationOnContactlessStatic,
+                          _SEEndPointConfiguration._localValidationOnWire, _SEEndPointConfiguration._localValidationOnWireStatic,
+                          _SEEndPointConfiguration._offsetConfidentialMailBox, _SEEndPointConfiguration._offsetPrivateMailBox,
+                          _SEEndPointConfiguration._signAllowed, _SEEndPointConfiguration._standardFlowAllowedOnContactless,
+                          _SEEndPointConfiguration._standardFlowAllowedOnWire, _SEEndPointSignatureResponse._signature,
+                          _SEEndPointSignatureResponse._signedData, _SESClient._connection, _SESTLV._children, _SESTLV._tag,
+                          _SESTLV._value ]
+...

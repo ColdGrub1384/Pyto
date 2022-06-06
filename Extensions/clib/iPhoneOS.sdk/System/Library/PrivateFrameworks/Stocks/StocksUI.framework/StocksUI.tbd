@@ -1,0 +1,58 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Stocks/StocksUI.framework/StocksUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ NewsArticles, NewsArticlesTests, NewsFeed, NewsFeedTests, NewsSubscription, Stocks, StocksAnalytics,
+                          StocksAnalyticsTests, StocksCore, StocksCoreTests, StocksTests, StocksToday, StocksUI, StocksUITests ]
+    symbols:            [ _StocksUIVersionNumber, _StocksUIVersionString ]
+    objc-classes:       [ _SUArticleAssembly, _SUBootstrapAssembly, _SUDebugAssembly, _SUEditStockListAssembly,
+                          _SUEditStockListModule, _SUImages, _SULaunchPad, _SUMainAssembly, _SUMenuAssembly, _SUPPTAssembly,
+                          _SURendererAssembly, _SUShortcutItemHandlerAssembly, _SUStockChartAssembly, _SUStockFeedViewerAssembly,
+                          _SUStocksUIAssembly, _SUStylerAssembly, _SUTickerAssembly, _SUToolbarAssembly, _SUURLHandlerAssembly,
+                          _SUUserActivityHandlerAssembly, _TSDebugAppConfigurationAssembly, _TSDebugAppConfigurationModule,
+                          _TSSearchAssembly, _TSStockListAssembly, _TSSubscriptionsAssembly, __TtC8StocksUI10ReaderView,
+                          __TtC8StocksUI10TickerView, __TtC8StocksUI11PlacardView, __TtC8StocksUI11WelcomeView,
+                          __TtC8StocksUI12MastheadView, __TtC8StocksUI12TickerRouter, __TtC8StocksUI13EditStockView,
+                          __TtC8StocksUI13EmptyListView, __TtC8StocksUI13MainTestSuite, __TtC8StocksUI13WelcomeModule,
+                          __TtC8StocksUI14StockTitleView, __TtC8StocksUI15CommandAssembly, __TtC8StocksUI15FactoryAssembly,
+                          __TtC8StocksUI15ForYouTitleView, __TtC8StocksUI15ManagerAssembly, __TtC8StocksUI15QuoteDetailView,
+                          __TtC8StocksUI15TickerTestSuite, __TtC8StocksUI15WelcomeAssembly, __TtC8StocksUI16ProviderAssembly,
+                          __TtC8StocksUI16QuoteSummaryView, __TtC8StocksUI17BrandingTitleView, __TtC8StocksUI17SectionHeaderView,
+                          __TtC8StocksUI17StockFeedAssembly, __TtC8StocksUI17StockSearchModule,
+                          __TtC8StocksUI17WebViewController, __TtC8StocksUI18ForYouFeedAssembly,
+                          __TtC8StocksUI18IconTextAttachment, __TtC8StocksUI18StockFeedPriceView,
+                          __TtC8StocksUI18StockFeedTestSuite, __TtC8StocksUI18StockListTestSuite,
+                          __TtC8StocksUI18StockSparklineView, __TtC8StocksUI18TextAndImageButton,
+                          __TtC8StocksUI19DateRangePickerView, __TtC8StocksUI19ForYouFeedTestSuite,
+                          __TtC8StocksUI19ForYouFeedTitleView, __TtC8StocksUI19NetworkReachability,
+                          __TtC8StocksUI19StockSearchCellView, __TtC8StocksUI20TickerCollectionView,
+                          __TtC8StocksUI20TickerScrollTestCase, __TtC8StocksUI20TickerViewController,
+                          __TtC8StocksUI21StockChartCalloutView, __TtC8StocksUI21StockFeedMastheadView,
+                          __TtC8StocksUI21WelcomeViewController, __TtC8StocksUI22StockSectionFooterView,
+                          __TtC8StocksUI23MainSplitViewController, __TtC8StocksUI23QuoteDetailViewRenderer,
+                          __TtC8StocksUI23StockFeedRotateTestCase, __TtC8StocksUI23StockFeedScrollTestCase,
+                          __TtC8StocksUI23StockFeedViewController, __TtC8StocksUI23StockListRotateTestCase,
+                          __TtC8StocksUI23StockListScrollTestCase, __TtC8StocksUI23StockListViewController,
+                          __TtC8StocksUI24ForYouFeedRotateTestCase, __TtC8StocksUI24ForYouFeedScrollTestCase,
+                          __TtC8StocksUI24ForYouFeedViewController, __TtC8StocksUI24StockChartViewController,
+                          __TtC8StocksUI24StockFeedViewOverlayView, __TtC8StocksUI25StockSearchViewController,
+                          __TtC8StocksUI26StockChartRangeCalloutView, __TtC8StocksUI27EditStockListViewController,
+                          __TtC8StocksUI28StockChartCalloutHandleLayer, __TtC8StocksUI28StockSearchSectionHeaderView,
+                          __TtC8StocksUI29StockFeedViewerViewController, __TtC8StocksUI29StocksDebugInfoViewController,
+                          __TtC8StocksUI29TickerCardContainerController, __TtC8StocksUI30StockSearchModalViewController,
+                          __TtC8StocksUI32StockFeedScrollLandscapeTestCase, __TtC8StocksUI32StockListScrollLandscapeTestCase,
+                          __TtC8StocksUI33ForYouFeedScrollLandscapeTestCase, __TtC8StocksUI34ArticleErrorMessageFactoryProvider,
+                          __TtC8StocksUI35DebugAppConfigurationViewController, __TtC8StocksUI9ShapeView,
+                          __TtC8StocksUI9StockView, __TtC8StocksUI9TodayView, __TtCC8StocksUI11WelcomeView10BulletView,
+                          __TtCC8StocksUI11WelcomeView10TitleGroup, __TtCC8StocksUI11WelcomeView14ContinueButton,
+                          __TtCC8StocksUI15QuoteDetailView22YahooAttributionButton,
+                          __TtCC8StocksUI18StockSparklineViewP33_D110489D7989A286557923EB4206D59120NonAnimatingDelegate,
+                          __TtCC8StocksUI21StockFeedMastheadView14AddStockButton,
+                          __TtCC8StocksUI24StockChartViewControllerP33_E483C2B618A7CE6B48867B145DEE9A5212ErrorContext,
+                          __TtCC8StocksUI9StockView17PriceChangeButton, __TtCC8StocksUI9StockView18StockViewAXElement ]
+...

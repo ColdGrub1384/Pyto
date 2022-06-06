@@ -73,6 +73,8 @@ class Reader:
             text = txt.decode()
             self.write(text)
 
+    def detach(self):
+        return self
 
 class InputReader:
     """
@@ -123,5 +125,7 @@ class InputReader:
         msg = "not writable"
         raise io.UnsupportedOperation(msg)
 
+    def detach(self):
+        return self
 
 __all__ = ["Reader", "InputReader"]

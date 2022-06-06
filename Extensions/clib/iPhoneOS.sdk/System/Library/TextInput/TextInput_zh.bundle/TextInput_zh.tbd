@@ -1,0 +1,23 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/TextInput/TextInput_zh.bundle/TextInput_zh
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:       [ _TIInputManagerHandwritingSimplified, _TIInputManagerHandwritingTraditional,
+                          _TIKeyboardInputManagerCangjie_zh, _TIKeyboardInputManagerSimplifiedWubi,
+                          _TIKeyboardInputManagerTraditionalWubi, _TIKeyboardInputManager_zh_Pinyin,
+                          _TIKeyboardInputManager_zh_hans_Pinyin, _TIKeyboardInputManager_zh_hant_Pinyin,
+                          _TIKeyboardInputManager_zh_hant_Zhuyin, _TIZhuyinInputManager ]
+    objc-ivars:         [ _TIKeyboardInputManager_zh_hant_Zhuyin._assertDefaultKeyPlane,
+                          _TIKeyboardInputManager_zh_hant_Zhuyin._dynamic, _TIZhuyinInputManager._composedBuffer,
+                          _TIZhuyinInputManager._composedBufferSplittingLengths, _TIZhuyinInputManager._inputBuffer,
+                          _TIZhuyinInputManager._inputBufferSplittingLengths, _TIZhuyinInputManager._inputCursorLocation,
+                          _TIZhuyinInputManager._leftDoubleQuotationMarkInserted,
+                          _TIZhuyinInputManager._leftSingleQuotationMarkInserted, _TIZhuyinInputManager._syllableConsonantBuffer,
+                          _TIZhuyinInputManager._syllableMedialBuffer, _TIZhuyinInputManager._syllableToneBuffer,
+                          _TIZhuyinInputManager._syllableVowelBuffer ]
+...

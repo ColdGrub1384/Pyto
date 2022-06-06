@@ -1,0 +1,23 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/DictionaryUI.framework/DictionaryUI
+current-version:       23
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _DUDefinitionElementKeyHeadword, _DUDefinitionElementKeyPartOfSpeech,
+                          _DUDefinitionElementKeyPronunciation, _DUDefinitionElementKeyRecordID, _DUDefinitionElementKeySenses,
+                          _DUDefinitionElementKeySyllabifiedHeadword, _DictionaryUIVersionNumber, _DictionaryUIVersionString ]
+    objc-classes:       [ _DUDefinitionDictionary, _DUDefinitionValue, _DUDictionaryManager, _DUEntryViewController ]
+    objc-ivars:         [ _DUDefinitionDictionary._activated, _DUDefinitionDictionary._assetToUpgrade,
+                          _DUDefinitionDictionary._definitionLanguage, _DUDefinitionDictionary._dictionary,
+                          _DUDefinitionDictionary._isAppleDictionary, _DUDefinitionDictionary._isTTYDictionary,
+                          _DUDefinitionDictionary._progress, _DUDefinitionDictionary._rawAsset, _DUDefinitionValue._definition,
+                          _DUDefinitionValue._definitionElements, _DUDefinitionValue._foundRecordRefs,
+                          _DUDefinitionValue._localizedDictionaryName, _DUDefinitionValue._longDefinition,
+                          _DUDefinitionValue._rawAsset, _DUDefinitionValue._term,
+                          _DUDictionaryManager._availableDefinitionDictionaries, _DUDictionaryManager._initiallyEmptyAssets,
+                          _DUEntryViewController._definitionValue ]
+...

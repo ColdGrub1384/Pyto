@@ -1,0 +1,20 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AppPreferenceClient.framework/AppPreferenceClient
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _APRAppPreferenceInterface, _APRIntentStreamUpdateInterface, _AppPreferenceClientVersionNumber,
+                          _AppPreferenceClientVersionString, _kAPRAppPreferenceInterfaceMachServiceName,
+                          _kAPRIntentStreamUpdateInterfaceMachServiceName ]
+    objc-classes:       [ _APRAppPreferenceClient, _APRAppPreferenceResponse, _APRAppPreferenceTypes,
+                          _APRIntentStreamUpdateClient ]
+    objc-ivars:         [ _APRAppPreferenceClient._xpcConnection, _APRAppPreferenceResponse._ABGroup,
+                          _APRAppPreferenceResponse._atxResponse, _APRAppPreferenceResponse._engagedBundleId,
+                          _APRAppPreferenceResponse._engagementType, _APRAppPreferenceResponse._experience,
+                          _APRAppPreferenceResponse._feedbackSource, _APRAppPreferenceResponse._intentType,
+                          _APRIntentStreamUpdateClient._xpcConnection ]
+...

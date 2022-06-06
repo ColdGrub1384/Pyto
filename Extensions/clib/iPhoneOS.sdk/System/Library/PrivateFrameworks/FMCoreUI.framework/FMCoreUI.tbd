@@ -1,0 +1,72 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/FMCoreUI.framework/FMCoreUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _FMShortcutItemIdentifierKey ]
+    objc-classes:       [ _FMAccuracyOverlay, _FMAnnotationView, _FMAppShortcutManager, _FMAttributedStringRenderer,
+                          _FMAttributedStringRendererOptions, _FMBlurView, _FMBorderedButton, _FMBorderedField, _FMBorderedView,
+                          _FMBottomPaneSegue, _FMDistanceBadge, _FMFixedSizeView, _FMHairlineConstraint, _FMHorizontalRule,
+                          _FMLeftPaneSegue, _FMMapAnnotationGestureRecognizer, _FMMapGestureRecognizer, _FMMapView,
+                          _FMObservingCell, _FMPaneSegue, _FMRightPaneSegue, _FMRule, _FMSlidingPaneViewController, _FMTitleView,
+                          _FMTitleViewCenteringNavigationBar, _FMTopPaneSegue, _FMUserLocationView, _FMVerticalRule,
+                          _FMViewController, _FM_Workaround_30408319_Button, _ISPaneFrameView, _SlidingPaneViewState ]
+    objc-ivars:         [ _FMAccuracyOverlay._horizontalAccuracy, _FMAccuracyOverlay._parentAnnotation,
+                          _FMAnnotationView._hasPhotoImage, _FMAnnotationView._isDelayed,
+                          _FMAnnotationView._isShowingLargeSelectedAnnotation, _FMAnnotationView._largeCircleLayer,
+                          _FMAnnotationView._largePersonImageLayer, _FMAnnotationView._largeRingLayer,
+                          _FMAnnotationView._locationInnerLayer, _FMAnnotationView._locationOuterLayer,
+                          _FMAnnotationView._shouldPreventLargeAnnotationState, _FMAnnotationView._smallCircleLayer,
+                          _FMAnnotationView._smallPersonImageLayer, _FMAnnotationView._smallRingLayer,
+                          _FMAttributedStringRenderer._options, _FMAttributedStringRendererOptions._exclusionPaths,
+                          _FMAttributedStringRendererOptions._hyphenationFactor,
+                          _FMAttributedStringRendererOptions._lineBreakMode,
+                          _FMAttributedStringRendererOptions._lineFragmentPadding,
+                          _FMAttributedStringRendererOptions._maximumNumberOfLines, _FMBlurView._autosizesToFitSuperview,
+                          _FMBorderedButton._borderColor, _FMBorderedButton._hairlineBorder, _FMBorderedField._borderColor,
+                          _FMBorderedField._bottomRule, _FMBorderedField._isConfigured, _FMBorderedField._topRule,
+                          _FMBorderedView._hairlineBorder, _FMDistanceBadge._badgeColor, _FMDistanceBadge._insets,
+                          _FMFixedSizeView._fixedIntrinsicSize, _FMHairlineConstraint._pixelHeight,
+                          _FMMapAnnotationGestureRecognizer._touchDelegate, _FMMapGestureRecognizer._doubleTapTimer,
+                          _FMMapGestureRecognizer._initialTouchLocation, _FMMapGestureRecognizer._isRTLOrientation,
+                          _FMMapGestureRecognizer._isSwipeEnabled, _FMMapGestureRecognizer._isSwipingFromTheEdge,
+                          _FMMapGestureRecognizer._isSwipingGestureEnded, _FMMapGestureRecognizer._isTrackingTouches,
+                          _FMMapGestureRecognizer._lastTouchPoint, _FMMapGestureRecognizer._otherGestures,
+                          _FMMapGestureRecognizer._previousTouch, _FMMapGestureRecognizer._swipeThreshold,
+                          _FMMapGestureRecognizer._touchDelegate, _FMMapGestureRecognizer._touchRadius,
+                          _FMMapGestureRecognizer._velocity, _FMMapView._accuracyOverlays, _FMMapView._cameraBefore3DRendering,
+                          _FMMapView._canChangeUserTrackingMode, _FMMapView._canSelectUserAnnotation,
+                          _FMMapView._currentDeviceAnnotation, _FMMapView._currentSelectedState, _FMMapView._currentTrackingMode,
+                          _FMMapView._delegate, _FMMapView._displayLink, _FMMapView._doubleSelectionMode,
+                          _FMMapView._isAllAnnotationsShown, _FMMapView._isFingerOnAnnotation, _FMMapView._isFingerOnMap,
+                          _FMMapView._isGoingBackToAllAnnotation, _FMMapView._isMapAnimating, _FMMapView._isMapMoved,
+                          _FMMapView._isMapPositioningDisabled, _FMMapView._isNearbyModeDisabled,
+                          _FMMapView._isPreventingMapUpdates, _FMMapView._isPreviewing, _FMMapView._isSwipeGestureEnabled,
+                          _FMMapView._isSwitchingTrackingMode, _FMMapView._isUserLocationUpdated, _FMMapView._isUserSwiping,
+                          _FMMapView._lastSelectedAnnotationBeforeTracking, _FMMapView._lastVisibleInsets,
+                          _FMMapView._lastVisibleMapRect, _FMMapView._layoutTimer, _FMMapView._mapGesture, _FMMapView._mapView,
+                          _FMMapView._maxZoomLevel, _FMMapView._otherSelectedAnnotation,
+                          _FMMapView._potentiallySelectedAnnotationView, _FMMapView._renderingMode,
+                          _FMMapView._selectedAnnotation, _FMMapView._selectedAnnotationView, _FMMapView._shouldDisplayOverlay,
+                          _FMMapView._showUserLocationCallout, _FMMapView._userLocation, _FMMapView._userLocationTintColor,
+                          _FMMapView._userLocationView, _FMMapView._userSelectionTimer, _FMMapView._userTrackingButton,
+                          _FMObservingCell._kvoObservationTokens, _FMObservingCell._notificationTokens,
+                          _FMObservingCell._representedObject, _FMPaneSegue._disableAnimation, _FMRule._color,
+                          _FMRule._imageView, _FMRule._leading, _FMSlidingPaneViewController._actionFutures,
+                          _FMSlidingPaneViewController._animationDuration,
+                          _FMSlidingPaneViewController._animationInitialVelocity, _FMSlidingPaneViewController._animationOptions,
+                          _FMSlidingPaneViewController._animationSpringDamping, _FMSlidingPaneViewController._delegate,
+                          _FMSlidingPaneViewController._didHideToolbar, _FMSlidingPaneViewController._paneContentInsets,
+                          _FMSlidingPaneViewController._paneInsets, _FMSlidingPaneViewController._paneState,
+                          _FMSlidingPaneViewController._paneVisualEffect, _FMViewController._kvoObservationTokens,
+                          _FMViewController._notificationTokens, _FM_Workaround_30408319_Button._fm_workaround_height_constraint,
+                          _ISPaneFrameView._owningViewController, _SlidingPaneViewState._edge,
+                          _SlidingPaneViewState._paneHorizontalPositionConstraint,
+                          _SlidingPaneViewState._paneVerticalPositionConstraint, _SlidingPaneViewState._paneView,
+                          _SlidingPaneViewState._paneViewController, _SlidingPaneViewState._shouldNotifyOfPaneSizeChanges,
+                          _SlidingPaneViewState._visualEffectView ]
+...

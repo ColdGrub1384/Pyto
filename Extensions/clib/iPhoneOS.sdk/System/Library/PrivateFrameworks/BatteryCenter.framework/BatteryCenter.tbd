@@ -1,0 +1,35 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/BatteryCenter.framework/BatteryCenter
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _BCLogDeviceController, _BCLogSubsystem, _BCLogWidget, _BCRegisterUserNotificationsLogging,
+                          _BCStringFromParts, _BatteryCenterVersionNumber, _BatteryCenterVersionString,
+                          _kBCBatteryDeviceA111ProductIdentifier, _kBCBatteryDeviceA211ProductIdentifier,
+                          _kBCBatteryDeviceB188ProductIdentifier, _kBCBatteryDeviceB222ProductIdentifier,
+                          _kBCBatteryDeviceB244ProductIdentifier, _kBCBatteryDeviceB282ProductIdentifier,
+                          _kBCBatteryDeviceB288ProductIdentifier, _kBCBatteryDeviceB312ProductIdentifier,
+                          _kBCBatteryDeviceB352ProductIdentifier, _kBCBatteryDeviceB443ProductIdentifier,
+                          _kBCBatteryDeviceB444ProductIdentifier,
+                          _kBCBatteryDeviceControllerConnectedDevicesDidChangeNotification, _orderedDeviceAccessoryCategories ]
+    objc-classes:       [ _BCBatteryDevice, _BCBatteryDeviceController, _BCBatteryView ]
+    objc-ivars:         [ _BCBatteryDevice._accessoryCategory, _BCBatteryDevice._accessoryIdentifier,
+                          _BCBatteryDevice._approximatesPercentCharge, _BCBatteryDevice._batterySaverModeActive,
+                          _BCBatteryDevice._charging, _BCBatteryDevice._connected, _BCBatteryDevice._fake,
+                          _BCBatteryDevice._glyph, _BCBatteryDevice._groupName, _BCBatteryDevice._identifier,
+                          _BCBatteryDevice._internal, _BCBatteryDevice._lowBattery, _BCBatteryDevice._matchIdentifier,
+                          _BCBatteryDevice._name, _BCBatteryDevice._parts, _BCBatteryDevice._percentCharge,
+                          _BCBatteryDevice._powerSource, _BCBatteryDevice._powerSourceState, _BCBatteryDevice._productIdentifier,
+                          _BCBatteryDevice._transportType, _BCBatteryDevice._vendor, _BCBatteryDevice._wirelesslyCharging,
+                          _BCBatteryDeviceController._accessoriesChangedRunLoopSource,
+                          _BCBatteryDeviceController._accessoriesLimitedPowerRunLoopSource,
+                          _BCBatteryDeviceController._batterySaverModeActive,
+                          _BCBatteryDeviceController._chargeChangeHandlingDisabled,
+                          _BCBatteryDeviceController._devicesByIdentifier, _BCBatteryDeviceController._handlersByIdentifier,
+                          _BCBatteryDeviceController._powerSourcesChangedRunLoopSource, _BCBatteryDeviceController._queue,
+                          _BCBatteryDeviceController._sortedDevices, _BCBatteryView._lowBattery ]
+...

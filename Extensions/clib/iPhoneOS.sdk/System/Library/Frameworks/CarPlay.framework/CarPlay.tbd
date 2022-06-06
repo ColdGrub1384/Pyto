@@ -1,0 +1,23 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: D8931426-9E95-38C9-BC7D-030C15223638', 'arm64e: C5BFABB4-14E7-38AF-917E-C7267F08BC6E' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/CarPlay.framework/CarPlay'
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _CPColorMeetsContrastRequirement, _CPContrastRatioForColors, 
+                       _CPContrastingColorForColor, _CPGuidanceStyleForColor, _CPLuminanceForColor, 
+                       _CPMaximumListItemImageSize, _CPSStringFromBOOL, _CPSanitizedBackgroundColor, 
+                       _CPTemplateApplicationSceneSessionRoleApplication, _kCPGridTemplateMaximumItems ]
+    objc-classes:    [ CPActionSheetTemplate, CPAlertAction, CPAlertTemplate, CPBarButton, 
+                       CPEndpointListenerWrapper, CPGridButton, CPGridTemplate, CPImageSet, 
+                       CPInterfaceController, CPListItem, CPListSection, CPListTemplate, 
+                       CPManeuver, CPMapButton, CPMapTemplate, CPNavigationAlert, 
+                       CPNavigationSession, CPRequestEndpointAction, CPRouteChoice, 
+                       CPSearchTemplate, CPSessionConfiguration, CPTemplate, CPTemplateApplicationScene, 
+                       CPTravelEstimates, CPTrip, CPTripPreviewTextConfiguration, 
+                       CPUIMutableTemplateApplicationSceneSettings, CPUITemplateApplicationSceneSettings, 
+                       CPUITemplateApplicationSceneSpecification, CPVoiceControlState, 
+                       CPVoiceControlTemplate, CPWindow ]
+...

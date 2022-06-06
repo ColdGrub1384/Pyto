@@ -1,0 +1,43 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: A755BFBC-122A-385A-8D91-3512007D9429', 'armv7s: 1E8ED2B3-039C-3B2F-ACCF-437D9FD65379', 
+                   'arm64: 67F201C7-B664-365D-814A-3DBC9A6F5661', 'arm64e: 493A30E6-91B6-3B3A-B15C-F7C00E849D7B' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/GameController.framework/GameController'
+exports:         
+  - archs:           [ armv7, armv7s ]
+    symbols:         [ _GCApplicationSupportsBackgroundInput, _GCCommonGetPreferencesBooleanValue, 
+                       _kGCCommonFullPreferencesPath, _kGCCommonPreferencesUser ]
+    objc-classes:    [ _GCCControllerHIDServiceInfo, _GCControllerManager, _GCMicroGamepadSnapshot ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _ADLogControllerConnect, _ControllerClassForService, _GCControllerButtonInputPressedThreshold, 
+                       _GCControllerDidConnectNotification, _GCControllerDidDisconnectNotification, 
+                       _GCControllerManagerInit, _GCControllerManagerInitXPC, _GCCurrentExtendedGamepadSnapshotDataVersion, 
+                       _GCCurrentMicroGamepadSnapshotDataVersion, _GCExtendedGamepadSnapShotDataV100FromNSData, 
+                       _GCExtendedGamepadSnapshotDataFromNSData, _GCGamepadSnapShotDataV100FromNSData, 
+                       _GCMicroGamepadSnapShotDataV100FromNSData, _GCMicroGamepadSnapshotDataFromNSData, 
+                       _HIDControllerClassForVendorAndProduct, _NSDataFromGCExtendedGamepadSnapShotDataV100, 
+                       _NSDataFromGCExtendedGamepadSnapshotData, _NSDataFromGCGamepadSnapShotDataV100, 
+                       _NSDataFromGCMicroGamepadSnapShotDataV100, _NSDataFromGCMicroGamepadSnapshotData, 
+                       _USBControllerClassForVendorAndProduct, _VendorNameForATVProfile, 
+                       __GCHIDEventCallback, _clamp, _currentProcessHasEntitlement, 
+                       _doesDescriptorConformToSpec, _elementRangesMatch, _gc_isInternalBuild, 
+                       _getGCHIDLogger, _getInterfaceNumberForDevice, _isDeviceAppleB239Digitizer, 
+                       _isDeviceAppleControlCenterRemote, _isDeviceAppleEmbeddedBluetoothButtons, 
+                       _isDeviceAppleSiriRemote, _isDeviceDualShock4, _isDeviceMFiAuthenticated, 
+                       _isDeviceMotionLite, _isDeviceStereoARController, _isDeviceXboxOne, 
+                       _s_cbDelegate, _s_cbDelegateQueue, _s_mbDelegate, _s_sfDelegate, 
+                       _serviceMatchesUsageAndUsagePage, _setControllerForElementsWithObject, 
+                       _threadRunLoopSourceCallback ]
+    objc-classes:    [ GCAnalytics, GCController, GCControllerAxisInput, GCControllerButtonInput, 
+                       GCControllerCBDelegate, GCControllerDirectionPad, GCControllerElement, 
+                       GCControllerMBDelegate, GCControllerSFDelegate, GCControllerTouchpad, 
+                       GCEventViewController, GCExtendedGamepad, GCExtendedGamepadSnapshot, 
+                       GCGamepad, GCGamepadSnapshot, GCMicroGamepad, GCMicroGamepadSnapshot, 
+                       GCMotion, GCStereoAR, _GCController ]
+    objc-ivars:      [ GCControllerCBDelegate._centralManager, GCControllerCBDelegate._completionHandler, 
+                       GCControllerCBDelegate._connectedPeripherals, GCControllerCBDelegate._foundPeripherals, 
+                       GCControllerMBDelegate._discoveryAgent, GCControllerMBDelegate._pairingAgent, 
+                       GCControllerMBDelegate._session, GCControllerMBDelegate._timer, 
+                       GCControllerSFDelegate._activity ]
+...

@@ -1,0 +1,26 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AccessoryVoiceOver.framework/AccessoryVoiceOver
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ACCVoiceOverActionParameterPointXKey, _ACCVoiceOverActionParameterPointYKey,
+                          _ACCVoiceOverActionParameterScaleKey, _ACCVoiceOverActionParameterTextKey,
+                          _ACCVoiceOverActionParameterTouchTypeKey, _ACCVoiceOverCursorInformationUpdateContextKey,
+                          _ACCVoiceOverCursorInformationUpdateFrameBottomXKey,
+                          _ACCVoiceOverCursorInformationUpdateFrameBottomYKey, _ACCVoiceOverCursorInformationUpdateFrameKey,
+                          _ACCVoiceOverCursorInformationUpdateFrameTopXKey, _ACCVoiceOverCursorInformationUpdateFrameTopYKey,
+                          _ACCVoiceOverCursorInformationUpdateHintKey, _ACCVoiceOverCursorInformationUpdateLabelKey,
+                          _ACCVoiceOverCursorInformationUpdateTraitsKey, _ACCVoiceOverCursorInformationUpdateValueKey,
+                          _ACCVoiceOverInformationUpdateContextKey, _ACCVoiceOverInformationUpdateEnabledKey,
+                          _ACCVoiceOverInformationUpdateSpeakingRateKey, _ACCVoiceOverInformationUpdateSpeakingVolumeKey,
+                          _AccessoryVoiceOverVersionNumber, _AccessoryVoiceOverVersionString ]
+    objc-classes:       [ _ACCVoiceOverAccessory, _ACCVoiceOverProvider ]
+    objc-ivars:         [ _ACCVoiceOverAccessory._accessoryUID, _ACCVoiceOverAccessory._desiredVoiceOverState,
+                          _ACCVoiceOverProvider._accessories, _ACCVoiceOverProvider._delegate,
+                          _ACCVoiceOverProvider._providerUID, _ACCVoiceOverProvider._remoteObject,
+                          _ACCVoiceOverProvider._serverConnection ]
+...

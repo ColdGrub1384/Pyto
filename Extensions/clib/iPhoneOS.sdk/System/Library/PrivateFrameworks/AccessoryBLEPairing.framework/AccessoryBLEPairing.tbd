@@ -1,0 +1,25 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AccessoryBLEPairing.framework/AccessoryBLEPairing
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ACCBLEPairingAccDeviceUIDKey, _ACCBLEPairingAccFwPendingVer, _ACCBLEPairingAccFwVer,
+                          _ACCBLEPairingAccHwVer, _ACCBLEPairingAccManufacturer, _ACCBLEPairingAccModel, _ACCBLEPairingAccName,
+                          _ACCBLEPairingAccSerialNum, _ACCBLEPairingConnectionIDKey, _ACCBLEPairingDidConnectKey,
+                          _ACCBLEPairingDidDisconnectKey, _ACCBLEPairingDidSendPairDataKey, _ACCBLEPairingDidSendPairInfoKey,
+                          _ACCBLEPairingDidUpdateStateKey, _ACCBLEPairingIsSupported, _ACCBLEPairingLaunchNotification,
+                          _ACCBLEPairingPairDataKey, _ACCBLEPairingPairInfoArrayKey, _ACCBLEPairingPairModeKey,
+                          _ACCBLEPairingPairStateKey, _ACCBLEPairingRadioStateKey, _ACCBLEPairingSupports2WayKey,
+                          _ACCBLEPairingTypesSupportedKey, _ACCBLEPairingUUIDKey, _AccessoryBLEPairingVersionNumber,
+                          _AccessoryBLEPairingVersionString, _oobPairing_bleToOobPairingType, _oobPairing_oobToBlePairingType ]
+    objc-classes:       [ _ACCBLEPairingAccessory, _ACCBLEPairingProvider ]
+    objc-ivars:         [ _ACCBLEPairingAccessory._accInfo, _ACCBLEPairingAccessory._accessoryUID,
+                          _ACCBLEPairingAccessory._desiredBLEPairingState, _ACCBLEPairingProvider._accDetectToken,
+                          _ACCBLEPairingProvider._accessories, _ACCBLEPairingProvider._delegate,
+                          _ACCBLEPairingProvider._lastScorpiusDetectType, _ACCBLEPairingProvider._providerUID,
+                          _ACCBLEPairingProvider._remoteObject, _ACCBLEPairingProvider._serverConnection ]
+...

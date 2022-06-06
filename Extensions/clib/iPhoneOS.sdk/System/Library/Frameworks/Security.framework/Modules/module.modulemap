@@ -1,0 +1,20 @@
+framework module Security [extern_c] {
+  umbrella header "Security.h"
+
+  export *
+  module * { 
+    export *
+  }
+
+
+  explicit module CipherSuite { 
+    header "CipherSuite.h" 
+    export *
+  }
+  explicit module SecureTransport { 
+    header "SecureTransport.h" 
+    export *
+  }  
+
+}
+

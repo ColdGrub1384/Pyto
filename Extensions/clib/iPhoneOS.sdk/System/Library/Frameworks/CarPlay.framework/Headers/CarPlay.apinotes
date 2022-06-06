@@ -1,0 +1,44 @@
+---
+Name: CarPlay
+Classes:
+- Name: CPMapTemplate
+  Methods:
+  - Selector: 'presentNavigationAlert:animated:'
+    SwiftName: 'present(navigationAlert:animated:)'
+    MethodKind: Instance
+
+  - Selector: 'updateTravelEstimates:forTrip:'
+    SwiftName: 'updateEstimates(_:for:)'
+    MethodKind: Instance
+
+- Name: CPNavigationSession
+  Methods:
+  - Selector: 'updateTravelEstimates:forManeuver:'
+    SwiftName: 'updateEstimates(_:for:)'
+    MethodKind: Instance
+
+Protocols:
+- Name: CPTemplateApplicationSceneDelegate
+  Methods:
+  - Selector: 'templateApplicationScene:didConnectInterfaceController:toWindow:'
+    SwiftName: 'templateApplicationScene(_:didConnect:to:)'
+    MethodKind: Instance
+  - Selector: 'templateApplicationScene:didDisconnectInterfaceController:fromWindow:'
+    SwiftName: 'templateApplicationScene(_:didDisconnect:from:)'
+    MethodKind: Instance
+
+Tags:
+- Name: CPAlertActionStyle
+  SwiftName: CPAlertAction.Style
+- Name: CPBarButtonType
+  SwiftName: CPBarButton.Type
+- Name: CPPanDirection
+  SwiftName: CPMapTemplate.PanDirection
+- Name: CPNavigationAlertDismissalContext
+  SwiftName: CPNavigationAlert.DismissalContext
+- Name: CPTripPauseReason
+  SwiftName: CPNavigationSession.PauseReason
+
+Globals:
+- Name: CPTemplateApplicationSceneSessionRoleApplication
+  SwiftName: carTemplateApplication

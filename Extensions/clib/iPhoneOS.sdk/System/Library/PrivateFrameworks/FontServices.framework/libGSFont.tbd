@@ -1,0 +1,35 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/FontServices.framework/libGSFont.dylib
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _GSFontAddCGFont, _GSFontAddFromFile, _GSFontCopyComboCharacterSetForAdditionalFonts,
+                          _GSFontCopyFamilyNames, _GSFontCopyFontFilePath, _GSFontCopyFontNamesForFamilyName, _GSFontCopyFonts,
+                          _GSFontCopyLocallyActivatedFontFiles, _GSFontCopyNormalizedAdditionalFontName,
+                          _GSFontCopyPersistentPostscriptURL, _GSFontCopyUserFontsCacheInfoFileURL,
+                          _GSFontCopyUserFontsDirectoryURL, _GSFontCreateCacheFromCGCachePlist, _GSFontCreateWithName,
+                          _GSFontDoneForFontPicker, _GSFontEnableOrDisablePersistentURLs2, _GSFontGetAddedFontNames,
+                          _GSFontGetAscent, _GSFontGetCGFont, _GSFontGetCacheDictionary, _GSFontGetCapHeight,
+                          _GSFontGetCoveredCharacterSet, _GSFontGetCurrentGeneration, _GSFontGetDescent, _GSFontGetExtraData,
+                          _GSFontGetFamilyName, _GSFontGetFullName, _GSFontGetLineGap, _GSFontGetLineSpacing,
+                          _GSFontGetPostScriptName, _GSFontGetSize, _GSFontGetSynthesizedTraits, _GSFontGetTraits,
+                          _GSFontGetTraitsForName, _GSFontGetUnitsPerEm, _GSFontGetXHeight, _GSFontHasColorGlyphs,
+                          _GSFontInitialize, _GSFontInitialize2, _GSFontIsBold, _GSFontIsFixedPitch, _GSFontIsLastResort,
+                          _GSFontLegacyCreateWithName, _GSFontProcessRegistrationInfoForFontPickerClient,
+                          _GSFontProcessRegistrationInfoForFontProvider, _GSFontPurgeFontCache, _GSFontRegisterCGFont,
+                          _GSFontRegisterPersistentURLs, _GSFontRegisterPersistentURLsWithEnableStatus2, _GSFontRegisterURL,
+                          _GSFontRemoveFromCache, _GSFontRequestUserFonts, _GSFontSetupForFontPicker,
+                          _GSFontSystemFontNameForScaleFactor, _GSFontUnregisterCGFont, _GSFontUnregisterPersistentURLs,
+                          _GSFontUnregisterURL, _GSFontUnregisterUserFontsURLs, _GSFontVersionNumber, _GSFontVersionString,
+                          __GSFontCacheGetData, ___GSFontEnableOrDisablePersistentURLs2,
+                          ___GSFontRegisterPersistentURLsWithEnableStatus2, ___GSFontUnregisterPersistentURLs2, ___extraDataLock ]
+    objc-classes:       [ __UIFontExtraData ]
+    objc-ivars:         [ __UIFontExtraData._ascender, __UIFontExtraData._descender, __UIFontExtraData._fFlags,
+                          __UIFontExtraData._lineGap, __UIFontExtraData._lineHeight,
+                          __UIFontExtraData._maximumPointSizeAfterScaling, __UIFontExtraData._pointSizeForScaling,
+                          __UIFontExtraData._textStyleForScaling ]
+...

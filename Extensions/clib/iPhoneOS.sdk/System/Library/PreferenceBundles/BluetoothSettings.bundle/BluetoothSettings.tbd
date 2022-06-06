@@ -1,0 +1,55 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PreferenceBundles/BluetoothSettings.bundle/BluetoothSettings
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _BTSUnregisterHealthDeviceNotification, _NotificationCallback, _createLowSecurityBody,
+                          _createLowSecurityTitle, _currentDevice, _sharedBluetoothSettingsLogComponent ]
+    objc-classes:       [ _AccessoryControlListItemsController, _BTAccessoryListeningModeControl, _BTAlert,
+                          _BTDeviceNameEditingController, _BTLowSecurity, _BTSDevice, _BTSDeviceClassic,
+                          _BTSDeviceConfigController, _BTSDeviceLE, _BTSDevicesController, _BTSPairController, _BTSPairSetup,
+                          _BTSSPPairingRequest, _BTTableCell, _BTTableSharingCell, _DevicesHeaderView ]
+    objc-ivars:         [ _AccessoryControlListItemsController._currentDevice,
+                          _BTAccessoryListeningModeControl._accessoryListeningModeSupport,
+                          _BTAccessoryListeningModeControl._buttonsAdded, _BTAccessoryListeningModeControl._currentDevice,
+                          _BTAccessoryListeningModeControl._currentSelected,
+                          _BTAccessoryListeningModeControl._listeningModeButtonLabels,
+                          _BTAccessoryListeningModeControl._listeningModeButtons, _BTAccessoryListeningModeControl._numModes,
+                          _BTAccessoryListeningModeControl.listeningModeButtonsStackView, _BTAlert._alert, _BTAlert._delegate,
+                          _BTAlert._device, _BTDeviceNameEditingController._currentDevice,
+                          _BTDeviceNameEditingController._deviceName, _BTLowSecurity._bodyLabel, _BTLowSecurity._constraints,
+                          _BTLowSecurity._titleLabel, _BTSDeviceClassic._device, _BTSDeviceClassic.ctkdDevice,
+                          _BTSDeviceConfigController._aacpControlSpecifiers, _BTSDeviceConfigController._ancsControlSpecifiers,
+                          _BTSDeviceConfigController._cachedCarplayPairingStatus, _BTSDeviceConfigController._carplayPreferences,
+                          _BTSDeviceConfigController._controlGroupSpecifiers, _BTSDeviceConfigController._ctkdLeDevice,
+                          _BTSDeviceConfigController._device, _BTSDeviceConfigController._dismissed,
+                          _BTSDeviceConfigController._isWatch, _BTSDeviceConfigController._lastSelectedSyncGroup,
+                          _BTSDeviceConfigController._messagingEnabled, _BTSDeviceConfigController._messagingSpecifiers,
+                          _BTSDeviceConfigController._supportsMAP, _BTSDeviceConfigController._syncContactsSpecifiers,
+                          _BTSDeviceConfigController._syncGroupsSpecifiers, _BTSDeviceConfigController._syncSettings,
+                          _BTSDeviceConfigController._vehicleManager, _BTSDeviceLE._centralManager, _BTSDeviceLE._peripheral,
+                          _BTSDeviceLE.ctkdDevice, _BTSDeviceLE.healthDevice, _BTSDevicesController._alert,
+                          _BTSDevicesController._allowScanning, _BTSDevicesController._blacklistEnabled,
+                          _BTSDevicesController._bluetoothInitialized, _BTSDevicesController._bluetoothIsBusy,
+                          _BTSDevicesController._bluetoothRestricted, _BTSDevicesController._carplayStatus,
+                          _BTSDevicesController._centralManager, _BTSDevicesController._ctkdLeDevicesDict,
+                          _BTSDevicesController._currentDeviceConnectionTimer, _BTSDevicesController._currentDeviceSpecifier,
+                          _BTSDevicesController._devicesDict, _BTSDevicesController._healthKitStore,
+                          _BTSDevicesController._knownHealthDevices, _BTSDevicesController._myDevicesGroupSpec,
+                          _BTSDevicesController._netClient, _BTSDevicesController._notification,
+                          _BTSDevicesController._otherDevicesGroupSpec, _BTSDevicesController._power,
+                          _BTSDevicesController._restrictionDetail, _BTSDevicesController._runLoopSource,
+                          _BTSDevicesController._scanningPausedForCarPlay, _BTSDevicesController._sharingClient,
+                          _BTSDevicesController._sharingDevicesDict, _BTSDevicesController._sharingDevicesGroupSpec,
+                          _BTSDevicesController._sspAlert, _BTSDevicesController._swUpdateAlert,
+                          _BTSDevicesController._syncContactsCarplayAlert, _BTSDevicesController._syncContactsPrivacyAlert,
+                          _BTSDevicesController._togglingPower, _BTSDevicesController._uiRefreshed, _BTSPairController._device,
+                          _BTSPairController._dismissed, _BTSPairController._promptFormat, _BTSSPPairingRequest._alert,
+                          _BTSSPPairingRequest._delegate, _BTSSPPairingRequest._device, _BTSSPPairingRequest._pairingStyle,
+                          _BTSSPPairingRequest._specifier, _BTTableCell._spinner, _BTTableCell._state,
+                          _BTTableSharingCell._currentDevice, _DevicesHeaderView._spinner, _DevicesHeaderView._text ]
+...

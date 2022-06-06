@@ -1,0 +1,38 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Coherence.framework/Coherence
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ BookCore, Compose ]
+    symbols:            [ _CoherenceVersionNumber, _CoherenceVersionString, __Z12updateTopoIDRK6TopoIDRK11TopoIDRangeS4_,
+                          __Z17TopoSubstringSortP13TopoSubstringS0_,
+                          __Z17traverseRecursiveP13TopoSubstringPNSt3__113unordered_mapIS0_jNS1_4hashIS0_EENS1_8equal_toIS0_EENS1_9allocatorINS1_4pairIKS0_jEEEEEEU13block_pointerFvS0_PbE,
+                          __Z17traverseRecursiveP13TopoSubstringU13block_pointerFvS0_PbE,
+                          __Z17traverseUnorderedP13TopoSubstringU13block_pointerFvS0_PbE,
+                          __Z17updateTopoIDRangeRK11TopoIDRangeS1_S1_RNSt3__16vectorIS_NS2_9allocatorIS_EEEE,
+                          __Z18minimumPermenantID6TopoIDS_, __Z23removeDirectToSinkEdgesP13TopoSubstring,
+                          __Z23traverseUnorderedSimpleP13TopoSubstringU13block_pointerFvS0_PbE, __Z7hasLoopP13TopoSubstring,
+                          __Z9minIdPathP13TopoSubstringU13block_pointerFv6TopoIDE ]
+    objc-classes:       [ _TTMergeableString, _TTMergeableStringIndex, _TTMergeableStringSelection,
+                          _TTMergeableStringUndoEditCommand, __TtC9Coherence11ObjCRenames, __TtC9Coherence11ObjCReplica,
+                          __TtC9Coherence11ObjCVersion, __TtC9Coherence13CRTextStorage, __TtC9Coherence13ObjCTimestamp,
+                          __TtC9Coherence14CRArrayDecoder, __TtC9Coherence14CRArrayEncoder, __TtC9Coherence15CRStringDecoder,
+                          __TtC9Coherence15CRStringEncoder, __TtC9Coherence16CRStringDelegate,
+                          __TtC9Coherence18ObjCRenameSequence, __TtC9Coherence19CRFileSyncPresenter, __TtC9Coherence7ObjCRLE,
+                          __TtC9Coherence9CRContext ]
+    objc-ivars:         [ _TTMergeableString._addedByLocalCounter, _TTMergeableString._addedByReplica,
+                          _TTMergeableString._addedByVersion, _TTMergeableString._attributedString,
+                          _TTMergeableString._cacheInvalid, _TTMergeableString._context, _TTMergeableString._editCount,
+                          _TTMergeableString._endNodes, _TTMergeableString._hasLocalChanges, _TTMergeableString._localCounter,
+                          _TTMergeableString._orderedSubstrings, _TTMergeableString._renameGeneration,
+                          _TTMergeableString._renamedString, _TTMergeableString._replica, _TTMergeableString._startNodes,
+                          _TTMergeableString._uuid, _TTMergeableString._version, _TTMergeableStringIndex._affinity,
+                          _TTMergeableStringIndex._context, _TTMergeableStringIndex._index,
+                          _TTMergeableStringSelection._selectionAffinity, _TTMergeableStringSelection._selectionRanges,
+                          _TTMergeableStringUndoEditCommand._context, _TTMergeableStringUndoEditCommand._deleteRanges,
+                          _TTMergeableStringUndoEditCommand._insertStrings ]
+...

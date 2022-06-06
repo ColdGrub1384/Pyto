@@ -1,0 +1,33 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/PersonaUI.framework/PersonaUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CGSizeFromPRLikenessCacheSize, _NSStringFromMD5, _NSStringFromPRLikenessCacheSize,
+                          _PRImageCreateCircularImageInRect, _PRImageCreateWithImageInRect, _PRImageForceDecompress,
+                          _PRLikenessCacheSizeClosestToSize, _PRLikenessCacheSizeGetCost, _PRLikenessSnapshotOptionCircular,
+                          _PRLikenessSnapshotOptionForceDecode, _PRRectGetMaxLength, _PRRectGetMinLength, _PRRectScale,
+                          _PRSizeScale, _PersonaUIVersionNumber, _PersonaUIVersionString, __InvalidPRLikenessCacheSize ]
+    objc-classes:       [ _PRImageView, _PRLikenessCache, _PRLikenessCacheContext, _PRLikenessView, _PRLocalization, _PRMonogram,
+                          _PRMonogramColor, _PRMonogramView, __PRMonogramFontSpec ]
+    objc-ivars:         [ _PRImageView._circular, _PRImageView._image, _PRLikenessCache._cacheDirectory,
+                          _PRLikenessCache._cacheLookupQueue, _PRLikenessCache._inMemoryCache, _PRLikenessCache._renderIfNeeded,
+                          _PRLikenessCache._useFilesystem, _PRLikenessCache._useMemory, _PRLikenessCacheContext._cacheSize,
+                          _PRLikenessCacheContext._circular, _PRLikenessCacheContext._forceDecode,
+                          _PRLikenessCacheContext._scale, _PRLikenessView._circular, _PRLikenessView._cropRect,
+                          _PRLikenessView._highlighted, _PRLikenessView._imageView, _PRLikenessView._likeness,
+                          _PRLikenessView._likenessType, _PRLikenessView._monogramView, _PRLikenessView._recipe,
+                          _PRLikenessView._shouldDecode, _PRLikenessView._staticRepresentation, _PRMonogram._color,
+                          _PRMonogram._fontIndex, _PRMonogram._monogramColor, _PRMonogram._text, _PRMonogramColor._bundle,
+                          _PRMonogramColor._color, _PRMonogramColor._colorName, _PRMonogramColor._gradientEndColor,
+                          _PRMonogramColor._gradientStartColor, _PRMonogramColor._selectedActiveColor,
+                          _PRMonogramColor._selectedActiveTextColor, _PRMonogramColor._selectedInactiveColor,
+                          _PRMonogramView._allowsEditing, _PRMonogramView._bordered, _PRMonogramView._circleGradientLayer,
+                          _PRMonogramView._circular, _PRMonogramView._highlighted, _PRMonogramView._monogram,
+                          _PRMonogramView._selected, _PRMonogramView._textField, __PRMonogramFontSpec._baseSize,
+                          __PRMonogramFontSpec._fontName, __PRMonogramFontSpec._tracking ]
+...

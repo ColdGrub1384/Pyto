@@ -1,0 +1,65 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/HIDPlugins/IOHIDKeyboardFilter.plugin/IOHIDKeyboardFilter
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _IOHIDKeyboardFilterFactory, __Z10isModifierjj, __Z10isShiftKeyjj, __Z13isNotRepeatedjj,
+                          __Z16getModifierIndexjj, __Z16getUsageForIndexjRjS_, __Z16isStickyModifierjj,
+                          __Z22makeModifierLeftHandedj, __Z25getUsageForLegacyModifieraRjS_,
+                          __ZN19IOHIDKeyboardFilter12isKeyPressedE3Key, __ZN19IOHIDKeyboardFilter12resetSlowKeyEv,
+                          __ZN19IOHIDKeyboardFilter13isNumLockModeEv, __ZN19IOHIDKeyboardFilter13stopStickyKeyEv,
+                          __ZN19IOHIDKeyboardFilter14QueryInterfaceE11CFUUIDBytesPPv,
+                          __ZN19IOHIDKeyboardFilter14QueryInterfaceEPv11CFUUIDBytesPS0_,
+                          __ZN19IOHIDKeyboardFilter14isDelayedEventEP12__IOHIDEvent, __ZN19IOHIDKeyboardFilter14startStickyKeyEv,
+                          __ZN19IOHIDKeyboardFilter15dispatchSlowKeyEv,
+                          __ZN19IOHIDKeyboardFilter15processKeyStateEP12__IOHIDEvent,
+                          __ZN19IOHIDKeyboardFilter15processShiftKeyEv,
+                          __ZN19IOHIDKeyboardFilter15processSlowKeysEP12__IOHIDEvent,
+                          __ZN19IOHIDKeyboardFilter15resetStickyKeysEv, __ZN19IOHIDKeyboardFilter16dispatchCapsLockEv,
+                          __ZN19IOHIDKeyboardFilter16setCapsLockStateEiPKv,
+                          __ZN19IOHIDKeyboardFilter16setEventCallbackEPFvPvS0_S0_P12__IOHIDEventjES0_S0_,
+                          __ZN19IOHIDKeyboardFilter16setEventCallbackEPvPFvS0_S0_S0_P12__IOHIDEventjES0_S0_,
+                          __ZN19IOHIDKeyboardFilter17dispatchEventCopyEP12__IOHIDEvent,
+                          __ZN19IOHIDKeyboardFilter17dispatchKeyRepeatEv, __ZN19IOHIDKeyboardFilter17getStickyKeyStateEjj,
+                          __ZN19IOHIDKeyboardFilter17processFnKeyStateEP12__IOHIDEvent,
+                          __ZN19IOHIDKeyboardFilter17processKeyRepeatsEP12__IOHIDEventjj,
+                          __ZN19IOHIDKeyboardFilter17processStickyKeysEP12__IOHIDEvent,
+                          __ZN19IOHIDKeyboardFilter17setStickyKeyStateEjjj, __ZN19IOHIDKeyboardFilter17updateCapslockLEDEPKv,
+                          __ZN19IOHIDKeyboardFilter18dispatchStickyKeysEi,
+                          __ZN19IOHIDKeyboardFilter18processKeyMappingsEP12__IOHIDEvent,
+                          __ZN19IOHIDKeyboardFilter18processStickyKeyUpEjjRj, __ZN19IOHIDKeyboardFilter18resetCapsLockDelayEv,
+                          __ZN19IOHIDKeyboardFilter19setEjectKeyPropertyEj,
+                          __ZN19IOHIDKeyboardFilter20defaultEventCallbackEPvS0_S0_P12__IOHIDEventj,
+                          __ZN19IOHIDKeyboardFilter20processCapsLockDelayEP12__IOHIDEvent,
+                          __ZN19IOHIDKeyboardFilter20processCapsLockStateEP12__IOHIDEvent,
+                          __ZN19IOHIDKeyboardFilter20processStickyKeyDownEjjRj,
+                          __ZN19IOHIDKeyboardFilter20setPropertyForClientEPK10__CFStringPKvS4_,
+                          __ZN19IOHIDKeyboardFilter20setPropertyForClientEPvPK10__CFStringPKvS5_,
+                          __ZN19IOHIDKeyboardFilter21copyPropertyForClientEPK10__CFStringPKv,
+                          __ZN19IOHIDKeyboardFilter21copyPropertyForClientEPvPK10__CFStringPKv,
+                          __ZN19IOHIDKeyboardFilter21updateStickyKeysStateEjj,
+                          __ZN19IOHIDKeyboardFilter22createMapFromStringMapEPK10__CFString,
+                          __ZN19IOHIDKeyboardFilter24sIOHIDKeyboardFilterFtblE,
+                          __ZN19IOHIDKeyboardFilter25createMapFromArrayOfPairsEPK9__CFArray,
+                          __ZN19IOHIDKeyboardFilter25scheduleWithDispatchQueueEPU28objcproto17OS_dispatch_queue8NSObject,
+                          __ZN19IOHIDKeyboardFilter25scheduleWithDispatchQueueEPvPU28objcproto17OS_dispatch_queue8NSObject,
+                          __ZN19IOHIDKeyboardFilter27unscheduleFromDispatchQueueEPU28objcproto17OS_dispatch_queue8NSObject,
+                          __ZN19IOHIDKeyboardFilter27unscheduleFromDispatchQueueEPvPU28objcproto17OS_dispatch_queue8NSObject,
+                          __ZN19IOHIDKeyboardFilter4openEP14__IOHIDServicej, __ZN19IOHIDKeyboardFilter4openEPvP14__IOHIDServicej,
+                          __ZN19IOHIDKeyboardFilter5closeEP14__IOHIDServicej,
+                          __ZN19IOHIDKeyboardFilter5closeEPvP14__IOHIDServicej,
+                          __ZN19IOHIDKeyboardFilter5matchEP14__IOHIDServicej,
+                          __ZN19IOHIDKeyboardFilter5matchEPvP14__IOHIDServicej, __ZN19IOHIDKeyboardFilter6AddRefEPv,
+                          __ZN19IOHIDKeyboardFilter6AddRefEv, __ZN19IOHIDKeyboardFilter6filterEP12__IOHIDEvent,
+                          __ZN19IOHIDKeyboardFilter6filterEPvP12__IOHIDEvent, __ZN19IOHIDKeyboardFilter7ReleaseEPv,
+                          __ZN19IOHIDKeyboardFilter7ReleaseEv, __ZN19IOHIDKeyboardFilter8remapKeyE3Key,
+                          __ZN19IOHIDKeyboardFilterC1EPK8__CFUUID, __ZN19IOHIDKeyboardFilterC2EPK8__CFUUID,
+                          __ZN19IOHIDKeyboardFilterD1Ev, __ZN19IOHIDKeyboardFilterD2Ev,
+                          __ZNK19IOHIDKeyboardFilter15serializeMapperERKNSt3__13mapI3KeyS2_NS0_4lessIS2_EENS0_9allocatorINS0_4pairIKS2_S2_EEEEEE,
+                          __ZNK19IOHIDKeyboardFilter9serializeEP14__CFDictionary, __ZNK3Key10isModifierEv ]
+    objc-classes:       [ _AppleKeyboardStateManager, _StickyKeyHandler ]
+...

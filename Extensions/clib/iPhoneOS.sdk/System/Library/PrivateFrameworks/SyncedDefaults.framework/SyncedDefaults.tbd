@@ -1,0 +1,35 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SyncedDefaults.framework/SyncedDefaults
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SYDGetAccountsLog, _SYDGetAnalyticsLog, _SYDGetCloudKitLog, _SYDGetConnectionLog, _SYDGetCoreDataLog,
+                          _SYDGetDefaultLog, _SYDGetReachabilityLog, _SYDGetSchedulerLog, _SYDGetTraceLog,
+                          _SYDRemotePreferencesSourceConfigurationDidChangeNotification,
+                          _SYDRemotePreferencesSourceDidChangeNotification,
+                          _SYDUbiquitousKeyValueStoreDidChangeExternallyNotification, _SYDXPCCreateCFObjectFromXPCObject,
+                          _SYDXPCCreateXPCObjectFromCFObject, _SyncedDefaultsVersionNumber, _SyncedDefaultsVersionString ]
+    objc-classes:       [ _SYDClient, _SYDClientProtocolProxy, _SYDClientToDaemonConnection, _SYDJournal,
+                          _SYDRemotePreferencesSource ]
+    objc-ivars:         [ _SYDClient._additionalSource, _SYDClient._bundleIdentifier, _SYDClient._connection, _SYDClient._queue,
+                          _SYDClient._storeIdentifier, _SYDClientProtocolProxy._target,
+                          _SYDClientToDaemonConnection._callbackQueue, _SYDClientToDaemonConnection._changeTokenURL,
+                          _SYDClientToDaemonConnection._forceNilChangeDictionaryResponse, _SYDClientToDaemonConnection._queue,
+                          _SYDClientToDaemonConnection._storeIdentifier, _SYDClientToDaemonConnection._storeType,
+                          _SYDClientToDaemonConnection._xpcConnection, _SYDJournal._journal, _SYDJournal._readonly,
+                          _SYDJournal._store, _SYDRemotePreferencesSource._cache, _SYDRemotePreferencesSource._client,
+                          _SYDRemotePreferencesSource._configurationDictionary, _SYDRemotePreferencesSource._dirtyKeys,
+                          _SYDRemotePreferencesSource._externalChanges, _SYDRemotePreferencesSource._forceNextSynchronization,
+                          _SYDRemotePreferencesSource._generationCount, _SYDRemotePreferencesSource._initialSyncChangeCount,
+                          _SYDRemotePreferencesSource._isExecutingForClient, _SYDRemotePreferencesSource._isInitialSync,
+                          _SYDRemotePreferencesSource._lastAccess, _SYDRemotePreferencesSource._lastGenerationFromDisk,
+                          _SYDRemotePreferencesSource._memoryWarningSource,
+                          _SYDRemotePreferencesSource._memoryWarningSourceEnabled, _SYDRemotePreferencesSource._preferenceID,
+                          _SYDRemotePreferencesSource._protectionQueue, _SYDRemotePreferencesSource._registrationBlock,
+                          _SYDRemotePreferencesSource._registrationQueue, _SYDRemotePreferencesSource._storageChangeCount,
+                          _SYDRemotePreferencesSource._urlOnDisk ]
+...

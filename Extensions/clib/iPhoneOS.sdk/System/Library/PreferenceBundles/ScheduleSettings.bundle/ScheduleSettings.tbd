@@ -1,0 +1,23 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PreferenceBundles/ScheduleSettings.bundle/ScheduleSettings
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MailTableCellImageCenterForLevel, _MailTableCellTextLeftForLevel, _ScheduleSettingsAccountKey,
+                          _ScheduleSettingsAccountUniqueIdentifierKey, _ScheduleSettingsDataclassesKey ]
+    objc-classes:       [ _PushedMailboxTableCell, _ScheduleSettingsController, _ScheduleSettingsStyleController ]
+    objc-ivars:         [ _PushedMailboxTableCell._level, _PushedMailboxTableCell._mailboxIcon,
+                          _PushedMailboxTableCell._mailboxName, _ScheduleSettingsController._accountStore,
+                          _ScheduleSettingsController._checkedSpecifier, _ScheduleSettingsController._fetchDividerRow,
+                          _ScheduleSettingsController._isLowPowerMode, _ScheduleSettingsController._radioGroup,
+                          _ScheduleSettingsController._rowToSelect, _ScheduleSettingsStyleController._account,
+                          _ScheduleSettingsStyleController._ignoringNotifications,
+                          _ScheduleSettingsStyleController._isExchangeAccount,
+                          _ScheduleSettingsStyleController._mailAccountUniqueId, _ScheduleSettingsStyleController._mailboxInfos,
+                          _ScheduleSettingsStyleController._monitored,
+                          _ScheduleSettingsStyleController._supportsUserPushedMailboxes ]
+...

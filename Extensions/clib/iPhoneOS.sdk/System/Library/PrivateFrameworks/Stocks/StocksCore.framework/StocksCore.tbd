@@ -1,0 +1,29 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Stocks/StocksCore.framework/StocksCore
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ NewsArticles, NewsArticlesTests, NewsFeed, NewsFeedTests, NewsSubscription, Stocks, StocksAnalytics,
+                          StocksAnalyticsTests, StocksCore, StocksCoreTests, StocksTests, StocksToday, StocksUI, StocksUITests ]
+    symbols:            [ _SCContextEnvironmentFromInt, _SCHeadlineDesiredFieldOptions, _SCIsNewsAppAllowed,
+                          _StocksCoreVersionNumber, _StocksCoreVersionString, _char_from_uchar, _formattedCountWithLocale ]
+    objc-classes:       [ _SCAdPlatforms, _SCICUNumberFormatter, _SCManagerAssembly, _SCServiceAssembly, _SCURLAssembly,
+                          _SCUpdateUserIDCommand, _SCUpdateUserStartDateCommand, _SCWebHeadline,
+                          __TtC10StocksCore13DebugAssembly, __TtC10StocksCore15StubAssetHandle,
+                          __TtC10StocksCore16NewsCoreAssembly, __TtC10StocksCore18SparklineOperation,
+                          __TtC10StocksCore18YahooNewsOperation, __TtC10StocksCore19YahooChartOperation,
+                          __TtC10StocksCore20LegacyStocksAssembly, __TtC10StocksCore20YahooSearchOperation,
+                          __TtC10StocksCore21IdentificationService, __TtC10StocksCore21NewsCoreConfiguration,
+                          __TtC10StocksCore24NewsConfigurationManager, __TtC10StocksCore24YahooMultiQuoteOperation,
+                          __TtC10StocksCore25YahooQuoteDetailOperation, __TtC10StocksCore26FeedPersonalizationService,
+                          __TtC10StocksCore28EmptyNewsPersonalizationData, __TtC10StocksCore8Assembly,
+                          __TtC10StocksCoreP33_8188EFB552A1879D25D8FDAD94CCB0E125PrivateDataActionProvider,
+                          __TtCV10StocksCore18ForYouConfigRecordP33_FB30AEA7B56282916E4430A3993C597516HeadlineMetadata ]
+    objc-ivars:         [ _SCWebHeadline._articleID, _SCWebHeadline._contentURL, _SCWebHeadline._identifier,
+                          _SCWebHeadline._publishDate, _SCWebHeadline._shortExcerpt, _SCWebHeadline._sourceName,
+                          _SCWebHeadline._title ]
+...

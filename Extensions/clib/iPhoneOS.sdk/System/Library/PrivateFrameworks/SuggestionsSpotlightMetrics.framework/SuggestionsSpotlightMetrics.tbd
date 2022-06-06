@@ -1,0 +1,35 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SuggestionsSpotlightMetrics.framework/SuggestionsSpotlightMetrics
+current-version:       1034.2
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SGSM2ContactOpportunityInSpotlightReadFrom, _SGSM2ContactResultInSpotlightReadFrom,
+                          _SGSM2ContactResultSelectedInSpotlightReadFrom, _SGSM2EventOpportunityInSpotlightReadFrom,
+                          _SGSM2EventResultInSpotlightReadFrom, _SGSM2EventResultSelectedInSpotlightReadFrom,
+                          _SGSM2NoResultSelectedInSpotlightReadFrom, _SGSM2OtherResultSelectedInSpotlightReadFrom,
+                          _SuggestionsSpotlightMetricsVersionNumber, _SuggestionsSpotlightMetricsVersionString ]
+    objc-classes:       [ _SGSM2ContactOpportunityInSpotlight, _SGSM2ContactResultInSpotlight,
+                          _SGSM2ContactResultSelectedInSpotlight, _SGSM2EventOpportunityInSpotlight,
+                          _SGSM2EventResultInSpotlight, _SGSM2EventResultSelectedInSpotlight, _SGSM2NoResultSelectedInSpotlight,
+                          _SGSM2OtherResultSelectedInSpotlight, _SGSMFeedbackListener, _SGSMMutableSearchState ]
+    objc-ivars:         [ _SGSM2ContactOpportunityInSpotlight._key, _SGSM2ContactResultInSpotlight._has,
+                          _SGSM2ContactResultInSpotlight._key, _SGSM2ContactResultInSpotlight._visible,
+                          _SGSM2ContactResultSelectedInSpotlight._key, _SGSM2EventOpportunityInSpotlight._key,
+                          _SGSM2EventResultInSpotlight._has, _SGSM2EventResultInSpotlight._key,
+                          _SGSM2EventResultInSpotlight._visible, _SGSM2EventResultSelectedInSpotlight._key,
+                          _SGSM2NoResultSelectedInSpotlight._key, _SGSM2OtherResultSelectedInSpotlight._key,
+                          _SGSMFeedbackListener._eventLastInteractionTime, _SGSMFeedbackListener._previousState,
+                          _SGSMFeedbackListener._searchState, _SGSMFeedbackListener._suggestionsService,
+                          _SGSMMutableSearchState._contactConversionCount, _SGSMMutableSearchState._contactLossCount,
+                          _SGSMMutableSearchState._contactOpportunity, _SGSMMutableSearchState._contactOpportunityCount,
+                          _SGSMMutableSearchState._contactResult, _SGSMMutableSearchState._contactResultCount,
+                          _SGSMMutableSearchState._contactSelected,
+                          _SGSMMutableSearchState._curatedOrPseudoContactOpportunityCount, _SGSMMutableSearchState._justEngaged,
+                          _SGSMMutableSearchState._nonOpportunityCount, _SGSMMutableSearchState._noneSelected,
+                          _SGSMMutableSearchState._otherSelected, _SGSMMutableSearchState._otherSelectedCount,
+                          _SGSMMutableSearchState._resultsSeen ]
+...

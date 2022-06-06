@@ -1,0 +1,12 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/Accounts/Authentication/DAAccountAuthenticator.bundle/DAAccountAuthenticator
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:       [ _DAAccountAuthenticator ]
+    objc-ivars:         [ _DAAccountAuthenticator._accountIDToAccount, _DAAccountAuthenticator._accountIDToVerificationHandler ]
+...

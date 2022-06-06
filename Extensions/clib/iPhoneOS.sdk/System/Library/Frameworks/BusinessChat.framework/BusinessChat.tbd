@@ -1,0 +1,31 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 6A0CEA9D-C359-324D-9AA5-9B983AE4D377', 'arm64e: 51254958-6409-3A98-9853-674F14A5CD58' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/BusinessChat.framework/BusinessChat'
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _BCAuthenticationResponseStatusAuthenticated, _BCAuthenticationResponseStatusFailed, 
+                       _BCBubbleViewStyleIcon, _BCBubbleViewStyleLarge, _BCBubbleViewStyleSmall, 
+                       _BCInternalAuthenticationResponseStatusAuthenticated, _BCInternalAuthenticationResponseStatusFailed, 
+                       _BCLabelCategoryAuthenticate, _BCLabelCategoryFailure, _BCLabelCategorySignIn, 
+                       _BCLabelCategorySuccess, _BCLoggingEventNameExpired, _BCLoggingEventNameFailure, 
+                       _BCLoggingEventNameFallback, _BCLoggingEventNameNotEligible, 
+                       _BCLoggingEventNameOpen, _BCLoggingEventNameReplied, _BCLoggingEventNameSuccess, 
+                       _BCMessageDataImagesKey, _BCMessageDataMSPVersionKey, _BCMessageDataPayloadKey, 
+                       _BCMessageDataReceivedMessageKey, _BCMessageDataReplyMessageKey, 
+                       _BCMessageDataRequestIdentifierKey, _BCMessageDataVersionKey, 
+                       _BCMessageRootAuthenticateKey, _BCMessageRootContentKey, _BCMessageRootErrorKey, 
+                       _BCMessageRootEventKey, _BCMessageRootInternalAuthenticateKey, 
+                       _BCMessageRootJITAppKitKey, _BCMessageRootListPickerKey, _BCMessageRootPaymentKey, 
+                       _BCMessageRootUnknownKey, _BCOAuthRedirectURI, _BCParameterNameBody, 
+                       _BCParameterNameGroup, _BCParameterNameIntent, _kAuthenticationErrorDomain, 
+                       _kCryptorErrorDomain ]
+    objc-classes:    [ BCApplePayManager, BCAuthenticationLabels, BCAuthenticationManager, 
+                       BCAuthenticationRequest, BCAuthenticationResponse, BCChatAction, 
+                       BCChatButton, BCCryptor, BCError, BCImage, BCImageStore, BCInternalAuthenticationManager, 
+                       BCInternalAuthenticationRequest, BCInternalAuthenticationResponse, 
+                       BCLogger, BCMessage, BCMessageData, BCMessageInfo, BCOAuth2Parameters, 
+                       BCWebViewController ]
+...

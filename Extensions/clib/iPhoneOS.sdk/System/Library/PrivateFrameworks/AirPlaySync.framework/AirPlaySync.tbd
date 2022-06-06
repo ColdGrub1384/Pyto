@@ -1,0 +1,33 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AirPlaySync.framework/AirPlaySync
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _APSyncStateManagerAddGroup, _APSyncStateManagerAddGroupChangeListener,
+                          _APSyncStateManagerAddGroupsAvailableChangeListener, _APSyncStateManagerAddSpeakerChangeListener,
+                          _APSyncStateManagerAdjustGroupVolume, _APSyncStateManagerAdjustSpeakerVolume,
+                          _APSyncStateManagerApplyVolumeUpdate, _APSyncStateManagerConnectToServer,
+                          _APSyncStateManagerCopyDeviceIDList, _APSyncStateManagerCopyDeviceName,
+                          _APSyncStateManagerCopyGroupIDList, _APSyncStateManagerCopyHomeIDList, _APSyncStateManagerCopyShowInfo,
+                          _APSyncStateManagerCopySpeakerGroupID, _APSyncStateManagerCopySpeakerIDList,
+                          _APSyncStateManagerCopySpeakerIDsInGroup, _APSyncStateManagerCopySpeakerName,
+                          _APSyncStateManagerCopyStatusDump, _APSyncStateManagerCreate,
+                          _APSyncStateManagerCreateDesiredVolumeUpdate, _APSyncStateManagerCreateVolumeUpdateFromNotification,
+                          _APSyncStateManagerEndCurrentInteraction, _APSyncStateManagerGetGroupMute,
+                          _APSyncStateManagerGetGroupVolume, _APSyncStateManagerGetShared, _APSyncStateManagerGetSpeakerMute,
+                          _APSyncStateManagerGetSpeakerVolume, _APSyncStateManagerGetTypeID, _APSyncStateManagerRemoveGroup,
+                          _APSyncStateManagerRemoveGroupChangeListener, _APSyncStateManagerRemoveGroupsAvailableChangeListener,
+                          _APSyncStateManagerRemoveSpeakerChangeListener, _APSyncStateManagerSetDeviceInfo,
+                          _APSyncStateManagerSetGroupMute, _APSyncStateManagerSetGroupVolume,
+                          _APSyncStateManagerSetSpeakerGroupIDCurrent, _APSyncStateManagerSetSpeakerGroupIDProposal,
+                          _APSyncStateManagerSetSpeakerMute, _APSyncStateManagerSetSpeakerVolume,
+                          _APSyncStateManagerStartGroupInteraction, _APSyncStateManagerStartServer,
+                          _APSyncStateManagerStartSpeakerInteraction, _APSyncStateManagerUpdateSpeakerGroupIDProposal,
+                          _APSyncVolumeUpdateConfirmChange, _APSyncVolumeUpdateGetSequenceNumber,
+                          _APSyncVolumeUpdateGetTimestamp, _APSyncVolumeUpdateGetTypeID, _APSyncVolumeUpdateGetVolumeAndMute,
+                          _APSyncVolumeUpdateSetSequenceNumber ]
+...

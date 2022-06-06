@@ -1,0 +1,23 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/HealthEducationUI.framework/HealthEducationUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _HealthEducationUIVersionNumber, _HealthEducationUIVersionString ]
+    objc-classes:       [ __TtC17HealthEducationUI12TileSashView, __TtC17HealthEducationUI14SoundLevelView,
+                          __TtC17HealthEducationUI19HorizontalMeterView, __TtC17HealthEducationUI23HealthEducationTileView,
+                          __TtC17HealthEducationUI23ImageCollectionViewCell, __TtC17HealthEducationUI23TitleCollectionViewCell,
+                          __TtC17HealthEducationUI24ButtonCollectionViewCell,
+                          __TtC17HealthEducationUI25HealthEducationDataSource,
+                          __TtC17HealthEducationUI27ParagraphCollectionViewCell,
+                          __TtC17HealthEducationUI28CustomViewCollectionViewCell,
+                          __TtC17HealthEducationUI28LinkedTextCollectionViewCell,
+                          __TtC17HealthEducationUI29HealthEducationViewController,
+                          __TtC17HealthEducationUI31SectionHeaderCollectionViewCell,
+                          __TtC17HealthEducationUI36DynamicHeightLabelCollectionViewCell,
+                          __TtC17HealthEducationUI39DynamicHeightTextViewCollectionViewCell ]
+...

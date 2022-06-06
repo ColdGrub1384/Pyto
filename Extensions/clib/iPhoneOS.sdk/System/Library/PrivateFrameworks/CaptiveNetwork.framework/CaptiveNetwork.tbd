@@ -1,0 +1,36 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CaptiveNetwork.framework/CaptiveNetwork
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CNAccountsAdd, _CNAccountsCopy, _CNAccountsResolve, _CNAccountsUse, _CNDebugLaunchWebsheet,
+                          _CNDumpState, _CNForgetSSID, _CNIAmTheWebsheetApp2, _CNLogoff, _CNNetworkCopyPluginNames,
+                          _CNNetworkGetBSSID, _CNNetworkGetInterfaceName, _CNNetworkGetPassword, _CNNetworkGetPluginBundleID,
+                          _CNNetworkGetSSID, _CNNetworkGetSSIDString, _CNNetworkGetSignalStrength, _CNNetworkGetTypeID,
+                          _CNNetworkIsChosenPlugin, _CNNetworkIsProtected, _CNNetworkSetCaptive, _CNNetworkSetConfidence,
+                          _CNNetworkSetPassword, _CNNetworkWasAutoJoined, _CNNetworkWasJustJoined,
+                          _CNPluginCommandBindReadStream, _CNPluginCommandCopyCurrentNetwork, _CNPluginCommandCopyNetworkList,
+                          _CNPluginCommandGetInterfaceName, _CNPluginCommandGetType, _CNPluginCommandGetTypeID,
+                          _CNPluginCopySupportedInterfaces, _CNPluginLogoffNetwork, _CNPluginMonitorEventCopyDisplayIDs,
+                          _CNPluginMonitorStart, _CNPluginMonitorStop, _CNPluginRegister, _CNPluginResponseCreate,
+                          _CNPluginResponseDeliver, _CNPluginResponseGetTypeID, _CNPluginResponseSetNetwork,
+                          _CNPluginResponseSetNetworkList, _CNProberCreate, _CNProberCreateRunLoopSource, _CNProberGetTypeID,
+                          _CNSClientCNSClient_subsystem, _CNScanListFilterStart, _CNScanListFilterStop, _CNScrapeCredentials,
+                          _CNWebsheetNotifyComplete, _CNWebsheetNotifyCompleteWithOptions, _CaptiveCopyWiFiLandingPageURL,
+                          _CaptiveNetworkVersionNumber, _CaptiveNetworkVersionString, _ServerConnectionCreate,
+                          _ServerConnectionGetHandlerQueue, _ServerConnectionProvideResponse, _ServerConnectionRelease,
+                          _ServerConnectionResume, _ServerConnectionSendCmdAck, ___CNCopyCurrentNetworkInfo,
+                          ___CNCopySupportedInterfaces, ___CNMarkPortalOffline, ___CNMarkPortalOnline, ___CNSetSupportedSSIDs,
+                          _kCNPluginOptionDisplayName, _kCNSBrokenBackhaulPromptDateProperty,
+                          _kCNSBrokenBackhaulUseCellularProperty, _kCNSCaptiveBypassProperty, _kCNSCaptiveNetworkProperty,
+                          _kCNSCaptiveNetworkWebSheetLoginDateProperty, _kCNSDisabledByCaptiveProperty,
+                          _kCNSIsWhitelistedCaptiveNetworkProperty, _kCNSNetworkWasCaptiveProperty,
+                          _kCNSWebsheetInfoPropertyInterfaceName, _kCNSWebsheetInfoPropertySSID, _kCNSWebsheetInfoPropertyURL,
+                          _kCNSWhitelistedCaptiveNetworkProbeDateProperty, _kCNStateAuthReply, _kCNStateBusy, _kCNStateDisabled,
+                          _kCNStateKey, _kCNStateRedirect, _kCNStateStage, _kCNStateURL, _kCNStateWaitingOnUI,
+                          _kCNWebSheetOptionsRedirectURLType ]
+...

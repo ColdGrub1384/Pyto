@@ -1,0 +1,25 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AppleCV3DMOVKit.framework/AppleCV3DMOVKit
+current-version:       2.57.4
+compatibility-version: 2.57.4
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CVPixelBufferAttachmentIntrinsicsKey, _dummy, _kAVCaptureDeviceTypeBuiltInSuperWideAngleCamera,
+                          _kAVCaptureDeviceTypeBuiltInUltraWideCamera, _kAVMetadataIdentifierMovieSummary,
+                          _kAVMetadataIdentifierRecordingEnvironment, _kCVAFeatureBufferIdentifierValue,
+                          _kCVAPRDeviceIdentifierValue, _kCVAUserEventIdentifierValue, _kCameraExposureTimeKey,
+                          _kCoreLocationIdentifierValue, _kIMUMotionIdentifierValue, _kMOVSummaryBundleID,
+                          _kMOVSummaryBundleID_1_0_0, _kMOVSummaryDeviceName, _kMOVSummaryDeviceString,
+                          _kMOVSummaryDeviceString_1_0_0, _kMOVSummaryMOVKitVersion, _kMOVSummaryProductType,
+                          _kMOVSummarySerialNumber, _kMOVSummaryVersion, _kRawAccelerometerIdentifierValue,
+                          _kRawGyroscopeIdentifierValue, _kTrackAdded, _kTrackBitrate, _kTrackForceH264, _kTrackLossless,
+                          _kWrapperClassData ]
+    objc-classes:       [ _CMData, _CMDataContainer, _CMEvent, _CMFileInterface, _CMMessage, _CVACLLocation,
+                          _CVACLMotionTypeDoubleVector4, _CVACLMotionTypeVector3, _CVACMAccelerometerData,
+                          _CVACMDeviceMotionData, _CVACMGyroData, _CVACMMotionTypeDeviceMotionData, _CVAFeatureBuffer,
+                          _CVAPRAngleMeasurement, _CVAPRDevice, _CVAPRRangeMeasurement, _CVAUserEvent, _MOVReaderInterface,
+                          _MOVWriterInterface, _MetadataWrapper, _TimedBuffer ]
+...

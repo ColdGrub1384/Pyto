@@ -1,0 +1,46 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/ContextKit.framework/ContextKit
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CKContextKitNotification_ConfigurationUpdate, _ContextKitErrorDomain, _ContextKitVersionNumber,
+                          _ContextKitVersionString ]
+    objc-classes:       [ _CKContextClient, _CKContextCompleter, _CKContextCountedItem, _CKContextGlobals, _CKContextRequest,
+                          _CKContextResponse, _CKContextResult, _CKContextSemaphore ]
+    objc-ivars:         [ _CKContextClient._capabilities, _CKContextClient._defaultRequestType, _CKContextClient._indexVersionId,
+                          _CKContextClient._notificationsQueue, _CKContextClient._sema_capabilities,
+                          _CKContextClient._serviceSemaphore, _CKContextClient._updateHandlers,
+                          _CKContextCompleter._couldHaveShown, _CKContextCompleter._discarded,
+                          _CKContextCompleter._hideCompletions, _CKContextCompleter._hideCompletionsAfterDate,
+                          _CKContextCompleter._hideZKW, _CKContextCompleter._ignorePrefix, _CKContextCompleter._input,
+                          _CKContextCompleter._mustPrefixMatchLength, _CKContextCompleter._response,
+                          _CKContextCompleter._searchLocale, _CKContextCompleter._zkwResults, _CKContextCountedItem._count,
+                          _CKContextCountedItem._item, _CKContextRequest._client, _CKContextRequest._contentAuthor,
+                          _CKContextRequest._contentDescription, _CKContextRequest._contentKeywords, _CKContextRequest._debug,
+                          _CKContextRequest._dontSkip, _CKContextRequest._incPending,
+                          _CKContextRequest._includeHigherLevelTopics, _CKContextRequest._itemIds,
+                          _CKContextRequest._languageTag, _CKContextRequest._maxConstellationTopics,
+                          _CKContextRequest._overrideBlendAlpha, _CKContextRequest._overrideBlendBeta,
+                          _CKContextRequest._overrideBlendGamma, _CKContextRequest._overrideConstellationMinCount,
+                          _CKContextRequest._overrideConstellationMinWeight, _CKContextRequest._prepareOnly,
+                          _CKContextRequest._text, _CKContextRequest._textIsRaw, _CKContextRequest._timing,
+                          _CKContextRequest._title, _CKContextRequest._topk, _CKContextRequest._type, _CKContextRequest._url,
+                          _CKContextResponse._debug, _CKContextResponse._discarded, _CKContextResponse._engaged,
+                          _CKContextResponse._error, _CKContextResponse._hideCompletionsAfterDate,
+                          _CKContextResponse._hideCompletionsTimeLimit, _CKContextResponse._level1Topics,
+                          _CKContextResponse._level2Topics, _CKContextResponse._logged,
+                          _CKContextResponse._loggingCouldHaveShownMax, _CKContextResponse._loggingInputLengthMax,
+                          _CKContextResponse._loggingServerOverride, _CKContextResponse._loggingShownMax,
+                          _CKContextResponse._mustPrefixMatchLength, _CKContextResponse._requestType,
+                          _CKContextResponse._responseDate, _CKContextResponse._results,
+                          _CKContextResponse._resultsNeedFiltering, _CKContextResponse._shown,
+                          _CKContextResponse._transactionSuccessful, _CKContextResponse._uuid, _CKContextResult._category,
+                          _CKContextResult._debug, _CKContextResult._minPrefix, _CKContextResult._portraitId,
+                          _CKContextResult._query, _CKContextResult._relatedItems, _CKContextResult._title,
+                          _CKContextResult._url, _CKContextSemaphore._sema, _CKContextSemaphore._semaOwner,
+                          _CKContextSemaphore._shm, _CKContextSemaphore._shmObject, _CKContextSemaphore._shmSize ]
+...

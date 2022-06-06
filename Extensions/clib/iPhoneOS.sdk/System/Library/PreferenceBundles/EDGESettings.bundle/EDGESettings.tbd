@@ -1,0 +1,26 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PreferenceBundles/EDGESettings.bundle/EDGESettings
+current-version:       292
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:       [ _EdgeController, _EdgeSettingsController ]
+    objc-ivars:         [ _EdgeController._context, _EdgeController._coreTelephonyClient,
+                          _EdgeSettingsController._IMSContextSpecifiers, _EdgeSettingsController._InternetContextSpecifiers,
+                          _EdgeSettingsController._MMSContextSpecifiers, _EdgeSettingsController._VVMContextSpecifiers,
+                          _EdgeSettingsController._advancedSpecifiers, _EdgeSettingsController._cacheInitialized,
+                          _EdgeSettingsController._context, _EdgeSettingsController._coreTelephonyClient,
+                          _EdgeSettingsController._currectSet, _EdgeSettingsController._group1Specifiers,
+                          _EdgeSettingsController._imsSettingsDictionary, _EdgeSettingsController._internetSettingsDictionary,
+                          _EdgeSettingsController._lastAttachAPNDict, _EdgeSettingsController._lastProxyDict,
+                          _EdgeSettingsController._lteAttachAPNSpecifiers, _EdgeSettingsController._manualSpecifiers,
+                          _EdgeSettingsController._mmsSettingsDictionary, _EdgeSettingsController._newAttachAPNDict,
+                          _EdgeSettingsController._pacSpecifiers, _EdgeSettingsController._proxyAuth,
+                          _EdgeSettingsController._proxyAuthSpecifiers, _EdgeSettingsController._resetSpecifiers,
+                          _EdgeSettingsController._switchSpecifiers, _EdgeSettingsController._systemConfig,
+                          _EdgeSettingsController._tetheringContextSpecifiers,
+                          _EdgeSettingsController._tetheringSettingsDictionary, _EdgeSettingsController._vvmSettingsDictionary ]
+...

@@ -1,0 +1,17 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/FMClient.framework/FMClient
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ FMIPClientXPCService, FMIPSiriBackendPlugin, FindMyiPhoneIntentsExtension, fmclienttool ]
+    objc-classes:       [ __TtC8FMClient10HttpClient, __TtC8FMClient11SessionInfo, __TtC8FMClient12SearchFilter,
+                          __TtC8FMClient12SearchResult, __TtC8FMClient15PlaySoundDevice, __TtC8FMClient16DiscoveredDevice,
+                          __TtC8FMClient18SearchFilterDevice, __TtC8FMClient18SearchResultDevice,
+                          __TtC8FMClient19ClientConfiguration, __TtC8FMClient21FMClientXPCConnection,
+                          __TtC8FMClient24AuthenticationCredential, __TtC8FMClient24VoiceAssistantDeviceName,
+                          __TtC8FMClient24VoiceAssistantSyncResult, __TtC8FMClient7Session ]
+...

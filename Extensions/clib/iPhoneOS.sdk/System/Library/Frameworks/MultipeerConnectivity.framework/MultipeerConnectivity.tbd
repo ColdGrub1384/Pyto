@@ -1,0 +1,68 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: B1D6DC57-7B16-338F-82E9-42FC04E8ABA2', 'armv7s: 19B9AF27-E186-38DA-BE31-8D03C232993C', 
+                   'arm64: E29E7960-02EA-3661-B5F3-1C38F6486229', 'arm64e: 09CF81D4-AFE7-3E4E-8384-C4B9BF4201C3' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/MultipeerConnectivity.framework/MultipeerConnectivity'
+current-version: 163
+exports:         
+  - archs:           [ armv7, armv7s ]
+    symbols:         [ _AGPSessionCopyDetailedDescription, _AGPSessionCreate, _AGPSessionEvent, 
+                       _AGPSessionMaximumSegmentSize, _AGPSessionRelease, _AGPSessionSendTo, 
+                       _AGPSessionStatistics, _AWDMultipeerSessionMaxPeersInfoReadFrom, 
+                       _AWDMultipeerSessionPeerConnectivityInfoReadFrom, _CleanupWaitEventCallbacks, 
+                       _GCKSessionCertificateDecision, _GCKSessionCloseDirectConnectionsWithPeer, 
+                       _GCKSessionCopyDetailedDescription, _GCKSessionCreate, _GCKSessionDisposeAllConnections, 
+                       _GCKSessionDisposeConnection, _GCKSessionEstablishConnection, 
+                       _GCKSessionGetInterfacesForParticipant, _GCKSessionInterfaceNameForPriority, 
+                       _GCKSessionPrepareConnection, _GCKSessionRegisterReliableTransportCallback, 
+                       _GCKSessionRelease, _GCKSessionSendTo, _GCKSessionSetAWDLDisabled, 
+                       _GCKSessionSetEventCallback, _GCKSessionSetHeartbeatTimeout, 
+                       _GCKSessionSetICETimeoutForced, _GCKSessionStartEventCallbacks, 
+                       _GCKSessionUpdateRoutingTable, _MCAWDLogMaxConnectedPeersCount, 
+                       _MCAWDLogPeerConnectivityInfo, _MCDashboardLog, _MCDashboardLogJSON, 
+                       _MCNearbyServiceAcceptInviteKey, _MCNearbyServiceConnectionDataKey, 
+                       _MCNearbyServiceInviteContextKey, _MCNearbyServiceInviteIDKey, 
+                       _MCNearbyServiceMessageIDKey, _MCNearbyServiceRecipientPeerIDKey, 
+                       _MCNearbyServiceSenderPeerIDKey, _MCNearbyServiceSessionKey, 
+                       _MCNearbyServiceTXTRecordDisplayNameKey, _MCNearbyServiceTXTRecordSpecialCharacter, 
+                       _MultipeerConnectivityVersionNumber, _MultipeerConnectivityVersionString, 
+                       _OSPFAddDynamicOptions, _OSPFGetLength, _OSPFMakeDD, _OSPFMakeData, 
+                       _OSPFMakeHeartbeat, _OSPFMakeHello, _OSPFMakeLSA, _OSPFMakeLSAACK, 
+                       _OSPFParse, _PostEventCallback, _ServiceWaitEventCallbacks, 
+                       _StartEventCallbackThread, _StopEventCallbackThread, _UpdateRTO, 
+                       _WaitEventCallback, _XDataControlTypeName, __Z15checkSendingSetPKvPv, 
+                       __Z17monitorSendingSetPKvPv, __Z18AGPSessionRecvFromP4CAGPjP15GCKSessionEventi, 
+                       __Z20AGPTransportCallbackPvPjiPhiiS1_ihhhi, __Z26associationSetElementEqualPKvS0_, 
+                       __Z27deleteAssociationSetElementPKvPv, __Z27retainAssociationSetElementPK13__CFAllocatorPKv, 
+                       __Z28releaseAssociationSetElementPK13__CFAllocatorPKv, __Z29associationSetElementHashCodePKv, 
+                       __ZN20AGPSendingSetElement6bufferEPhiihhh, __ZN20AGPSendingSetElement6removeEh, 
+                       __ZN20AGPSendingSetElement6searchEj, _agps_log, _associationSetCallBacks, 
+                       _ec_log, _gckSessionPListCopyDetailedDescription, _gcks_log, 
+                       _kMCDashboardCategoryName, _kMCDashboardKeyProcessName, _mcadvertiser_log, 
+                       _mcadvertiser_ui_log, _mcbrowser_log, _mcbrowser_ui_log, _mcdp_log, 
+                       _mcdpc_log, _mcpid_log, _mcs_log, _ospfParseOption, _ospfVerifyOptions, 
+                       _ospf_log ]
+    objc-classes:    [ AWDMultipeerSessionMaxPeersInfo, AWDMultipeerSessionPeerConnectivityInfo, 
+                       MCAlertController, MCNearbyDiscoveryPeer, MCNearbyDiscoveryPeerConnection, 
+                       MCNearbyPeerTableViewCell, MCNearbyPeerTableViewHeader, MCNearbyServiceUtils, 
+                       MCPeerIDInternal, MCResourceDownloader, MCResourceProgressObserver, 
+                       MCSessionPeerConnectionData, MCSessionPeerState, MCSessionStream ]
+    objc-ivars:      [ AWDMultipeerSessionMaxPeersInfo._bundleID, AWDMultipeerSessionMaxPeersInfo._has, 
+                       AWDMultipeerSessionMaxPeersInfo._maxPeersCount, AWDMultipeerSessionMaxPeersInfo._sessionID, 
+                       AWDMultipeerSessionMaxPeersInfo._timestamp, AWDMultipeerSessionPeerConnectivityInfo._authentication, 
+                       AWDMultipeerSessionPeerConnectivityInfo._channelPriority, 
+                       AWDMultipeerSessionPeerConnectivityInfo._encryption, AWDMultipeerSessionPeerConnectivityInfo._has, 
+                       AWDMultipeerSessionPeerConnectivityInfo._interfaceType, AWDMultipeerSessionPeerConnectivityInfo._remoteAuthentication, 
+                       AWDMultipeerSessionPeerConnectivityInfo._sessionID, AWDMultipeerSessionPeerConnectivityInfo._timeAll, 
+                       AWDMultipeerSessionPeerConnectivityInfo._timeDTLS, AWDMultipeerSessionPeerConnectivityInfo._timeICE, 
+                       AWDMultipeerSessionPeerConnectivityInfo._timeOSPF, AWDMultipeerSessionPeerConnectivityInfo._timestamp, 
+                       MCNearbyPeerTableViewHeader._spinner, MCNearbyPeerTableViewHeader._text ]
+    weak-def-symbols: [ __ZTI13AGPSetElement, __ZTI20AGPReceiveSetElement, __ZTI20AGPSendingSetElement, 
+                        __ZTI24AGPAssociationSetElement, __ZTS13AGPSetElement, __ZTS20AGPReceiveSetElement, 
+                        __ZTS20AGPSendingSetElement, __ZTS24AGPAssociationSetElement ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _MCErrorDomain, _kMCSessionMaximumNumberOfPeers, _kMCSessionMinimumNumberOfPeers ]
+    objc-classes:    [ MCAdvertiserAssistant, MCBrowserViewController, MCNearbyServiceAdvertiser, 
+                       MCNearbyServiceBrowser, MCPeerID, MCSession ]
+...

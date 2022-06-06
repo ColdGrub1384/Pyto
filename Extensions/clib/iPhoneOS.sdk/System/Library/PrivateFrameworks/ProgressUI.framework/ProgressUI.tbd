@@ -1,0 +1,23 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/ProgressUI.framework/ProgressUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ __IOSurfacePropertyDictionaryForRect, _kPUIDefaultContextLevel ]
+    objc-classes:       [ _PUIFramebufferSizeChangeNotifier, _PUIProgressWindow ]
+    objc-ivars:         [ _PUIFramebufferSizeChangeNotifier._displayMonitor, _PUIFramebufferSizeChangeNotifier._listeners,
+                          _PUIProgressWindow._appleLogo, _PUIProgressWindow._context, _PUIProgressWindow._currentProgress,
+                          _PUIProgressWindow._deviceClass, _PUIProgressWindow._displayOrientation,
+                          _PUIProgressWindow._displayScale, _PUIProgressWindow._displaySize, _PUIProgressWindow._forceInverted,
+                          _PUIProgressWindow._framebufferListenerToken, _PUIProgressWindow._framebufferSize,
+                          _PUIProgressWindow._ioSurface, _PUIProgressWindow._ioSurfaceLayer, _PUIProgressWindow._layer,
+                          _PUIProgressWindow._layerPositioningSize, _PUIProgressWindow._progressLayer,
+                          _PUIProgressWindow._progressWidth, _PUIProgressWindow._progressXDelta,
+                          _PUIProgressWindow._progressYDelta, _PUIProgressWindow._renderWithIOSurface,
+                          _PUIProgressWindow._screenClass, _PUIProgressWindow._showsProgressBar, _PUIProgressWindow._sideways,
+                          _PUIProgressWindow._weCreatedTheContext, _PUIProgressWindow._white ]
+...

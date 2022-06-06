@@ -1,0 +1,77 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MediaPlayerUI.framework/MediaPlayerUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    re-exports:         [ /System/Library/PrivateFrameworks/MPUFoundation.framework/MPUFoundation ]
+    symbols:            [ _MPUApplicationDefaultsDidChangeNotification, _MPUStoreFrontURLForMediaType ]
+    objc-classes:       [ _MPUAdaptiveCollectionViewController, _MPUApplicationDefaults, _MPUArtworkView,
+                          _MPUCollectionViewController, _MPUCompletionFooterView, _MPUCompletionQueryDataSource,
+                          _MPUGradientView, _MPUItemOfferButton, _MPUNavigationController, _MPUNowPlayingController,
+                          _MPUNowPlayingMetadata, _MPUPlaybackAlertController, _MPURatingControl, _MPUTextButton, _MPUTheme,
+                          _MPUTransportControlsView, _MPUVignetteBackgroundView ]
+    objc-ivars:         [ _MPUAdaptiveCollectionViewController._contentInsetAdditions,
+                          _MPUAdaptiveCollectionViewController._scrollIndicatorInsetsAdditions,
+                          _MPUAdaptiveCollectionViewController._sizeClassToClassMap, _MPUApplicationDefaults._accessQueue,
+                          _MPUApplicationDefaults._applicationIdentifier, _MPUApplicationDefaults._defaultValues,
+                          _MPUApplicationDefaults._referenceCountForDefferringUpdates, _MPUArtworkView._aspectConstraint,
+                          _MPUArtworkView._automaticallyApplyAspectConstraints, _MPUArtworkView._dimsWhenHighlighted,
+                          _MPUArtworkView._displayingPlaceholder, _MPUArtworkView._externalImage,
+                          _MPUArtworkView._forcesAnimatedUnhighlighting, _MPUArtworkView._highlightView,
+                          _MPUArtworkView._isDeallocating, _MPUArtworkView._placeholderImage,
+                          _MPUCollectionViewController._collectionView, _MPUCompletionFooterView._bottomSeparatorView,
+                          _MPUCompletionFooterView._completeMyCollectionTitle, _MPUCompletionFooterView._completeSubtitleFormat,
+                          _MPUCompletionFooterView._completeTitleFormat, _MPUCompletionFooterView._completionOffering,
+                          _MPUCompletionFooterView._completionTotalFormat, _MPUCompletionFooterView._contentInsets,
+                          _MPUCompletionFooterView._delegate, _MPUCompletionFooterView._itemOfferButton,
+                          _MPUCompletionFooterView._preferredVariant, _MPUCompletionFooterView._purchasing,
+                          _MPUCompletionFooterView._showsVariants, _MPUCompletionFooterView._style,
+                          _MPUCompletionFooterView._subtitleLabel, _MPUCompletionFooterView._tapGestureRecognizer,
+                          _MPUCompletionFooterView._title, _MPUCompletionFooterView._titleLabel,
+                          _MPUCompletionFooterView._topSeparatorView, _MPUCompletionFooterView._variantSegmentedControl,
+                          _MPUCompletionQueryDataSource._completionDelegate, _MPUCompletionQueryDataSource._completions,
+                          _MPUCompletionQueryDataSource._hasAutomaticallyLoadedCompletions,
+                          _MPUCompletionQueryDataSource._overlayedSectionEntityPIDs,
+                          _MPUCompletionQueryDataSource._shouldAutomaticallyLoadCompletions,
+                          _MPUCompletionQueryDataSource._shouldShowCompletions, _MPUCompletionQueryDataSource._statuses,
+                          _MPUCompletionQueryDataSource._tokens, _MPUCompletionQueryDataSource._variants,
+                          _MPUItemOfferButton._hitRectInsets,
+                          _MPUNavigationController._overrideSupportedInterfaceOrientationsHandler,
+                          _MPUNavigationController._supportsStandardInterfaceOrientations,
+                          _MPUNowPlayingController._cachedArtworkDirty, _MPUNowPlayingController._cachedNowPlayingArtwork,
+                          _MPUNowPlayingController._currentDuration, _MPUNowPlayingController._currentElapsed,
+                          _MPUNowPlayingController._currentNowPlayingAppDisplayID,
+                          _MPUNowPlayingController._currentNowPlayingAppIsRunning,
+                          _MPUNowPlayingController._currentNowPlayingAppParentApp,
+                          _MPUNowPlayingController._currentNowPlayingArtworkDigest,
+                          _MPUNowPlayingController._currentNowPlayingInfo, _MPUNowPlayingController._delegate,
+                          _MPUNowPlayingController._hasValidCurrentNowPlayingAppDisplayID, _MPUNowPlayingController._isPlaying,
+                          _MPUNowPlayingController._isRegisteredForNowPlayingNotifications,
+                          _MPUNowPlayingController._isUpdatingNowPlayingApp, _MPUNowPlayingController._isUpdatingNowPlayingInfo,
+                          _MPUNowPlayingController._isUpdatingPlaybackState,
+                          _MPUNowPlayingController._shouldUpdateNowPlayingArtwork,
+                          _MPUNowPlayingController._timeInformationTimer,
+                          _MPUNowPlayingController._timeInformationUpdateInterval,
+                          _MPUNowPlayingController._wantsTimeInformationUpdates, _MPUNowPlayingMetadata._nowPlayingInfo,
+                          _MPUPlaybackAlertController._error, _MPUPlaybackAlertController._item,
+                          _MPUPlaybackAlertController._playbackAlertType, _MPURatingControl._delegate,
+                          _MPURatingControl._hitTestEdgeInsets, _MPURatingControl._imageViews,
+                          _MPURatingControl._panGestureRecognizer, _MPURatingControl._rating,
+                          _MPURatingControl._tapGestureRecognizer, _MPUTextButton._titleAlignment,
+                          _MPUTransportControlsView._availableTransportControls,
+                          _MPUTransportControlsView._classByReuseIdentifier, _MPUTransportControlsView._dataSource,
+                          _MPUTransportControlsView._delegate, _MPUTransportControlsView._insetsForExpandingButtons,
+                          _MPUTransportControlsView._layoutDelegate,
+                          _MPUTransportControlsView._minimumNumberOfTransportButtonsForLayout,
+                          _MPUTransportControlsView._recycledButtonsByReuseIdentifier,
+                          _MPUTransportControlsView._reuseIdentifierByButton, _MPUTransportControlsView._sortByGroup,
+                          _MPUTransportControlsView._sortedVisibleControlsWithBlanks,
+                          _MPUTransportControlsView._sortedVisibleControlsWithBlanksNeedsReload,
+                          _MPUTransportControlsView._typesOfControlsToReload,
+                          _MPUTransportControlsView._usesLegacyLayoutHeuristics,
+                          _MPUTransportControlsView._visibleButtonByControlType ]
+...

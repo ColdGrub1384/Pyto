@@ -1,0 +1,40 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PreferenceBundles/WirelessModemSettings.bundle/WirelessModemSettings
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MISManagerStateChangedNotification, _WMSLogComponent, __wiFiDevicePowerCallback, _textPaddingVert ]
+    objc-classes:       [ _BluetoothSetupView, _FamilyHotspotSettingsController, _HotspotClientUsageController,
+                          _HotspotFamilyMember, _MISManager, _SetupView, _TetheringSetupView, _TetheringSwitchFooterView,
+                          _USBSetupView, _WiFiPasswordController, _WiFiSetupView, _WirelessModemBundleController,
+                          _WirelessModemController ]
+    objc-ivars:         [ _FamilyHotspotSettingsController._familyMembers,
+                          _FamilyHotspotSettingsController._shouldShareWithFamily,
+                          _FamilyHotspotSettingsController._switchSpecifier, _FamilyHotspotSettingsController._wifiClient,
+                          _HotspotFamilyMember._altDSID, _HotspotFamilyMember._displayName, _HotspotFamilyMember._shareOption,
+                          _MISManager._needStateUpdate, _MISManager._netClient, _MISManager._radioPrefs, _MISManager._reason,
+                          _MISManager._scDynamicStore, _MISManager._scRunLoopSource, _MISManager._state, _SetupView._icon,
+                          _SetupView._layoutDirection, _SetupView._setupSteps, _SetupView._title, _TetheringSetupView._btView,
+                          _TetheringSetupView._showWifiView, _TetheringSetupView._usbView, _TetheringSetupView._wifiView,
+                          _TetheringSwitchFooterView._labels, _WirelessModemBundleController._specifiers,
+                          _WirelessModemBundleController._tetheringAlert, _WirelessModemBundleController._tetheringPhoneNumber,
+                          _WirelessModemBundleController._tetheringURL, _WirelessModemBundleController._wifiTetheringSupported,
+                          _WirelessModemController._btAlert, _WirelessModemController._btAlertClass,
+                          _WirelessModemController._btClassicDeviceClass, _WirelessModemController._btPairControllerClass,
+                          _WirelessModemController._btPairSetupClass, _WirelessModemController._btSSPAlert,
+                          _WirelessModemController._btSSPRequestClass, _WirelessModemController._currentDeviceSpecifier,
+                          _WirelessModemController._didRegisteredNotificationObservers,
+                          _WirelessModemController._familyHotspotEnabled, _WirelessModemController._lastSuperviewBounds,
+                          _WirelessModemController._passwordSpec, _WirelessModemController._personalHotspotModificationDisabled,
+                          _WirelessModemController._powerAlert, _WirelessModemController._serialQueue,
+                          _WirelessModemController._setupViewSpec, _WirelessModemController._shareOption,
+                          _WirelessModemController._showBTPowerPrompt, _WirelessModemController._stateFooterSpec,
+                          _WirelessModemController._tetheringGroupSpec, _WirelessModemController._tetheringSwitchSpec,
+                          _WirelessModemController._waitingOnBTPower, _WirelessModemController._waitingOnWifiPower,
+                          _WirelessModemController._wifiClient, _WirelessModemController._wifiDevice,
+                          _WirelessModemController._wifiIsWAPI, _WirelessModemController._wifiTetheringSupported ]
+...

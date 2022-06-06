@@ -1,0 +1,19 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/VideoEncoders/H264H9.videoencoder
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _AVE_AlignDimension, _AVE_CreateInstance, _AVE_DEBUG_H264PrintWhereIAm, _AVE_DEBUG_H264SetCallback,
+                          _AVE_DEBUG_PrintWhereIAm, _AVE_DEBUG_SetCallback, _AVE_H264CreateInstance,
+                          _AVE_PixelBufAttr_CreateDict, _AVE_RemoteSession_H264SetCallback, _AVE_RemoteSession_HEVCSetCallback,
+                          _AppleAVEVA_DriverCreate, _AppleAVEVA_DriverDelete, _AppleAVEVA_EnableClocking,
+                          _AppleAVEVA_EnableFWVerbose, _AppleAVEVA_EnableFeature, _AppleAVEVA_EnablePower,
+                          _AppleAVEVA_EnableVerbose, _AppleAVEVA_ForceDeviceType, _AppleAVEVA_ForceSyncFW,
+                          _AppleAVEVA_GetDeviceType, _AppleAVEVA_PowerDown, _AppleAVEVA_PowerUp, _AppleAVEVA_PrintMMU,
+                          _AppleAVEVA_PrintWhereIAm, _AppleAVEVA_ReadRegister, _AppleAVEVA_WriteRegister, _H264H9EncoderRegister,
+                          _H9EncoderRegister ]
+...

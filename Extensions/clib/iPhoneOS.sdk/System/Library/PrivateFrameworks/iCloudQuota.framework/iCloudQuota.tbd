@@ -1,0 +1,66 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/iCloudQuota.framework/iCloudQuota
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ICQActionParameterServerLinkIdentifierKey, _ICQActionParameterURLKey,
+                          _ICQActionParameterURLQueryParametersKey, _ICQCreateError, _ICQCreateErrorWithMessage,
+                          _ICQCurrentOfferChangedNotification, _ICQErrorDomain, _ICQLogDebugDataTaskComplete, _ICQLogDictKeys,
+                          _ICQLogOfferDetailsForServerDictionary, _ICQOpenURL, _ICQUpdateOfferKeyIsZeroAction,
+                          __ICQActionForServerActionString, __ICQActionForString, __ICQActionParametersForServerActionParameters,
+                          __ICQAlertSpecificationForServerDict, __ICQAppendServerMessageFormatAndLinks,
+                          __ICQBindingsKeyForServerMessageParameterKey, __ICQBooleanForServerObjectDefault,
+                          __ICQBundleIDForKnownContainerID, __ICQContainerIDForKnownBundleID, __ICQDictionaryForKey,
+                          __ICQDictionaryForOneOfKeys, __ICQGetLogSystem, __ICQIsBuddyOfferDictionary, __ICQLevelForString,
+                          __ICQLinkButtonForServerMessage, __ICQLinkForServerMessageParameter,
+                          __ICQLinkForServerMessageParameterWithOptions, __ICQLinkForServerValues,
+                          __ICQLinkVisibleKeyForServerMessageParameter, __ICQLinksForServerMessageParameters,
+                          __ICQLinksForServerMessageParametersWithOptions, __ICQMessageForServerHeader, __ICQMessageWithFormat,
+                          __ICQOfferTypeForServerString, __ICQOfferTypeForString, __ICQOpenCloudBackupInSettings,
+                          __ICQOpenFamilySetupInSettings, __ICQOpenManageStorageInSettings, __ICQOpenPrimaryPaymentInSettings,
+                          __ICQOpenPurchaseFlowInSettings, __ICQServerDictToOfferTypeAndLevel,
+                          __ICQServerHeaderGetFormatAndLinks, __ICQStringForAction, __ICQStringForKey, __ICQStringForLevel,
+                          __ICQStringForOfferType, __ICQStringForOneOfKeys, __ICQUpgradeCompletePageIdentifier,
+                          __ICQUpgradeFailureNetworkPageIdentifier, __ICQUpgradeFailurePageIdentifier,
+                          __ICQUpgradeOfferPageIdentifier, __ICQUpgradeSuccessWiFiPageIdentifier, _iCloudQuotaVersionNumber,
+                          _iCloudQuotaVersionString, _kNonBreakingSpaceCharacter, _kSpaceCharacter ]
+    objc-classes:       [ _ICQLink, _ICQOffer, _ICQOfferManager, __ICQAlertSpecification, __ICQBannerSpecification,
+                          __ICQButtonSpecification, __ICQFlowSpecification, __ICQPageSpecification,
+                          __ICQUpgradeCompletePageSpecification, __ICQUpgradeFlowSpecification,
+                          __ICQUpgradeOfferPageSpecification ]
+    objc-ivars:         [ _ICQLink._action, _ICQLink._options, _ICQLink._parameters, _ICQLink._text, _ICQOffer._accountAltDSID,
+                          _ICQOffer._bannerSpecification, _ICQOffer._bundleIdentifier, _ICQOffer._buttonSpecification,
+                          _ICQOffer._expirationDate, _ICQOffer._iTunesAccountExists, _ICQOffer._level, _ICQOffer._notificationID,
+                          _ICQOffer._offerId, _ICQOffer._offerType, _ICQOffer._retrievalDate, _ICQOffer._serverDictionary,
+                          _ICQOffer._upgradeFlowSpecification, _ICQOfferManager._cachedOffer, _ICQOfferManager._cachedOfferQueue,
+                          _ICQOfferManager._invalidationTimer, _ICQOfferManager._isRegisteredForDarwinNotifications,
+                          __ICQAlertSpecification._altLockScreenMessage, __ICQAlertSpecification._altMessage,
+                          __ICQAlertSpecification._defaultButtonIndex, __ICQAlertSpecification._disableLockScreenAlert,
+                          __ICQAlertSpecification._linkForButtonIndex, __ICQAlertSpecification._lockScreenMessage,
+                          __ICQAlertSpecification._lockScreenTitle, __ICQAlertSpecification._message,
+                          __ICQAlertSpecification._serverDict, __ICQAlertSpecification._title,
+                          __ICQBannerSpecification._messageFormat, __ICQBannerSpecification._messageLinks,
+                          __ICQBannerSpecification._serverDict, __ICQButtonSpecification._buttonFormat,
+                          __ICQButtonSpecification._buttonLink, __ICQButtonSpecification._linkForBundleIdentifier,
+                          __ICQButtonSpecification._serverDict, __ICQFlowSpecification._pagesByIdentifier,
+                          __ICQFlowSpecification._startAlert, __ICQFlowSpecification._startPage,
+                          __ICQPageSpecification._hasCancelButtonForBack, __ICQPageSpecification._pageClassIdentifier,
+                          __ICQPageSpecification._pageIdentifier, __ICQPageSpecification._pageTitle,
+                          __ICQUpgradeCompletePageSpecification._doneLink, __ICQUpgradeCompletePageSpecification._message,
+                          __ICQUpgradeCompletePageSpecification._title, __ICQUpgradeFlowSpecification._needsWiFi,
+                          __ICQUpgradeFlowSpecification._offerType, __ICQUpgradeFlowSpecification._serverDict,
+                          __ICQUpgradeOfferPageSpecification._altMessage, __ICQUpgradeOfferPageSpecification._altMessageLinks,
+                          __ICQUpgradeOfferPageSpecification._bottomLink,
+                          __ICQUpgradeOfferPageSpecification._bottomLinkVisibleKey,
+                          __ICQUpgradeOfferPageSpecification._fineprintFormat,
+                          __ICQUpgradeOfferPageSpecification._fineprintLinks,
+                          __ICQUpgradeOfferPageSpecification._iconBundleIdentifier, __ICQUpgradeOfferPageSpecification._message,
+                          __ICQUpgradeOfferPageSpecification._messageLinks, __ICQUpgradeOfferPageSpecification._purchase2Link,
+                          __ICQUpgradeOfferPageSpecification._purchase2LinkVisibleKey,
+                          __ICQUpgradeOfferPageSpecification._purchaseLink, __ICQUpgradeOfferPageSpecification._serverDict,
+                          __ICQUpgradeOfferPageSpecification._title ]
+...

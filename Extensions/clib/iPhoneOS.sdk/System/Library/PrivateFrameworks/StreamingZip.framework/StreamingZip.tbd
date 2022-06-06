@@ -1,0 +1,70 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/StreamingZip.framework/StreamingZip
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SZArchiverConvertZipArchiveToStreamable, _SZArchiverCopyStatsDescriptions, _SZArchiverCopyStatsKeys,
+                          _SZArchiverCreateStreamableZip, _SZArchiverExtractFile, _SZExtractorActualHashValueErrorKey,
+                          _SZExtractorCompressionLibErrorKey, _SZExtractorErrorDomain, _SZExtractorFileOffsetErrorKey,
+                          _SZExtractorFunctionNameErrorKey, _SZExtractorHashChunkIndexErrorKey, _SZExtractorHashTypeMD2,
+                          _SZExtractorHashTypeMD4, _SZExtractorHashTypeMD5, _SZExtractorHashTypeSHA1, _SZExtractorHashTypeSHA224,
+                          _SZExtractorHashTypeSHA256, _SZExtractorHashTypeSHA384, _SZExtractorHashTypeSHA512,
+                          _SZExtractorOptionsAssertQOS, _SZExtractorOptionsDenyInvalidSymlinks, _SZExtractorOptionsHashType,
+                          _SZExtractorOptionsHashedChunkSize, _SZExtractorOptionsHashesArray, _SZExtractorSourceFileLineErrorKey,
+                          _SZExtractorZlibErrorKey, _SZGetLoggingHandle, __SZLog, _gSZDefaultLogLevel, _gSZLogPrefix,
+                          _gSZLogToSyslog, _kSZArchiverCompressionMethodDEFLATE, _kSZArchiverCompressionMethodLZFSE,
+                          _kSZArchiverCompressionMethodLZMA, _kSZArchiverCompressionOptionForceCompressed,
+                          _kSZArchiverCompressionOptionForceUncompressed, _kSZArchiverCompressionOptionPreserveCompression,
+                          _kSZArchiverCompressionOptionTryRecompress, _kSZArchiverHashTypeMD2, _kSZArchiverHashTypeMD4,
+                          _kSZArchiverHashTypeMD5, _kSZArchiverHashTypeSHA1, _kSZArchiverHashTypeSHA224,
+                          _kSZArchiverHashTypeSHA256, _kSZArchiverHashTypeSHA384, _kSZArchiverHashTypeSHA512,
+                          _kSZArchiverOptionCommandLineString, _kSZArchiverOptionCompressionMethod,
+                          _kSZArchiverOptionCompressionOptions, _kSZArchiverOptionExecutableUUID, _kSZArchiverOptionHashType,
+                          _kSZArchiverOptionHashedChunkSize, _kSZArchiverOptionNoCache, _kSZArchiverOptionNoCentralDirectory,
+                          _kSZArchiverOptionNoSeekOutput, _kSZArchiverOptionSkipPrescan,
+                          _kSZArchiverOptionUncompressBloatedFiles, _kSZArchiverOptionZlibCompressionLevel,
+                          _kSZArchiverPreflightTargetPathMode, _kSZArchiverPreflightTotalFileCount,
+                          _kSZArchiverPreflightTotalFileSize, _kSZArchiverStatsCentralDirectorySize,
+                          _kSZArchiverStatsCountCompressMethodDeflated, _kSZArchiverStatsCountCompressMethodLZFSE,
+                          _kSZArchiverStatsCountCompressMethodLZMA, _kSZArchiverStatsCountCompressMethodOther,
+                          _kSZArchiverStatsCountCompressMethodStored, _kSZArchiverStatsCountDirectories,
+                          _kSZArchiverStatsCountRegularFiles, _kSZArchiverStatsCountSymlinks,
+                          _kSZArchiverStatsCountZeroByteFiles, _kSZArchiverStatsExecutableSize,
+                          _kSZArchiverStatsExpectedStreamStopOffset, _kSZArchiverStatsItemCount,
+                          _kSZArchiverStatsItemsConvertedToUncompressed, _kSZArchiverStatsItemsLargerWithNewCompressionMethod,
+                          _kSZArchiverStatsMaxCompressedSize, _kSZArchiverStatsMaxUncompressedSize,
+                          _kSZArchiverStatsNonStandardPermsItemCount, _kSZArchiverStatsResultRequiresZip64,
+                          _kSZArchiverStatsResultSizeDeltaBytes, _kSZArchiverStatsResultSizeDeltaPercent,
+                          _kSZArchiverStatsTotalBytesRecovered, _kSZArchiverStatsTotalCompressedSize,
+                          _kSZArchiverStatsTotalExtractedSize, _kSZArchiverStatsTotalFileSize,
+                          _kSZArchiverStatsTotalUncompressedSize ]
+    objc-classes:       [ _SZExtractor, _SZExtractorInternalDelegate, _StreamingUnzipState, _StreamingUnzipper ]
+    objc-ivars:         [ _SZExtractor._error, _SZExtractor._extractionPath, _SZExtractor._hasHadPostSetupMethodsCalled,
+                          _SZExtractor._inProcessUnzipper, _SZExtractor._internalExtractorDelegate,
+                          _SZExtractor._isLocalExtractor, _SZExtractor._lastResumptionOffset, _SZExtractor._needsPreparation,
+                          _SZExtractor._options, _SZExtractor._serialQueue, _SZExtractor._unzipServiceConnection,
+                          _SZExtractorInternalDelegate.delegate, _StreamingUnzipState._bytesHashedInChunk,
+                          _StreamingUnzipState._cmpState, _StreamingUnzipState._currentCRC32,
+                          _StreamingUnzipState._currentLFMode, _StreamingUnzipState._currentLFRecord,
+                          _StreamingUnzipState._currentLFRecordAllocationSize,
+                          _StreamingUnzipState._currentLFRequiresDataDescriptor, _StreamingUnzipState._currentOffset,
+                          _StreamingUnzipState._currentOutputFD, _StreamingUnzipState._dataDescriptor,
+                          _StreamingUnzipState._denyInvalidSymlinks, _StreamingUnzipState._hashContext,
+                          _StreamingUnzipState._hashedChunkSize, _StreamingUnzipState._hashes,
+                          _StreamingUnzipState._inMemoryFileData, _StreamingUnzipState._lastChunkPartialHash,
+                          _StreamingUnzipState._lastResumptionSavedOffset, _StreamingUnzipState._recordsProcessed,
+                          _StreamingUnzipState._storeCurrentFileInMemory, _StreamingUnzipState._streamInfoDict,
+                          _StreamingUnzipState._streamState, _StreamingUnzipState._thisStageBytesComplete,
+                          _StreamingUnzipState._totalFileSizeWritten, _StreamingUnzipState._totalRecordCount,
+                          _StreamingUnzipState._totalUncompressedBytes, _StreamingUnzipState._uncompressedBytesOutput,
+                          _StreamingUnzipState._unsureData, _StreamingUnzipState._unzipPath,
+                          _StreamingUnzipper._activeDelegateMethods, _StreamingUnzipper._currentState,
+                          _StreamingUnzipper._decompressionOutputBuffer, _StreamingUnzipper._lastExtractionProgressSent,
+                          _StreamingUnzipper._sandboxToken, _StreamingUnzipper._sessionTransaction,
+                          _StreamingUnzipper.inProcessDelegateQueue, _StreamingUnzipper.inProcessExtractorDelegate,
+                          _StreamingUnzipper.xpcConnection ]
+...

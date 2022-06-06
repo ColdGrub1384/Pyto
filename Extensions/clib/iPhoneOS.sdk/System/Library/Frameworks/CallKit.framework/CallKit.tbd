@@ -1,0 +1,44 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 595BB19F-2457-3F7B-BDB3-65C080222F51', 'armv7s: F15157EC-BA22-350F-9397-AF1CFC0B3EE5', 
+                   'arm64: A9FFB849-2614-3AAB-BA6F-F4EE9B148CDE', 'arm64e: 98BE89D8-C422-39F9-9236-45CF1C274534' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/CallKit.framework/CallKit'
+exports:         
+  - archs:           [ armv7, armv7s ]
+    objc-classes:    [ CXCallActionResponse, CXCallDirectoryBlockingEntryData, CXCallDirectoryBlockingEntryMutableData, 
+                       CXCallDirectoryEntryData, CXCallDirectoryIdentificationEntryData, 
+                       CXCallDirectoryIdentificationEntryMutableData ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _CXCallDirectoryDefaultHostBundleIdentifier, _CXCallDirectoryDefaultHostServiceName, 
+                       _CXCallDirectoryMaintenanceHostBundleIdentifier, _CXCallDirectoryMaintenanceHostServiceName, 
+                       _CXCallDirectoryManagerIdentificationEntriesChangedNotification, 
+                       _CXCallDirectoryStoreExtensionsChangedNotification, _CXCallDirectoryStoreMigratorLatestSchemaVersion, 
+                       _CXErrorDomain, _CXErrorDomainCallDirectoryManager, _CXErrorDomainCallDirectoryStore, 
+                       _CXErrorDomainIncomingCall, _CXErrorDomainRequestTransaction ]
+    objc-classes:    [ CXAbstractProvider, CXAccount, CXAction, CXAnswerCallAction, 
+                       CXCall, CXCallAction, CXCallController, CXCallControllerHost, 
+                       CXCallDirectoryExtension, CXCallDirectoryExtensionContext, 
+                       CXCallDirectoryExtensionManager, CXCallDirectoryHost, CXCallDirectoryIdentificationEntry, 
+                       CXCallDirectoryLabeledPhoneNumberEntryData, CXCallDirectoryManager, 
+                       CXCallDirectoryMutableLabeledPhoneNumberEntryData, CXCallDirectoryMutablePhoneNumberEntryData, 
+                       CXCallDirectoryNSExtensionManager, CXCallDirectoryPhoneNumberEntryData, 
+                       CXCallDirectoryProvider, CXCallDirectorySanitizer, CXCallDirectoryStore, 
+                       CXCallDirectoryStoreExtension, CXCallDirectoryStoreIdentificationEntry, 
+                       CXCallDirectoryStoreMigrationResult, CXCallDirectoryStoreMigrator, 
+                       CXCallFailureContext, CXCallObserver, CXCallSource, CXCallSourceManager, 
+                       CXCallUpdate, CXEndCallAction, CXExtensionCallSource, CXExtensionProvider, 
+                       CXHandle, CXHandoffContext, CXInProcessCallSource, CXInProcessProvider, 
+                       CXJoinCallAction, CXLabeledHandle, CXPlayDTMFCallAction, CXProvider, 
+                       CXProviderConfiguration, CXProviderExtensionContext, CXProviderExtensionHostContext, 
+                       CXProviderExtensionVendorContext, CXPullCallAction, CXRemoveVoicemailAction, 
+                       CXSendMMIOrUSSDCodeAction, CXSenderIdentity, CXSetGroupCallAction, 
+                       CXSetHeldCallAction, CXSetMutedCallAction, CXSetPlayedVoicemailAction, 
+                       CXSetRelayingCallAction, CXSetSendingVideoCallAction, CXSetTTYTypeCallAction, 
+                       CXSetTrashedVoicemailAction, CXSetVideoPresentationSizeCallAction, 
+                       CXSetVideoPresentationStateCallAction, CXStartCallAction, 
+                       CXTransaction, CXTransactionGroup, CXTransactionManager, CXVoicemail, 
+                       CXVoicemailAction, CXVoicemailController, CXVoicemailControllerHost, 
+                       CXVoicemailObserver, CXVoicemailProvider, CXVoicemailSource, 
+                       CXVoicemailUpdate, CXXPCCallSource, CXXPCProvider, CXXPCVoicemailSource ]
+...

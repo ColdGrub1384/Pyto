@@ -1,0 +1,55 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/QuickLookSupport.framework/QuickLookSupport
+current-version:       0
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _QLAdaptSizeInSize, _QLAdaptSizeOutSize, _QLAdaptSizeToRect, _QLAdaptSizeToRectWithRounding,
+                          _QLAdjustRectInRect, _QLCreateMallocedBitmapContextWithSize,
+                          _QLCreateMallocedBitmapContextWithSizeAndColorSpace, _QLDrawPDFPage,
+                          _QLDrawPDFPageWithMinimumDimension, _QLFrameworkBundle, _QLGetPDFDrawRect,
+                          _QLGetPDFDrawRectWithMinimumDimension, _QLGuessEncodingForTextFileAtURL,
+                          _QLGuessEncodingForTextFileFromData, _QLNSStringFromCGRect, _QLNSStringFromCGSize,
+                          _QLPreviewCopyEmbeddedIWorkThumbnailDataInData, _QLPreviewCopyEmbeddedIWorkThumbnailDataInFile,
+                          _QLPreviewCopyEmbeddedPDF, _QLSInitLogging, _QLSThumbnailSizeIsSufficientForLowQuality,
+                          _QLScaledImageFromImageURL, _QLScaledPlatformImageFromImageSource,
+                          _QLThumbnailingImageIOCreateImageSourceFromData, _QLThumbnailingImageIOCreateThumbnailFromData,
+                          _QLThumbnailingImageIOCreateThumbnailOfMinimumSizeWithImageSource,
+                          _QLThumbnailingImageIOGetSizeFromImageSourceAtIndex, _QLUTIManagerTypeIsInternallySupportedType,
+                          __QLDictionaryCGFloatValueForKey, __QLDictionaryFloatValueForKey, __QLDictionaryIntValueForKey,
+                          __QLDictionarySInt32ValueForKey, __QLDictionarySetCGFloatValueForKey,
+                          __QLDictionarySetFloatValueForKey, __QLDictionarySetIntValueForKey, __QLDictionarySetSInt32ValueForKey,
+                          __QLDictionaryValueForKey, __QLMachDispatchIncomingMessageAndReplyIfNecessary,
+                          __QLMachGetMachPortCount, __QLMachGetMinimumSequenceNumber, __QLMachPortKeyCallbacks,
+                          __QLMachRegisterForNoSenders, __QLMachUnregisterForNoSenders, __QLThumbnailComputeBaselineFromData,
+                          __qlsLogHandle, _kQLExtensionMinimumThumbnailDimensionKey, _kQLExtensionPointIdentifierPreview,
+                          _kQLExtensionPointIdentifierThumbnail, _kQLExtensionSupportedContentTypesKey,
+                          _kQLExtensionSupportsInteractiveThumbnailBadgesKey, _kQLExtensionSupportsSearchableItemsKey,
+                          _kQLExtensionWantsExternalResourcesEntitlement, _kQLSThumbnailOptionIconModeKey,
+                          _kQLSThumbnailOptionScaleFactorKey, _kQLSupportedInController ]
+    objc-classes:       [ _QLExtension, _QLExtensionManager, _QLExtensionManagerCache, _QLExtensionThumbnailGenerator,
+                          _QLGracePeriodTimer, _QLPlatformImage, _QLThumbnailUTICache, _QLUTIAnalyzer, _QLUTIManager,
+                          _QLZipArchive, _QLZipArchiveEntry ]
+    objc-ivars:         [ _QLExtension._completionHandlersQueue, _QLExtension._connection, _QLExtension._context,
+                          _QLExtension._extension, _QLExtension._extensionRequestHandlers, _QLExtension._extensionScore,
+                          _QLExtension._externalResourcesPermission, _QLExtension._gracePeriodTimer,
+                          _QLExtension._isRequestingExtension, _QLExtension._observers, _QLExtension._queue,
+                          _QLExtension._requestIdentifier, _QLExtensionManager._previewExtensionCache,
+                          _QLExtensionManager._previewHighMemoryExtensionCache, _QLExtensionManager._thumbnailExtensionCache,
+                          _QLExtensionManager._thumbnailHighMemoryExtensionCache,
+                          _QLExtensionManagerCache._accessMatchingExtensionsQueue,
+                          _QLExtensionManagerCache._isMatchingExtensions, _QLExtensionManagerCache._matchingAttributes,
+                          _QLExtensionManagerCache._matchingContext, _QLExtensionManagerCache._matchingExtensions,
+                          _QLExtensionManagerCache._qlExtensions, _QLExtensionManagerCache._waitForExtensionListQueue,
+                          _QLExtensionManagerCache._waitForExtensionsSemaphore, _QLExtensionThumbnailGenerator._extensionManager,
+                          _QLGracePeriodTimer._action, _QLGracePeriodTimer._callbackQueue, _QLGracePeriodTimer._delay,
+                          _QLGracePeriodTimer._timer, _QLPlatformImage._cgImage, _QLPlatformImage._cleanupDataBlock,
+                          _QLPlatformImage._orientation, _QLPlatformImage._scale, _QLPlatformImage._size,
+                          _QLThumbnailUTICache._itemTypeCache, _QLThumbnailUTICache._synchronizationQueue,
+                          _QLUTIAnalyzer._contentType, _QLZipArchive._archive, _QLZipArchive._data, _QLZipArchive._fileWrapper,
+                          _QLZipArchive._url, _QLZipArchiveEntry._archive, _QLZipArchiveEntry._data, _QLZipArchiveEntry._entry,
+                          _QLZipArchiveEntry._error ]
+...

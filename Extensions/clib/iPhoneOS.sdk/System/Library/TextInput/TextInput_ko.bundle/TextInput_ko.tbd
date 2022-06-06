@@ -1,0 +1,34 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/TextInput/TextInput_ko.bundle/TextInput_ko
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ __Z13__composeJamoPK10__CFStringP18Hangul2SetAutomata,
+                          __Z21SearchForJamoCompoundttPK15DoubleCharValuei, __ZN14HangulSyllable10CanComposeEv,
+                          __ZN14HangulSyllable10DoubleJongEtt, __ZN14HangulSyllable10DoubleJungEtt,
+                          __ZN14HangulSyllable10GetUnicodeEv, __ZN14HangulSyllable11ChoLeftHalfEt,
+                          __ZN14HangulSyllable11GetJamoTypeEt, __ZN14HangulSyllable12ChoRightHalfEt,
+                          __ZN14HangulSyllable12JongLeftHalfEt, __ZN14HangulSyllable12NormalizeChoEt,
+                          __ZN14HangulSyllable13JongRightHalfEt, __ZN14HangulSyllable13MapChoAndJongEt,
+                          __ZN14HangulSyllable13NormalizeJongEt, __ZN14HangulSyllable13NormalizeJungEt,
+                          __ZN14HangulSyllable13VowelLeftHalfEt, __ZN14HangulSyllable14VowelRightHalfEt,
+                          __ZN14HangulSyllable17SplitJamoCompoundEtRtS0_, __ZN14HangulSyllable18ChoToCompatibilityEt,
+                          __ZN14HangulSyllable19JongToCompatibilityEt, __ZN14HangulSyllable19JungToCompatibilityEt,
+                          __ZN14HangulSyllable6SetChoEt, __ZN14HangulSyllable7SetJongEt, __ZN14HangulSyllable7SetJungEt,
+                          __ZN14HangulSyllable9DoubleChoEtt, __ZN14HangulSyllableC1Et, __ZN14HangulSyllableC2Et,
+                          __ZN17TIInputManager_ko12set_is_10keyEb, __ZN17TIInputManager_ko15autocorrectionsE14TIShiftContext,
+                          __ZN17TIInputManager_ko21completion_candidatesEj14TIShiftContext, __ZN17TIInputManager_koC1Ev,
+                          __ZN17TIInputManager_koC2Ev, __ZN17TIInputManager_koD0Ev, __ZN17TIInputManager_koD1Ev,
+                          __ZN17TIInputManager_koD2Ev, __ZN18Hangul2SetAutomata11SendUniCharEtRb,
+                          __ZN18Hangul2SetAutomata12HandleDeleteEv, __ZN18Hangul2SetAutomata17ClearOutputStringEv,
+                          __ZN18Hangul2SetAutomata18AppendCharToOutputEt,
+                          __ZN18Hangul2SetAutomata20AppendComposedHangulEP10__CFString, __ZN18Hangul2SetAutomata5ResetEv,
+                          __ZN18Hangul2SetAutomataC1Ev, __ZN18Hangul2SetAutomataC2Ev, __ZN18Hangul2SetAutomataD1Ev,
+                          __ZN18Hangul2SetAutomataD2Ev, __ZNK17TIInputManager_ko8is_10keyEv, __ZTV17TIInputManager_ko ]
+    objc-classes:       [ _TIKeyboardInputManager_ko ]
+    objc-ivars:         [ _TIKeyboardInputManager_ko._batchConverter, _TIKeyboardInputManager_ko._deleteSyllable ]
+...

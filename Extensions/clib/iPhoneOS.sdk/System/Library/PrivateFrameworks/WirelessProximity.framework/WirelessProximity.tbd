@@ -1,0 +1,68 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/WirelessProximity.framework/WirelessProximity
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _WPAirPlaySoloAdvertisingMode, _WPAirPlaySoloKeyDeviceAddress, _WPAirPlaySoloKeyDeviceTime,
+                          _WPBeaconAdvInterval, _WPBeaconTX, _WPBeaconType, _WPBeaconTypeATVSetup,
+                          _WPBeaconTypeAirPlayTargetPresence, _WPBeaconTypeAirPlayTargetPresencePayload, _WPBeaconTypeCompany,
+                          _WPBeaconTypeCompanyConfig, _WPBeaconTypeCompanyMajor, _WPBeaconTypeCompanyMinor,
+                          _WPBeaconTypeCompanyUUID, _WPErrorDomain, _WPHeySiriAdvertisingData, _WPHeySiriKeyDeviceAddress,
+                          _WPHeySiriKeyDeviceTime, _WPHeySiriKeyDeviceUUID, _WPHeySiriKeyManufacturerData,
+                          _WPHomeKitScanBlobData, _WPHomeKitScanDutyCycle, _WPHomeKitScanMaskData, _WPHomeKitTypes,
+                          _WPLogInitOnce, _WPLoggingInit, _WPMagicSwitchAdvertiseTypeInterval, _WPMagicSwitchAdvertisingData,
+                          _WPMagicSwitchScanBlobData, _WPMagicSwitchScanDutyCycle, _WPMagicSwitchScanMaskData,
+                          _WPMagicSwitchScanPeers, _WPNearbyKeyConnectLatencyCritical, _WPNearbyKeyDeviceAddress,
+                          _WPNearbyKeyDeviceTime, _WPNearbyKeyManufacturerData, _WPNearbyKeyPaired, _WPNearbyKeyRSSI,
+                          _WPNearbyLEPipeCapable, _WPObjectDiscoveryKeyAddress, _WPObjectDiscoveryKeyData,
+                          _WPObjectDiscoveryKeyOptional, _WPObjectDiscoveryKeyRSSI, _WPObjectDiscoveryKeyStatus,
+                          _WPObjectDiscoveryKeyTime, _WPPairingKeyAdvertisingChannel, _WPPairingKeyDeviceTime, _WPPairingKeyName,
+                          _WPPairingKeyPaired, _WPPairingKeyRSSI, _WPPuckType, _WPPuckTypeAirPlaySoloAdvertisingChannel,
+                          _WPPuckTypeAirPlaySoloAdvertisingData, _WPPuckTypeAirPlaySoloRSSI,
+                          _WPPuckTypeAirPlaySoloSourcePresence, _WPPuckTypeAirPlaySoloTargetPresence, _WPZoneTrackerKeyMajor,
+                          _WPZoneTrackerKeyMinor, _WPZoneTrackerKeyZone, _WiProxLog, _WiproxBTPairingLaunchNotification,
+                          _kSPAdvertisementData, _kSPDeviceAddress, _kSPOptional, _kSPScanDate, _kSPStatus, _kSPrssi ]
+    objc-classes:       [ _WPAWDL, _WPAdvertising, _WPAdvertisingRequest, _WPAirPlaySolo, _WPCharacteristic, _WPClient,
+                          _WPContinuity, _WPDObjectDiscoveryData, _WPDataTransfer, _WPDeviceScanner, _WPHeySiri, _WPHomeKit,
+                          _WPMagicSwitch, _WPNearby, _WPObjectDiscovery, _WPPairing, _WPPeerTrackingRequest, _WPRanging,
+                          _WPScanRequest, _WPTest, _WPTransfer, _WPZoneTracker, _WPZoneTrackingRequest ]
+    objc-ivars:         [ _WPAWDL._delegate, _WPAWDL._useSmallerAirDrop, _WPAdvertising._delegate,
+                          _WPAdvertisingRequest._advertisingData, _WPAdvertisingRequest._advertisingOptions,
+                          _WPAdvertisingRequest._advertisingRate, _WPAdvertisingRequest._clientType,
+                          _WPAdvertisingRequest._connectable, _WPAdvertisingRequest._priorityValue,
+                          _WPAdvertisingRequest._stopOnAdvertisingAddressChange, _WPAdvertisingRequest._updateTime,
+                          _WPAirPlaySolo._delegate, _WPCharacteristic._data, _WPCharacteristic._permissions,
+                          _WPCharacteristic._properties, _WPCharacteristic._uuid, _WPCharacteristic._writeType,
+                          _WPClient._advertiserState, _WPClient._clientQueue, _WPClient._daemonDeliveryQueue,
+                          _WPClient._daemonRegisteredSemaphore, _WPClient._isBubbleTestClient, _WPClient._isTestClient,
+                          _WPClient._machName, _WPClient._needsToRegister, _WPClient._peerTrackingSlotsAvailable,
+                          _WPClient._pipeState, _WPClient._registering, _WPClient._scannerState, _WPClient._servicesAdded,
+                          _WPClient._state, _WPClient._type, _WPClient._xpcConnection, _WPClient._xpcListener,
+                          _WPContinuity._btBandwidthState, _WPContinuity._delegate, _WPContinuity._transfers,
+                          _WPDObjectDiscoveryData._address, _WPDObjectDiscoveryData._length, _WPDObjectDiscoveryData._payload,
+                          _WPDataTransfer._currentDataSize, _WPDataTransfer._currentReceivedData, _WPDataTransfer._peerUUID,
+                          _WPDataTransfer._receivedFirstPacket, _WPDeviceScanner._activeScans,
+                          _WPDeviceScanner._anyScanResultsRequested, _WPDeviceScanner._delegate, _WPDeviceScanner._liveDevices,
+                          _WPHeySiri._delegate, _WPHeySiri._isScanning, _WPHomeKit._delegate, _WPMagicSwitch._delegate,
+                          _WPNearby._btBandwidthState, _WPNearby._delegate, _WPNearby._leCapablePeers, _WPNearby._transfers,
+                          _WPObjectDiscovery._delegate, _WPObjectDiscovery._queue, _WPPairing._allowScreenOffScanning,
+                          _WPPairing._delegate, _WPPairing._ignoredDevices, _WPPeerTrackingRequest._clientType,
+                          _WPPeerTrackingRequest._peerTrackingDictionary, _WPPeerTrackingRequest._peerUUID, _WPRanging._delegate,
+                          _WPScanRequest._activeScanning, _WPScanRequest._advBuffer, _WPScanRequest._advBufferMode,
+                          _WPScanRequest._allowDuplicates, _WPScanRequest._blobValue, _WPScanRequest._clientType,
+                          _WPScanRequest._maskValue, _WPScanRequest._nearbyScanMode, _WPScanRequest._options,
+                          _WPScanRequest._peers, _WPScanRequest._rssiThreshold, _WPScanRequest._scanCache,
+                          _WPScanRequest._scanWhenLocked, _WPScanRequest._scanningRates, _WPScanRequest._updateTime,
+                          _WPTest._delegate, _WPTest._transfers, _WPTransfer._advertiserConnected, _WPTransfer._advertising,
+                          _WPTransfer._connectedToPeripheral, _WPTransfer._currentPeripheralUUID,
+                          _WPTransfer._currentlySubscribedCentral, _WPTransfer._delegate, _WPTransfer._ignoredDevices,
+                          _WPTransfer._lockScanTimer, _WPTransfer._notificationData, _WPTransfer._scanning,
+                          _WPTransfer._sendingTransferComplete, _WPTransfer._sentEOM, _WPTransfer._unsubscribeComing,
+                          _WPZoneTracker._delegate, _WPZoneTracker._wantEntry, _WPZoneTracker._wantExit,
+                          _WPZoneTrackingRequest._clientType, _WPZoneTrackingRequest._scanWhenScreenOff,
+                          _WPZoneTrackingRequest._scanningRates, _WPZoneTrackingRequest._zones ]
+...

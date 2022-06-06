@@ -1,0 +1,29 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/VoiceServices/PlugIns/iPod.vsplugin/iPod
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _iPodControlAlbumClassIdentifier, _iPodControlArtistClassIdentifier, _iPodControlErrorDomain,
+                          _iPodControlGeniusCommandClassIdentifier, _iPodControlIdentifyCommandClassIdentifier,
+                          _iPodControlModelIdentifier, _iPodControlNextCommandClassIdentifier,
+                          _iPodControlPauseCommandClassIdentifier, _iPodControlPlayCommandClassIdentifier,
+                          _iPodControlPlaylistClassIdentifier, _iPodControlPreviousCommandClassIdentifier,
+                          _iPodControlSelectAlbumObjectClassIdentifier, _iPodControlSelectArtistObjectClassIdentifier,
+                          _iPodControlSelectPlaylistObjectClassIdentifier, _iPodControlSetupLocalization,
+                          _iPodControlShuffleCommandClassIdentifier, _iPodControlString, _iPodControlTextPreProcessor ]
+    objc-classes:       [ _iPodControlDataProvider, _iPodControlGeniusAction, _iPodControlIdentifyAction,
+                          _iPodControlNextTrackAction, _iPodControlNoMusicAction, _iPodControlPauseAction,
+                          _iPodControlPlayAction, _iPodControlPlayingRequiredAction, _iPodControlPreviousTrackAction,
+                          _iPodControlResultHandler, _iPodControlResultValidator, _iPodControlSelectAction,
+                          _iPodControlShuffleAction, _iPodControlSimpleAction ]
+    objc-ivars:         [ _iPodControlDataProvider._collectionsByClassID, _iPodControlDataProvider._library,
+                          _iPodControlDataProvider._providerFlags, _iPodControlDataProvider._queriesByClassID,
+                          _iPodControlDataProvider._reportingQueue, _iPodControlDataProvider._stopSuppressionToken,
+                          _iPodControlDataProvider._suppressionToken, _iPodControlGeniusAction._shouldPlay,
+                          _iPodControlPauseAction._needsPause, _iPodControlPlayAction._needsPlay,
+                          _iPodControlSelectAction._query ]
+...

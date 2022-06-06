@@ -239,6 +239,16 @@ import Zip
         
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        thread_stdout = stdout
+        thread_stderr = stderr
+        thread_stdin = stdin
+        
+        let llvm = Bundle.main.privateFrameworksURL!.appendingPathComponent("libLLVM.framework/libLLVM")
+        dlopen("\(llvm.path)", RTLD_GLOBAL)
+        
+        let cppStub = Bundle.main.privateFrameworksURL!.appendingPathComponent("libcpp-stub.framework/libcpp-stub")
+        dlopen("\(cppStub.path)", RTLD_GLOBAL)
+                
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         

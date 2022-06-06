@@ -1,0 +1,49 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/PipelineKit.framework/PipelineKit
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ MediaMiningKit, PhotoAnalysis, PhotosGraph ]
+    symbols:            [ _PIErrorDomain, _PipelineKitVersionNumber, _PipelineKitVersionString,
+                          _kPIReachabilityChangedNotification ]
+    objc-classes:       [ _PICLGeocoderOperation, _PIEKEventStoreOperation, _PIError, _PIGroup, _PILogging,
+                          _PIMKLocalSearchOperation, _PIOperation, _PIOperationSubclass, _PIPipeline, _PIReachability,
+                          _PIStatisticsElapsedTime, _PIURLDataOperation, _PIURLDownloadOperation, _PIURLSessionOperationSubclass ]
+    objc-ivars:         [ _PICLGeocoderOperation._timer, _PIGroup._availableBlock, _PIGroup._concurrencyLimit,
+                          _PIGroup._executingConcurrency, _PIGroup._executingOperations, _PIGroup._executionTime,
+                          _PIGroup._identifier, _PIGroup._operations, _PIGroup._operationsByIdentifier,
+                          _PIGroup._operationsByKey, _PIGroup._operationsByPriority, _PIGroup._operationsGroup,
+                          _PIGroup._pipeline, _PIGroup._priority, _PIGroup._removeOnCompletion, _PIGroup._suspended,
+                          _PIGroup._timestampStart, _PILogging._loggingConnection, _PIMKLocalSearchOperation._ticket,
+                          _PIMKLocalSearchOperation._timer, _PIOperation._cancellationBlock, _PIOperation._cancelled,
+                          _PIOperation._completionBlock, _PIOperation._concurrencyLimit, _PIOperation._context,
+                          _PIOperation._dependencies, _PIOperation._error, _PIOperation._executionBlock,
+                          _PIOperation._executionRateLimit, _PIOperation._executionTimeout, _PIOperation._executionTimeoutTimer,
+                          _PIOperation._group, _PIOperation._identifier, _PIOperation._information, _PIOperation._key,
+                          _PIOperation._mainOperation, _PIOperation._needsToRetry, _PIOperation._operationGroup,
+                          _PIOperation._priority, _PIOperation._progress, _PIOperation._progressBlock,
+                          _PIOperation._qualityOfService, _PIOperation._retryCount, _PIOperation._state,
+                          _PIOperation._subOperations, _PIOperation._subPipeline, _PIOperation._timestampCancelling,
+                          _PIOperation._timestampExecuting, _PIOperation._timestampFinish, _PIOperation._timestampReady,
+                          _PIOperation._timestampStart, _PIOperation._waitingTimeout, _PIOperation._waitingTimeoutTimer,
+                          _PIOperation._wallTimeout, _PIOperation._wallTimeoutTimer, _PIOperationSubclass._finishBlock,
+                          _PIPipeline._asynchronousMethodsQueue, _PIPipeline._backgroundQueue, _PIPipeline._concurrencyLimit,
+                          _PIPipeline._defaultQueue, _PIPipeline._executingConcurrency, _PIPipeline._executingOperations,
+                          _PIPipeline._executionTime, _PIPipeline._groups, _PIPipeline._identifier, _PIPipeline._limitedGroup,
+                          _PIPipeline._mainGroup, _PIPipeline._mainPipeline, _PIPipeline._operations,
+                          _PIPipeline._operationsByIdentifier, _PIPipeline._operationsByKey, _PIPipeline._operationsByPriority,
+                          _PIPipeline._operationsGroup, _PIPipeline._operationsRates, _PIPipeline._qualityOfService,
+                          _PIPipeline._schedulerQueue, _PIPipeline._schedulerType, _PIPipeline._serialGroup,
+                          _PIPipeline._suspended, _PIPipeline._timestampStart, _PIPipeline._userInitiatedQueue,
+                          _PIPipeline._userInteractiveQueue, _PIPipeline._userInterfaceQueue, _PIPipeline._utilityQueue,
+                          _PIReachability._localWiFiRef, _PIReachability._reachabilityRef,
+                          _PIStatisticsElapsedTime._elapsedCounter, _PIStatisticsElapsedTime._elapsedStart,
+                          _PIStatisticsElapsedTime._elapsedTime, _PIStatisticsElapsedTime._lastBeginTransactionTime,
+                          _PIStatisticsElapsedTime._lastEndTransactionTime, _PIURLSessionOperationSubclass._session,
+                          _PIURLSessionOperationSubclass._sessionConfiguration, _PIURLSessionOperationSubclass._sessionTask,
+                          _PIURLSessionOperationSubclass._url ]
+...

@@ -1,0 +1,21 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/TeaTemplate.framework/TeaTemplate
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ ArticleNotificationExtension, ArticleNotificationServiceExtension, Feldspar Tests,
+                          MarketingNotificationExtension, NVCDemo, News, NewsAnalytics, NewsAnalyticsTests, NewsAnalyticsUpload,
+                          NewsArticles, NewsArticlesTests, NewsFeed, NewsFeedTests, NewsFormat, NewsFormatTests,
+                          NewsInternalExtras, NewsInternalSettings, NewsServices, NewsServicesInternal, NewsSettings,
+                          NewsSubscription, NewsSubscriptionTests, NewsToday, NewsUI, NewsUI2, NewsUI2Tests, OpenInNews, Stocks,
+                          StocksAnalytics, StocksAnalyticsTests, StocksCore, StocksCoreTests, StocksTests, StocksToday, StocksUI,
+                          StocksUITests, TeaActivities, TeaActivitiesTests, TeaCharts, TeaChartsTests, TeaDB, TeaDBTests,
+                          TeaDemo, TeaSettings, TeaSettingsTests, TeaTemplate, TeaTemplateTests, TeaUI, TeaUITests,
+                          com.apple.news, newsd ]
+    symbols:            [ _TeaTemplateVersionNumber, _TeaTemplateVersionString ]
+    objc-classes:       [ __TtC11TeaTemplate15ColumnDebugView ]
+...

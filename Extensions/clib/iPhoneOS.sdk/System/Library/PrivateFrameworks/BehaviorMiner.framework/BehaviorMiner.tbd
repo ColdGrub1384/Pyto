@@ -1,0 +1,31 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/BehaviorMiner.framework/BehaviorMiner
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _BMCreateShortcutFilter, _BMErrorDomain, _BMIsNotAppExtension, _BMItemNormalizedValueFromValue,
+                          _BMItemValueFromNormalizedValue, _BMLog, _BMMaxPhotoPeople, _BMMaxPhotoScenes,
+                          _BehaviorMinerVersionNumber, _BehaviorMinerVersionString, _hourOfDaySlotDuration ]
+    objc-classes:       [ _BMAprioriPatternMiner, _BMBasketExtractor, _BMBehaviorRetriever, _BMBehaviorStorage,
+                          _BMCoreRoutineProvider, _BMEvent, _BMEventExtractor, _BMInteractionProvider, _BMItem, _BMItemMO,
+                          _BMItemType, _BMManagedObjectConverter, _BMMiningTask, _BMRetrievalFilter, _BMRule, _BMRuleExtractor,
+                          _BMRuleMO ]
+    objc-ivars:         [ _BMAprioriPatternMiner._indexBaskets, _BMAprioriPatternMiner._items,
+                          _BMBasketExtractor._samplingInterval, _BMBehaviorRetriever._storage, _BMBehaviorStorage._URL,
+                          _BMBehaviorStorage._container, _BMBehaviorStorage._context, _BMBehaviorStorage._converter,
+                          _BMBehaviorStorage._readOnly, _BMBehaviorStorage._setupError, _BMBehaviorStorage._setupLock,
+                          _BMEvent._endDate, _BMEvent._item, _BMEvent._startDate, _BMInteractionProvider._interactionStore,
+                          _BMItem._normalizedValue, _BMItem._type, _BMItemType._edge, _BMItemType._eventStream,
+                          _BMItemType._identifier, _BMItemType._valueClass, _BMItemType._valueExtractBlock,
+                          _BMMiningTask._absoluteSupport, _BMMiningTask._completionStatus, _BMMiningTask._confidence,
+                          _BMMiningTask._coreAnalyticsDict, _BMMiningTask._delegate, _BMMiningTask._rulePersistBatchSize,
+                          _BMMiningTask._samplingInterval, _BMMiningTask._start, _BMMiningTask._storageURL,
+                          _BMMiningTask._targetTypes, _BMMiningTask._types, _BMRetrievalFilter._inclusionOperator,
+                          _BMRetrievalFilter._items, _BMRetrievalFilter._operand, _BMRetrievalFilter._types, _BMRule._antecedent,
+                          _BMRule._confidence, _BMRule._consequent, _BMRule._support, _BMRuleExtractor._basketCount,
+                          _BMRuleExtractor._items, _BMRuleExtractor._patterns ]
+...

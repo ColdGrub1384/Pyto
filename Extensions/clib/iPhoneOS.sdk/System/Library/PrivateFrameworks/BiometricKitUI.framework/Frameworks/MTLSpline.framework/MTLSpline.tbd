@@ -1,0 +1,38 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/BiometricKitUI.framework/Frameworks/MTLSpline.framework/MTLSpline
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MTLSplineVersionNumber, _MTLSplineVersionString, __Z10quaternion13simd_float3x3,
+                          __Z10quaternion13simd_float4x4, __Z10quaternionDv3_ff, __Z10quaternionffff, __Z11vector_lerpDv3_fS_f,
+                          __Z11vector_lerpDv4_fS_f, __Z15matrix3x3_scaleDv3_f, __Z15matrix3x3_scalefff,
+                          __Z15matrix4x4_scaleDv3_f, __Z15matrix4x4_scalefff, __Z18matrix3x3_rotationfDv3_f,
+                          __Z18matrix3x3_rotationffff, __Z18matrix4x4_rotationfDv3_f, __Z18matrix4x4_rotationffff,
+                          __Z21matrix4x4_translationfff, __Z24matrix_inverse_transpose13simd_float3x3,
+                          __Z24matrix_inverse_transpose13simd_float4x4, __Z24quaternion_rotate_vectorDv4_fDv3_f,
+                          __Z25matrix3x3_from_quaternionDv4_f, __Z25matrix4x4_from_quaternionDv4_f,
+                          __Z26quaternion_from_axis_angleDv3_ff, _degrees_from_radians, _matrix_look_at, _matrix_ortho,
+                          _matrix_perspective, _matrix_upper_left_3x3, _quaternion_angle, _quaternion_axis,
+                          _quaternion_conjugate, _quaternion_inverse, _quaternion_length, _quaternion_length_squared,
+                          _quaternion_multiply, _quaternion_normalize, _quaternion_slerp, _radians_from_degrees ]
+    objc-classes:       [ _MTLSAnimatablePathCollection, _MTLSArc, _MTLSCircle, _MTLSCorner, _MTLSPath, _MTLSPathBufferData,
+                          _MTLSPathUnion, _MTLSSemiCircle, _MTLSplineRenderer ]
+    objc-ivars:         [ _MTLSAnimatablePathCollection._controlPointState,
+                          _MTLSAnimatablePathCollection._controlPointStateVector, _MTLSAnimatablePathCollection._defaultPath,
+                          _MTLSAnimatablePathCollection._paths, _MTLSArc._points, _MTLSCircle._points, _MTLSCorner._points,
+                          _MTLSPath._collapsedTransforms, _MTLSPath._controlPointsVector, _MTLSPath._indicesVector,
+                          _MTLSPath._instancesVector, _MTLSPath._patchInfoVector, _MTLSPath._strokeWeight,
+                          _MTLSPathBufferData._collection, _MTLSPathBufferData._controlPoints, _MTLSPathBufferData._device,
+                          _MTLSPathBufferData._indices, _MTLSPathBufferData._instanceInfo, _MTLSPathBufferData._patchInfo,
+                          _MTLSPathBufferData._tessellationFactors, _MTLSPathBufferData._viewRatio, _MTLSPathUnion._paths,
+                          _MTLSSemiCircle._points, _MTLSplineRenderer._commandQueue,
+                          _MTLSplineRenderer._computeTessellationFactorsPipeline, _MTLSplineRenderer._dataCollection,
+                          _MTLSplineRenderer._device, _MTLSplineRenderer._edgeFactor, _MTLSplineRenderer._insideFactor,
+                          _MTLSplineRenderer._library, _MTLSplineRenderer._projectionMatrix,
+                          _MTLSplineRenderer._renderPostTessellationPipelineState, _MTLSplineRenderer._triangleFillMode,
+                          _MTLSplineRenderer._view ]
+...

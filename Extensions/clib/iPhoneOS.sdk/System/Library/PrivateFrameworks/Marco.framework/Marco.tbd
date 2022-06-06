@@ -1,0 +1,25 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Marco.framework/Marco
+current-version:       800
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MarcoAction, _MarcoActionWithUserInfo, _MarcoAddCallMetric, _MarcoAddCallMetric_Double,
+                          _MarcoAddCallMetric_Float, _MarcoAddCallMetric_Int, _MarcoAddCallMetric_Short, _MarcoAddLogFile,
+                          _MarcoBeginSession, _MarcoCanLogMadridMessageBodies, _MarcoCanLogMadridMessageBodiesCF, _MarcoConnect,
+                          _MarcoDiconnect, _MarcoEndSession, _MarcoEvent, _MarcoLog, _MarcoLogCallInfo, _MarcoLogLocalPreview,
+                          _MarcoLogLocalPreviewEvent, _MarcoLogMadrid, _MarcoLogMadridCF, _MarcoLogMadridCF_V,
+                          _MarcoLogMadridEvent, _MarcoLogMadridEventCF, _MarcoLogMadridEventCF_V, _MarcoLogMadridLevel,
+                          _MarcoLogMadridLevelCF_V, _MarcoLogRegistration, _MarcoLoggingStringForMessageData,
+                          _MarcoMadridLogLevel, _MarcoNoteCheckpoint, _MarcoNoteQuality, _MarcoPerformSnapshot, _MarcoPulse,
+                          _MarcoSetFailureReason, _MarcoSetInitiator, _MarcoSetRecipient, _MarcoShouldLog,
+                          _MarcoShouldLogCallMetric, _MarcoShouldLogCheckpoints, _MarcoShouldLogLocalPreview,
+                          _MarcoShouldLogMadrid, _MarcoShouldLogMadridCF, _MarcoShouldLogMadridEvent,
+                          _MarcoShouldLogMadridEventCF, _MarcoShouldLogMadridLevel, _MarcoShouldLogMadridLevelCF,
+                          _MarcoShouldLogQuality, _MarcoShouldLogRegistration, _MarcoStartPing, _MarcoSyncLoggingsPreferences,
+                          _MarcoWarnLocalPreview, _MarcoWarnMadrid, _MarcoWarnMadridCF, _MarcoWarnMadridCF_V,
+                          _MarcoWarnRegistration ]
+...

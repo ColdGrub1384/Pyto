@@ -1,0 +1,55 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PreferenceBundles/MobileCalSettings.bundle/MobileCalSettings
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CSDefaultAlarmsSourcesKey, _CSDelegateClassInstanceKey, _CSGrantedDelegateKey, _CSLogInitialize,
+                          _CSParentControllerKey, _CSPresentedFromDisambiguationControllerKey, _CSSourceKey,
+                          _MobileCalIdentifier, _TimeZoneKey, _TimeZoneSupportKey, _kCSLogHandle, _settingsSubsystem ]
+    objc-classes:       [ _CSAccountController, _CSAccountSearchController, _CSAccountsSupportingDelegationController,
+                          _CSDefaultAlarmsController, _CSDefaultCalendarPane, _CSDelegateConstants, _CSDelegateDetailsController,
+                          _CSDelegationUtilities, _CSGrantedDelegateDetailsController, _CSSubtitleDisclosureTableCell,
+                          _CSTimeZoneController, _CSTitleSpinnerTableCellTableViewCell, _CalendarSettingsPlugin, _ListTableView ]
+    objc-ivars:         [ _CSAccountController._accountsICanAccess, _CSAccountController._accountsICanAccessSection,
+                          _CSAccountController._accountsWithGrantedAccess,
+                          _CSAccountController._accountsWithGrantedAccessSection, _CSAccountController._currentAccountRefresher,
+                          _CSAccountController._eventStore, _CSAccountController._isShowingLoadingCell,
+                          _CSAccountController._loadingGrantedDelegates, _CSAccountController._model,
+                          _CSAccountController._ownerSource, _CSAccountSearchController._accountController,
+                          _CSAccountSearchController._autocompleteStore, _CSAccountSearchController._currentFetchRequest,
+                          _CSAccountSearchController._fetchContext, _CSAccountSearchController._searchController,
+                          _CSAccountSearchController._searchResults, _CSAccountSearchController._source,
+                          _CSAccountsSupportingDelegationController._accountsSupportingDelegation,
+                          _CSAccountsSupportingDelegationController._eventStore,
+                          _CSDefaultAlarmsController._defaultAllDayAlarmOffset,
+                          _CSDefaultAlarmsController._defaultTimedAlarmOffset, _CSDefaultCalendarPane._chooser,
+                          _CSDefaultCalendarPane._dontSetDefaultCalendar, _CSDefaultCalendarPane._store,
+                          _CSDelegateDetailsController._currentAccountRefresher, _CSDelegateDetailsController._model,
+                          _CSDelegateDetailsController._reloadingAccount, _CSDelegateDetailsController._source,
+                          _CSGrantedDelegateDetailsController._addDelegateMode,
+                          _CSGrantedDelegateDetailsController._currentPermission,
+                          _CSGrantedDelegateDetailsController._delegateFromSpecifier,
+                          _CSGrantedDelegateDetailsController._eventStore, _CSGrantedDelegateDetailsController._grantedDelegate,
+                          _CSGrantedDelegateDetailsController._readWriteSwitch,
+                          _CSGrantedDelegateDetailsController._removeDelegateButton, _CSGrantedDelegateDetailsController._source,
+                          _CSSubtitleDisclosureTableCell._valueLabel, _CSTimeZoneController._calendarTimeZoneSpecifier,
+                          _CSTimeZoneController._timeZoneSupportEnabled, _CSTimeZoneController._timeZoneSupportSpecifier,
+                          _CalendarSettingsPlugin._accountStore, _CalendarSettingsPlugin._appPolicy,
+                          _CalendarSettingsPlugin._birthdayCalendarSpecifier, _CalendarSettingsPlugin._defaultAlarmsSpecifier,
+                          _CalendarSettingsPlugin._defaultCalendarSpecifier, _CalendarSettingsPlugin._delegationSpecifierShowing,
+                          _CalendarSettingsPlugin._eventStore, _CalendarSettingsPlugin._identityListSpecifier,
+                          _CalendarSettingsPlugin._numTotalCalendars, _CalendarSettingsPlugin._overlayCalendarSpecifier,
+                          _CalendarSettingsPlugin._showAccountsSupportingDelegationSpecifier,
+                          _CalendarSettingsPlugin._showInviteeDeclinesSpecifier,
+                          _CalendarSettingsPlugin._showSingleAccountSupportingDelegationSpecifier,
+                          _CalendarSettingsPlugin._showWeekNumbersSpecifier,
+                          _CalendarSettingsPlugin._suggestedLocationsSpecifier, _CalendarSettingsPlugin._syncDaysSpecifier,
+                          _CalendarSettingsPlugin._timeZoneSupportSpecifier, _CalendarSettingsPlugin._weekStartSpecifier,
+                          _CalendarSettingsPlugin._weekViewStartsOnTodaySpecifier, _ListTableView._lastKnownWindow,
+                          _ListTableView._layoutOnJoiningViewHierarchy, _ListTableView._listViewDelegate,
+                          _ListTableView._noContentView ]
+...

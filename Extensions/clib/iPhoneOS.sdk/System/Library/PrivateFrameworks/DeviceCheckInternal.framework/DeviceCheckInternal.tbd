@@ -1,0 +1,18 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/DeviceCheckInternal.framework/DeviceCheckInternal
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _DCCryptoErrorDomain, _DCFetchErrorDomain, _DeviceCheckInternalVersionNumber,
+                          _DeviceCheckInternalVersionString, _fallback_server_pubkey ]
+    objc-classes:       [ _DCAsset, _DCAssetFetcher, _DCAssetFetcherContext, _DCCertificateGenerator, _DCCryptoProxyImpl,
+                          _DCDDeviceMetadata, _DCXPCActivityController ]
+    objc-ivars:         [ _DCAsset._publicKey, _DCAsset._publicKeyRefreshInterval, _DCAsset._version,
+                          _DCAssetFetcherContext._allowCatalogRefresh, _DCAssetFetcherContext._ignoreCachedMetadata,
+                          _DCCertificateGenerator._context, _DCCertificateGenerator._publicKey, _DCDDeviceMetadata._context,
+                          _DCDDeviceMetadata._cryptoProxy ]
+...

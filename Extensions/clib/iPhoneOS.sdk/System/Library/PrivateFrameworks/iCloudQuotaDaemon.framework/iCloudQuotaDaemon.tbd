@@ -1,0 +1,64 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/iCloudQuotaDaemon.framework/iCloudQuotaDaemon
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ICQActionParameterServerLinkIdentifierKey, _ICQActionParameterURLKey,
+                          _ICQActionParameterURLQueryParametersKey, _ICQCreateError, _ICQCreateErrorWithMessage,
+                          _ICQDaemonBundleIdentifierKey, _ICQDaemonContextDictionaryKey, _ICQErrorDomain,
+                          _ICQLogDebugDataTaskComplete, _ICQLogDictKeys, _ICQLogOfferDetailsForServerDictionary, _ICQOpenURL,
+                          _ICQUpdateOfferKeyIsZeroAction, _ICQVolumeStatusFlagsError, __ICQAccountDataclassQuota,
+                          __ICQActionForServerActionString, __ICQActionForString, __ICQActionParametersForServerActionParameters,
+                          __ICQAlertSpecificationForServerDict, __ICQAppendServerMessageFormatAndLinks,
+                          __ICQBindingsKeyForServerMessageParameterKey, __ICQBooleanForServerObjectDefault,
+                          __ICQBundleIDForKnownContainerID, __ICQContainerIDForKnownBundleID,
+                          __ICQDaemonOfferChangedDueToPushDarwinNotificationName, __ICQDaemonOfferPersistedNotificationName,
+                          __ICQDictionaryForKey, __ICQDictionaryForOneOfKeys, __ICQGetLogSystem, __ICQIntegerFromDictionaryKey,
+                          __ICQIsBuddyOfferDictionary, __ICQLevelForString, __ICQLinkButtonForServerMessage,
+                          __ICQLinkForServerMessageParameter, __ICQLinkForServerMessageParameterWithOptions,
+                          __ICQLinkForServerValues, __ICQLinkVisibleKeyForServerMessageParameter,
+                          __ICQLinksForServerMessageParameters, __ICQLinksForServerMessageParametersWithOptions,
+                          __ICQMessageForServerHeader, __ICQMessageWithFormat, __ICQOfferTypeForServerString,
+                          __ICQOfferTypeForString, __ICQOpenCloudBackupInSettings, __ICQOpenFamilySetupInSettings,
+                          __ICQOpenManageStorageInSettings, __ICQOpenPrimaryPaymentInSettings, __ICQOpenPurchaseFlowInSettings,
+                          __ICQServerDictToOfferTypeAndLevel, __ICQServerHeaderGetFormatAndLinks, __ICQStringForAction,
+                          __ICQStringForKey, __ICQStringForLevel, __ICQStringForOfferType, __ICQStringForOneOfKeys,
+                          __ICQStringFromDictionaryKey, _iCloudQuotaDaemonVersionNumber, _iCloudQuotaDaemonVersionString ]
+    objc-classes:       [ _ICQDaemonAlert, _ICQDaemonBuddyOffer, _ICQDaemonOffer, _ICQDaemonOfferConditions,
+                          _ICQDaemonOfferCriteria, _ICQDaemonOfferManager, _ICQDaemonOfferStub, _ICQDaemonOfferStubs,
+                          _ICQDaemonPersisted, _ICQLink, _ICQOfferUpdateController, _ICQOfferUpdateRequestContext,
+                          _ICQRequestProvider, __ICQAccountManager, __ICQAlertSpecification, __ICQFollowupSpecification ]
+    objc-ivars:         [ _ICQDaemonAlert._alertLock, _ICQDaemonAlert._alertQueue, _ICQDaemonAlert._alertSema,
+                          _ICQDaemonAlert._alertState, _ICQDaemonAlert._cfAlert, _ICQDaemonAlert._daemonOffer,
+                          _ICQDaemonAlert._handleActionsBeforeCallingCompletionHandler, _ICQDaemonAlert._showOnlyInSpringboard,
+                          _ICQDaemonOffer._internalAlertSpecification, _ICQDaemonOffer._internalFollowupSpecification,
+                          _ICQDaemonOffer._notificationID, _ICQDaemonOffer._offerId,
+                          _ICQDaemonOfferConditions._deviceStorageAlmostFull, _ICQDaemonOfferConditions._photosCloudEnabled,
+                          _ICQDaemonOfferConditions._photosLibrarySize, _ICQDaemonOfferConditions._photosOptimizeEnabled,
+                          _ICQDaemonOfferCriteria._serverDict, _ICQDaemonOfferManager._accountManager,
+                          _ICQDaemonOfferManager._followUpController, _ICQDaemonOfferManager._sharedURLSession,
+                          _ICQDaemonOfferStub._conditionsWhenChosen, _ICQDaemonOfferStub._serverDict,
+                          _ICQDaemonOfferStubs._buddyStubs, _ICQDaemonOfferStubs._serverStubs,
+                          _ICQDaemonPersisted._accountAltDSID, _ICQDaemonPersisted._callbackInterval,
+                          _ICQDaemonPersisted._failedToFetchFromServer, _ICQDaemonPersisted._failureDetails,
+                          _ICQDaemonPersisted._retrievalDate, _ICQDaemonPersisted._serverDictionary, _ICQLink._action,
+                          _ICQLink._options, _ICQLink._parameters, _ICQLink._text, _ICQOfferUpdateController._sharedURLSession,
+                          _ICQOfferUpdateRequestContext._account, _ICQOfferUpdateRequestContext._accountStore,
+                          _ICQOfferUpdateRequestContext._buttonId, _ICQOfferUpdateRequestContext._offerId,
+                          _ICQOfferUpdateRequestContext._zeroAction, _ICQRequestProvider._account,
+                          __ICQAccountManager._accountStore, __ICQAlertSpecification._altLockScreenMessage,
+                          __ICQAlertSpecification._altMessage, __ICQAlertSpecification._defaultButtonIndex,
+                          __ICQAlertSpecification._disableLockScreenAlert, __ICQAlertSpecification._linkForButtonIndex,
+                          __ICQAlertSpecification._lockScreenMessage, __ICQAlertSpecification._lockScreenTitle,
+                          __ICQAlertSpecification._message, __ICQAlertSpecification._serverDict, __ICQAlertSpecification._title,
+                          __ICQFollowupSpecification._altMessage, __ICQFollowupSpecification._altNoteMessage,
+                          __ICQFollowupSpecification._forAccountGroup, __ICQFollowupSpecification._links,
+                          __ICQFollowupSpecification._message, __ICQFollowupSpecification._noteActivateLink,
+                          __ICQFollowupSpecification._noteClearLink, __ICQFollowupSpecification._noteMessage,
+                          __ICQFollowupSpecification._noteTitle, __ICQFollowupSpecification._serverDict,
+                          __ICQFollowupSpecification._title, __ICQFollowupSpecification._zeroAction ]
+...

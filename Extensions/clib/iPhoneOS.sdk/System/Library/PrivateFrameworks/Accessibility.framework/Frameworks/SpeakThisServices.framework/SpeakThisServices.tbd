@@ -1,0 +1,15 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Accessibility.framework/Frameworks/SpeakThisServices.framework/SpeakThisServices
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _STSErrorDomain, _STSMessageKeyAppPointX, _STSMessageKeyAppPointY, _STSMessageKeyKBFrame,
+                          _STSMessageKeyOptions, _STSMessageReplyKeyErrorCode ]
+    objc-classes:       [ _SpeakThisServices ]
+    objc-ivars:         [ _SpeakThisServices._client, _SpeakThisServices._errorHandlerFromPriorShowControllerAttempt,
+                          _SpeakThisServices._springBoardReady, _SpeakThisServices._triedToShowSpeechControllerBeforeSBReady ]
+...

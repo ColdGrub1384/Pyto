@@ -1,0 +1,30 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/PrototypeToolsUI.framework/PrototypeToolsUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _PTUIClientInterface, _PTUIMachService, _PTUINumericKeypadIsNeeded,
+                          _PTUINumericKeypadSetNeededWithWindow, _PTUIServerInterface, _PrototypeToolsUIVersionNumber,
+                          _PrototypeToolsUIVersionString ]
+    objc-classes:       [ _PTUIButtonRowTableViewCell, _PTUIChoiceRowTableViewCell, _PTUIChoiceViewController,
+                          _PTUIDrillDownRowTableViewCell, _PTUIEditFloatRowTableViewCell, _PTUIEditRowTableViewCell,
+                          _PTUIEditStringRowTableViewCell, _PTUIModuleController, _PTUINumericKeypad,
+                          _PTUIPresentViewControllerRowAction, _PTUIPushViewControllerRowAction, _PTUIRowTableViewCell,
+                          _PTUISettingsController, _PTUISliderRowTableViewCell, _PTUISwitchRowTableViewCell, __KeypadButton,
+                          __KeypadDismissButton, __PTSAccessorySlider, __PTUIChoiceCell ]
+    objc-ivars:         [ _PTUIChoiceViewController._row, _PTUIChoiceViewController._valueIndexPath,
+                          _PTUIModuleController._module, _PTUINumericKeypad._backgroundView, _PTUINumericKeypad._backspaceButton,
+                          _PTUINumericKeypad._cachedNumberValue, _PTUINumericKeypad._cachedStringValue,
+                          _PTUINumericKeypad._clearButton, _PTUINumericKeypad._delegate, _PTUINumericKeypad._digitButtons,
+                          _PTUINumericKeypad._digitsAfterDot, _PTUINumericKeypad._digitsBeforeDot,
+                          _PTUINumericKeypad._dismissButton, _PTUINumericKeypad._dotButton, _PTUINumericKeypad._hasDot,
+                          _PTUINumericKeypad._negative, _PTUINumericKeypad._showing, _PTUINumericKeypad._signButton,
+                          _PTUINumericKeypad._valueLabel, _PTUIPresentViewControllerRowAction._viewControllerCreator,
+                          _PTUIPushViewControllerRowAction._viewControllerCreator, _PTUIRowTableViewCell._row,
+                          _PTUISettingsController._dismissButton, _PTUISliderRowTableViewCell._slider,
+                          _PTUISwitchRowTableViewCell._switch, __KeypadButton._digit, __KeypadButton._keyType ]
+...

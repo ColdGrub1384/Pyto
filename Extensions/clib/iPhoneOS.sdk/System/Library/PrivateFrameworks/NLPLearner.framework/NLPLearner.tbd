@@ -1,0 +1,31 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NLPLearner.framework/NLPLearner
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _trainMLPModelForDES ]
+    objc-classes:       [ _PFLBackgroundRunner, _QuickTypePFLBackgroundTask, _QuickTypePFLEmojiClassificationData,
+                          _QuickTypePFLLanguageModelingData, _QuickTypePFLTrainerMLP, _QuickTypePFLTrainingData,
+                          _QuickTypePFLTrainingTask, _QuickTypeUtils, _QuickTypeWeightUpdates ]
+    objc-ivars:         [ _PFLBackgroundRunner._activity, _PFLBackgroundRunner._assertion, _PFLBackgroundRunner._task,
+                          _QuickTypePFLBackgroundTask._url, _QuickTypePFLEmojiClassificationData._embedding,
+                          _QuickTypePFLEmojiClassificationData._embeddingDimension,
+                          _QuickTypePFLEmojiClassificationData._labelClasses, _QuickTypePFLEmojiClassificationData._labels,
+                          _QuickTypePFLEmojiClassificationData._locale,
+                          _QuickTypePFLEmojiClassificationData._noneClassProbability, _QuickTypePFLLanguageModelingData._lexicon,
+                          _QuickTypePFLLanguageModelingData._locale, _QuickTypePFLLanguageModelingData._tokenIDMapPath,
+                          _QuickTypePFLTrainerMLP._batchSize, _QuickTypePFLTrainerMLP._clippingNorm,
+                          _QuickTypePFLTrainerMLP._gradientClipMax, _QuickTypePFLTrainerMLP._gradientClipMin,
+                          _QuickTypePFLTrainerMLP._initialLoss, _QuickTypePFLTrainerMLP._learningRate,
+                          _QuickTypePFLTrainerMLP._model, _QuickTypePFLTrainerMLP._normBinCount,
+                          _QuickTypePFLTrainerMLP._privacyIdentifier, _QuickTypePFLTrainerMLP._seedModelPath,
+                          _QuickTypePFLTrainerMLP._trainingLoss, _QuickTypePFLTrainingData._iterator,
+                          _QuickTypePFLTrainingData._maxSequenceLength, _QuickTypePFLTrainingData._processingNewRecord,
+                          _QuickTypePFLTrainingData._sentences, _QuickTypeWeightUpdates._l2Norm,
+                          _QuickTypeWeightUpdates._maxNorm, _QuickTypeWeightUpdates._privacyDiagnosticReport,
+                          _QuickTypeWeightUpdates._weightUpdates, _QuickTypeWeightUpdates._weightUpdatesDiagnosticReport ]
+...

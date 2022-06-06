@@ -1,0 +1,20 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/ProactiveWidgetTracker.framework/ProactiveWidgetTracker
+current-version:       254
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ProactiveWidgetTrackerVersionNumber, _ProactiveWidgetTrackerVersionString ]
+    objc-classes:       [ __PWTWidgetEventTracker ]
+    objc-ivars:         [ __PWTWidgetEventTracker._activeDisplayMode, __PWTWidgetEventTracker._conversionTracker,
+                          __PWTWidgetEventTracker._didBecomeVisibleWhileLocked, __PWTWidgetEventTracker._foregroundingTracker,
+                          __PWTWidgetEventTracker._hasReceivedActiveDisplayModeChangeNotificationOnce,
+                          __PWTWidgetEventTracker._identifier, __PWTWidgetEventTracker._isCurrentlyVisible,
+                          __PWTWidgetEventTracker._lastAppearTime, __PWTWidgetEventTracker._loggingQueue,
+                          __PWTWidgetEventTracker._resizeTracker, __PWTWidgetEventTracker._screenLingerTracker,
+                          __PWTWidgetEventTracker._updateTracker, __PWTWidgetEventTracker._widgetIsForeground,
+                          __PWTWidgetEventTracker._widgetWasEverForeground, __PWTWidgetEventTracker._willBecomeVisible ]
+...

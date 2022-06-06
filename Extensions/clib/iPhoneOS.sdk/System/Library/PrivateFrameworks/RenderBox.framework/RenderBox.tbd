@@ -1,0 +1,39 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/RenderBox.framework/RenderBox
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _RBColorBlack, _RBColorClear, _RBColorEqualToColor, _RBColorFromCGColor, _RBColorFromLinear,
+                          _RBColorMake, _RBColorMakeLinear, _RBColorToLinear, _RBColorWhite, _RBImageMakeCGImage,
+                          _RBImageMakeIOSurface, _RBImageMakeRBSurface, _RBImageSimpleTransform, _RBImageTransform,
+                          _RBStrokeBoundingRect, _RBTiledImageTransform, _RBXMLParserLinearColors, _RBXMLRecorderStart,
+                          _RBXMLRecorderStop ]
+    objc-classes:       [ _RBDevice, _RBDisplayList, _RBDrawable, _RBFill, _RBLayer, _RBShape, _RBStrokeAccumulator, _RBSurface,
+                          _RBXMLParser, _RBXMLRecorder_DisplayList, _RBXMLRecorder_Fill, _RBXMLRecorder_Shape ]
+    objc-ivars:         [ _RBDevice._device, _RBDevice._pending_collect, _RBDevice._queue, _RBDisplayList._contentRect,
+                          _RBDisplayList._context, _RBDisplayList._delegate, _RBDisplayList._linearColors, _RBDisplayList._list,
+                          _RBDrawable._clearColor, _RBDrawable._delegate, _RBDrawable._device, _RBDrawable._drawable,
+                          _RBDrawable._initialState, _RBDrawable._pixelFormat, _RBDrawable._size, _RBDrawable._texture,
+                          _RBFill._data, _RBLayer._clearColor, _RBLayer._clearsBackground, _RBLayer._collectionTimer,
+                          _RBLayer._colorMode, _RBLayer._device, _RBLayer._disableAsync, _RBLayer._drawable,
+                          _RBLayer._imageQueue, _RBLayer._pendingCollection, _RBLayer._pendingFlush,
+                          _RBLayer._rendersAsynchronously, _RBLayer._semaphore, _RBLayer._surfaces, _RBShape._antialiased,
+                          _RBShape._data, _RBShape._eoFill, _RBShape._heap, _RBStrokeAccumulator._blendMode,
+                          _RBStrokeAccumulator._borderWidth, _RBStrokeAccumulator._bounds, _RBStrokeAccumulator._committed,
+                          _RBStrokeAccumulator._elements, _RBStrokeAccumulator._hasBounds, _RBStrokeAccumulator._image,
+                          _RBStrokeAccumulator._imageCount, _RBStrokeAccumulator._imageScale, _RBStrokeAccumulator._lineCap,
+                          _RBStrokeAccumulator._lineJoin, _RBStrokeAccumulator._miterLimit, _RBStrokeAccumulator._rotatesImage,
+                          _RBStrokeAccumulator._seed, _RBStrokeAccumulator._strokeType, _RBStrokeAccumulator._values,
+                          _RBSurface._clearColor, _RBSurface._clearsBackground, _RBSurface._colorMode, _RBSurface._device,
+                          _RBSurface._dirty, _RBSurface._displayList, _RBSurface._drawable, _RBSurface._lastItem,
+                          _RBSurface._opaque, _RBSurface._size, _RBSurface._texture, _RBXMLParser._aborted,
+                          _RBXMLParser._backgroundColor, _RBXMLParser._base_url, _RBXMLParser._characters,
+                          _RBXMLParser._delegate, _RBXMLParser._fill, _RBXMLParser._font_cache, _RBXMLParser._image_cache,
+                          _RBXMLParser._list, _RBXMLParser._shape, _RBXMLParser._size, _RBXMLParser._state,
+                          _RBXMLParser._xml_parser, _RBXMLRecorder_DisplayList._ignoreDrawing, _RBXMLRecorder_DisplayList._tree,
+                          _RBXMLRecorder_Fill._attributes, _RBXMLRecorder_Shape._attributes, _RBXMLRecorder_Shape._seed ]
+...

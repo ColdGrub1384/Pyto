@@ -1,0 +1,50 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 3A058100-E782-3BBB-8C3A-B8AECA41C803', 'arm64e: 0613299E-DDD9-366C-AADC-3C966FD34DCC' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/LinkPresentation.framework/LinkPresentation'
+current-version: 118.3
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    re-exports:      [ '/System/Library/PrivateFrameworks/URLFormatting.framework/URLFormatting' ]
+    symbols:         [ _LPErrorDomain, _LPLogChannelFetching, _LPLogChannelPlugin, 
+                       _LPLogChannelSerialization, _LPLogChannelTranscoding, _LPLogChannelUI, 
+                       _LPLogChannelVideo, _LPYouTubePlayerErrorDomain ]
+    objc-classes:    [ LPAppLinkPresentationProperties, LPAppStoreStoryMetadata, 
+                       LPAppleMusicTVShowMetadata, LPAppleNewsMetadata, LPApplePhotosMomentMetadata, 
+                       LPApplePhotosStatusMetadata, LPAppleTVMetadata, LPArtworkMetadata, 
+                       LPAudio, LPAudioMetadata, LPAudioProperties, LPBusinessChatMetadata, 
+                       LPCaptionBarPresentationProperties, LPCaptionButtonPresentationProperties, 
+                       LPCaptionPresentationProperties, LPCaptionRowPresentationProperties, 
+                       LPFileMetadata, LPGameCenterInvitationMetadata, LPIconMetadata, 
+                       LPImage, LPImageMetadata, LPImagePresentationProperties, LPImageProperties, 
+                       LPInlineMediaPlaybackInformation, LPLinkHTMLGenerator, LPLinkHTMLTextGenerator, 
+                       LPLinkMetadata, LPLinkMetadataObserver, LPLinkMetadataPresentationTransformer, 
+                       LPLinkMetadataPreviewTransformer, LPLinkMetadataStatusTransformer, 
+                       LPLinkMetadataStoreTransformer, LPLinkView, LPMIMETypeRegistry, 
+                       LPMapCollectionMetadata, LPMapMetadata, LPMetadataProvider, 
+                       LPMultipleMetadataPresentationTransformer, LPPresentationSpecializations, 
+                       LPSharingMetadataWrapper, LPSpecializationMetadata, LPStreamingAudioPlayer, 
+                       LPSummarizedLinkMetadata, LPTestingOverrides, LPVideo, LPVideoMetadata, 
+                       LPVideoProperties, LPWalletPassMetadata, LPWebLinkPresentationProperties, 
+                       LPYouTubePlayerView, LPYouTubeURLComponents, LPiCloudFamilyInvitationMetadata, 
+                       LPiCloudSharingMetadata, LPiTunesMediaAlbumMetadata, LPiTunesMediaArtistMetadata, 
+                       LPiTunesMediaAudioBookMetadata, LPiTunesMediaBookMetadata, 
+                       LPiTunesMediaMovieBundleMetadata, LPiTunesMediaMovieMetadata, 
+                       LPiTunesMediaMusicVideoMetadata, LPiTunesMediaPlaylistMetadata, 
+                       LPiTunesMediaPodcastEpisodeMetadata, LPiTunesMediaPodcastMetadata, 
+                       LPiTunesMediaRadioMetadata, LPiTunesMediaSoftwareMetadata, 
+                       LPiTunesMediaSongMetadata, LPiTunesMediaTVEpisodeMetadata, 
+                       LPiTunesMediaTVSeasonMetadata ]
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 977F6466-F64B-3C76-B93D-A6B906E38CCC', 'arm64e: 060AE237-345A-3357-856C-711B70A7C7F0' ]
+platform:        ios
+install-name:    '/System/Library/PrivateFrameworks/URLFormatting.framework/URLFormatting'
+current-version: 118.3
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:    [ URLFormattingTestingOverrides ]
+...

@@ -1,0 +1,19 @@
+---
+Name: QuickLook
+Classes:
+- Name: QLPreviewController
+  Methods:
+  - Selector: 'canPreviewItem:'
+    SwiftName: canPreview(_:)
+    MethodKind: Class
+SwiftVersions:
+#
+# Swift 4 and below specific conversions
+#
+- Version: 4
+  Protocols:
+  - Name: QLPreviewControllerDelegate
+    Methods:
+    - Selector: 'previewController:transitionImageForPreviewItem:contentRect:'
+      MethodKind: Instance
+      NullabilityOfRet: N

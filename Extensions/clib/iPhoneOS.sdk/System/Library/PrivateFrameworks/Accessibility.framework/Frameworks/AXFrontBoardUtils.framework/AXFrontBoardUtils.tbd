@@ -1,0 +1,25 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Accessibility.framework/Frameworks/AXFrontBoardUtils.framework/AXFrontBoardUtils
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _AXApplicationNameLabelForBundleIdentifier, _AXFrontBoardCategoriesDidInstallNotification,
+                          _AXFrontBoardFBSceneManager, _AXFrontBoardFocusedAppPID, _AXFrontBoardFocusedAppPIDs,
+                          _AXFrontBoardFocusedAppPIDsIgnoringSiri, _AXFrontBoardFocusedAppProcess,
+                          _AXFrontBoardFocusedAppProcessExcludingSiri, _AXFrontBoardFocusedAppProcesses,
+                          _AXFrontBoardFocusedAppProcessesExcludingSiri, _AXFrontBoardFocusedApps,
+                          _AXFrontBoardIsSystemAppShowingAlert, _AXFrontBoardPurpleBuddyPID, _AXFrontBoardRebootDevice,
+                          _AXFrontBoardRunningAppPIDs, _AXFrontBoardRunningAppProcesses, _AXFrontBoardSpeakThisAppPIDForPoint,
+                          _AXFrontBoardSpeakThisAppPIDs, _AXFrontBoardSystemAppPID, _AXFrontBoardSystemAppProcess,
+                          _AXFrontBoardUtilsVersionNumber, _AXFrontBoardUtilsVersionString, _AXFrontBoardVisibleAppProcesses,
+                          _AXIsPurpleBuddyFrontmost, _AXSpokenNameLabelForBundleURL, _AXValidateFocusedAppsNotification,
+                          __AXFrontBoardFilterFrontmostAppProcessesAndScenesForSiri, __stringForValidationEvent ]
+    objc-classes:       [ _AXFBFakeProcess, _AXFBFakeProcessState, _AXFrontBoardProcessWatcher ]
+    objc-ivars:         [ _AXFBFakeProcess._bundleIdentifier, _AXFBFakeProcess._state, _AXFBFakeProcessState._pid,
+                          _AXFrontBoardProcessWatcher._appTransitionTimer, _AXFrontBoardProcessWatcher._cachedFocusedAppPIDs,
+                          _AXFrontBoardProcessWatcher._observerToken ]
+...

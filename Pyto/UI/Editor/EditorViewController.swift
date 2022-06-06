@@ -267,6 +267,7 @@ func directory(for scriptURL: URL) -> URL {
                         
                         if doc.text != self.textView.text {
                             self.textView.text = doc.text
+                            self.lint()
                         }
                         
                         self.updateSuggestions(force: true)
@@ -798,15 +799,27 @@ func directory(for scriptURL: URL) -> URL {
             switch document?.fileURL.pathExtension.lowercased() ?? "" {
             case "py", "pyi":
                 (textView.textStorage as? CodeAttributedString)?.language = "python"
+                codeCompletionManager.language = .python
             case "pyx", "pxd", "pxi":
                 (textView.textStorage as? CodeAttributedString)?.language = "cython"
+                codeCompletionManager.language = .cython
             case "html":
                 (textView.textStorage as? CodeAttributedString)?.language = "html"
+            case "c", "h":
+                (textView.textStorage as? CodeAttributedString)?.language = "c"
+                codeCompletionManager.language = .c
+            case "cpp", "cxx", "cc", "hpp":
+                (textView.textStorage as? CodeAttributedString)?.language = "c++"
+                codeCompletionManager.language = .cpp
+            case "m", "mm":
+                (textView.textStorage as? CodeAttributedString)?.language = "objc"
+                codeCompletionManager.language = .objc
             default:
                 (textView.textStorage as? CodeAttributedString)?.language = document?.fileURL.pathExtension.lowercased()
             }
                         
             self.textView.text = document?.text ?? ""
+            self.lint()
             
             
             #if !SCREENSHOTS
@@ -937,6 +950,8 @@ func directory(for scriptURL: URL) -> URL {
         if !completionsHostingController.view.isHidden {
             placeCompletionsView()
         }
+        
+        (textView as? EditorTextView)?.placeWarnings()
     }
     #endif
     
@@ -1401,7 +1416,12 @@ func directory(for scriptURL: URL) -> URL {
         
         if document?.documentState != UIDocument.State.editingDisabled {
             
-            document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completion)
+            document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: { [weak self] in
+                if let sidebarVC = self?.splitViewController as? SidebarSplitViewController {
+                    (sidebarVC.isCollapsed ? sidebarVC.compactFileBrowser : sidebarVC.fileBrowser).lint()
+                }
+                completion?($0)
+            })
             
             AppDelegate.shared.addURLToShortcuts(document!.fileURL)
         }
@@ -1748,12 +1768,117 @@ func directory(for scriptURL: URL) -> URL {
     
     func textViewDidChangeSelection(_ textView: UITextView) {
         #if !SCREENSHOTS
+        
         if textView.isFirstResponder {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                 self.updateSuggestions()
             }
         }
         #endif
+    }
+    
+    @objc static var linterCode: String?
+        
+    @objc static func setWarnings(_ warnings: String, scriptPath: String) {
+        guard #available(iOS 15.0, *) else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            for console in ConsoleViewController.visibles {
+                guard let editor = console.editorSplitViewController?.editor else {
+                    continue
+                }
+                
+                guard editor.document?.fileURL.path == scriptPath else {
+                    continue
+                }
+                
+                (editor.textView as? EditorTextView)?.warnings = Linter.warnings(pylintOutput: warnings)
+            }
+        }
+    }
+    
+    @objc func lint() {
+        guard #available(iOS 15.0, *) else {
+            return
+        }
+                
+        if document?.fileURL.pathExtension.lowercased() == "py" {
+            Self.linterCode = textView.text
+            Python.shared.run(code: """
+            try:
+                import sys
+                import io
+                import traceback
+                import threading
+                import console
+                
+                from astroid import MANAGER
+                MANAGER.astroid_cache.clear()
+                
+                console.__clear_mods__()
+                
+                script_path = "\(document!.fileURL.path.replacingOccurrences(of: "\"", with: "\\\""))"
+                threading.current_thread().script_path = script_path
+                
+                import multiprocessing
+                import configparser
+                import optparse
+                import getopt
+                
+                from pylint import lint
+                from pylint.reporters import text
+            
+                from pyto import EditorViewController
+                
+                class Input(io.BytesIO):
+            
+                    def detach(self):
+                        return self
+            
+                if hasattr(sys, "sys") and hasattr(sys.sys.path, "path"):
+                    path = list(sys.sys.path.path)
+                else:
+                    path = sys.path
+                
+                try:
+                    sys.path = sys.path.path
+                except AttributeError:
+                    pass
+                
+                output = io.StringIO()
+                stdin = Input(str(EditorViewController.linterCode).encode("utf-8"))
+                
+                _stdin = sys.stdin
+                sys.stdin = stdin
+                sys.__stdin__ = stdin
+            
+                try:
+                    args = ["-E", "--from-stdin", script_path]
+
+                    reporter = text.TextReporter(output)
+
+                    lint.Run(args, reporter=reporter, exit=False)
+                except (Exception, SystemExit, KeyboardInterrupt):
+                    pass
+                finally:
+                    sys.stdin = _stdin
+                    sys.__stdin__ = _stdin
+                
+                res = output.getvalue()
+                EditorViewController.setWarnings(res, scriptPath=script_path)
+            except Exception:
+                pass
+            """)
+        } else if let url = document?.fileURL, ["c", "cpp", "cxx", "cc", "h", "hpp", "m", "mm"].contains(url.pathExtension.lowercased()) {
+            
+            DispatchQueue.global().async {
+                lintCSource(url: url, textView: self.textView) { warnings in
+                    (self.textView as? EditorTextView)?.warnings = warnings
+                }
+            }
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -1804,6 +1929,7 @@ func directory(for scriptURL: URL) -> URL {
                 }
                 
                 editor?.textView.text = textView.text
+                editor?.lint()
             }
         }
         
@@ -1812,6 +1938,8 @@ func directory(for scriptURL: URL) -> URL {
                 (child as? PytoUIPreviewViewController)?.preview(self)
             }
         }
+        
+        lint()
     }
     
     
@@ -2516,6 +2644,44 @@ func directory(for scriptURL: URL) -> URL {
     ///     - getDefinitions: If set to `true` definitons will be retrieved, we don't need to update them every time, just when we open the definitions list.
     func updateSuggestions(force: Bool = false, getDefinitions: Bool = false) {
         
+        switch document!.fileURL.pathExtension.lowercased() {
+        case "c", "cpp", "cxx", "m", "mm":
+            codeCompletionManager.docStrings = [:]
+            codeCompletionManager.signatures = [:]
+            suggestionsType = [:]
+            completionsHostingController.view.isHidden = true
+            codeCompletionManager.selectedIndex = -1
+            
+            /*
+             visibleEditor.lastCodeFromCompletions = code
+                         visibleEditor.signature = signature
+                         visibleEditor.suggestionsType = types
+                         visibleEditor.completions = completions
+                         visibleEditor.suggestions = suggestions
+                         visibleEditor.docStrings = docs
+                         visibleEditor.signatures = signatures
+             */
+            
+            let code = textView.text
+            let selectedRange = textView.selectedRange
+            DispatchQueue.global().async {
+                completeCSource(url: self.document!.fileURL, range: selectedRange, textView: self.textView, completionHandler: { [weak self] completions in
+                    self?.lastCodeFromCompletions = code
+                    for completion in completions {
+                        self?.suggestionsType[completion.name] = ""
+                    }
+                    self?.completions = completions.map({ $0.name })
+                    self?.suggestions = completions.map({ $0.name })
+                    self?.docStrings = [:]
+                    for completion in completions {
+                        self?.signatures[completion.name] = completion.signature
+                    }
+                })
+            }
+        default:
+            break
+        }
+        
         guard document?.fileURL.pathExtension.lowercased() == "py" || document?.fileURL.pathExtension.lowercased() == "html" else {
             return
         }
@@ -2536,6 +2702,11 @@ func directory(for scriptURL: URL) -> URL {
                 self.suggestions = []
                 self.completions = []
                 self.signature = ""
+                codeCompletionManager.docStrings = [:]
+                codeCompletionManager.signatures = [:]
+                suggestionsType = [:]
+                completionsHostingController.view.isHidden = true
+                codeCompletionManager.selectedIndex = -1
                 return inputAssistant.reloadData()
             }
         }
@@ -2558,6 +2729,8 @@ func directory(for scriptURL: URL) -> URL {
         
         codeCompletionManager.docStrings = [:]
         codeCompletionManager.signatures = [:]
+        
+        suggestionsType = [:]
         
         completionsHostingController.view.isHidden = true
         codeCompletionManager.selectedIndex = -1
@@ -2655,6 +2828,8 @@ func directory(for scriptURL: URL) -> URL {
             textView.text = text as String
             
             textView.selectedTextRange = textView.textRange(from: wordRange.start, to: wordRange.start)
+            
+            lint()
         }
         
         let selectedRange = textView.contentTextView.selectedRange

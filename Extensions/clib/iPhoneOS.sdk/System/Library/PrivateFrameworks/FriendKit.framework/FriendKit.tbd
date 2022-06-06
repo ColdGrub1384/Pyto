@@ -1,0 +1,45 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/FriendKit.framework/FriendKit
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _DigitalTouchDomain, _FKDeduplicateFriendListEnabledKey, _FKDidNormalizeFriendListDestinationsKey,
+                          _FKEmptyTrailingGroupEnabledKey, _FKFriendGroupTitleChangedExternallyNotification,
+                          _FKFriendGroupTitleChangedExternallyNotificationKey, _FKFriendGroupTitleChangedNotification,
+                          _FKFriendListKey, _FKFriendsChangedExternallyNotification, _FKFriendsChangedExternallyNotificationKey,
+                          _FKFriendsManagerChangedNotification, _FKFriendsManagerDestinationStatusUpdatedDestinationsKey,
+                          _FKFriendsManagerDestinationStatusUpdatedNotification, _FKFriendsManagerGroupListChanged,
+                          _FKFriendsManagerPersonAdded, _FKFriendsManagerPersonDeleted, _FKFriendsManagerPersonMoved,
+                          _FKFriendsManagerPersonUpdated, _FKGroupSizeKey, _FKGroupTitlesKey, _FKMaxGroupCountKey,
+                          _FKPersonUnlinkedABGUIDKey, _FKPersonUnlinkedFromAddressBookNotification,
+                          _FKPersonValuesChangedNotification, _FKRefreshAgainstContactsOnInitEnabledKey,
+                          _FKRemoveDestinationlessFriendsEnabledKey, _FriendKitBundle, _FriendKitVersionNumber,
+                          _FriendKitVersionString, __FKGetLogSystem ]
+    objc-classes:       [ _FKAddressBook, _FKDelayedOperation, _FKFriendGroup, _FKFriendsManager, _FKPerson, _FKUtility ]
+    objc-ivars:         [ _FKAddressBook._addressBook, _FKAddressBook._operationQueue, _FKDelayedOperation._block,
+                          _FKDelayedOperation._blockEnqueued, _FKDelayedOperation._delay, _FKDelayedOperation._lastExecution,
+                          _FKDelayedOperation._queue, _FKDelayedOperation._timerSource, _FKFriendGroup._delegate,
+                          _FKFriendGroup._friendsManager, _FKFriendGroup._groupSize, _FKFriendGroup._selectedPosition,
+                          _FKFriendGroup._title, _FKFriendsManager._addressBookRefreshTimer, _FKFriendsManager._cachedStatuses,
+                          _FKFriendsManager._changeLog, _FKFriendsManager._changeLogQueue,
+                          _FKFriendsManager._didCompleteInitialLoading, _FKFriendsManager._domain,
+                          _FKFriendsManager._friendGroupTitleChangedExternallyNotificationName, _FKFriendsManager._friendGroups,
+                          _FKFriendsManager._friendList, _FKFriendsManager._friendsChangedExternallyNotificationName,
+                          _FKFriendsManager._highPriorityDestinations, _FKFriendsManager._identifiersToPersonMap,
+                          _FKFriendsManager._idsQueryTimeoutTimer, _FKFriendsManager._lastLoadHadChanges,
+                          _FKFriendsManager._maxFriendGroups, _FKFriendsManager._maxFriendsPerGroup,
+                          _FKFriendsManager._needsAddressBookRefresh, _FKFriendsManager._needsFriendListSync,
+                          _FKFriendsManager._npsManager, _FKFriendsManager._pendingDestinations, _FKFriendsManager._postCount,
+                          _FKFriendsManager._queryController, _FKFriendsManager._refreshAgainstContactsEnabled,
+                          _FKFriendsManager._saveOperation, _FKFriendsManager._saveQueue, _FKFriendsManager._serviceName,
+                          _FKFriendsManager._shouldAddEmptyTrailingGroup, _FKFriendsManager._shouldDeduplicateFriendList,
+                          _FKFriendsManager._shouldRemoveDestinationlessFriends, _FKFriendsManager._sourcedPersons,
+                          _FKPerson._abDatabaseUID, _FKPerson._abRecordGUID, _FKPerson._abRecordID, _FKPerson._allValues,
+                          _FKPerson._emailAddressCount, _FKPerson._hasUnreadMessages, _FKPerson._initials, _FKPerson._metadata,
+                          _FKPerson._name, _FKPerson._needsSave, _FKPerson._phoneNumberCount, _FKPerson._preferredReplyAs,
+                          _FKPerson._primaryDestination ]
+...

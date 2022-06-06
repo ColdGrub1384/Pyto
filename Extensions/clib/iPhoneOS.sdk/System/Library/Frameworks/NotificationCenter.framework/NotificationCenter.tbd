@@ -1,0 +1,24 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 8C3765C7-CDC5-3E2D-BF88-FB262D4898B8', 'armv7s: A808CACB-C12E-3A1C-8FBC-4CFF510C979D', 
+                   'arm64: 0C2E078D-5273-37C6-8BF8-D66A67512809', 'arm64e: 1B70020A-3111-3055-8C9D-ED3B00828B64' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/NotificationCenter.framework/NotificationCenter'
+exports:         
+  - archs:           [ armv7, armv7s ]
+    symbols:         [ _NCExtensionItemUserInfoInitialLargestAvailableDisplayModeKey, 
+                       _NCWidgetRowHeightDidChangeNotification ]
+    objc-classes:    [ NCDataSourceManager, NCWidgetDataSource, NCWidgetDatum ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _NCAppLaunchOriginWidget, _NCExtensionItemUserInfoContainerIdentifierKey, 
+                       _NCExtensionItemUserInfoDefaultMarginsKey, _NCExtensionItemUserInfoInitialActiveDisplayModeKey, 
+                       _NCExtensionItemUserInfoInitialBoundsKey, _NCExtensionItemUserInfoInitialLayoutMarginsKey, 
+                       _NCExtensionItemUserInfoInitialMaxCompactSizeKey, _NCExtensionItemUserInfoInitialMaxExpandedSizeKey, 
+                       _NCExtensionItemUserInfoInitialVisibilityStateKey, _NCExtensionItemUserInfoSnapshotTimestampsEnabledKey, 
+                       _NCExtensionItemUserInfoWidgetIdentifierKey, _NCIsValidWidgetDisplayMode, 
+                       _NCStringFromWidgetDisplayMode, _NCStringFromWidgetVisibilityState, 
+                       _NCWidgetControllerConnectionName, _NCWidgetControllerHasContentEntitlement, 
+                       _NCWidgetControllerRequestRefreshEntitlement, __NCWidgetDisplayModeUnset, 
+                       _kNCDefaultWidgetLayoutMargins ]
+    objc-classes:    [ NCWidgetController, NCWidgetMetrics ]
+...

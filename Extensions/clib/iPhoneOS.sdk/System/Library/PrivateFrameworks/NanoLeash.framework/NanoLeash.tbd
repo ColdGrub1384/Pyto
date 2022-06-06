@@ -1,0 +1,36 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NanoLeash.framework/NanoLeash
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NFMFindGizmoIdentifier, _NFMFindLocalDeviceEntitlementName, _NFMFindLocalDeviceServerName,
+                          _NFMHotterColderIdentifier, _NFMLeashIdentifier, _NFMLeashManagerLeashWarningCloseValue,
+                          _NFMLeashManagerLeashWarningFarValue, _NFMLeashManagerLeashWarningImmediateValue,
+                          _NFMLeashManagerLeashWarningInsaneDistanceValue, _NFMPEPLog,
+                          _NFMProtoDidPlaySoundAndFlashLEDResponseReadFrom, _NFMProtoDidPlaySoundResponseReadFrom,
+                          _NFMProtoPlaySoundAndFlashLEDRequestReadFrom, _NFMProtoPlaySoundRequestReadFrom, _NFMProtoSend,
+                          _NFMUnlockIdentifier, _count, _nfm_log ]
+    objc-classes:       [ _NFMIDSMessageInstance, _NFMIDSServiceDelegate, _NFMLeashManager,
+                          _NFMProtoDidPlaySoundAndFlashLEDResponse, _NFMProtoDidPlaySoundResponse,
+                          _NFMProtoPlaySoundAndFlashLEDRequest, _NFMProtoPlaySoundRequest, _NFMWhereIsMyCompanionConnection,
+                          _NFMWiFiManager ]
+    objc-ivars:         [ _NFMIDSMessageInstance._retryAction, _NFMIDSMessageInstance._retryCount,
+                          _NFMIDSMessageInstance._retryInterval, _NFMIDSServiceDelegate._inflightMessages,
+                          _NFMIDSServiceDelegate._pendingMessages, _NFMLeashManager._centralManager,
+                          _NFMLeashManager._centralPhase, _NFMLeashManager._centralQueue, _NFMLeashManager._connected,
+                          _NFMLeashManager._discoveredPeripheral, _NFMLeashManager._externalQueue,
+                          _NFMLeashManager._leashDelegate, _NFMLeashManager._leashDispatchSourceTimer,
+                          _NFMLeashManager._leashIdentifier, _NFMLeashManager._leashMode,
+                          _NFMLeashManager._needsToScanForPeripheral, _NFMLeashManager._peripheral, _NFMLeashManager._pipe,
+                          _NFMLeashManager._pipeManager, _NFMLeashManager._proximityChangeHandler, _NFMLeashManager._serviceUUID,
+                          _NFMLeashManager._testMode, _NFMProtoDidPlaySoundAndFlashLEDResponse._didPlay,
+                          _NFMProtoDidPlaySoundResponse._didPlay, _NFMProtoPlaySoundAndFlashLEDRequest._has,
+                          _NFMProtoPlaySoundAndFlashLEDRequest._timeStamp, _NFMProtoPlaySoundRequest._has,
+                          _NFMProtoPlaySoundRequest._timeStamp, _NFMWhereIsMyCompanionConnection._playSoundAndLEDCompletion,
+                          _NFMWhereIsMyCompanionConnection._playSoundCompletion,
+                          _NFMWhereIsMyCompanionConnection._serverConnection ]
+...

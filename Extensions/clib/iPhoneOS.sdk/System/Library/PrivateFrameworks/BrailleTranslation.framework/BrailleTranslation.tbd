@@ -1,0 +1,48 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/BrailleTranslation.framework/BrailleTranslation
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _BRLTFlagsForMode, _BRLTLog, _BRLTModeDescription, _BRLTModeForFlags, _BRLTSConnectionHasEntitlement,
+                          _BRLTTranslationServiceClientInterface, _BRLTTranslationServiceInterface, _BRLTTranslatorClassIsValid,
+                          _kBRLTTranslationServiceIdentifier, _kBTDuxburyServiceIdentifier, _kBTLiblouisServiceIdentifier ]
+    objc-classes:       [ _BRLTBrailleBuffer, _BRLTBrailleChar, _BRLTBrailleStateManager, _BRLTBrailleString,
+                          _BRLTLoopbackTranslationService, _BRLTSLoopbackTranslationService, _BRLTSTranslationService,
+                          _BRLTSTranslator, _BRLTScriptString, _BRLTTable, _BRLTTableEnumerator, _BRLTTokenRange,
+                          _BRLTTranslationParameters, _BRLTTranslationService ]
+    objc-ivars:         [ _BRLTBrailleBuffer._brailleString, _BRLTBrailleBuffer._cursor, _BRLTBrailleChar._bits,
+                          _BRLTBrailleStateManager._activeBrailleEditingRegion,
+                          _BRLTBrailleStateManager._activeScriptEditingRegion, _BRLTBrailleStateManager._apiLock,
+                          _BRLTBrailleStateManager._brailleBackwardEditingRegion, _BRLTBrailleStateManager._brailleBuffer,
+                          _BRLTBrailleStateManager._brailleDirty, _BRLTBrailleStateManager._brailleFocus,
+                          _BRLTBrailleStateManager._brailleForwardEditingRegion,
+                          _BRLTBrailleStateManager._brailleMergeEditingRegion, _BRLTBrailleStateManager._brailleSelection,
+                          _BRLTBrailleStateManager._delegate, _BRLTBrailleStateManager._editable,
+                          _BRLTBrailleStateManager._inputTranslationMode, _BRLTBrailleStateManager._lastScriptStringOutputTime,
+                          _BRLTBrailleStateManager._outputTranslationMode, _BRLTBrailleStateManager._pendingScriptSelection,
+                          _BRLTBrailleStateManager._runningScriptStringHistory,
+                          _BRLTBrailleStateManager._scriptBackwardEditingRegion, _BRLTBrailleStateManager._scriptDirty,
+                          _BRLTBrailleStateManager._scriptForwardEditingRegion,
+                          _BRLTBrailleStateManager._scriptMergeEditingRegion, _BRLTBrailleStateManager._scriptString,
+                          _BRLTBrailleStateManager._staticBrailleString, _BRLTBrailleStateManager._translationDelegate,
+                          _BRLTBrailleString._brailleChars, _BRLTLoopbackTranslationService._loopbackService,
+                          _BRLTSLoopbackTranslationService._listener, _BRLTSTranslationService._queue,
+                          _BRLTSTranslationService._queueTranslator, _BRLTSTranslator._bundle, _BRLTSTranslator._translator,
+                          _BRLTScriptString._focus, _BRLTScriptString._selection, _BRLTScriptString._string,
+                          _BRLTScriptString._tokenRanges, _BRLTTable._bundle, _BRLTTable._language,
+                          _BRLTTable._serviceIdentifier, _BRLTTable._variant,
+                          _BRLTTableEnumerator._languageAgnosticIdentifiersToTables,
+                          _BRLTTableEnumerator._supportedLanguageLocales, _BRLTTableEnumerator._supportedLocales,
+                          _BRLTTableEnumerator._translatorBundlePath, _BRLTTableEnumerator._translatorBundles,
+                          _BRLTTokenRange._range, _BRLTTokenRange._token, _BRLTTranslationParameters._language,
+                          _BRLTTranslationParameters._mode, _BRLTTranslationParameters._partial,
+                          _BRLTTranslationParameters._textPositionsRange,
+                          _BRLTTranslationParameters._useTechnicalTableIfPossible, _BRLTTranslationService._interrupted,
+                          _BRLTTranslationService._invalid, _BRLTTranslationService._invalidationHandler,
+                          _BRLTTranslationService._queue, _BRLTTranslationService._queue_connection,
+                          _BRLTTranslationService._serviceIdentifier ]
+...

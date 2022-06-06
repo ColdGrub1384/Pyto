@@ -1,0 +1,36 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AccessibilityPhysicalInteraction.framework/AccessibilityPhysicalInteraction
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _AXPIDefaultAppearanceForDevice, _AXPIDistanceBetweenPoints, _AXPILocalizedString,
+                          _AccessibilityPhysicalInteractionVersionNumber, _AccessibilityPhysicalInteractionVersionString ]
+    objc-classes:       [ _AXPIEventSender, _AXPIFingerContainerView, _AXPIFingerController, _AXPIFingerEventSender,
+                          _AXPIFingerEventTouchInfo, _AXPIFingerLargeAppearance, _AXPIFingerLayer, _AXPIFingerModel,
+                          _AXPIFingerSmallAppearance, _AXPIFingerUtilities, _AXPIFingerView, _AXPIPinchChainView,
+                          _AXPISystemActionHelper ]
+    objc-ivars:         [ _AXPIEventSender._eventSendingQueue, _AXPIEventSender._ioSystemPostBackClient,
+                          _AXPIFingerContainerView._appearanceDelegate, _AXPIFingerContainerView._fingerViews,
+                          _AXPIFingerContainerView._pinchChainView, _AXPIFingerContainerView._shouldAnimatePress,
+                          _AXPIFingerContainerView._viewForAnimatingAlpha, _AXPIFingerController._appearanceDelegate,
+                          _AXPIFingerController._didMoveFingersDuringUpdate, _AXPIFingerController._downInfosByIdentifier,
+                          _AXPIFingerController._eventSender, _AXPIFingerController._fingerContainerView,
+                          _AXPIFingerController._fingerModels, _AXPIFingerController._fixedReferenceWindow,
+                          _AXPIFingerController._gestureCompletion, _AXPIFingerController._isPerformingGesture,
+                          _AXPIFingerController._upInfosByIdentifier, _AXPIFingerController._updateCount,
+                          _AXPIFingerEventSender._shouldAddRealEventFlag, _AXPIFingerEventTouchInfo._force,
+                          _AXPIFingerEventTouchInfo._normalizedLocation, _AXPIFingerLayer._appearanceDelegate,
+                          _AXPIFingerLayer._innerStrokeLayer, _AXPIFingerLayer._isSelected, _AXPIFingerLayer._outerFrame,
+                          _AXPIFingerLayer._outerStrokeLayer, _AXPIFingerLayer._pressed, _AXPIFingerModel._delegate,
+                          _AXPIFingerModel._force, _AXPIFingerModel._location, _AXPIFingerModel._pressed,
+                          _AXPIFingerModel._selected, _AXPIFingerView._appearanceDelegate, _AXPIFingerView._cursorLayer,
+                          _AXPIFingerView._force, _AXPIFingerView._lastProgressCompletionBlock, _AXPIFingerView._pressed,
+                          _AXPIFingerView._progressLayer, _AXPIPinchChainView._appearanceDelegate, _AXPIPinchChainView._endPoint,
+                          _AXPIPinchChainView._pressed, _AXPIPinchChainView._selected, _AXPIPinchChainView._startPoint,
+                          _AXPISystemActionHelper._homeButtonUserDevice, _AXPISystemActionHelper._sysdiagnoseCancelCount,
+                          _AXPISystemActionHelper._sysdiagnoseCancelCountQueue ]
+...

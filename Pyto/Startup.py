@@ -47,6 +47,7 @@ try:
     import _ios_getpass
     import getpass
     from _extensionsimporter import system
+    import platform
     
     def with_docstring(object, doc):
         object.__doc__ = doc
@@ -300,6 +301,13 @@ try:
     os.get_terminal_size = _os_get_terminal_size
     shutil.get_terminal_size = _get_terminal_size
 
+    # MARK: - Platform
+    
+    def platform_system():
+        return "iOS"
+    
+    platform.system = platform_system
+
     # MARK: - Sys
     
     class SysPath(collections.abc.MutableSequence):
@@ -328,6 +336,9 @@ try:
 
         def __str__(self):
             return str(self.get_path())
+            
+        def copy(self):
+            return SysPath(self.path)
     
     class SysArgv(collections.abc.MutableSequence):
 

@@ -1,0 +1,46 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/ProceduralWallpaper/ProceduralWallpapers.bundle/ProceduralWallpapers
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _fullyCheckHardwareFile ]
+    objc-classes:       [ _Bokeh, _BokehParallaxNode, _BokehParallaxScene, _BokehScene, _WKInfiniteImpulseResponseFilter,
+                          _WKMotionManager, _WKOpenGLESView ]
+    objc-ivars:         [ _Bokeh._bgColor, _Bokeh._blurFrameCount, _Bokeh._blurFrameInterval, _Bokeh._bokehColorVariantString,
+                          _Bokeh._delegate, _Bokeh._scene, _Bokeh._shouldGenerateBlurs, _Bokeh._skUpdateQueue, _Bokeh._skView,
+                          _Bokeh._variant, _BokehParallaxNode._blurTex, _BokehParallaxNode._driftSpeed,
+                          _BokehParallaxNode._layoutPosition, _BokehParallaxNode._parallaxMultiplier,
+                          _BokehParallaxNode._regAlpha, _BokehParallaxNode._regScaleX, _BokehParallaxNode._regScaleY,
+                          _BokehParallaxNode._regTex, _BokehParallaxScene.CAMERA_DISTANCE, _BokehParallaxScene.CAMERA_SPEED_X,
+                          _BokehParallaxScene.CAMERA_SPEED_Y, _BokehParallaxScene.DISTANCE_SCALE,
+                          _BokehParallaxScene._backdropNode, _BokehParallaxScene._baseColor,
+                          _BokehParallaxScene._baseFrameInterval, _BokehParallaxScene._bgImageName,
+                          _BokehParallaxScene._bgImageNode, _BokehParallaxScene._camera, _BokehParallaxScene._cameraBounds,
+                          _BokehParallaxScene._cameraWander, _BokehParallaxScene._dt, _BokehParallaxScene._filterCoefficient,
+                          _BokehParallaxScene._hudLabel, _BokehParallaxScene._hudNode, _BokehParallaxScene._lastUpdate,
+                          _BokehParallaxScene._motionManager, _BokehParallaxScene._parallaxNodes,
+                          _BokehParallaxScene._stillFrameInterval, _BokehParallaxScene._timeLastGravitySample,
+                          _BokehParallaxScene._world, _BokehParallaxScene._worldBounds, _BokehParallaxScene._worldCameraBounds,
+                          _BokehScene._circleBlendMode, _BokehScene._enableTwoPassBlending, _BokehScene._finalBlendMode,
+                          _BokehScene._frameCallback, _BokehScene._isOn, _BokehScene._needsFrameCallback,
+                          _BokehScene._numCircles, _BokehScene.blurCircles, _BokehScene.colors, _BokehScene.colorsFrequency,
+                          _BokehScene.isBlurredVersion, _BokehScene.totalColorsFrequency,
+                          _WKInfiniteImpulseResponseFilter._count, _WKInfiniteImpulseResponseFilter._fbC,
+                          _WKInfiniteImpulseResponseFilter._ffC, _WKInfiniteImpulseResponseFilter._inputHistory,
+                          _WKInfiniteImpulseResponseFilter._outputHistory,
+                          _WKInfiniteImpulseResponseFilter._zeroGradientThreshold, _WKMotionManager._attitude,
+                          _WKMotionManager._coefficient, _WKMotionManager._motionFilterAW, _WKMotionManager._motionFilterAX,
+                          _WKMotionManager._motionFilterAY, _WKMotionManager._motionFilterAZ,
+                          _WKMotionManager._motionFilterPitch, _WKMotionManager._motionFilterRoll,
+                          _WKMotionManager._motionFilterX, _WKMotionManager._motionFilterY, _WKMotionManager._motionFilterYaw,
+                          _WKMotionManager._motionFilterZ, _WKMotionManager._motionManager,
+                          _WKMotionManager._motionManagerPaused, _WKMotionManager._pitch, _WKMotionManager._referenceFrame,
+                          _WKMotionManager._roll, _WKMotionManager._threshold, _WKMotionManager._x, _WKMotionManager._y,
+                          _WKMotionManager._yaw, _WKMotionManager._z, _WKOpenGLESView._context, _WKOpenGLESView._framebuffer,
+                          _WKOpenGLESView._initialized, _WKOpenGLESView._renderbuffer, _WKOpenGLESView.displayLink,
+                          _WKOpenGLESView.displayQueue, _WKOpenGLESView.frameInterval ]
+...

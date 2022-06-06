@@ -1,0 +1,60 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CacheDelete.framework/CacheDelete
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CDGetLogHandle, _CDGetLowDiskSignpostHighSeverityLogHandle, _CDGetLowDiskSignpostLowSeverityLogHandle,
+                          _CDGetLowDiskSignpostMediumSeverityLogHandle, _CDSimulateCrash, _CDVEnumerationFlagsAll,
+                          _CacheDeleteAllowAutoPurge, _CacheDeleteAutoPurgeAllowed, _CacheDeleteCacheable,
+                          _CacheDeleteCancelPurge, _CacheDeleteCopyAvailableSpaceForVolume,
+                          _CacheDeleteCopyItemizedPurgeableSpace, _CacheDeleteCopyItemizedPurgeableSpaceWithInfo,
+                          _CacheDeleteCopyPurgeHistory, _CacheDeleteCopyPurgeableSpaceWithInfo,
+                          _CacheDeleteCurrentCacheableSpace, _CacheDeleteCurrentCacheableSpaceForVolume,
+                          _CacheDeleteDoNotAutoPurge, _CacheDeleteDoNotPurgeUserManagedAssets, _CacheDeleteEnumerateRemovedFiles,
+                          _CacheDeleteEnumerateRemovedFilesInDirectories, _CacheDeleteErrorDomain, _CacheDeleteGetSetting,
+                          _CacheDeleteInitPurgeMarker, _CacheDeletePerformOperation, _CacheDeletePurgeAsync,
+                          _CacheDeletePurgeSpace, _CacheDeletePurgeSpaceWithInfo, _CacheDeletePurgeSpaceWithInfoSync,
+                          _CacheDeletePurgeUserManagedAssets, _CacheDeletePurgeableSpace, _CacheDeleteRegister,
+                          _CacheDeleteRegisterCallback, _CacheDeleteRegisterCallbacks, _CacheDeleteRegisterCallbacksForProcess,
+                          _CacheDeleteRegisterExtensionCallbacks, _CacheDeleteRegisterForProcess,
+                          _CacheDeleteRegisterInfoCallbacks, _CacheDeleteRegisterInfoCallbacksForProcess,
+                          _CacheDeleteRegisterLowDiskFailure, _CacheDeleteRegisterPurgeNotification,
+                          _CacheDeleteRegisterVolumePurgeNotification, _CacheDeleteRequestCacheableSpaceGuidance,
+                          _CacheDeleteServiceRequest, _CacheDeleteSetCacheable, _CacheDeleteSyncDone,
+                          _CacheDeleteUpdatePurgeable, _CacheDeleteUpdatePurgeableSync, _CacheDeleteUpdateSetting,
+                          _CacheDeleteUserManagedAssetsPurgeable, _CacheManagementEnumerateAssets, _CacheManagementErrorDomain,
+                          _CacheManagementRemove, _CallCacheD, _CallCacheDPublic, _VolUUID, __CacheDeleteAbortWithMessage,
+                          __CacheDeleteEnumerateRemovedFiles, _allowNoBrowse, _breadcrumbs, _cdAppSuptPath, _cdCachesPath,
+                          _connectionIsEntitled, _containerUserManagedAssetsPath, _copyNANDSizeBytes, _createCacheDeleteToken,
+                          _diskUsageList, _dropBreadcrumb, _enumerateNotifiedVolumes, _evaluateBoolProperty,
+                          _evaluateNumberProperty, _evaluateStringProperty, _evaluateUrgency, _fast_size_directory,
+                          _flattenedAssetDescription, _fsPurgeableTypeForService, _fsPurgeableTypeToServiceMap,
+                          _gTimebaseConversion, _getAllVolumes, _getCacheDeleteXattr, _getFunc, _getLocalVolumes, _getRootVolume,
+                          _getbacktrace, _humanReadableNumber, _is_first_boot, _lowSpaceVolumes, _mapVolume, _markNotifiedVolume,
+                          _normalizePath, _paddingForVolume, _pruneFile, _removeBreadcrumb, _sentinelDir,
+                          _serviceForFSPurgeableType, _set_first_boot_work_completed, _stringForFSPurgeableType, _tallyDict,
+                          _thresholdsForMountPoint, _timeStamp, _traverse_directory, _validateTimestamp, _volumeForUUID,
+                          _writeToCacheFile ]
+    objc-classes:       [ _CDRemoveEventsConsumer, _CacheDeleteHostExtensionContext, _CacheDeleteListener,
+                          _CacheDeleteRemoteExtensionContext, _CacheDeleteServiceInfo, _CacheDeleteServiceListener,
+                          _CacheDeleteVolume, _CacheManagementAsset ]
+    objc-ivars:         [ _CDRemoveEventsConsumer._consumer, _CDRemoveEventsConsumer._consumer_q, _CDRemoveEventsConsumer._fsid,
+                          _CDRemoveEventsConsumer._historyDone, _CDRemoveEventsConsumer._identifier,
+                          _CDRemoveEventsConsumer._sem, _CDRemoveEventsConsumer._since, _CDRemoveEventsConsumer._stream,
+                          _CDRemoveEventsConsumer._volume, _CacheDeleteListener._isResumed, _CacheDeleteListener._listener,
+                          _CacheDeleteListener._protocol, _CacheDeleteListener._requiredEntitlements,
+                          _CacheDeleteListener._serviceName, _CacheDeleteListener._xObj, _CacheDeleteServiceInfo._doNotQuery,
+                          _CacheDeleteServiceInfo._extensionContext, _CacheDeleteVolume._block_size, _CacheDeleteVolume._dev,
+                          _CacheDeleteVolume._fsType, _CacheDeleteVolume._initialFreespace, _CacheDeleteVolume._isRoot,
+                          _CacheDeleteVolume._mountPoint, _CacheManagementAsset._absolutePath,
+                          _CacheManagementAsset._assetVersion, _CacheManagementAsset._consumed_date,
+                          _CacheManagementAsset._contentType, _CacheManagementAsset._displayName,
+                          _CacheManagementAsset._download_completion_date, _CacheManagementAsset._download_start_date,
+                          _CacheManagementAsset._expiration_date, _CacheManagementAsset._identifier,
+                          _CacheManagementAsset._last_viewed_date, _CacheManagementAsset._metadata,
+                          _CacheManagementAsset._priority, _CacheManagementAsset._relativePath ]
+...

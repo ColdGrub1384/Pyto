@@ -1,0 +1,40 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/FTServices.framework/FTServices
+current-version:       800
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _FTCTRegistrationStatusCanRegisterKey, _FTCTRegistrationStatusChangedNotification,
+                          _FTCTRegistrationStatusIMSIKey, _FTCTRegistrationStatusPLMNKey, _FTCTRegistrationStatusPhoneNumberKey,
+                          _FTEntitlementStatusChangedNotification, _FTErrorDomain, _FTRegionListFinishedLoadingNotification,
+                          _FTServerBagFinishedLoadingNotification, _FTServiceStatusDidChangeNotification,
+                          _FTServiceStatusNotifyRegister, _FTServicesSuppressServiceErrorDialogsPropertyKey,
+                          _FTUserConfigurationSelectedSubscriptionLabelDidChange, _FaceTimeDeviceCapabilityChangedNotification,
+                          _FaceTimeDeviceRegistrationCapabilityChangedNotification,
+                          _FaceTimeDeviceRegistrationStateChangedNotification, _FaceTimeDeviceRestictionsChangedNotification,
+                          _FaceTimeDeviceSIMInsertedNotification, _FaceTimeDeviceSIMRemovedNotification, _MessageLogEvent,
+                          _MessageLogStatistic, __AuthenticationDictionaryFromParameters, __BindingsArrayFromURIs,
+                          __DeviceCapabilitiesFromParameters, __FTAreIDsEquivalent, __FTGenerateDigestForSigningFromComponents,
+                          __FTGenerateDigestForSigningFromPayload, __FTGenerateNonceAndSignatureFromComponents,
+                          __FTGenerateNonceAndSignatureFromPayload, __FTIDSFlagsNumber, __FTProfileVersionNumber,
+                          __FZErrorTypeFromNSError, __FZErrorTypeFromResponseCodeAndError, _kDualModeDeliveryTypeHeader ]
+    objc-classes:       [ _FTDeviceSupport, _FTEntitlementSupport, _FTIDSMessage, _FTMessageDelivery, _FTMessageDelivery_APS,
+                          _FTMessageDelivery_DualMode, _FTMessageDelivery_HTTP, _FTMessageQueue, _FTNetworkSupport,
+                          _FTPasswordManager, _FTRegion, _FTRegionSupport, _FTSelectedPNRSubscription, _FTServerBag,
+                          _FTServiceStatus, _FTURLRequestMessage, _FTUserConfiguration, _FTiMessageStatus,
+                          _IDSWebTunnelRequestMessage ]
+    objc-ivars:         [ _FTMessageDelivery._retries, _FTMessageDelivery_DualMode._apsDelivery,
+                          _FTMessageDelivery_DualMode._dualModeQueue, _FTMessageDelivery_DualMode._httpDelivery,
+                          _FTMessageDelivery_DualMode._userAgentString, _FTPasswordManager._accountStore,
+                          _FTPasswordManager._runningQueries, _FTPasswordManager._userNotificationCenter,
+                          _IDSWebTunnelRequestMessage._disableIDSTranslation, _IDSWebTunnelRequestMessage._maximumResponseSize,
+                          _IDSWebTunnelRequestMessage._messageHeaders, _IDSWebTunnelRequestMessage._messageRequestBodyData,
+                          _IDSWebTunnelRequestMessage._messageRequestBodyDictionary,
+                          _IDSWebTunnelRequestMessage._messageRequestUUID, _IDSWebTunnelRequestMessage._messageURL,
+                          _IDSWebTunnelRequestMessage._responseBodyData, _IDSWebTunnelRequestMessage._responseBodyDictionary,
+                          _IDSWebTunnelRequestMessage._responseCode, _IDSWebTunnelRequestMessage._responseHeaders,
+                          _IDSWebTunnelRequestMessage._responseStatus, _IDSWebTunnelRequestMessage._userAgentOverride ]
+...

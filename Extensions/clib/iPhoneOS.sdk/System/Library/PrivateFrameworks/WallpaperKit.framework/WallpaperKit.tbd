@@ -1,0 +1,38 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/WallpaperKit.framework/WallpaperKit
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _WKBundleForWallpaperKitFramework, _WKLogForCategory, _WKLogicalScreenClassString,
+                          _WKStandardDisplayModeScreenSize, _WKStringFromWallpaperType, _WKSupportsLiveWallpapers,
+                          _WKWallpaperAppearanceDark, _WKWallpaperAppearanceDefault, _WKWallpaperKitErrorDomain,
+                          _WKWallpaperLocationCoverSheet, _WKWallpaperLocationHomeScreen, _WKWallpaperTypeFromString,
+                          _WKWallpapersBaseURL, _WK_LocalizedString ]
+    objc-classes:       [ _WKAbstractWallpaper, _WKDefaultWallpaperManager, _WKDynamicWallpaper, _WKLiveWallpaper,
+                          _WKMotionWallpaperCollectionViewCell, _WKPhotoWallpaperCollectionViewCell, _WKStillWallpaper,
+                          _WKWallpaperBundle, _WKWallpaperBundleCollection, _WKWallpaperBundleImporter,
+                          _WKWallpaperLocketViewController ]
+    objc-ivars:         [ _WKAbstractWallpaper._identifier, _WKAbstractWallpaper._name, _WKAbstractWallpaper._type,
+                          _WKDefaultWallpaperManager.__defaultWallpaperBundleImporter,
+                          _WKDefaultWallpaperManager.__defaultWallpaperLookup, _WKDynamicWallpaper.__dynamicDictionary,
+                          _WKDynamicWallpaper.__thumbnailImage, _WKLiveWallpaper._fullsizeImageURL,
+                          _WKLiveWallpaper._stillTimeInVideo, _WKLiveWallpaper._thumbnailImageURL,
+                          _WKLiveWallpaper._videoAssetURL, _WKStillWallpaper._fullsizeImageURL,
+                          _WKStillWallpaper._thumbnailImageURL, _WKWallpaperBundle.__bundleURL,
+                          _WKWallpaperBundle.__darkAppearanceWallpapers, _WKWallpaperBundle.__defaultAppearanceWallpapers,
+                          _WKWallpaperBundle._appearanceAware, _WKWallpaperBundle._distintWallpapersForLocations,
+                          _WKWallpaperBundle._dynamicWallpaperBundle, _WKWallpaperBundle._family, _WKWallpaperBundle._identifier,
+                          _WKWallpaperBundle._name, _WKWallpaperBundle._thumbnailImageURL, _WKWallpaperBundle._version,
+                          _WKWallpaperBundleCollection.__wallpaperBundles, _WKWallpaperBundleCollection.__wallpaperLookup,
+                          _WKWallpaperBundleCollection._displayName, _WKWallpaperBundleCollection._previewBundle,
+                          _WKWallpaperBundleCollection._wallpaperType, _WKWallpaperBundleImporter.__bundleImportQueue,
+                          _WKWallpaperBundleImporter.__wallpaperTypeToBundleCollection,
+                          _WKWallpaperBundleImporter.__wallpaperTypesOrdering, _WKWallpaperLocketViewController.__doneButton,
+                          _WKWallpaperLocketViewController.__openSettingsButton,
+                          _WKWallpaperLocketViewController.__setWallpaperButton,
+                          _WKWallpaperLocketViewController.__tapGestureRecognizer, _WKWallpaperLocketViewController._delegate ]
+...

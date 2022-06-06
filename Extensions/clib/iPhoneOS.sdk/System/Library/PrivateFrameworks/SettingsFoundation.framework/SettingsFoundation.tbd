@@ -1,0 +1,26 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SettingsFoundation.framework/SettingsFoundation
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SFAcknowledgementsDocumentFilePath, _SFAppTintColor,
+                          _SFAudioAccessoryAcknowledgementsDocumentFilePath, _SFAudioAccessoryLicenseFilePath,
+                          _SFAudioAccessoryWarrantyFilePath, _SFBuiltInAppsDocumentFilePath,
+                          _SFDeviceSupportsFall2019OrLaterELabel, _SFIndiaBISNumber, _SFIndiaBISRegulatoryImage,
+                          _SFIsAppWithBundleIDInstalled, _SFIsRegulatoryImageFromLockdown, _SFKillProcessNamed,
+                          _SFLicenseFilePath, _SFLocalizableWAPIStringKeyForKey, _SFLocalizedMultipickerStringForKey,
+                          _SFLocalizedStringFromTableInBundleForLanguage, _SFLogForCategory, _SFObjectAndOffsetForURLPair,
+                          _SFPerformSelector, _SFPerformSelector2, _SFPreferencesAppChangedRestrictionsEnabledStateNotification,
+                          _SFPreferencesAppResetNetworkSettingsNotification, _SFPreferencesAppResetPrivacyWarningsNotification,
+                          _SFProcessIDForProcessNamed, _SFRFExposureDocumentHTMLString, _SFRegulatoryImage,
+                          _SFRoHSComplianceDocumentFilePath, _SFRuntimeAbsoluteFilePathForPath, _SFSelectedTintedImageFromMask,
+                          _SFShouldShowAlertMark, _SFShouldShowBuiltInApps, _SFShouldShowEyesightWarning, _SFShouldShowIndiaBIS,
+                          _SFShouldShowMonthOfManufacture, _SFShouldShowRoHSCompliance, _SFShouldShowYearOfManufacture,
+                          _SFTerminateProcessNamed, _SFTintedImageFromMask, _SFURLPairObjectKey, _SFURLPairOffsetItemKey,
+                          _SFURLPairOffsetValueKey, _SFWarrantyFilePath ]
+    objc-classes:       [ _SFRestrictionsController, _SFRestrictionsPasscodeController ]
+...

@@ -1,0 +1,68 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/PairedSync.framework/PairedSync
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NSStringFromPSYDeviceSyncState, _NSStringFromPSYSyncSessionActivityState,
+                          _NSStringFromPSYSyncSessionState, _NSStringfromPSYSyncSessionType, _PSYActivityProgressXPCInterface,
+                          _PSYActivityXPCInterface, _PSYConnectionXPCInterface, _PSYDaemonDidLaunchDarwinNotification,
+                          _PSYDeviceSyncDidCompleteDarwinNotification, _PSYErrorDomain, _PSYErrorForCode,
+                          _PSYGetClientListDirectory, _PSYGetPreferredActivityOrdering, _PSYInitialSyncStateMachServiceName,
+                          _PSYLastSyncSwitchIDNotification, _PSYPairedSyncDomainName, _PSYPairingIDMigrationCountDictionaryKey,
+                          _PSYProgressClientXPCInterface, _PSYProgressServerXPCInterface, _PSYSyncSessionObserverXPCInterface,
+                          _PSYSyncSessionProviderXPCInterface, _PSYSyncStateObserverXPCInterface,
+                          _PSYSyncStateProviderXPCInterface, _PSYToolInterfaceXPCInterface, _psd_log, _psy_log ]
+    objc-classes:       [ _PSYActivityInfo, _PSYConnection, _PSYDeviceSyncStateEntry, _PSYInitialSyncStateObserver, _PSYOptions,
+                          _PSYPlistFilter, _PSYProgressObserver, _PSYServiceSyncSession, _PSYSyncCoordinator, _PSYSyncOptions,
+                          _PSYSyncSession, _PSYSyncSessionActivity, _PSYSyncSessionObserver,
+                          _PSYSyncSessionObserverExportedObject, _PSYSyncSessionUpdate, _PSYSyncStateObserverExportedObject,
+                          _PSYTestInput ]
+    objc-ivars:         [ _PSYActivityInfo._backboardPrelaunchBundleIdentifier, _PSYActivityInfo._label,
+                          _PSYActivityInfo._machServiceName, _PSYActivityInfo._priority, _PSYActivityInfo._sessionTypes,
+                          _PSYActivityInfo._timeoutSeconds, _PSYConnection._connection, _PSYConnection._delegate,
+                          _PSYConnection._options, _PSYConnection._valid, _PSYDeviceSyncStateEntry._initialSyncState,
+                          _PSYDeviceSyncStateEntry._migrationIndex, _PSYDeviceSyncStateEntry._pairingID,
+                          _PSYDeviceSyncStateEntry._syncSwitchIndex, _PSYInitialSyncStateObserver._connection,
+                          _PSYInitialSyncStateObserver._daemonStartedNotifyToken, _PSYInitialSyncStateObserver._delegate,
+                          _PSYInitialSyncStateObserver._delegateQueue, _PSYInitialSyncStateObserver._init,
+                          _PSYInitialSyncStateObserver._initialSyncStateCache, _PSYInitialSyncStateObserver._nrDevices,
+                          _PSYInitialSyncStateObserver._queue, _PSYInitialSyncStateObserver._syncStateCache,
+                          _PSYInitialSyncStateObserver._syncStateEntryCache, _PSYInitialSyncStateObserver._syncSwitchNotifyToken,
+                          _PSYOptions._activityInfoDirectory, _PSYOptions._dryRun, _PSYOptions._jobs,
+                          _PSYOptions._resetDeviceSyncState, _PSYOptions._resumePendingJobs, _PSYOptions._syncSessionType,
+                          _PSYOptions._terminationJobCount, _PSYOptions._testInputs,
+                          _PSYProgressObserver._completedInitialSyncPairingIDs, _PSYProgressObserver._currentSyncSession,
+                          _PSYProgressObserver._delegate, _PSYProgressObserver._delegateQueue,
+                          _PSYProgressObserver._internalQueue, _PSYProgressObserver._syncSessionObserver,
+                          _PSYServiceSyncSession._complete, _PSYServiceSyncSession._delegate, _PSYServiceSyncSession._isComplete,
+                          _PSYServiceSyncSession._pairedDevice, _PSYServiceSyncSession._queue,
+                          _PSYServiceSyncSession._sessionIdentifier, _PSYServiceSyncSession._supportsMigrationSync,
+                          _PSYServiceSyncSession._switchID, _PSYServiceSyncSession._syncCoordinator,
+                          _PSYServiceSyncSession._syncSessionType, _PSYSyncCoordinator._activeSyncSession,
+                          _PSYSyncCoordinator._connection, _PSYSyncCoordinator._delegate, _PSYSyncCoordinator._delegateLock,
+                          _PSYSyncCoordinator._delegateQueue, _PSYSyncCoordinator._hasStartedListening,
+                          _PSYSyncCoordinator._listener, _PSYSyncCoordinator._nrDevices, _PSYSyncCoordinator._pendingCompletion,
+                          _PSYSyncCoordinator._queue, _PSYSyncCoordinator._serviceName, _PSYSyncCoordinator._syncIDOfStartedSync,
+                          _PSYSyncCoordinator._syncRestriction, _PSYSyncCoordinator._syncSwitchIDToken, _PSYSyncOptions._dryRun,
+                          _PSYSyncOptions._pairingIdentifier, _PSYSyncOptions._sessionIdentifier,
+                          _PSYSyncOptions._syncSessionType, _PSYSyncOptions._terminateDuringDryRun, _PSYSyncOptions._testInput,
+                          _PSYSyncSession._activities, _PSYSyncSession._activityMap, _PSYSyncSession._pairingIdentifier,
+                          _PSYSyncSession._sessionIdentifier, _PSYSyncSession._supportsMigrationSync,
+                          _PSYSyncSession._switchIndex, _PSYSyncSession._syncSessionState, _PSYSyncSession._syncSessionType,
+                          _PSYSyncSessionActivity._activityInfo, _PSYSyncSessionActivity._activityProgress,
+                          _PSYSyncSessionActivity._activityState, _PSYSyncSessionActivity._error,
+                          _PSYSyncSessionActivity._finishedSending, _PSYSyncSessionActivity._interruptionCount,
+                          _PSYSyncSessionActivity._sawADropout, _PSYSyncSessionActivity._startDropoutCount,
+                          _PSYSyncSessionObserver._connection, _PSYSyncSessionObserver._currentSyncSession,
+                          _PSYSyncSessionObserver._daemonDidLaunchNotifyToken, _PSYSyncSessionObserver._delegate,
+                          _PSYSyncSessionObserver._exportedObject, _PSYSyncSessionObserver._queue,
+                          _PSYSyncSessionObserver._resignedActive,
+                          _PSYSyncSessionObserver._shouldCheckinAfterInvalidationHandler,
+                          _PSYSyncSessionObserverExportedObject._delegate, _PSYSyncSessionUpdate._originalSession,
+                          _PSYSyncSessionUpdate._updatedSession, _PSYSyncStateObserverExportedObject._delegate,
+                          _PSYTestInput._action ]
+...

@@ -1,0 +1,22 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CoreNameParser.framework/CoreNameParser
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ __NPCollapseWhitespaceAndStrip, __NPRemoveAppSignature, __NPRemoveEmojis,
+                          __NPRemoveParenthesisBracketsAndInside, __NPStripDiatritics, __NPStripQuotationMarks, __NPTokenizeName,
+                          __NPTrimNonLetters, _charSetWithEndpoints ]
+    objc-classes:       [ _NPComponentSequence, _NPHMMClassifier, _NPNameComponentsData, _NPNameParser ]
+    objc-ivars:         [ _NPComponentSequence._emissionModelScore, _NPComponentSequence._favorite,
+                          _NPComponentSequence._observation, _NPComponentSequence._oovIndices, _NPComponentSequence._score,
+                          _NPComponentSequence._sequence, _NPComponentSequence._stateModelScore,
+                          _NPHMMClassifier._nameComponentsData, _NPHMMClassifier._stateProbabilities,
+                          _NPHMMClassifier._totalFamilyNamesCount, _NPHMMClassifier._totalGivenNamesCount,
+                          _NPHMMClassifier._uniqueFamilyNamesCount, _NPHMMClassifier._uniqueGivenNamesCount,
+                          _NPNameComponentsData._nameComponents, _NPNameParser._classifier, _NPNameParser._confidenceThreshold,
+                          _NPNameParser._nameComponentsData ]
+...

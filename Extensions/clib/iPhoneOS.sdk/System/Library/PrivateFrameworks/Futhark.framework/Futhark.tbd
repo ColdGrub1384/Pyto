@@ -1,0 +1,28 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Futhark.framework/Futhark
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _FKCCGetRecognitionChar, _FKCCMatchGetConfidence, _FKComponentPrint, _FKGetBuildAPIVersion,
+                          _FKGetBuildGitHash, _FKGetBuildTimestamp, _FKGetFrameworkVersion, _FKPrintLinesegList, _FKPrintRender,
+                          _FKRecognizeConcomp, _FKSeqMatchGetConfidence, _FutharkVersionNumber, _FutharkVersionString ]
+    objc-classes:       [ _FKTextCandidate, _FKTextDetector, _FKTextFeature ]
+    objc-ivars:         [ _FKTextCandidate._confidence, _FKTextCandidate._text, _FKTextDetector._binarizerLimit,
+                          _FKTextDetector._colorSplits, _FKTextDetector._contrastLimit,
+                          _FKTextDetector._createFeaturesForAllConcomps, _FKTextDetector._detectDiacritics,
+                          _FKTextDetector._enableBinarizerFiltering, _FKTextDetector._memoryUsage,
+                          _FKTextDetector._mergeSettings, _FKTextDetector._minimizeFalseDetections,
+                          _FKTextDetector._minimumCharacterHeight, _FKTextDetector._multiThreadingQueue,
+                          _FKTextDetector._recognitionLanguage, _FKTextDetector._recognitionLanguages,
+                          _FKTextDetector._recognizer, _FKTextDetector._returnSubFeatures, _FKTextDetector._roi,
+                          _FKTextDetector._sessions, _FKTextDetector._size, _FKTextDetector._thresholdingAlgorithm,
+                          _FKTextDetector._timeBinarizer, _FKTextDetector._timeConcomps, _FKTextDetector._timeDownscale,
+                          _FKTextDetector._timeRecognizer, _FKTextDetector._timeSequences, _FKTextFeature._backingIndex,
+                          _FKTextFeature._boundingBox, _FKTextFeature._candidates, _FKTextFeature._confidence,
+                          _FKTextFeature._corners, _FKTextFeature._featureID, _FKTextFeature._scale, _FKTextFeature._session,
+                          _FKTextFeature._subFeatures, _FKTextFeature._text, _FKTextFeature._type ]
+...

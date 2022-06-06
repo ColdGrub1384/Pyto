@@ -1,0 +1,12 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/TextInput/TextInput_pa.bundle/TextInput_pa
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:       [ _TIKeyboardInputManager_pa ]
+    objc-ivars:         [ _TIKeyboardInputManager_pa._isPhoneticLayout ]
+...

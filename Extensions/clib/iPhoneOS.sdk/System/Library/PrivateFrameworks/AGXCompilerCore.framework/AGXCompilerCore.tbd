@@ -1,0 +1,13 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AGXCompilerCore.framework/AGXCompilerCore
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _GLCompilerBuildRequest, _GLCompilerCreate, _GLCompilerDelete, _GLCompilerLogBuildRequest,
+                          _GLCompilerReleaseReply, _MTLCompilerBuildRequest, _MTLCompilerBuildRequestWithOptions,
+                          _MTLCompilerCreate, _MTLCompilerDelete, _MTLCompilerReleaseReply ]
+...

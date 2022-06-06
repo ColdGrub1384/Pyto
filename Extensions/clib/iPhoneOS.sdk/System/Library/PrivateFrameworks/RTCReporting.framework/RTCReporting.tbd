@@ -1,0 +1,37 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/RTCReporting.framework/RTCReporting
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _RTCReportingCreateHierarchyTokenFromParentToken, _RTCReportingFetchStatesWithUserInfo,
+                          _RTCReportingFlushMessages, _RTCReportingFlushMessagesWithCompletion, _RTCReportingInitWithSessionInfo,
+                          _RTCReportingInitWithSessionInfoDict, _RTCReportingSendMessageWithDictionary,
+                          _RTCReportingSendMessageWithError, _RTCReportingSetMessageBlock, _RTCReportingStartConfiguration,
+                          _RTCReportingUpdateSharedDataForKey, _RTCReportingUpdateSharedDataWithDictionary,
+                          _RTCReportingUploadLogWithArray, _kRTCReportingBackendAWD, _kRTCReportingBackendDashboard,
+                          _kRTCReportingBackendHTTPPost, _kRTCReportingBackendHTTPPost2, _kRTCReportingBackendPowerlog,
+                          _kRTCReportingBackendQRS, _kRTCReportingBackendUploadServer, _kRTCReportingErrorDomain,
+                          _kRTCReportingHierarchyTokenLevel, _kRTCReportingHierarchyTokenTokenID, _kRTCReportingLogDataData,
+                          _kRTCReportingLogDataEndTime, _kRTCReportingLogDataStartTime, _kRTCReportingMessageParametersCategory,
+                          _kRTCReportingMessageParametersFlag, _kRTCReportingMessageParametersPayload,
+                          _kRTCReportingMessageParametersType, _kRTCReportingSessionInfoBatchEvent,
+                          _kRTCReportingSessionInfoClientType, _kRTCReportingSessionInfoClientVersion,
+                          _kRTCReportingSessionInfoContainsRealtimeEvents, _kRTCReportingSessionInfoEnableFlag,
+                          _kRTCReportingSessionInfoHierarchyToken, _kRTCReportingSessionInfoRequireUserInfo,
+                          _kRTCReportingSessionInfoSessionID, _kRTCReportingUserInfoClientName,
+                          _kRTCReportingUserInfoServiceName ]
+    objc-classes:       [ _RTCReporting, _RTCReportingAggregationObject, _RTCReportingDeallocNotifier, _RTCSecureHierarchyToken,
+                          _UpdateAndReportServices ]
+    objc-ivars:         [ _RTCReporting._blacklistedEvents, _RTCReporting._connection, _RTCReporting._counter,
+                          _RTCReporting._enabledBackendNames, _RTCReporting._loggingBlock, _RTCReporting._periodicServiceDict,
+                          _RTCReporting._reportingPeriodicTasksQueue, _RTCReporting._reportingQueue,
+                          _RTCReporting._strongDeallocNotifier, _RTCReporting._timer, _RTCReporting._weakDeallocNotifier,
+                          _RTCReporting._weakMessageSentDelegate, _RTCReporting._whitelistedEvents,
+                          _RTCReportingAggregationObject._aggregationBlock, _RTCReportingDeallocNotifier._delegate,
+                          _RTCSecureHierarchyToken._level, _RTCSecureHierarchyToken._token, _UpdateAndReportServices._block,
+                          _UpdateAndReportServices._report, _UpdateAndReportServices._update ]
+...

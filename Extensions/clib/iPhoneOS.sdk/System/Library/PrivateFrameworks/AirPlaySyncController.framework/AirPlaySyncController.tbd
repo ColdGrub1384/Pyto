@@ -1,0 +1,23 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AirPlaySyncController.framework/AirPlaySyncController
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _APSyncControllerCopyProperty, _APSyncControllerGetTypeID, _APSyncControllerRemoteCopyShared,
+                          _APSyncControllerRemoteCreate, _APSyncControllerServerCopyShared, _APSyncControllerSetProperty,
+                          _APSyncControllerSetSpeakerGroup, _APSyncControllerStartGroupInteraction, _APSyncControllerStartServer,
+                          _APSyncControllerStartSpeakerInteraction, _APSyncControllerStopGroupInteraction,
+                          _APSyncControllerStopSpeakerInteraction, _kAPSyncControllerNotificationProperty_ID,
+                          _kAPSyncControllerNotification_GroupMembersChanged, _kAPSyncControllerNotification_GroupVolumeChanged,
+                          _kAPSyncControllerNotification_GroupsAvailableChanged,
+                          _kAPSyncControllerNotification_SpeakerVolumeChanged, _kAPSyncControllerProperty_GroupUUIDList,
+                          _kAPSyncControllerProperty_HomeUUIDList, _kAPSyncControllerProperty_MasterMute,
+                          _kAPSyncControllerProperty_MasterVolume, _kAPSyncControllerProperty_ShowInfo,
+                          _kAPSyncControllerProperty_SpeakerMute, _kAPSyncControllerProperty_SpeakerName,
+                          _kAPSyncControllerProperty_SpeakerUUIDList, _kAPSyncControllerProperty_SpeakerVolume,
+                          _kAPSyncControllerProperty_SpeakersInGroup ]
+...

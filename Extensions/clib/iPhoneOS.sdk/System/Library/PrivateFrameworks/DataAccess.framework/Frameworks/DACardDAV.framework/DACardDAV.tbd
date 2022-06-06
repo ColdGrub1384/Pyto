@@ -1,0 +1,32 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACardDAV.framework/DACardDAV
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _kDACardDAVAccountAltDSID, _kDACardDAVAccountAppleID, _kDACardDAVAccountDSID ]
+    objc-classes:       [ _CardDAVAccount, _CardDAVDelegateInfo, _CardDAVDelegateManager, _CardDAVLocalDBHelper,
+                          _CardDAVPropertiesHelper, _CardDAVVCardItem, _CardDAVVCardItemABImplementation,
+                          _CardDAVVCardItemCNImplementation, _CardDAViCloudDelegateInfoProvider, _DAABLegacyContact,
+                          _DAABLegacyGroup, _DAContactsContact, _DAContactsGroup ]
+    objc-ivars:         [ _CardDAVAccount._cardDAVAccountVersion, _CardDAVAccount._checkValidityTaskGroup,
+                          _CardDAVAccount._curLogger, _CardDAVAccount._databaseHelper, _CardDAVDelegateInfo._altDSID,
+                          _CardDAVDelegateInfo._appleID, _CardDAVDelegateInfo._dsid, _CardDAVDelegateInfo._principalPath,
+                          _CardDAVDelegateManager._accountID, _CardDAVDelegateManager._accountStore,
+                          _CardDAVDelegateManager._delegateProvider, _CardDAVVCardItem._cardDAVRecordItem,
+                          _CardDAVVCardItemABImplementation._UUIDToPersonCache, _CardDAVVCardItemABImplementation._abRecord,
+                          _CardDAVVCardItemABImplementation._abRecordType, _CardDAVVCardItemABImplementation._cardDAVRecordItem,
+                          _CardDAVVCardItemABImplementation._clientID, _CardDAVVCardItemABImplementation._dataPayload,
+                          _CardDAVVCardItemABImplementation._serverID, _CardDAVVCardItemABImplementation._syncKey,
+                          _CardDAVVCardItemCNImplementation._UUIDToPersonCache,
+                          _CardDAVVCardItemCNImplementation._cardDAVRecordItem, _CardDAVVCardItemCNImplementation._clientID,
+                          _CardDAVVCardItemCNImplementation._contactStore, _CardDAVVCardItemCNImplementation._dataPayload,
+                          _CardDAVVCardItemCNImplementation._serverID, _CardDAVVCardItemCNImplementation._syncKey,
+                          _CardDAViCloudDelegateInfoProvider._accountStore, _CardDAViCloudDelegateInfoProvider._accountsType,
+                          _CardDAViCloudDelegateInfoProvider._familyCirclePromise, _DAABLegacyContact._person,
+                          _DAABLegacyGroup._group, _DAContactsContact._markedForDeletion, _DAContactsContact._mutableContact,
+                          _DAContactsGroup._group, _DAContactsGroup._markedForDeletion ]
+...

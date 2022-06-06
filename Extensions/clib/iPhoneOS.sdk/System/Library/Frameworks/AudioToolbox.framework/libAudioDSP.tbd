@@ -1,0 +1,17 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/Frameworks/AudioToolbox.framework/libAudioDSP.dylib
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ABHelperCreateArrayFromDSPGraph, _ABHelperCreateDictionaryFromASBD,
+                          _ABHelperCreateDictionaryFromAudioUnit, _ABHelperCreateDictionaryFromDSPGraphBox,
+                          _ABHelperIsABTestModeOn, _ABHelperWriteJSONFileFromCFDictionary, _DNNVAD_CreateInstance,
+                          _DNNVAD_DestroyInstance, _DNNVAD_GetSpeechProbabilityHardValue, _DNNVAD_GetSpeechProbabilitySoftValue,
+                          _DNNVAD_Initialize, _DNNVAD_IsInitialized, _DNNVAD_Process, _DNNVAD_Uninitialize, _GetAudioDSPManager,
+                          _RegisterAudioUnits_Analyzer, _RegisterAudioUnits_Internal, _RegisterAudioUnits_InternalUnsearchable,
+                          _RegisterPublicAudioUnits ]
+...

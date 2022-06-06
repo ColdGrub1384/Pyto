@@ -1,0 +1,21 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/WebApp.framework/WebApp
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _WebAppMainEntry ]
+    objc-classes:       [ _AppDelegate, _LoadingViewController, _WebAppCanvasDelegate, _WebAppSceneDelegate,
+                          _WebAppViewController ]
+    objc-ivars:         [ _LoadingViewController._image, _LoadingViewController._imageIsFullScreen,
+                          _LoadingViewController._imageView, _LoadingViewController._orientation,
+                          _LoadingViewController._preferredStatusBarStyle, _LoadingViewController._statusBarView,
+                          _WebAppSceneDelegate._webApp, _WebAppSceneDelegate._window,
+                          _WebAppViewController._cancelViewServiceRequest, _WebAppViewController._contentViewController,
+                          _WebAppViewController._hasShownLoadingViewController, _WebAppViewController._hideSnapshotTimer,
+                          _WebAppViewController._loadingViewController, _WebAppViewController._orientation,
+                          _WebAppViewController._webClip ]
+...

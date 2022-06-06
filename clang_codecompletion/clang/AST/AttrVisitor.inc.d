@@ -1,0 +1,1 @@
+tools/clang/include/clang/AST/AttrVisitor.inc: /Users/emma/Desktop/llvm-project/clang/include/clang/Basic/ASTNode.td /Users/emma/Desktop/llvm-project/clang/include/clang/Basic/AttrDocs.td /Users/emma/Desktop/llvm-project/clang/include/clang/Basic/DeclNodes.td /Users/emma/Desktop/llvm-project/clang/include/clang/Basic/StmtNodes.td

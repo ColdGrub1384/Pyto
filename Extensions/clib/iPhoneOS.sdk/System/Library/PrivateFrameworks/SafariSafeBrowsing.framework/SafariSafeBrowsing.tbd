@@ -1,0 +1,34 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SafariSafeBrowsing.framework/SafariSafeBrowsing
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SSBLookupContextDatabasesDidUpdateNotification,
+                          _SSBLookupContextDatabasesDidUpdateNotificationUserInfoProviderKey, _SSBProviderGoogle,
+                          _SSBProviderTencent, _SSBSafeBrowsingEnabledDefaultsKey,
+                          _SSBSafeBrowsingEnabledStateDidChangeNotification,
+                          _SSBSafeBrowsingEnabledStateDidChangeNotificationUserInfoEnabledStateKey,
+                          __ZN12SafeBrowsing7Service4mainEv ]
+    objc-classes:       [ _ProviderConfiguration, _RemoteConfigurationController, _SSBAvailability, _SSBDatabaseUpdateSupport,
+                          _SSBDatabaseUpdaterStatus, _SSBLookupContext, _SSBLookupResult, _SSBManagedConfigurationManager,
+                          _SSBServiceLookupResult, __SSBDatabaseStatus, __SSBSafeHashCache, __SSBServiceStatus ]
+    objc-ivars:         [ _ProviderConfiguration._configuration, _ProviderConfiguration._malwareThreatTypeOff,
+                          _ProviderConfiguration._providerOff, _ProviderConfiguration._socialEngineeringThreatTypeOff,
+                          _ProviderConfiguration._unwantedSoftwareThreatTypeOff,
+                          _RemoteConfigurationController._currentConfiguration,
+                          _RemoteConfigurationController._googleConfigurationDidChange,
+                          _RemoteConfigurationController._googleProviderConfiguration,
+                          _RemoteConfigurationController._internalQueue,
+                          _RemoteConfigurationController._tencentConfigurationDidChange,
+                          _RemoteConfigurationController._tencentProviderConfiguration,
+                          _RemoteConfigurationController._updateTimer, _SSBDatabaseUpdateSupport._carrierSpaceClient,
+                          _SSBDatabaseUpdateSupport._onHighCellularDataPlan, _SSBDatabaseUpdaterStatus._databaseUpdaterStatus,
+                          _SSBLookupContext._lookupContext, _SSBLookupContext._observerToken,
+                          _SSBLookupResult._URLContainsUserInfo, _SSBLookupResult._serviceLookupResults,
+                          _SSBServiceLookupResult._lookupResult, __SSBDatabaseStatus._databaseStatus, __SSBSafeHashCache._cache,
+                          __SSBServiceStatus._serviceStatus ]
+...

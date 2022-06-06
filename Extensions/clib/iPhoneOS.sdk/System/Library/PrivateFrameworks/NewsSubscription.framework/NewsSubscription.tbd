@@ -1,0 +1,36 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NewsSubscription.framework/NewsSubscription
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ ArticleNotificationExtension, ArticleNotificationServiceExtension, Feldspar Tests,
+                          MarketingNotificationExtension, NVCDemo, News, NewsAnalytics, NewsAnalyticsTests, NewsAnalyticsUpload,
+                          NewsArticles, NewsArticlesTests, NewsFeed, NewsFeedTests, NewsFormat, NewsFormatTests,
+                          NewsInternalSettings, NewsServices, NewsServicesInternal, NewsSettings, NewsSubscription,
+                          NewsSubscriptionTests, NewsToday, NewsUI, NewsUI2, NewsUI2Tests, OpenInNews, Stocks, StocksAnalytics,
+                          StocksAnalyticsTests, StocksCore, StocksCoreTests, StocksTests, StocksToday, StocksUI, StocksUITests,
+                          com.apple.news, newsd ]
+    symbols:            [ _BridgedCampaignClickErrorCode, _BridgedCampaignClickErrorDomain, _NewsSubscriptionVersionNumber,
+                          _NewsSubscriptionVersionString ]
+    objc-classes:       [ _BridgedAccountPageViewControllerFactory, _BridgedCampaignClickRecorder,
+                          _BridgedWebAuthenticationSession, _NPAssembly, _NPDeferredHardPaywallHeightProvider,
+                          _NPFactoryAssembly, _NPFamilyEligibilityProvider, _NPFamilySharingSetupPresenter,
+                          _NPFamilyStatusManager, _NPHardPaywallAssembly, _NPHardPaywallModule, _NPHardPaywallViewController,
+                          _NPManagerAssembly, _NPPaywall, _NPPurchaseContext, _NPPurchaseManager, _NPPurchasingSpinnerAssembly,
+                          _NPRendererAssembly, _NPSoftPaywallAssembly, _NPSoftPaywallHeightProvider, _NPSoftPaywallModule,
+                          _NPSoftPaywallViewController, _NPStylerAssembly, _NPUtilityAssembly, _NUDeferredHardPaywallAssembly,
+                          _NUDeferredHardPaywallModule, __TtC16NewsSubscription15HardPaywallView,
+                          __TtC16NewsSubscription15SoftPaywallView, __TtC16NewsSubscription16DatabaseAssembly,
+                          __TtC16NewsSubscription17PaywallInteractor, __TtC16NewsSubscription21PurchasingSpinnerView,
+                          __TtC16NewsSubscription23BundlePurchasePrewarmer, __TtC16NewsSubscription23DeferredHardPaywallView,
+                          __TtC16NewsSubscription31PurchasingSpinnerViewController,
+                          __TtC16NewsSubscription31UnselectableLinkEnabledTextView,
+                          __TtC16NewsSubscription33DeferredHardPaywallViewController, __TtC16NewsSubscription6Images ]
+    objc-ivars:         [ _BridgedWebAuthenticationSession._authenticationSession, _NPFamilyEligibilityProvider._accountManager,
+                          _NPFamilyEligibilityProvider._eligibilityRequester, _NPFamilyEligibilityProvider._store,
+                          _NPFamilySharingSetupPresenter._familyEligibilityProvider ]
+...

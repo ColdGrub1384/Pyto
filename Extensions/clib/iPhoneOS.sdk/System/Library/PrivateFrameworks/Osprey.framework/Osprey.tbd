@@ -1,0 +1,37 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Osprey.framework/Osprey
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:       [ _OspreyAbsintheAuthenticator, _OspreyChannel, _OspreyConnectionMetrics,
+                          _OspreyGRPCBidiStreamingCallContext, _OspreyGRPCCallContext, _OspreyGRPCChannel, _OspreyKeychain,
+                          _OspreyRequest, _OspreyServiceClient, _OspreyZlibDataCompressor, _OspreyZlibDataDecompressor ]
+    objc-ivars:         [ _OspreyAbsintheAuthenticator._certificateData, _OspreyAbsintheAuthenticator._channel,
+                          _OspreyAbsintheAuthenticator._keychainStorage, _OspreyAbsintheAuthenticator._nacContext,
+                          _OspreyAbsintheAuthenticator._queue, _OspreyAbsintheAuthenticator._server,
+                          _OspreyAbsintheAuthenticator._sessionExpireOn, _OspreyAbsintheAuthenticator._sessionInfo,
+                          _OspreyAbsintheAuthenticator._state, _OspreyAbsintheAuthenticator._uuid, _OspreyChannel._authenticator,
+                          _OspreyChannel._channel, _OspreyChannel._clientTraceId, _OspreyChannel._configuration,
+                          _OspreyChannel._connectionMetricsHandler, _OspreyChannel._forceHTTPv2, _OspreyChannel._queue,
+                          _OspreyChannel._signatureError, _OspreyChannel._url, _OspreyChannel._useAbsinthe,
+                          _OspreyChannel._validationGroup, _OspreyChannel._validationHeaderData,
+                          _OspreyChannel._waitingForSignature, _OspreyConnectionMetrics._metrics,
+                          _OspreyGRPCBidiStreamingCallContext._bufferedFrames, _OspreyGRPCBidiStreamingCallContext._streamTask,
+                          _OspreyGRPCCallContext._completionHandler, _OspreyGRPCCallContext._compressedFlag,
+                          _OspreyGRPCCallContext._currentChunk, _OspreyGRPCCallContext._hasLength,
+                          _OspreyGRPCCallContext._length, _OspreyGRPCCallContext._logSequenceNumber,
+                          _OspreyGRPCCallContext._messageHandler, _OspreyGRPCCallContext._queue, _OspreyGRPCChannel._baseURL,
+                          _OspreyGRPCChannel._connectionMetricsHandler, _OspreyGRPCChannel._forceHTTPv2,
+                          _OspreyGRPCChannel._queue, _OspreyGRPCChannel._receivedData, _OspreyGRPCChannel._session,
+                          _OspreyGRPCChannel._taskToContext, _OspreyGRPCChannel._useCompression, _OspreyKeychain._queue,
+                          _OspreyRequest._absintheSigningData, _OspreyRequest._clientTraceId, _OspreyRequest._data,
+                          _OspreyRequest._forceHTTPv2, _OspreyRequest._headers, _OspreyRequest._methodName,
+                          _OspreyRequest._useCompression, _OspreyRequest._userAgent, _OspreyServiceClient._Conf,
+                          _OspreyServiceClient._URL, _OspreyZlibDataCompressor._deflateBuffer,
+                          _OspreyZlibDataCompressor._deflateStream, _OspreyZlibDataDecompressor._inflateBuffer,
+                          _OspreyZlibDataDecompressor._inflateStream ]
+...

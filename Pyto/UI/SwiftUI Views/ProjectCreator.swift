@@ -155,6 +155,7 @@ struct ProjectCreator: View {
                     try FileManager.default.moveItem(at: projectURL, to: newURL)
                     creationHandler(newURL)
                     
+                    #if !PREVIEW
                     DispatchQueue.global().async {
                         Python.shared.run(code: """
                         import runpy
@@ -173,6 +174,7 @@ struct ProjectCreator: View {
                             pass
                         """)
                     }
+                    #endif
                 } catch {
                     self.error = error.localizedDescription
                 }                

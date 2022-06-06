@@ -1,0 +1,34 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/DocumentManagerExecutables.framework/DocumentManagerExecutables
+current-version:       160.9
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _DOCSpotlightEnumeratedItemIdentifierActivities, _DOCSpotlightEnumeratedItemIdentifierFavoriteFolders,
+                          _DOCSpotlightEnumeratedItemIdentifierRecentDocuments, _DOCSpotlightEnumeratedItemIdentifierSearch,
+                          _DOCSpotlightEnumeratedItemIdentifierSharedItems, _DOCSpotlightEnumeratedItemIdentifierTaggedItems,
+                          _DOCSpotlightEnumeratedItemIdentifierTrashedItems, _DocumentManagerExecutablesVersionNumber,
+                          _DocumentManagerExecutablesVersionString ]
+    objc-classes:       [ _DOCChainedTagsView, _DOCDateParser, _DOCItemActionResolver, _DOCItemDecorationImageLoader, _DOCLabel,
+                          __TtC26DocumentManagerExecutables12DOCOperation, __TtC26DocumentManagerExecutables13DOCTagManager,
+                          __TtC26DocumentManagerExecutables17DOCBlockOperation,
+                          __TtC26DocumentManagerExecutables17DOCChainOperation,
+                          __TtC26DocumentManagerExecutables18DOCOperationBuffer,
+                          __TtC26DocumentManagerExecutables19DOCPostLaunchBuffer,
+                          __TtC26DocumentManagerExecutables21DOCChainableOperation,
+                          __TtC26DocumentManagerExecutables21DOCInteractionManager,
+                          __TtC26DocumentManagerExecutables23DOCContainerFittingView,
+                          __TtC26DocumentManagerExecutables23DOCQuickLookInfoPreview,
+                          __TtC26DocumentManagerExecutables24DOCTypeToFocusController,
+                          __TtC26DocumentManagerExecutables25DOCUTIDescriptorCollector,
+                          __TtC26DocumentManagerExecutables28DOCImageContainerFittingView,
+                          __TtC26DocumentManagerExecutablesP33_A9279F4482FEAC8D0F3BCF83DF142AB324DOCTagCollectionObserver,
+                          __TtCV26DocumentManagerExecutables11LaunchUtilsP33_785CBA6FF492D1A84D3A93B2D10ABBAB15OpenAppDelegate ]
+    objc-ivars:         [ _DOCChainedTagsView._alignmentOffset, _DOCChainedTagsView._borderColor,
+                          _DOCChainedTagsView._knockOutBorderWidth, _DOCChainedTagsView._spacing, _DOCChainedTagsView._tagColors,
+                          _DOCChainedTagsView._tagDimension, _DOCItemActionResolver._handler,
+                          _DOCLabel._intrinsicContentSizeShortcutDisabled, _DOCLabel.useAttributedTextNumber ]
+...

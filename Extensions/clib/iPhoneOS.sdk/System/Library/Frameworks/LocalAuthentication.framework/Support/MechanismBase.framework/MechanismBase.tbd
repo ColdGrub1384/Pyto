@@ -1,0 +1,30 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/Frameworks/LocalAuthentication.framework/Support/MechanismBase.framework/MechanismBase
+current-version:       693.0.4
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:       [ _ACMContextRecord, _MechanismACM, _MechanismBase, _MechanismContext, _MechanismKofN,
+                          _MechanismKofNReorganizer, _RemoteUIManager ]
+    objc-ivars:         [ _ACMContextRecord._cachedExternalizationDelegate, _ACMContextRecord._context, _ACMContextRecord._flags,
+                          _ACMContextRecord._passphrasePurpose, _MechanismACM._acmContext, _MechanismACM._acmFlags,
+                          _MechanismBase._activationParams, _MechanismBase._assertions,
+                          _MechanismBase._cachedExternalizationDelegate, _MechanismBase._companion,
+                          _MechanismBase._eventIdentifier, _MechanismBase._eventProcessing, _MechanismBase._eventsDelegate,
+                          _MechanismBase._hints, _MechanismBase._internalOptions, _MechanismBase._lastRestartAttempt,
+                          _MechanismBase._mechanismContext, _MechanismBase._parent, _MechanismBase._policy,
+                          _MechanismBase._policyOptions, _MechanismBase._precedesUI, _MechanismBase._remoteViewController,
+                          _MechanismBase._replyToRun, _MechanismBase._request, _MechanismBase._restartable,
+                          _MechanismBase._showUIBlock, _MechanismBase._silentFailure, _MechanismContext._backoffCounter,
+                          _MechanismContext._serverQueue, _MechanismKofN._AND, _MechanismKofN._OR, _MechanismKofN._finishing,
+                          _MechanismKofN._k, _MechanismKofN._n, _MechanismKofN._runningMechanisms, _MechanismKofN._serial,
+                          _MechanismKofN._submechanisms, _MechanismKofNReorganizer._apply, _MechanismKofNReorganizer._k,
+                          _MechanismKofNReorganizer._max, _MechanismKofNReorganizer._min, _RemoteUIManager._dismissUiCounter,
+                          _RemoteUIManager._dismissingUi, _RemoteUIManager._pendingShowUiReply,
+                          _RemoteUIManager._pendingUiActivationBlock, _RemoteUIManager._pendingUiMechanism,
+                          _RemoteUIManager._showUiCounter, _RemoteUIManager._uiDismissedBeforeConnection,
+                          _RemoteUIManager._uiMechanism ]
+...

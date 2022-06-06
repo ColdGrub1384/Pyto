@@ -1,0 +1,25 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PreferenceBundles/ContactsSettings.bundle/ContactsSettings
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ABAccountIdentifierLocal, _CNUICopyAccountInformation ]
+    objc-classes:       [ _ABImporter, _ContactsSettingsPlugin, _ContactsShortNameController ]
+    objc-ivars:         [ _ContactsSettingsPlugin._ContactsInMailSpecifier, _ContactsSettingsPlugin._ContactsSortOrderSpecifier,
+                          _ContactsSettingsPlugin._MeCardSpecifier, _ContactsSettingsPlugin._PersonNameOrderSpecifier,
+                          _ContactsSettingsPlugin._SIMImportSpacerSpecifier, _ContactsSettingsPlugin._SIMImportSpecifier,
+                          _ContactsSettingsPlugin._addressBook, _ContactsSettingsPlugin._addressBookQueue,
+                          _ContactsSettingsPlugin._contactStoreNames, _ContactsSettingsPlugin._contactStores,
+                          _ContactsSettingsPlugin._contactStoresCount, _ContactsSettingsPlugin._ctServerConnection,
+                          _ContactsSettingsPlugin._currentSpecifiers, _ContactsSettingsPlugin._importButtonIndexToStoreID,
+                          _ContactsSettingsPlugin._importStoreID, _ContactsSettingsPlugin._loadingContacts,
+                          _ContactsSettingsPlugin._meCardLastCheckedSequenceNumber, _ContactsSettingsPlugin._meCardPicker,
+                          _ContactsSettingsPlugin._meCardPopover, _ContactsSettingsPlugin._shouldShowSIMImport,
+                          _ContactsShortNameController._shortNameEnabledSpecifier,
+                          _ContactsShortNameController._shortNameFormatsGroup,
+                          _ContactsShortNameController._shortNameFormatsSpecifiers ]
+...

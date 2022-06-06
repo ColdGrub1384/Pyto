@@ -1,0 +1,64 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 2CE3FDA2-67A0-3264-941A-619EC2039CF3', 'armv7s: 7E092984-DABF-3722-80B7-EB4B0E908A00', 
+                   'arm64: 65461870-1156-3044-B392-A21010C420EF', 'arm64e: 16603464-00B0-3569-A1AA-41D73FEB5307' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/CoreMIDI.framework/CoreMIDI'
+current-version: 69
+exports:         
+  - archs:           [ armv7, armv7s ]
+    symbols:         [ _MIDISetNotificationRunLoop ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _MIDIClientCreate, _MIDIClientCreateWithBlock, _MIDIClientDispose, 
+                       _MIDIConfigCheckVirginState, _MIDIConfigDelete, _MIDIConfigDuplicate, 
+                       _MIDIConfigExists, _MIDIConfigGetCurrent, _MIDIConfigGetList, 
+                       _MIDIConfigInstall, _MIDIConfigNew, _MIDIConfigRename, _MIDIDestinationCreate, 
+                       _MIDIDestinationCreateWithBlock, _MIDIDeviceAddEntity, _MIDIDeviceCreate, 
+                       _MIDIDeviceDispose, _MIDIDeviceGetEntity, _MIDIDeviceGetNumberOfEntities, 
+                       _MIDIDeviceListAddDevice, _MIDIDeviceListDispose, _MIDIDeviceListGetDevice, 
+                       _MIDIDeviceListGetNumberOfDevices, _MIDIDeviceRemoveEntity, 
+                       _MIDIEndpointDispose, _MIDIEndpointGetEntity, _MIDIEndpointGetRefCons, 
+                       _MIDIEndpointSetRefCons, _MIDIEntityAddOrRemoveEndpoints, 
+                       _MIDIEntityGetDestination, _MIDIEntityGetDevice, _MIDIEntityGetNumberOfDestinations, 
+                       _MIDIEntityGetNumberOfSources, _MIDIEntityGetSource, _MIDIExternalDeviceCreate, 
+                       _MIDIFlushOutput, _MIDIGetDestination, _MIDIGetDevice, _MIDIGetDriverDeviceList, 
+                       _MIDIGetDriverIORunLoop, _MIDIGetExternalDevice, _MIDIGetNumberOfDestinations, 
+                       _MIDIGetNumberOfDevices, _MIDIGetNumberOfExternalDevices, 
+                       _MIDIGetNumberOfSources, _MIDIGetSource, _MIDIInputPortCreate, 
+                       _MIDIInputPortCreateWithBlock, _MIDINetworkBonjourServiceType, 
+                       _MIDINetworkNotificationContactsDidChange, _MIDINetworkNotificationSessionDidChange, 
+                       _MIDIObjectFindByUniqueID, _MIDIObjectGetDataProperty, _MIDIObjectGetDictionaryProperty, 
+                       _MIDIObjectGetIntegerProperty, _MIDIObjectGetProperties, _MIDIObjectGetStringProperty, 
+                       _MIDIObjectRemoveProperty, _MIDIObjectSetDataProperty, _MIDIObjectSetDictionaryProperty, 
+                       _MIDIObjectSetIntegerProperty, _MIDIObjectSetStringProperty, 
+                       _MIDIOutputPortCreate, _MIDIPacketListAdd, _MIDIPacketListInit, 
+                       _MIDIPortConnectSource, _MIDIPortDisconnectSource, _MIDIPortDispose, 
+                       _MIDIReceived, _MIDIRestart, _MIDISend, _MIDISendSysex, _MIDIServerRun, 
+                       _MIDISetupAddDevice, _MIDISetupAddExternalDevice, _MIDISetupRemoveDevice, 
+                       _MIDISetupRemoveExternalDevice, _MIDISourceCreate, _MIDIThruConnectionCreate, 
+                       _MIDIThruConnectionDispose, _MIDIThruConnectionFind, _MIDIThruConnectionGetParams, 
+                       _MIDIThruConnectionParamsInitialize, _MIDIThruConnectionSetParams, 
+                       _MIDITimerTaskCreate, _MIDITimerTaskDispose, _MIDITimerTaskSetNextWakeTime, 
+                       _kMIDIPropertyAdvanceScheduleTimeMuSec, _kMIDIPropertyCanRoute, 
+                       _kMIDIPropertyConnectionUniqueID, _kMIDIPropertyDeviceID, 
+                       _kMIDIPropertyDisplayName, _kMIDIPropertyDriverDeviceEditorApp, 
+                       _kMIDIPropertyDriverOwner, _kMIDIPropertyDriverVersion, _kMIDIPropertyImage, 
+                       _kMIDIPropertyIsBroadcast, _kMIDIPropertyIsDrumMachine, _kMIDIPropertyIsEffectUnit, 
+                       _kMIDIPropertyIsEmbeddedEntity, _kMIDIPropertyIsMixer, _kMIDIPropertyIsSampler, 
+                       _kMIDIPropertyManufacturer, _kMIDIPropertyMaxReceiveChannels, 
+                       _kMIDIPropertyMaxSysExSpeed, _kMIDIPropertyMaxTransmitChannels, 
+                       _kMIDIPropertyModel, _kMIDIPropertyName, _kMIDIPropertyNameConfiguration, 
+                       _kMIDIPropertyNameConfigurationDictionary, _kMIDIPropertyOffline, 
+                       _kMIDIPropertyPanDisruptsStereo, _kMIDIPropertyPrivate, _kMIDIPropertyReceiveChannels, 
+                       _kMIDIPropertyReceivesBankSelectLSB, _kMIDIPropertyReceivesBankSelectMSB, 
+                       _kMIDIPropertyReceivesClock, _kMIDIPropertyReceivesMTC, _kMIDIPropertyReceivesNotes, 
+                       _kMIDIPropertyReceivesProgramChanges, _kMIDIPropertySingleRealtimeEntity, 
+                       _kMIDIPropertySupportsGeneralMIDI, _kMIDIPropertySupportsMMC, 
+                       _kMIDIPropertySupportsShowControl, _kMIDIPropertyTransmitChannels, 
+                       _kMIDIPropertyTransmitsBankSelectLSB, _kMIDIPropertyTransmitsBankSelectMSB, 
+                       _kMIDIPropertyTransmitsClock, _kMIDIPropertyTransmitsMTC, 
+                       _kMIDIPropertyTransmitsNotes, _kMIDIPropertyTransmitsProgramChanges, 
+                       _kMIDIPropertyUniqueID ]
+    objc-classes:    [ BLEMIDIAccessor, MIDICIProfile, MIDICIProfileState, MIDICISession, 
+                       MIDINetworkConnection, MIDINetworkHost, MIDINetworkSession ]
+...

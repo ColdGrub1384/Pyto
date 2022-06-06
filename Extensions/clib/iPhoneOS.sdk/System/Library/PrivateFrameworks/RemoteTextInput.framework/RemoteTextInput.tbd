@@ -1,0 +1,52 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/RemoteTextInput.framework/RemoteTextInput
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _RTICanLogMessageAtLevel, _RTILogFacility, _RTIServiceAnonymousName, _RTIServiceIOSMacName,
+                          _RTIServiceMediaRemoteName, _RTIServiceRapportName, _RTIServiceSharingName,
+                          _RTIServiceSharingSafariName, _RTIServiceTVControlServicesName, _RemoteTextInputVersionNumber,
+                          _RemoteTextInputVersionString, __RTI_NSStringFromCGRect ]
+    objc-classes:       [ _RTIDataPayload, _RTIDocumentState, _RTIDocumentTraits, _RTIInputSystemClient,
+                          _RTIInputSystemClientSession, _RTIInputSystemDataPayload, _RTIInputSystemService,
+                          _RTIInputSystemServiceSession, _RTIInputSystemSession, _RTIInputSystemSourceSession,
+                          _RTIStyledIntermediateText, _RTITextOperations, _RTIUtilities ]
+    objc-ivars:         [ _RTIDataPayload._data, _RTIDataPayload._version, _RTIDocumentState.__selectionRects,
+                          _RTIDocumentState._caretRectInWindow, _RTIDocumentState._documentState,
+                          _RTIDocumentState._firstSelectionRectInWindow, _RTIDocumentState._textCheckingAnnotatedString,
+                          _RTIDocumentTraits._PINEntrySeparatorIndexes, _RTIDocumentTraits._appId, _RTIDocumentTraits._appName,
+                          _RTIDocumentTraits._associatedDomains, _RTIDocumentTraits._autofillContext,
+                          _RTIDocumentTraits._autofillMode, _RTIDocumentTraits._bundleId, _RTIDocumentTraits._localizedAppName,
+                          _RTIDocumentTraits._prompt, _RTIDocumentTraits._textInputTraits, _RTIDocumentTraits._title,
+                          _RTIDocumentTraits._validTextRange, _RTIInputSystemClient._activeSessions,
+                          _RTIInputSystemClient._allowanceRequestors, _RTIInputSystemClient._begunSessionIDs,
+                          _RTIInputSystemClient._connections, _RTIInputSystemClient._currentEnvironmentOptions,
+                          _RTIInputSystemClient._delegate, _RTIInputSystemClient._endpointConnections,
+                          _RTIInputSystemClient._environmentOptions, _RTIInputSystemClient._isInDealloc,
+                          _RTIInputSystemClient._machNames, _RTIInputSystemClientSession._documentState,
+                          _RTIInputSystemClientSession._documentTraits, _RTIInputSystemDataPayload._disableUpdate,
+                          _RTIInputSystemDataPayload._documentState, _RTIInputSystemDataPayload._documentTraits,
+                          _RTIInputSystemDataPayload._sessionUUID, _RTIInputSystemDataPayload._textOperations,
+                          _RTIInputSystemService._currentSession, _RTIInputSystemService._delegate,
+                          _RTIInputSystemService._dispatchQueue, _RTIInputSystemService._enabled,
+                          _RTIInputSystemService._listener, _RTIInputSystemService._machName, _RTIInputSystemService._sessions,
+                          _RTIInputSystemServiceSession._connection, _RTIInputSystemServiceSession._internalQueue,
+                          _RTIInputSystemServiceSession._isPaused, _RTIInputSystemSession._documentState,
+                          _RTIInputSystemSession._documentTraits, _RTIInputSystemSession._extraSessionDelegates,
+                          _RTIInputSystemSession._sessionDelegate, _RTIInputSystemSession._textOperations,
+                          _RTIInputSystemSession._uuid, _RTIInputSystemSourceSession._forwardingPayloadDelegate,
+                          _RTIInputSystemSourceSession._payloadDelegate, _RTIStyledIntermediateText._cursorVisibility,
+                          _RTIStyledIntermediateText._displayString, _RTIStyledIntermediateText._inputString,
+                          _RTIStyledIntermediateText._searchString, _RTIStyledIntermediateText._selectionOffset,
+                          _RTITextOperations._attributedPlaceholders, _RTITextOperations._editingActionSelector,
+                          _RTITextOperations._intermediateText, _RTITextOperations._keyboardOutput,
+                          _RTITextOperations._selectionRangeToAssert, _RTITextOperations._styledIntermediateText,
+                          _RTITextOperations._textCheckingAnnotatedString, _RTITextOperations._textCheckingAnnotationRange,
+                          _RTITextOperations._textCheckingAnnotationRemovalRange,
+                          _RTITextOperations._textCheckingAnnotationToRemove, _RTITextOperations._textCheckingReplacementRange,
+                          _RTITextOperations._textToAssert ]
+...

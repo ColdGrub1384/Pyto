@@ -1,0 +1,25 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MobileStorage.framework/MobileStorage
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MobileStorageCopyAndFixPlist, _MobileStorageCopyDevices, _MobileStorageCopyDevicesWithError,
+                          _MobileStorageMount, _MobileStorageMountWithError, _MobileStorageSync, _MobileStorageSyncWithError,
+                          _MobileStorageUnmount, _MobileStorageUnmountWithError, _kDiskImageMountPathKey,
+                          _kDiskImageMountedNotification, _kMSMDeviceTypeDiskImage, _kMSMDeviceTypeKey,
+                          _kMSMDeviceTypeMassStorage, _kMSMDiskImageTypeDeveloper, _kMSMDiskImageTypeKey,
+                          _kMSMDiskImageTypePersonalized, _kMSMSignatureKey, _kMassStorageMountedNotification,
+                          _kMassStorageUnmountedNotification, _kMobileStorageDeviceNodeKey, _kMobileStorageDeviceTypeDiskImage,
+                          _kMobileStorageDeviceTypeKey, _kMobileStorageDeviceTypeMassStorage, _kMobileStorageDeviceTypePTPCamera,
+                          _kMobileStorageDigestKey, _kMobileStorageDiskImagePathKey, _kMobileStorageDiskImageTypeDebug,
+                          _kMobileStorageDiskImageTypeDeveloper, _kMobileStorageDiskImageTypeFactory,
+                          _kMobileStorageDiskImageTypeKey, _kMobileStorageFailedMountKey, _kMobileStorageFailedVerificationKey,
+                          _kMobileStorageFilesystemTypeKey, _kMobileStorageIsMountedKey, _kMobileStorageIsReadOnlyKey,
+                          _kMobileStorageLocationIDKey, _kMobileStorageMountPathKey, _kMobileStorageSignatureKey,
+                          _kMobileStorageSupportsContentProtection, _kPTPCameraAttachedNotification, _kStorageMounterName ]
+    objc-classes:       [ _PlistProcessor ]
+...

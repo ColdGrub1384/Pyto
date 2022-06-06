@@ -1,0 +1,20 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          '/System/Library/CoreAccessories/PlugIns/Features/MediaLibrary-iOS.feature/MediaLibrary-iOS'
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ACCGetOSVersion, _ACCMediaLibraryFeatureRequestedInfoDesc, _ACCMediaLibraryShimGetCurTimeMs,
+                          _ACCMediaLibraryShimUIDString, _ACCRadioLibraryUIDString, _IsAppVisibleInCurrentMode, _IsExistAppMusic,
+                          _IsExistAppPodcasts, _IsExistAppiBooks, _WeakLinkClass, _WeakLinkStringConstant, _WeakLinkSymbol,
+                          _ascii_to_hex, _getMemoryUse, _init_logging, _kIBooksAppBundleID,
+                          _kMediaLibraryMusicAppInstalledNotification, _kMediaLibraryMusicAppUninstalledNotification,
+                          _kMediaLibraryNeedFilterChange, _kMobileiPodAppBundleID, _kMusicAppBundleID, _kPodcastsAppBundleID,
+                          _kVideoAppBundleID, _kiTunesUAppBundleID, _obfuscatedPointer, _printBytes, _removeNewline ]
+    objc-classes:       [ _ACCMediaLibraryFeaturePlugin, _ACCMediaLibraryShim, _ACCMediaLibraryShimInfo, _ACCMemUsageStat,
+                          _ACCMemUsageStatInfo, _ACCSettingsState, _ACCStatInfoAccumulator, _MediaLibraryHelper,
+                          _WorkspaceObserver ]
+...

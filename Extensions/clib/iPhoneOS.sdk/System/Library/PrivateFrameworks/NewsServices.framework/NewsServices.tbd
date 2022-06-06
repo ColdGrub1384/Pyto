@@ -1,0 +1,25 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NewsServices.framework/NewsServices
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NNHHeadlineLaunchURLComplicationPathPrefix, _NNHHeadlineLaunchURLHost, _NNHHeadlineLaunchURLScheme,
+                          _NNHHeadlineLaunchURLUpNextPathPrefix, _NNHLaunchedFromComplicationURLString,
+                          _NNHLaunchedFromNoStoriesPathString, _NNHLaunchedFromUpNextURLString, _NNHNewsTintColorAlpha,
+                          _NNHNewsTintColorBlue, _NNHNewsTintColorGreen, _NNHNewsTintColorRed, _NewsServicesVersionNumber,
+                          _NewsServicesVersionString ]
+    objc-classes:       [ _NNCComplicationDataSource, _NNCLastNewsStoryResult, _NSSArticle, _NSSArticleViewController,
+                          _NSSComplicationDataSource, _NSSNewsArticlePrefetcher, _NSSNewsRemoteViewController,
+                          _NSSNewsViewController ]
+    objc-ivars:         [ _NNCLastNewsStoryResult._excerpt, _NNCLastNewsStoryResult._family,
+                          _NNCLastNewsStoryResult._headlineIdentifier, _NNCLastNewsStoryResult._headlineIndex,
+                          _NNCLastNewsStoryResult._headlineTitle, _NNCLastNewsStoryResult._sectionIdentifier,
+                          _NNCLastNewsStoryResult._sectionName, _NNCLastNewsStoryResult._sourceIdentifier,
+                          _NNCLastNewsStoryResult._sourceName, _NNCLastNewsStoryResult._totalHeadlineCount,
+                          _NSSNewsViewController._articleIDs, _NSSNewsViewController._linkPreviewing,
+                          _NSSNewsViewController._remoteViewContainerViewController ]
+...

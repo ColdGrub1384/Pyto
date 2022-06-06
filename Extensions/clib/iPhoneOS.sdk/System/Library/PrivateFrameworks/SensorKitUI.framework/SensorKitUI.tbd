@@ -1,0 +1,54 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SensorKitUI.framework/SensorKitUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SRAuthorizationAllServices, _SRAuthorizationGroupForService,
+                          _SRAuthorizationGroupToServiceIdentifierMap, _SRErrorDomain, _SRLocalizationIdentifier,
+                          _SRLocalizedDescriptionForAuthorizationGroup, _SRLocalizedDescriptionForSensor,
+                          _SRLocalizedNameForAuthorizationGroup, _SRLocalizedNameForSensor,
+                          _SRRealCategoryToInfoPlistAuthCategory, _SensorKitUIVersionNumber, _SensorKitUIVersionString,
+                          _kTCCOverrideDummyBundleId ]
+    objc-classes:       [ _SRAppInfoPlistHelper, _SRAppUsageCell, _SRAuthorizationCategoryDetailCell,
+                          _SRAuthorizationCategoryGroupViewController, _SRAuthorizationCell, _SRAuthorizationCommonUI,
+                          _SRAuthorizationPromptPresentationController, _SRAuthorizationStore, _SRError,
+                          _SRRemoteAuthorizationPromptViewController, _SRSampleViewController ]
+    objc-ivars:         [ _SRAppInfoPlistHelper._appName, _SRAppInfoPlistHelper._perCategoryDetailDescription,
+                          _SRAppInfoPlistHelper._privacyLink, _SRAppInfoPlistHelper._requiredServices,
+                          _SRAppInfoPlistHelper._usageDescription, _SRAppUsageCell._button, _SRAppUsageCell._label,
+                          _SRAuthorizationCategoryDetailCell._OBKStyle, _SRAuthorizationCategoryDetailCell._appUsageBodyLabel,
+                          _SRAuthorizationCategoryDetailCell._appUsageStack,
+                          _SRAuthorizationCategoryDetailCell._appUsageTitleLabel, _SRAuthorizationCategoryDetailCell._bodyFont,
+                          _SRAuthorizationCategoryDetailCell._categoryStack,
+                          _SRAuthorizationCategoryDetailCell._categorySubTitleLabel,
+                          _SRAuthorizationCategoryDetailCell._categoryTitleLabel,
+                          _SRAuthorizationCategoryDetailCell._collectedLabels,
+                          _SRAuthorizationCategoryDetailCell._collectedTitleLabel, _SRAuthorizationCategoryDetailCell._fontColor,
+                          _SRAuthorizationCategoryDetailCell._notCollectedLabels,
+                          _SRAuthorizationCategoryDetailCell._notCollectedTitleLabel,
+                          _SRAuthorizationCategoryDetailCell._numberOfCollectedLabels,
+                          _SRAuthorizationCategoryDetailCell._numberOfNotCollectedLabels,
+                          _SRAuthorizationCategoryDetailCell._showAppUsage, _SRAuthorizationCategoryDetailCell._stacks,
+                          _SRAuthorizationCategoryDetailCell._titleFont, _SRAuthorizationCategoryGroupViewController._allKeys,
+                          _SRAuthorizationCategoryGroupViewController._appBundle,
+                          _SRAuthorizationCategoryGroupViewController._authState,
+                          _SRAuthorizationCategoryGroupViewController._commonUIs,
+                          _SRAuthorizationCategoryGroupViewController._delegate, _SRAuthorizationCell._delegate,
+                          _SRAuthorizationCell._indexPath, _SRAuthorizationCell._toggle, _SRAuthorizationCommonUI._authCategory,
+                          _SRAuthorizationCommonUI._info, _SRAuthorizationCommonUI._plistHelper,
+                          _SRAuthorizationCommonUI._tableView, _SRAuthorizationPromptPresentationController._completionHandler,
+                          _SRAuthorizationPromptPresentationController._error,
+                          _SRAuthorizationPromptPresentationController._hostNavigationBarHidden,
+                          _SRAuthorizationPromptPresentationController._presenting,
+                          _SRAuthorizationPromptPresentationController._viewController,
+                          _SRAuthorizationStore._authorizationValues, _SRAuthorizationStore._delegates,
+                          _SRAuthorizationStore._lastModifiedAuthorizationTimes, _SRAuthorizationStore._notifyToken,
+                          _SRAuthorizationStore._updateQueue, _SRRemoteAuthorizationPromptViewController._delegate,
+                          _SRRemoteAuthorizationPromptViewController._request,
+                          _SRRemoteAuthorizationPromptViewController._weakExtension, _SRSampleViewController._items,
+                          _SRSampleViewController._note ]
+...

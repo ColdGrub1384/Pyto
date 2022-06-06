@@ -1,0 +1,41 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MusicStoreUI.framework/MusicStoreUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MSGetTrackListBorderColor, _MSGetTrackListEvenRowColor, _MSGetTrackListOddRowColor,
+                          _kMSCurrentOnboardingVersion, _kMSFallbackPrivacyAcknowledgementUrl, _kMSOnboardingDomainKey,
+                          _kMSOnboardingVersionKey, _kMSPrivacyAcknowledgementUrlBagKey ]
+    objc-classes:       [ _MSAudioProgressView, _MSOnboardingUtil, _MSPieImageView, _MSPurchaseBatch, _MSPurchasesViewController,
+                          _MSStructuredPageTableDataSource, _MSStructuredPageViewController, _MSTableCell,
+                          _MSTonePurchaseContinuation, _MSTrackListCellConfiguration, _MSTrackListCellContext,
+                          _MSTrackListCopyrightFooterView, _MSTrackListDataSource, _MSTrackListHeaderView,
+                          _MSTrackListLinkCellConfiguration, _MSTrackListLoadMoreCellConfiguration, _MSTrackListTableHeaderView,
+                          _MSTrackListViewController, _MSViewControllerFactory, _MSVolumeViewController ]
+    objc-ivars:         [ _MSAudioProgressView._bufferingImageView, _MSAudioProgressView._bufferingTimer,
+                          _MSAudioProgressView._highlighted, _MSAudioProgressView._playerStatus,
+                          _MSAudioProgressView._progressView, _MSAudioProgressView._stopImageView,
+                          _MSPieImageView._backgroundImage, _MSPieImageView._clipPath, _MSPieImageView._foregroundImage,
+                          _MSPieImageView._pieFraction, _MSPieImageView._pieRadius,
+                          _MSPurchasesViewController._activeViewControllerIndex, _MSPurchasesViewController._containerView,
+                          _MSPurchasesViewController._segmentedControl, _MSPurchasesViewController._viewControllers,
+                          _MSStructuredPageViewController._inlineSegmentedControl,
+                          _MSStructuredPageViewController._previewIndexPath, _MSStructuredPageViewController._previewPlayer,
+                          _MSStructuredPageViewController._previewStatus, _MSTableCell._backsideSnapshotView,
+                          _MSTableCell._previewContainerView, _MSTableCell._previewProgressView, _MSTableCell._previewStatus,
+                          _MSTonePurchaseContinuation._actionSheet, _MSTonePurchaseContinuation._alertView,
+                          _MSTonePurchaseContinuation._contactPicker, _MSTrackListCellConfiguration._position,
+                          _MSTrackListCellContext._shouldHideContentRating, _MSTrackListCellContext._showSubtitle,
+                          _MSTrackListCopyrightFooterView._text, _MSTrackListCopyrightFooterView._textSize,
+                          _MSTrackListHeaderView._albumLabel, _MSTrackListHeaderView._artistLabel,
+                          _MSTrackListHeaderView._artworkImage, _MSTrackListHeaderView._artworkView,
+                          _MSTrackListHeaderView._delegate, _MSTrackListHeaderView._disclaimerLabel,
+                          _MSTrackListHeaderView._item, _MSTrackListHeaderView._itemCountLabel,
+                          _MSTrackListHeaderView._offerButton, _MSTrackListHeaderView._releaseDateLabel,
+                          _MSTrackListHeaderView._touchCaptureView, _MSTrackListTableHeaderView._title,
+                          _MSTrackListTableHeaderView._titleSize, _MSTrackListViewController._headerView ]
+...

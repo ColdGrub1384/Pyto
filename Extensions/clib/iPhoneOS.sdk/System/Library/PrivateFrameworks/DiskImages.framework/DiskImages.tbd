@@ -1,0 +1,32 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/DiskImages.framework/DiskImages
+current-version:       559
+compatibility-version: 1.0.8
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _DIAddPermission, _DIBackingStoreCloseDataFork, _DIBackingStoreCloseResourceFile,
+                          _DIBackingStoreGetDataForkLength, _DIBackingStoreGetRsrcForkLength, _DIBackingStoreGetURL,
+                          _DIBackingStoreGetURLArray, _DIBackingStoreNewWithCFURL, _DIBackingStoreOpenDataFork,
+                          _DIBackingStoreOpenResourceFile, _DIBackingStoreReadDataFork, _DIChecksumDelete,
+                          _DIChecksumGetShortName, _DIChecksumGetValue, _DIChecksumGetValueString, _DICopyStrError,
+                          _DIDeinitialize, _DIDiskImageCallProgressMessageProc, _DIDiskImageCopyChecksumReportString,
+                          _DIDiskImageCopyImageChecksum, _DIDiskImageCopyImageInformation, _DIDiskImageDelete,
+                          _DIDiskImageGetBackingStore, _DIDiskImageGetImageFormat, _DIDiskImageGetSectorCount,
+                          _DIDiskImageHasChecksum, _DIDiskImageIsKernelCompatible, _DIDiskImageIsWriteEnabled,
+                          _DIDiskImageObjectGetProperty, _DIDiskImageObjectGetRefCon, _DIDiskImageObjectRelease,
+                          _DIDiskImageObjectRetain, _DIDiskImageObjectSetDIProgressCallBackProcPtr, _DIDiskImageObjectSetRefCon,
+                          _DIDiskImageReadSectors, _DIDiskImageValidateChecksum, _DIDiskImageValidateChecksumWithFlags,
+                          _DIDiskImageWriteSectors, _DIGetBundleRef, _DIGetDriverVersion, _DIGetFrameworkVersion,
+                          _DIGetPluginPropertyDicts, _DIHLDiskImageAttach, _DIHLDiskImageProbeURL, _DIInitialize,
+                          _DIIsPotentiallyValidDiskImage, _DILoadDriver, _DIMediaKitCreateMKMediaRef, _DIResolvePathsToDiskImage,
+                          _DIResolvePathsToDiskImageWithOptions, _DIResolveURLToBackingStore, _DIResolveURLToDiskImage,
+                          _DIResourceFileAddResource, _DIResourceFileChangedResource, _DIResourceFileGetResource,
+                          _DIResourceFileReleaseResource, _DIResourceFileUpdateResFile,
+                          _DIShadowedDiskImageCopyDefaultShadowFileURL, _DIStrError, _DIUDIFDiskImageGetBLKXStartingAt,
+                          _DIUDIFFileAccessCloseFile, _DIUDIFFileAccessDelete, _DIUDIFFileAccessGetResourceFile,
+                          _DIUDIFFileAccessNewWithCFURL, _DIUDIFFileAccessOpenFile, _DIUDIFFileAccessWriteResourceFile,
+                          _DI_kextExists ]
+...

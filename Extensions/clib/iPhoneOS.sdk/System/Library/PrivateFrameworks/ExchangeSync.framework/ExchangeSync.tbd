@@ -1,0 +1,28 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/ExchangeSync.framework/ExchangeSync
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _kDAClientNameForChangeInsertion, _kGenericDAAccountType, _kGenericDAAccountWithLoggingType,
+                          _kSubCalCalendarStoreExternalId ]
+    objc-classes:       [ _ESAccount, _ESAccountActor, _ESAccountClassNames, _ESAccountLoader, _ESLocalDBHelper,
+                          _ESLocalDBWatcher, _ESUserNotificationInfo, _ESUserNotificationUtilities ]
+    objc-ivars:         [ _ESAccountClassNames._accountClassName, _ESAccountClassNames._agentClassName,
+                          _ESAccountClassNames._clientAccountClassName, _ESAccountClassNames._daemonAccountClassName,
+                          _ESAccountLoader._acAccountTypeToAccountDaemonBundleSubpath,
+                          _ESAccountLoader._acAccountTypeToAccountFrameworkSubpath, _ESAccountLoader._acAccountTypeToClassNames,
+                          _ESAccountLoader._acParentAccountTypeToChildAccountTypes, _ESLocalDBHelper._abConnectionCount,
+                          _ESLocalDBHelper._abDB, _ESLocalDBHelper._abDBQueue, _ESLocalDBHelper._calConnectionCount,
+                          _ESLocalDBHelper._calDB, _ESLocalDBHelper._calDBQueue, _ESLocalDBHelper._calUnitTestCallbackBlock,
+                          _ESLocalDBHelper._clientIdentifier, _ESLocalDBHelper._contactStore,
+                          _ESLocalDBHelper._noteConnectionCount, _ESLocalDBHelper._noteDB, _ESLocalDBHelper._noteDBQueue,
+                          _ESLocalDBHelper._saveRequests, _ESLocalDBWatcher._abWatcher, _ESLocalDBWatcher._calWatcher,
+                          _ESLocalDBWatcher._concernedABPartyToBlockMap, _ESLocalDBWatcher._concernedCalPartyToBlockMap,
+                          _ESLocalDBWatcher._concernedNotePartyToBlockMap, _ESLocalDBWatcher._lastSavedABSequenceNumber,
+                          _ESLocalDBWatcher._lastSavedCalSequenceNumber, _ESLocalDBWatcher._noteWatcher,
+                          _ESUserNotificationInfo._groupIdentifier, _ESUserNotificationInfo._handler ]
+...

@@ -1,0 +1,31 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/Accounts/Notification/SiriCloudKitAccountsNotifier.bundle/SiriCloudKitAccountsNotifier
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _AFAnalyticsLogsDirectory, _AFClearInternalLogFiles, _AFDispatchAsyncLogged, _AFDispatchSyncLogged,
+                          _AFLogContextNetworkingFunctional, _AFLogContextNetworkingPerformance, _AFLogDirectory, _AFLogFlush,
+                          _AFLogInitIfNeeded, _AFLogParsedCommandObject, _AFLogWantsToLogParsedCommandObjects,
+                          _AFNetworkingLogContextFunctional, _AFNetworkingLogContextPerformance, _AFSiriLogContextAnalysis,
+                          _AFSiriLogContextAnalytics, _AFSiriLogContextClientFlow, _AFSiriLogContextConnection,
+                          _AFSiriLogContextDaemon, _AFSiriLogContextDaemonAce, _AFSiriLogContextDatabase,
+                          _AFSiriLogContextDeviceSync, _AFSiriLogContextDispatch, _AFSiriLogContextFides, _AFSiriLogContextIDS,
+                          _AFSiriLogContextLocation, _AFSiriLogContextMediaSupport, _AFSiriLogContextMockServer,
+                          _AFSiriLogContextMusicIndexer, _AFSiriLogContextPerformance, _AFSiriLogContextPlugin,
+                          _AFSiriLogContextProxy, _AFSiriLogContextService, _AFSiriLogContextSession, _AFSiriLogContextSpeech,
+                          _AFSiriLogContextSync, _AFSiriLogContextTinyCDB, _AFSiriLogContextUtility, _AFSpeechLogsDirectory,
+                          _AFTruncateMachTimeToTenthOfASecond, __AFServiceLog, _kAFCommandLoggingEnabledKey,
+                          _kAFLogContextAnalysis, _kAFLogContextAnalytics, _kAFLogContextClientFlow, _kAFLogContextConnection,
+                          _kAFLogContextDaemon, _kAFLogContextDaemonAce, _kAFLogContextDatabase, _kAFLogContextDeviceSync,
+                          _kAFLogContextDispatch, _kAFLogContextFides, _kAFLogContextIDS, _kAFLogContextLocation,
+                          _kAFLogContextMediaSupport, _kAFLogContextMockServer, _kAFLogContextMusicIndexer,
+                          _kAFLogContextPerformance, _kAFLogContextPlugin, _kAFLogContextProxy, _kAFLogContextService,
+                          _kAFLogContextSession, _kAFLogContextSpeech, _kAFLogContextSync, _kAFLogContextTinyCDB,
+                          _kAFLogContextUtility, _kAFLogFacilityAssistant, _kAFLogLevelKey, _kAFLogPreferencesDomain,
+                          _kAFOutputLevelKey ]
+    objc-classes:       [ _SiriCloudKitAccountsNotifier ]
+...

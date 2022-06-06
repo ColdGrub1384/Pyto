@@ -1,0 +1,49 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/TelephonyXPCServer.framework/TelephonyXPCServer
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ __ZN12TelephonyXPC13kKeyErrorCodeE, __ZN12TelephonyXPC15kClientHostNameE,
+                          __ZN12TelephonyXPC15kKeyErrorStringE, __ZN12TelephonyXPC15kKeyServerStateE,
+                          __ZN12TelephonyXPC15kServerHostNameE, __ZN12TelephonyXPC15kServiceXPCNameE,
+                          __ZN12TelephonyXPC17ServerClientState12setCheckedInERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE,
+                          __ZN12TelephonyXPC17ServerClientState25registerNotification_syncEbN3ctu2cf11CFSharedRefIK9__CFArrayEE,
+                          __ZN12TelephonyXPC17ServerClientState29isNotificationRegistered_syncENSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE,
+                          __ZN12TelephonyXPC17ServerClientStateC1ERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE,
+                          __ZN12TelephonyXPC17ServerClientStateC1Ev,
+                          __ZN12TelephonyXPC17ServerClientStateC2ERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE,
+                          __ZN12TelephonyXPC17ServerClientStateC2Ev, __ZN12TelephonyXPC17kServerStateErrorE,
+                          __ZN12TelephonyXPC19ServerPowerObserver28handlePowerNotification_syncEN8dispatch5blockIU13block_pointerFvbEEEjb,
+                          __ZN12TelephonyXPC19ServerPowerObserver4initEv,
+                          __ZN12TelephonyXPC19ServerPowerObserver6createENSt3__110shared_ptrIN3ctu9LogServerEEEN8dispatch8callbackIU13block_pointerFvNS0_10PowerEventENS0_10PowerStateENS6_13group_sessionEEEE,
+                          __ZN12TelephonyXPC19ServerPowerObserver7getNameEv,
+                          __ZN12TelephonyXPC19ServerPowerObserverC1ENSt3__110shared_ptrIN3ctu9LogServerEEEN8dispatch8callbackIU13block_pointerFvNS0_10PowerEventENS0_10PowerStateENS6_13group_sessionEEEE,
+                          __ZN12TelephonyXPC19ServerPowerObserverC2ENSt3__110shared_ptrIN3ctu9LogServerEEEN8dispatch8callbackIU13block_pointerFvNS0_10PowerEventENS0_10PowerStateENS6_13group_sessionEEEE,
+                          __ZN12TelephonyXPC19ServerPowerObserverD0Ev, __ZN12TelephonyXPC19ServerPowerObserverD1Ev,
+                          __ZN12TelephonyXPC19ServerPowerObserverD2Ev, __ZN12TelephonyXPC19kEventServerSIGTERME,
+                          __ZN12TelephonyXPC19kKeyTimestampStringE, __ZN12TelephonyXPC19kServerStateStartedE,
+                          __ZN12TelephonyXPC19kServerStateStoppedE, __ZN12TelephonyXPC20kServerStateStartingE,
+                          __ZN12TelephonyXPC20kServerStateStoppingE, __ZN12TelephonyXPC21kEventSystemPoweredOnE,
+                          __ZN12TelephonyXPC23kEventServerStateChangeE, __ZN12TelephonyXPC24kEventSystemShuttingDownE,
+                          __ZN12TelephonyXPC24kServiceNotificationNameE, __ZN12TelephonyXPC26kServerEnablePowerObserverE,
+                          __ZN12TelephonyXPC26kServerEnableSignalHandlerE, __ZN12TelephonyXPC27kEventSystemExitingLowPowerE,
+                          __ZN12TelephonyXPC28kEventSystemEnteringLowPowerE,
+                          __ZN12TelephonyXPC6Server14broadcastEventENSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEN3xpc4dictEN8dispatch8callbackIU13block_pointerFvvEEE,
+                          __ZN12TelephonyXPC6Server14broadcastEventENSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEN8dispatch8callbackIU13block_pointerFvvEEE,
+                          __ZN12TelephonyXPC6Server14statusToStringENS0_12ServerStatusE,
+                          __ZN12TelephonyXPC6Server17setCommandHandlerENSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEN8dispatch8callbackIU13block_pointerFvNS_17ServerClientStateEN3xpc4dictENS9_IU13block_pointerFviSC_EEEEEE,
+                          __ZN12TelephonyXPC6Server5StateD0Ev, __ZN12TelephonyXPC6Server5StateD1Ev,
+                          __ZN12TelephonyXPC6Server5StateD2Ev, __ZN12TelephonyXPC6Server5startEv,
+                          __ZN12TelephonyXPC6Server6createEN3xpc4dictENSt3__110shared_ptrIN3ctu9LogServerEEEN8dispatch8callbackIU13block_pointerFvNS0_12ServerStatusEEEE,
+                          __ZN12TelephonyXPC6ServerC1ENSt3__110shared_ptrINS0_5StateEEE,
+                          __ZN12TelephonyXPC6ServerC2ENSt3__110shared_ptrINS0_5StateEEE, __ZN12TelephonyXPC6ServerD1Ev,
+                          __ZN12TelephonyXPC6ServerD2Ev, __ZNK12TelephonyXPC17ServerClientState7getNameEv,
+                          __ZTIN12TelephonyXPC19ServerPowerObserverE, __ZTIN12TelephonyXPC6Server5StateE,
+                          __ZTSN12TelephonyXPC19ServerPowerObserverE, __ZTSN12TelephonyXPC6Server5StateE,
+                          __ZTVN12TelephonyXPC19ServerPowerObserverE, __ZTVN12TelephonyXPC6Server5StateE,
+                          __ZThn72_N12TelephonyXPC6Server5StateD0Ev, __ZThn72_N12TelephonyXPC6Server5StateD1Ev ]
+...

@@ -17,6 +17,8 @@ struct CodeView: View {
     
     var fontSize: CGFloat?
     
+    var language = "python"
+    
     @Environment(\.colorScheme) var colorScheme
     
     #if !PREVIEW
@@ -34,7 +36,7 @@ struct CodeView: View {
         highlightr.setTheme(to: "xcode")
         highlightr.theme.setCodeFont(fontSize == nil ? ExceptionView.viewUIFont : ExceptionView.viewUIFont.withSize(fontSize!))
         #endif
-        return highlightr.highlight(code, as: "python") ?? NSAttributedString(string: "")
+        return highlightr.highlight(code, as: language) ?? NSAttributedString(string: "")
     }
     #endif
     

@@ -1,0 +1,26 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CertUI.framework/CertUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CertUILoggingWithCategory, _CertUI_CPLog_os_trace, __CertUINewLog, _kCertUIMessagingCenterActualName,
+                          _kCertUIMessagingCenterRelayName, _kCertUIPresentTrustInfoMessage, _kCertUIServiceTypeHTTPS,
+                          _kCertUIServiceTypeIMAP, _kCertUIServiceTypeLDAP, _kCertUIServiceTypeLDAPS, _kCertUIServiceTypePOP3,
+                          _kCertUIServiceTypeSMTP, _kCertUIServiceTypeSSH, _kCertUITrustAllowCertificateTrustKey,
+                          _kCertUITrustDigestKey, _kCertUITrustExpirationKey, _kCertUITrustHostnameKey,
+                          _kCertUITrustIsRootCertificateKey, _kCertUITrustIssuerKey,
+                          _kCertUITrustPromptOptionsAllowCertificateTrustKey,
+                          _kCertUITrustPromptOptionsShowCertificateDetailsKey, _kCertUITrustPromptOptionsShowContinueKey,
+                          _kCertUITrustPropertiesKey, _kCertUITrustPurposeKey, _kCertUITrustResponseKey,
+                          _kCertUITrustShowCertificateDetailsKey, _kCertUITrustShowContinueKey, _kCertUITrustSubtitleKey,
+                          _kCertUITrustTitleKey ]
+    objc-classes:       [ _CertUIConnectionDelegate, _CertUIPrompt, _CertUITrustManager, _CertUIUtilities ]
+    objc-ivars:         [ _CertUIConnectionDelegate._connectionDisplayName, _CertUIConnectionDelegate._delegateRespondsTo,
+                          _CertUIConnectionDelegate._forwardingDelegate, _CertUIConnectionDelegate._trustManager,
+                          _CertUIPrompt._connectionDisplayName, _CertUIPrompt._host, _CertUIPrompt._responseBlock,
+                          _CertUIPrompt._service, _CertUIPrompt._trust, _CertUITrustManager._access ]
+...

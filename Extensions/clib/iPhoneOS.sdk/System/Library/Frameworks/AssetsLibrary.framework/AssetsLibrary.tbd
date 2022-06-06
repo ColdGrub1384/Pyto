@@ -1,0 +1,24 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: A2112573-051A-32CB-93EA-7A29CA21DD22', 'armv7s: 9579696C-A985-33B1-AD9F-56C0CFD680B0', 
+                   'arm64: B30ABCF5-B86B-3F75-918B-53E9081F2F49', 'arm64e: DA6F42DB-F2F2-368B-AE27-B7DC306DEAFD' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/AssetsLibrary.framework/AssetsLibrary'
+exports:         
+  - archs:           [ armv7, armv7s ]
+    symbols:         [ _ALAssetPropertyExternalUsageIntent ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _ALAssetLibraryDeletedAssetGroupsKey, _ALAssetLibraryInsertedAssetGroupsKey, 
+                       _ALAssetLibraryUpdatedAssetGroupsKey, _ALAssetLibraryUpdatedAssetsKey, 
+                       _ALAssetPropertyAssetURL, _ALAssetPropertyDate, _ALAssetPropertyDuration, 
+                       _ALAssetPropertyEditorBundleID, _ALAssetPropertyLocation, 
+                       _ALAssetPropertyOrientation, _ALAssetPropertyRepresentations, 
+                       _ALAssetPropertyType, _ALAssetPropertyURLs, _ALAssetTypePhoto, 
+                       _ALAssetTypeUnknown, _ALAssetTypeVideo, _ALAssetsGroupPropertyName, 
+                       _ALAssetsGroupPropertyPersistentID, _ALAssetsGroupPropertyRepresentativeEndDate, 
+                       _ALAssetsGroupPropertyRepresentativeLocationNames, _ALAssetsGroupPropertyRepresentativeStartDate, 
+                       _ALAssetsGroupPropertyType, _ALAssetsGroupPropertyURL, _ALAssetsLibraryChangedNotification, 
+                       _ALAssetsLibraryErrorDomain, _ALErrorInvalidProperty ]
+    objc-classes:    [ ALAsset, ALAssetRepresentation, ALAssetsFilter, ALAssetsGroup, 
+                       ALAssetsLibrary ]
+...

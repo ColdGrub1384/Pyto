@@ -1,0 +1,52 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AppSSO.framework/AppSSO
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SOAuthorizationOptionInitiatingAction, _SOAuthorizationOptionInitiatorOrigin,
+                          _SOAuthorizationOptionUserActionInitiated, _SODebugConfigurationKeyAssociatedDomainsValidated,
+                          _SODebugConfigurationKeyConfig, _SODebugConfigurationKeyPlugins, _SODebugConfigurationKeyRealms,
+                          _SODebugConfigurationKeyRequestQueue, _SODebugConfigurationKeyServerConfigVersion,
+                          _SODebugConfigurationKeySignatureValidated, _SOErrorDomain, _SOErrorSubcodeKey,
+                          _SONotificationExtensionsChanged, _appSSO_handleResponse, _appSSO_handleResponseCredential,
+                          _appSSO_init, _appSSO_performResponse, _appSSO_performResponseCredential, _appSSO_willHandle,
+                          _appSSO_willPerform ]
+    objc-classes:       [ _SOAuthorization, _SOAuthorizationCredential, _SOAuthorizationHints, _SOAuthorizationParameters,
+                          _SOAuthorizationRequest, _SOAuthorizationRequestParameters, _SOConfigurationHost,
+                          _SOConfigurationManager, _SODebugHints, _SOExtension, _SOExtensionFinder, _SOExtensionManager,
+                          _SOExtensionServiceConnection, _SOExtensionViewService, _SOHostExtensionContext, _SOPreferences,
+                          _SORemoteExtensionContext, _SORemoteExtensionViewController, _SORequestQueue, _SORequestQueueItem ]
+    objc-ivars:         [ _SOAuthorization._authorizationCore, _SOAuthorization._delegate,
+                          _SOAuthorization._enableEmbeddedAuthorizationViewController, _SOAuthorization._extension,
+                          _SOAuthorization._extensionViewController, _SOAuthorizationCredential._httpAuthorizationHeaders,
+                          _SOAuthorizationCredential._httpBody, _SOAuthorizationCredential._httpResponse,
+                          _SOAuthorizationHints._localizedExtensionBundleDisplayName,
+                          _SOAuthorizationParameters._authorizationParametersCore, _SOAuthorizationParameters._responseCode,
+                          _SOAuthorizationRequest._authorizationCanceled,
+                          _SOAuthorizationRequest._canceledAuthorizationCredential,
+                          _SOAuthorizationRequest._canceledAuthorizationError, _SOAuthorizationRequest._remoteExtensionContext,
+                          _SOAuthorizationRequest._requestParameters, _SOAuthorizationRequestParameters._auditTokenData,
+                          _SOAuthorizationRequestParameters._authorizationOptions,
+                          _SOAuthorizationRequestParameters._callerBundleIdentifier,
+                          _SOAuthorizationRequestParameters._extensionData, _SOAuthorizationRequestParameters._httpBody,
+                          _SOAuthorizationRequestParameters._httpHeaders, _SOAuthorizationRequestParameters._realm,
+                          _SOAuthorizationRequestParameters._requestedOperation, _SOAuthorizationRequestParameters._responseCode,
+                          _SOAuthorizationRequestParameters._url, _SOAuthorizationRequestParameters._useInternalExtensions,
+                          _SOConfigurationHost._configuration, _SOConfigurationHost._configurationVersion,
+                          _SOExtension._associatedDomains, _SOExtension._extension, _SOExtension._extensionDelegate,
+                          _SOExtension._queue, _SOExtension._remoteViewController, _SOExtension._sessionID,
+                          _SOExtensionFinder._extensionFinderQueue, _SOExtensionFinder._matchingContext,
+                          _SOExtensionManager._extensionFinder, _SOExtensionManager._extensionManagerQueue,
+                          _SOExtensionManager._loadedExtensions, _SOExtensionServiceConnection._queue,
+                          _SOExtensionServiceConnection._serviceXpcEndpoint, _SOExtensionServiceConnection._xpcConnection,
+                          _SOExtensionViewService._extensionContext, _SOHostExtensionContext._contextExtension,
+                          _SORemoteExtensionContext._extensionAuthorizationRequest,
+                          _SORemoteExtensionContext._extensionServiceConnection, _SORemoteExtensionContext._extensionWindowSize,
+                          _SORemoteExtensionContext._viewService, _SORequestQueue._processItemBlock,
+                          _SORequestQueue._processingItem, _SORequestQueue._queue, _SORequestQueueItem._completionBlock,
+                          _SORequestQueueItem._requestParameters, _SORequestQueueItem._service ]
+...

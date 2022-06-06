@@ -1,0 +1,45 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CoreServicesStore.framework/CoreServicesStore
+current-version:       1061.3
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CSMapAddMapTable, _CSMapGetHeader, _CSMapGetKeyAndValueForKeyData, _CSMapGetValue, _CSMapInit,
+                          _CSMapRemoveValue, _CSMapSetValue, _CSMapSync, _CSMapWriteToHeader, _CSStoreAllocUnit,
+                          _CSStoreAllocUnitWithData, _CSStoreCreateMutable, _CSStoreCreateMutableCopy, _CSStoreFreeUnit,
+                          _CSStoreGetGeneration, _CSStoreGetHeader, _CSStoreGetUnit, _CSStoreGetUnitCount, _CSStoreReallocUnit,
+                          _CSStringBindingCopyCFStrings, _CSStringBindingFindStringAndBindings, _CSStringBindingRemoveBindings,
+                          _CSStringBindingSetBindings, _CSStringBindingStoreAddTable, _CSStringBindingStoreInit,
+                          __CSArrayAppendValue, __CSArrayCreate, __CSArrayCreateWithCapacity, __CSArrayDispose,
+                          __CSArrayEnumerateAllValues, __CSArrayGetCapacity, __CSArrayGetCount, __CSArrayGetValueAtIndex,
+                          __CSArrayInsertValueAtIndex, __CSArrayRemoveAllValues, __CSArrayRemoveValueAtIndex,
+                          __CSArrayReserveCapacity, __CSArraySetValueAtIndex, __CSCopyStringForCharacters,
+                          __CSGetConstStringForCharacters, __CSGetStringForCFString, __CSGetStringForCharacters,
+                          __CSMapCopyDebugDescription, __CSMapEnumerateKeysAndValues, __CSStoreAddTable, __CSStoreCommit,
+                          __CSStoreCopyDebugDescriptionOfBytesInRange, __CSStoreCopyDebugDescriptionOfTable,
+                          __CSStoreCopyDebugDescriptionOfUnit, __CSStoreCopyMemoryStatistics, __CSStoreCopyTableName,
+                          __CSStoreCreateByReadingFromFileHandle, __CSStoreCreateDataWithUnitNoCopy, __CSStoreCreateWithURL,
+                          __CSStoreEnumerateTables, __CSStoreEnumerateUnits, __CSStoreGarbageCollect, __CSStoreGetArrayTable,
+                          __CSStoreGetCatalogTable, __CSStoreGetStringTable, __CSStoreGetTableWithName, __CSStoreGetXPCClass,
+                          __CSStoreRemoveTable, __CSStoreSetExpectedAccessQueue, __CSStoreShow, __CSStoreValidate,
+                          __CSStoreWriteToHeader, __CSStoreWriteToURL, __CSStoreWriteToUnit, __CSStringBindingEnumerate,
+                          __CSStringBindingEnumerateAllBindings, __CSStringBindingGetBindings, __CSStringCopyCFString,
+                          __CSStringGetUnitFromID, __CSStringIsValid, __CSStringMakeConst, __CSStringRelease, __CSStringRetain,
+                          __CSVisualizerBackgroundColorAttributeName, __CSVisualizerFixedWidthFontAttributeName,
+                          __CSVisualizerFontWeightAttributeName, __CSVisualizerForegroundColorAttributeName,
+                          __CSVisualizerIsRelatedUnitAttributeName, __CSVisualizerLinkAttributeName,
+                          __CSVisualizerNumericValueAttributeName, __CSVisualizerOutputTypeAttributeName,
+                          __CSVisualizerTemporalValueAttributeName, __kCSStoreTableNameMaxLength ]
+    objc-classes:       [ __CSStore, __CSStore2DataContainer, __CSVisualizationArchiver, __CSVisualizer, __CSVisualizerPredicate ]
+    objc-ivars:         [ __CSStore._accessQueue, __CSStore._store, __CSStore2DataContainer.p,
+                          __CSStore2DataContainer.pAllocatedLength, __CSVisualizationArchiver._closeWhenDone,
+                          __CSVisualizationArchiver._fileHandle, __CSVisualizationArchiver._hadEPIPE,
+                          __CSVisualizationArchiver._outputAsXML, __CSVisualizationArchiver._stats,
+                          __CSVisualizationArchiver._unitDescriptionPredicate, __CSVisualizationArchiver._visualizer,
+                          __CSVisualizer._handlers, __CSVisualizer._lock, __CSVisualizer._store, __CSVisualizer._userInfo,
+                          __CSVisualizerPredicate._numericPredicate, __CSVisualizerPredicate._operator,
+                          __CSVisualizerPredicate._searchString, __CSVisualizerPredicate._title ]
+...

@@ -1,0 +1,61 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SidecarCore.framework/SidecarCore
+current-version:       174.2
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SidecarBundle, _SidecarDeviceGeneration, _SidecarDevicesChangedNotification, _SidecarDiagnose,
+                          _SidecarDisplayManagerConnectedDevicesChangedNotification,
+                          _SidecarDisplayManagerPreferencesChangedNotification, _SidecarErrorDomain, _SidecarGetProcessUniqueID,
+                          _SidecarLocalizedString, _SidecarMarkServicePresenterReady, _SidecarMarkServiceProviderReady,
+                          _SidecarMessageCreateMutable, _SidecarMessageGetDefaults, _SidecarMessageGetDictionaryRepresentation,
+                          _SidecarMessageGetItemData, _SidecarMessageGetRequestID, _SidecarMessageGetServiceName,
+                          _SidecarMessageGetTransferID, _SidecarMessageGetType, _SidecarMessageSetDefaults,
+                          _SidecarMessageSetItemData, _SidecarMessageSetItemMetaData, _SidecarMessageSetRequestID,
+                          _SidecarMessageSetServiceName, _SidecarMessageSetTransferID, _SidecarMessageSetType,
+                          _SidecarOptOutOfReconnect, _SidecarRegisterServicePresenter, _SidecarRegisterServiceProvider,
+                          _SidecarServiceNameAnnotation, _SidecarServiceNameDisplay, _SidecarServiceNameMarkupDisplay,
+                          _SidecarServiceNameScanDocument, _SidecarServiceNameSignature, _SidecarServiceNameSketch,
+                          _SidecarServiceNameTakePhoto ]
+    objc-classes:       [ _SidecarCoreProxy, _SidecarDebugRequest, _SidecarDevice, _SidecarDisplayConfig, _SidecarItem,
+                          _SidecarMapTable, _SidecarMutableItem, _SidecarPresenterProxy, _SidecarProviderProxy, _SidecarRequest,
+                          _SidecarRequest_ScanDocument, _SidecarResponse, _SidecarService, _SidecarService_Annotation,
+                          _SidecarService_Camera, _SidecarService_Display, _SidecarService_Scanner, _SidecarService_Signature,
+                          _SidecarService_Sketch, _SidecarSession, _SidecarStream, _SidecarTransfer, _SidecarTransferGroup,
+                          _SidecarTransferReceiver, _SidecarTransferSender ]
+    objc-ivars:         [ _SidecarCoreProxy._delegate, _SidecarCoreProxy._presenterDelegate,
+                          _SidecarDevice._deviceTypeIdentifier, _SidecarDevice._generation, _SidecarDevice._identifier,
+                          _SidecarDevice._model, _SidecarDevice._name, _SidecarDevice._rapportVersion, _SidecarDevice._status,
+                          _SidecarDevice._version, _SidecarDisplayConfig._cipher, _SidecarDisplayConfig._codec,
+                          _SidecarDisplayConfig._dataLink, _SidecarDisplayConfig._device, _SidecarDisplayConfig._displayID,
+                          _SidecarDisplayConfig._enableTimeSync, _SidecarDisplayConfig._framerate,
+                          _SidecarDisplayConfig._keyFrameInterval, _SidecarDisplayConfig._lowLatency,
+                          _SidecarDisplayConfig._rtcp, _SidecarDisplayConfig._rtcpTimeoutInterval, _SidecarDisplayConfig._scale,
+                          _SidecarDisplayConfig._service, _SidecarDisplayConfig._showSideBar,
+                          _SidecarDisplayConfig._showTouchBar, _SidecarDisplayConfig._size, _SidecarDisplayConfig._tilesPerFrame,
+                          _SidecarDisplayConfig._transport, _SidecarDisplayConfig._txMaxBitrate,
+                          _SidecarDisplayConfig._txMinBitrate, _SidecarItem._data, _SidecarItem._type, _SidecarMapTable._keyMask,
+                          _SidecarMapTable._keys2values, _SidecarMapTable._values2keys, _SidecarMutableItem._capacity,
+                          _SidecarMutableItem._complete, _SidecarMutableItem._mutableData, _SidecarPresenterProxy._delegate,
+                          _SidecarPresenterProxy._responses, _SidecarProviderProxy._delegate, _SidecarRequest._cancelled,
+                          _SidecarRequest._delegate, _SidecarRequest._device, _SidecarRequest._devices_deprecated,
+                          _SidecarRequest._error, _SidecarRequest._finished, _SidecarRequest._items, _SidecarRequest._lock,
+                          _SidecarRequest._message, _SidecarRequest._progress, _SidecarRequest._requestID,
+                          _SidecarRequest._sendTransfers, _SidecarRequest._service, _SidecarRequest._session,
+                          _SidecarRequest._timeAccept, _SidecarRequest._timeFinish, _SidecarRequest._timeStart,
+                          _SidecarRequest._timeTransfer, _SidecarRequest._transferReceiver, _SidecarRequest._willFinish,
+                          _SidecarRequest_ScanDocument._preferredType, _SidecarResponse._accepted, _SidecarService._targetDevice,
+                          _SidecarSession._dataLink, _SidecarSession._delegate, _SidecarSession._device, _SidecarSession._error,
+                          _SidecarSession._handle, _SidecarSession._invalid, _SidecarSession._queue, _SidecarSession._remote,
+                          _SidecarSession._service, _SidecarSession._transport, _SidecarStream._activated,
+                          _SidecarStream._handler, _SidecarStream._identifier, _SidecarStream._rapportStream,
+                          _SidecarStream._session, _SidecarTransfer._delegate, _SidecarTransfer._lock,
+                          _SidecarTransfer._requestID, _SidecarTransfer._session, _SidecarTransfer._transferID,
+                          _SidecarTransferGroup._completedItems, _SidecarTransferGroup._mutableItems,
+                          _SidecarTransferGroup._type, _SidecarTransferReceiver._groups, _SidecarTransferReceiver._orderedGroups,
+                          _SidecarTransferSender._itemID, _SidecarTransferSender._items, _SidecarTransferSender._slices,
+                          _SidecarTransferSender._type ]
+...

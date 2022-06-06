@@ -1,0 +1,62 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 370498CA-3C84-32EB-9EDB-85EF42D82A00', 'arm64e: 9DC1D3A6-4685-321D-8910-891D5DFF2A1D' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/QuickLookThumbnailing.framework/QuickLookThumbnailing'
+current-version: 0
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _QLCreateCGImageWithData, _QLExternalThumbnailCacheDatabaseErrorDomain, 
+                       _QLExternalThumbnailCacheErrorDomain, _QLImageCreateForDefaultThumbnailGenerationFromData, 
+                       _QLTCreateCGContextWithSize, _QLTGetDefaultCacheLocation, 
+                       _QLTImageClassWithError, _QLTInitLogging, _QLTPrefersExtendedRange, 
+                       _QLThumbnailAdditionMetadataKey, _QLThumbnailErrorDomain, 
+                       _QLThumbnailGenerationRequestRepresentationTypeNone, _QLThumbnailHostContexErrorDomain, 
+                       _QLThumbnailMetadataContentRectKey, _QLThumbnailMetadataFileNamesDictionaryKey, 
+                       _QLThumbnailMetadataFileVersion2Key, _QLThumbnailMetadataFileVersionKey, 
+                       _QLThumbnailMetadataFlavorKey, _QLThumbnailMetadataQLPropertiesKey, 
+                       _QLThumbnailRepresentationTypeToString, _QLThumbnailRequestOperationRepresentationTypeNone, 
+                       _QLThumbnailsServiceErrorDomain, _QL_SANDBOX_READ, __QLCopyResourcePropertyForKey, 
+                       __QLSetResourcePropertyForKey, _allSupportedRequestOperationRepresentationTypes, 
+                       _allSupportedRequestRepresentationTypes, _kQLThumbnailCacheFileName, 
+                       _kQLThumbnailPropertyIconFlavorKey, _kQLThumbnailPropertyInlinePreviewModeKey, 
+                       _kQLThumbnailPropertyYBaselineKey, _qltLogHandles ]
+    objc-classes:    [ QLAsynchronousOperation, QLCacheBasicFileIdentifier, QLCacheBasicVersionedFileIdentifier, 
+                       QLCacheFileIdentifier, QLCacheFileProviderFileIdentifier, 
+                       QLCacheFileProviderVersionedFileIdentifier, QLCacheVersionedFileIdentifier, 
+                       QLExternalThumbnailCache, QLExternalThumbnailCacheDatabase, 
+                       QLExternallyCachedThumbnailData, QLFileThumbnailRequest, QLTBitmapFormat, 
+                       QLTFileThumbnailRequest, QLTThumbnailOperation, QLTThumbnailRequest, 
+                       QLTUbiquitousFileThumbnailRequest, QLThumbnailAddition, QLThumbnailAdditionEntry, 
+                       QLThumbnailGenerationQueue, QLThumbnailGenerationRequest, 
+                       QLThumbnailGenerator, QLThumbnailHostContext, QLThumbnailItem, 
+                       QLThumbnailMetadata, QLThumbnailProvider, QLThumbnailReply, 
+                       QLThumbnailRepresentation, QLThumbnailRequestOperation, QLThumbnailServiceProxy, 
+                       QLThumbnailStoreRetrievalOperation, QLThumbnailVersion, QLURLHandler ]
+    objc-ivars:      [ QLAsynchronousOperation._executing, QLAsynchronousOperation._finished, 
+                       QLThumbnailAddition._addition, QLThumbnailAddition._additionURL, 
+                       QLThumbnailAddition._additionURLSandboxToken, QLThumbnailAddition._metadata, 
+                       QLThumbnailAddition._thumbnailDataDictionary, QLThumbnailAddition._thumbnailVersion, 
+                       QLThumbnailGenerationQueue._queue, QLThumbnailGenerationQueue._queuedURLs, 
+                       QLThumbnailItem._computedContentType, QLThumbnailItem._data, 
+                       QLThumbnailItem._downloadStatus, QLThumbnailItem._fileExtensionHandle, 
+                       QLThumbnailItem._fileExtensionToken, QLThumbnailItem._overriddenContentType, 
+                       QLThumbnailItem._url, QLThumbnailItem._urlWrapperForExtension, 
+                       QLThumbnailMetadata._baseline, QLThumbnailMetadata._inlinePreviewMode, 
+                       QLThumbnailServiceProxy._connection, QLThumbnailServiceProxy._indexProxy, 
+                       QLThumbnailServiceProxy._proxy, QLThumbnailStoreRetrievalOperation._addition, 
+                       QLThumbnailStoreRetrievalOperation._allowsThumbnailGeneration, 
+                       QLThumbnailStoreRetrievalOperation._destinationURL, QLThumbnailStoreRetrievalOperation._documentURL, 
+                       QLThumbnailStoreRetrievalOperation._error, QLThumbnailStoreRetrievalOperation._executing, 
+                       QLThumbnailStoreRetrievalOperation._finished, QLThumbnailStoreRetrievalOperation._generateThumbnailsAtBackgroundPriority, 
+                       QLThumbnailStoreRetrievalOperation._generationActivity, QLThumbnailStoreRetrievalOperation._retrievalActivity, 
+                       QLThumbnailStoreRetrievalOperation._thumbnailRequest, QLThumbnailStoreRetrievalOperation._thumbnailWasJustAutomaticallyGenerated, 
+                       QLThumbnailVersion._fileSize, QLThumbnailVersion._generatorID, 
+                       QLThumbnailVersion._generatorVersion, QLThumbnailVersion._modificationDate, 
+                       QLThumbnailVersion._versionIdentifier, QLURLHandler._externalResourcesHandle, 
+                       QLURLHandler._externalResourcesToken, QLURLHandler._fileExtensionHandle, 
+                       QLURLHandler._fileExtensionToken, QLURLHandler._fileURL, QLURLHandler._isAccessingSecurityScope, 
+                       QLURLHandler._needsAccessToExternalResources, QLURLHandler._physicalFileExtensionHandle, 
+                       QLURLHandler._physicalFileExtensionToken, QLURLHandler._sandboxType ]
+...

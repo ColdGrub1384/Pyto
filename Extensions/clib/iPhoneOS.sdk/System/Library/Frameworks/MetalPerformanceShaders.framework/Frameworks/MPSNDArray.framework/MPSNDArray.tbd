@@ -1,0 +1,66 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSNDArray.framework/MPSNDArray
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ MetalPerformanceShaders ]
+    objc-classes:       [ _MPSNDArrayACos, _MPSNDArrayACosGradient, _MPSNDArrayACosh, _MPSNDArrayACoshGradient, _MPSNDArrayAND,
+                          _MPSNDArrayANDPrimaryGradient, _MPSNDArrayANDSecondaryGradient, _MPSNDArrayASin,
+                          _MPSNDArrayASinGradient, _MPSNDArrayASinh, _MPSNDArrayASinhGradient, _MPSNDArrayATan,
+                          _MPSNDArrayATanGradient, _MPSNDArrayATanh, _MPSNDArrayATanhGradient, _MPSNDArrayAbsolute,
+                          _MPSNDArrayAbsoluteGradient, _MPSNDArrayAddition, _MPSNDArrayAdditionPrimaryGradient,
+                          _MPSNDArrayAdditionSecondaryGradient, _MPSNDArrayBinaryKernel, _MPSNDArrayBinaryPrimaryGradientKernel,
+                          _MPSNDArrayBinarySecondaryGradientKernel, _MPSNDArrayCeil, _MPSNDArrayCeilGradient, _MPSNDArrayClamp,
+                          _MPSNDArrayClampPrimaryGradient, _MPSNDArrayClampSecondaryGradient, _MPSNDArrayClampTertiaryGradient,
+                          _MPSNDArrayCos, _MPSNDArrayCosGradient, _MPSNDArrayCosh, _MPSNDArrayCoshGradient, _MPSNDArrayDivision,
+                          _MPSNDArrayDivisionPrimaryGradient, _MPSNDArrayDivisionSecondaryGradient, _MPSNDArrayEqual,
+                          _MPSNDArrayEqualPrimaryGradient, _MPSNDArrayEqualSecondaryGradient, _MPSNDArrayErf,
+                          _MPSNDArrayErfGradient, _MPSNDArrayExponent, _MPSNDArrayExponentBase10,
+                          _MPSNDArrayExponentBase10Gradient, _MPSNDArrayExponentBase2, _MPSNDArrayExponentBase2Gradient,
+                          _MPSNDArrayExponentGradient, _MPSNDArrayFloor, _MPSNDArrayFloorGradient, _MPSNDArrayGather,
+                          _MPSNDArrayGatherGradient, _MPSNDArrayGatherGradientState, _MPSNDArrayGradientState,
+                          _MPSNDArrayGreaterThan, _MPSNDArrayGreaterThanOrEqualTo,
+                          _MPSNDArrayGreaterThanOrEqualToPrimaryGradient, _MPSNDArrayGreaterThanOrEqualToSecondaryGradient,
+                          _MPSNDArrayGreaterThanPrimaryGradient, _MPSNDArrayGreaterThanSecondaryGradient, _MPSNDArrayIsFinite,
+                          _MPSNDArrayIsFiniteGradient, _MPSNDArrayIsInfinite, _MPSNDArrayIsInfiniteGradient, _MPSNDArrayIsNaN,
+                          _MPSNDArrayIsNaNGradient, _MPSNDArrayLessThan, _MPSNDArrayLessThanOrEqualTo,
+                          _MPSNDArrayLessThanOrEqualToPrimaryGradient, _MPSNDArrayLessThanOrEqualToSecondaryGradient,
+                          _MPSNDArrayLessThanPrimaryGradient, _MPSNDArrayLessThanSecondaryGradient, _MPSNDArrayLogSoftMax,
+                          _MPSNDArrayLogSoftMaxGradient, _MPSNDArrayLogarithm, _MPSNDArrayLogarithmBase10,
+                          _MPSNDArrayLogarithmBase10Gradient, _MPSNDArrayLogarithmBase2, _MPSNDArrayLogarithmBase2Gradient,
+                          _MPSNDArrayLogarithmGradient, _MPSNDArrayMathBinaryKernel, _MPSNDArrayMathBinaryPrimaryGradient,
+                          _MPSNDArrayMathBinarySecondaryGradient, _MPSNDArrayMathTernaryKernel,
+                          _MPSNDArrayMathTernaryPrimaryGradient, _MPSNDArrayMathTernarySecondaryGradient,
+                          _MPSNDArrayMathTernaryTertiaryGradient, _MPSNDArrayMathUnaryGradient, _MPSNDArrayMathUnaryKernel,
+                          _MPSNDArrayMatrixMultiplication, _MPSNDArrayMaximum, _MPSNDArrayMaximumPrimaryGradient,
+                          _MPSNDArrayMaximumSecondaryGradient, _MPSNDArrayMinimum, _MPSNDArrayMinimumPrimaryGradient,
+                          _MPSNDArrayMinimumSecondaryGradient, _MPSNDArrayModulo, _MPSNDArrayModuloPrimaryGradient,
+                          _MPSNDArrayModuloSecondaryGradient, _MPSNDArrayMultiaryBase, _MPSNDArrayMultiaryGradientKernel,
+                          _MPSNDArrayMultiaryKernel, _MPSNDArrayMultiplication, _MPSNDArrayMultiplicationPrimaryGradient,
+                          _MPSNDArrayMultiplicationSecondaryGradient, _MPSNDArrayNAND, _MPSNDArrayNANDPrimaryGradient,
+                          _MPSNDArrayNANDSecondaryGradient, _MPSNDArrayNOR, _MPSNDArrayNORPrimaryGradient,
+                          _MPSNDArrayNORSecondaryGradient, _MPSNDArrayNOT, _MPSNDArrayNOTGradient, _MPSNDArrayNegative,
+                          _MPSNDArrayNegativeGradient, _MPSNDArrayNeuronGeLU, _MPSNDArrayNeuronGeLUGradient,
+                          _MPSNDArrayNeuronGradient, _MPSNDArrayNeuronKernel, _MPSNDArrayNotEqual,
+                          _MPSNDArrayNotEqualPrimaryGradient, _MPSNDArrayNotEqualSecondaryGradient, _MPSNDArrayOR,
+                          _MPSNDArrayORPrimaryGradient, _MPSNDArrayORSecondaryGradient, _MPSNDArrayPower,
+                          _MPSNDArrayPowerPrimaryGradient, _MPSNDArrayPowerSecondaryGradient, _MPSNDArrayReciprocal,
+                          _MPSNDArrayReciprocalGradient, _MPSNDArrayReductionBase, _MPSNDArrayReductionBaseGradient,
+                          _MPSNDArrayReductionSum, _MPSNDArrayReductionSumGradient, _MPSNDArrayReverseSquareRoot,
+                          _MPSNDArrayReverseSquareRootGradient, _MPSNDArraySelect, _MPSNDArraySelectPrimaryGradient,
+                          _MPSNDArraySelectSecondaryGradient, _MPSNDArraySelectTertiaryGradient, _MPSNDArraySign,
+                          _MPSNDArraySignGradient, _MPSNDArraySin, _MPSNDArraySinGradient, _MPSNDArraySinh,
+                          _MPSNDArraySinhGradient, _MPSNDArraySoftMax, _MPSNDArraySoftMaxGradient, _MPSNDArraySquare,
+                          _MPSNDArraySquareGradient, _MPSNDArraySquareRoot, _MPSNDArraySquareRootGradient,
+                          _MPSNDArrayStridedSlice, _MPSNDArrayStridedSliceGradient, _MPSNDArraySubtraction,
+                          _MPSNDArraySubtractionPrimaryGradient, _MPSNDArraySubtractionSecondaryGradient, _MPSNDArrayTan,
+                          _MPSNDArrayTanGradient, _MPSNDArrayTanh, _MPSNDArrayTanhGradient, _MPSNDArrayUnaryGradientKernel,
+                          _MPSNDArrayUnaryKernel, _MPSNDArrayXNOR, _MPSNDArrayXNORPrimaryGradient,
+                          _MPSNDArrayXNORSecondaryGradient, _MPSNDArrayXOR, _MPSNDArrayXORPrimaryGradient,
+                          _MPSNDArrayXORSecondaryGradient ]
+    objc-ivars:         [ _MPSNDArrayGatherGradientState._axis ]
+...

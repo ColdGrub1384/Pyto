@@ -1,0 +1,44 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CompanionHealthDaemon.framework/CompanionHealthDaemon
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CHFitnessAppBundleID, _CHIsFitnessInstalled, _CHProfileExtensionForProfile,
+                          _CompanionHealthDaemonVersionNumber, _CompanionHealthDaemonVersionString,
+                          _kHDCompanionFitnessAppBundleID ]
+    objc-classes:       [ _CHActivityApplicationInstallationManager, _CHCoachingDiagnosticData, _CHCoachingDiagnosticDataItem,
+                          _CHCoachingDiagnosticManager, _CHCoachingDiagnosticSubmittableMetrics,
+                          _CHCompanionWorkoutCreditManager, _CHCompanionWorkoutCreditManagerInterval, _CHFitnessAppBadgeManager,
+                          _CHTrendsNotificationManager ]
+    objc-ivars:         [ _CHActivityApplicationInstallationManager._installationRequestInProgress,
+                          _CHActivityApplicationInstallationManager._profile, _CHActivityApplicationInstallationManager._queue,
+                          _CHActivityApplicationInstallationManager._systemAppRequest,
+                          _CHCoachingDiagnosticData._coachingEventSample, _CHCoachingDiagnosticData._items,
+                          _CHCoachingDiagnosticDataItem._activeCalories, _CHCoachingDiagnosticDataItem._automotive,
+                          _CHCoachingDiagnosticDataItem._briskMinutes, _CHCoachingDiagnosticDataItem._cycling,
+                          _CHCoachingDiagnosticDataItem._heartRate, _CHCoachingDiagnosticDataItem._other,
+                          _CHCoachingDiagnosticDataItem._running, _CHCoachingDiagnosticDataItem._unknown,
+                          _CHCoachingDiagnosticDataItem._walking, _CHCoachingDiagnosticDataItem._workout,
+                          _CHCoachingDiagnosticManager._activityManager, _CHCoachingDiagnosticManager._activityQueue,
+                          _CHCoachingDiagnosticManager._cachedLastSubmittedDate,
+                          _CHCoachingDiagnosticManager._motionActivityManagerClass, _CHCoachingDiagnosticManager._profile,
+                          _CHCoachingDiagnosticManager._queue, _CHCoachingDiagnosticManager._scheduler,
+                          _CHCoachingDiagnosticManager._serverConnection,
+                          _CHCoachingDiagnosticSubmittableMetrics._activitySummary,
+                          _CHCoachingDiagnosticSubmittableMetrics._biologicalSex,
+                          _CHCoachingDiagnosticSubmittableMetrics._dateOfBirth,
+                          _CHCoachingDiagnosticSubmittableMetrics._diagnosticData,
+                          _CHCoachingDiagnosticSubmittableMetrics._heightSample,
+                          _CHCoachingDiagnosticSubmittableMetrics._startOfDay,
+                          _CHCoachingDiagnosticSubmittableMetrics._weightSample, _CHCompanionWorkoutCreditManager._anchor,
+                          _CHCompanionWorkoutCreditManager._calendar, _CHCompanionWorkoutCreditManager._hasPairedWatches,
+                          _CHCompanionWorkoutCreditManager._profile, _CHCompanionWorkoutCreditManager._queue,
+                          _CHCompanionWorkoutCreditManagerInterval._dateInterval, _CHFitnessAppBadgeManager._providers,
+                          _CHFitnessAppBadgeManager._serialQueue, _CHTrendsNotificationManager._keyValueDomain,
+                          _CHTrendsNotificationManager._profile, _CHTrendsNotificationManager._summaryBuilder,
+                          _CHTrendsNotificationManager._userNotificationCenter ]
+...

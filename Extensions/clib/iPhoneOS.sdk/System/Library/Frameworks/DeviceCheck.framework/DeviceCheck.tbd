@@ -1,0 +1,11 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: C82B2B60-7C18-3241-9601-2F9CE144E311', 'arm64e: 7F2F798A-6547-3E42-833A-9A4F3D63081E' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/DeviceCheck.framework/DeviceCheck'
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _DCErrorDomain, __DCLogSystem ]
+    objc-classes:    [ DCContext, DCDevice, DCDeviceMetadataInterface ]
+...

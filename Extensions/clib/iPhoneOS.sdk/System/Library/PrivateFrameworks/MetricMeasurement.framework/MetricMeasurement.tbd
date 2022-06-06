@@ -1,0 +1,59 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MetricMeasurement.framework/MetricMeasurement
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MXMAttributeNameOSSignpostCategory, _MXMAttributeNameOSSignpostIdentifier,
+                          _MXMAttributeNameOSSignpostName, _MXMAttributeNameOSSignpostSubsystem,
+                          _MXMAttributeNameOSSignpostTelemetryNumber1Name, _MXMAttributeNameOSSignpostTelemetryNumber2Name,
+                          _MXMAttributeNameOSSignpostTelemetryString1Name, _MXMAttributeNameOSSignpostTelemetryString1Value,
+                          _MXMAttributeNameOSSignpostTelemetryString2Name, _MXMAttributeNameOSSignpostTelemetryString2Value,
+                          _MXMAttributeNameProcessIdentifier, _MXMAttributeNameProcessName, _MXMAttributeNameThreadIdentifier,
+                          _MXMAutomaticDefault, _MXMCPUMetricIdentifier, _MXMDiskMetricIdentifier,
+                          _MXMInstrumentOptionEnableParallelizedSampling, _MXMInstrumentOptionIterationCount,
+                          _MXMInstrumentOptionKickOffThreadIdentifier, _MXMInstrumentOptionScheduleKickOffOnNewThread,
+                          _MXMMemoryMetricIdentifier, _MXMMetricIdentifierClock, _MXMMetricIdentifierOSSignpost,
+                          _MXMNetworkMetricIdentifier, _MetricMeasurementVersionNumber, _MetricMeasurementVersionString,
+                          __MXMGetInstrumentsLog, __MXMGetLog, _kMXMOSLogProbeDidUpdateConnectedDevicesList ]
+    objc-classes:       [ _MXMCPUMetric, _MXMClockMetric, _MXMClockSampleTag, _MXMDiskMetric, _MXMDisplayDescriptor,
+                          _MXMDisplayProbe_iphoneOS_Internal, _MXMInstrument, _MXMMachUtils, _MXMMemoryMetric, _MXMMetric,
+                          _MXMMutableSampleData, _MXMMutableSampleSet, _MXMNetworkMetric, _MXMOSLogDeviceStore_Internal,
+                          _MXMOSLogDevice_Internal, _MXMOSLogProbe, _MXMOSSignpostMetric, _MXMOSSignpostProbe,
+                          _MXMOSSignpostSampleTag, _MXMProbe, _MXMProbeDisplay, _MXMProxyMetric, _MXMProxyProbe,
+                          _MXMProxyServiceManager, _MXMResourceProbe, _MXMSample, _MXMSampleAttribute, _MXMSampleAttributeFilter,
+                          _MXMSampleData, _MXMSampleFilter, _MXMSampleSet, _MXMSampleTag, _MXMSampleTagFilter,
+                          _MXMSampleTimeSeries, _MXMSystemProbe, _MXMSystemSampleTag, _MXMUnitCycle, _MXMUnitInstruction,
+                          _MXMUnitMemory, _MXMUnitPacket, _MXMUtilizationSampleTag, _MXMVirtualMachineProbe ]
+    objc-ivars:         [ _MXMClockMetric._tag, _MXMDisplayDescriptor._display, _MXMDisplayProbe_iphoneOS_Internal._delegate,
+                          _MXMDisplayProbe_iphoneOS_Internal._displayDescriptor, _MXMDisplayProbe_iphoneOS_Internal._lastSample,
+                          _MXMDisplayProbe_iphoneOS_Internal._pollRate, _MXMDisplayProbe_iphoneOS_Internal._queue,
+                          _MXMInstrument._currentIteration, _MXMInstrument._instrumentals, _MXMInstrument._instrumentalsQueue,
+                          _MXMMetric._build, _MXMMetric._data, _MXMMetric._filter, _MXMMetric._identifier,
+                          _MXMMetric._preferredSampleMode, _MXMMetric._probe, _MXMMetric._version,
+                          _MXMOSLogDeviceStore_Internal._devices, _MXMOSLogDeviceStore_Internal._hostDevice,
+                          _MXMOSLogDeviceStore_Internal._stream, _MXMOSLogDevice_Internal._identifier,
+                          _MXMOSLogDevice_Internal._name, _MXMOSLogDevice_Internal._rawDevice, _MXMOSLogProbe._activityStream,
+                          _MXMOSSignpostMetric._startDate, _MXMOSSignpostMetric._stopDate, _MXMOSSignpostProbe._data,
+                          _MXMOSSignpostProbe._endDate, _MXMOSSignpostProbe._extractor,
+                          _MXMOSSignpostProbe._finishedProcessingSema, _MXMOSSignpostProbe._logArchivePath,
+                          _MXMOSSignpostProbe._mode, _MXMOSSignpostProbe._startDate, _MXMProbe.__shouldStop,
+                          _MXMProbe.__updating, _MXMProbe._delegate, _MXMProbe._filter, _MXMProbe._stopHandler,
+                          _MXMProbe._stopWaiter, _MXMProbe._updateHandler, _MXMProbe._updateQueue, _MXMProbeDisplay._impl,
+                          _MXMProxyMetric.__underlyingMetric, _MXMProxyProbe._proxyMetric,
+                          _MXMProxyServiceManager.__serviceConnection, _MXMResourceProbe._pollingThread, _MXMSample._attributes,
+                          _MXMSample._date, _MXMSample._length, _MXMSample._tag, _MXMSample._timestamp,
+                          _MXMSample._underlyingValue, _MXMSample._underlyingValueLength, _MXMSample._unit,
+                          _MXMSample._valueType, _MXMSampleAttribute._name, _MXMSampleAttribute._value,
+                          _MXMSampleAttribute._valueType, _MXMSampleAttributeFilter._matchingNumericAttributeValues,
+                          _MXMSampleAttributeFilter._matchingStringAttributeValues, _MXMSampleData._enumSet,
+                          _MXMSampleData._tagsToSampleSets, _MXMSampleFilter._attributetFilters, _MXMSampleFilter._tagFilters,
+                          _MXMSampleSet._attributesMap, _MXMSampleSet._cachedSamples, _MXMSampleSet._index, _MXMSampleSet._tag,
+                          _MXMSampleSet._timeIndex, _MXMSampleSet._underlyingBuffer, _MXMSampleSet._underlyingBufferLength,
+                          _MXMSampleSet._unit, _MXMSampleTag._parent, _MXMSampleTag._taxonomy,
+                          _MXMSampleTagFilter._allowDescendents, _MXMSampleTagFilter._tagPermutations,
+                          _MXMSampleTimeSeries._time, _MXMSystemProbe._data, _MXMSystemProbe._updateThread ]
+...

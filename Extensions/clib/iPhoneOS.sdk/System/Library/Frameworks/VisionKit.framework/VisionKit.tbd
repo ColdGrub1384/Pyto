@@ -1,0 +1,30 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 61FA7B43-2574-3969-9F34-D7AA49035D49', 'arm64e: 89FC906F-4F37-3E72-9DF1-21B115CB0D82' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/VisionKit.framework/VisionKit'
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _DCScanWasDeletedNotification, _DCTransformFromImageOrientation, 
+                       _dc_clockwiseRotationsFromUpToMatchOrientation, _dc_counterClockwiseRotationsFromUpToMatchOrientation, 
+                       _dc_nonLocalizedOrientationNameForType, _dc_orientationFromNonLocalizedName, 
+                       _kDCBlackWhiteFilter, _kDCColorFilter, _kDCDocCamFilterUsageCount, 
+                       _kDCDocCamMarkUpUIAppearanceCount, _kDCDocCamPagesScannedAutoInAutoModeCount, 
+                       _kDCDocCamPagesScannedManualInAutoModeCount, _kDCDocCamPagesScannedManualModeCount, 
+                       _kDCDocCamRecropUIAppearanceCount, _kDCDocCamReorderedPageCount, 
+                       _kDCDocCamReselectFilterUIAppearanceCount, _kDCDocCamSharedAsPDFCount, 
+                       _kDCGrayscaleFilter, _kDCPhotoFilter, _kDCScanDocumentUIAppearanceCount, 
+                       _kDCSwitchControl, _kDCVoiceOver, _kICDocCamImageQuadPerspectiveCorrectImageInset, 
+                       _kMaximumPagePerScanSession, _kVNDocumentCameraScansCreatedCount ]
+    objc-classes:    [ DCAnalyticsReporterBase, DCDocumentCameraViewServiceSession, 
+                       DCDocumentEditorViewController, DCNotesSPI, DCSettings, DCUsageAnalyticsReporter, 
+                       ICDocCamDocumentInfo, ICDocCamDocumentInfoCollection, ICDocCamExtractedDocumentNavigationController, 
+                       ICDocCamExtractedDocumentViewController, ICDocCamFilterViewController, 
+                       ICDocCamImageCache, ICDocCamImageFilters, ICDocCamImageQuad, 
+                       ICDocCamImageQuadEditImageView, ICDocCamImageQuadEditViewController, 
+                       ICDocCamNavigationController, ICDocCamRecropTransitionAnimator, 
+                       ICDocCamRenamePrompt, ICDocCamScanCache, ICDocCamScanCacheItem, 
+                       ICDocCamThumbnailContainerView, ICDocCamViewController, VNDocumentCameraScan, 
+                       VNDocumentCameraViewController ]
+...

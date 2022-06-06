@@ -1,0 +1,33 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SoftwareUpdateServicesUI.framework/SoftwareUpdateServicesUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SUSUICLIToolConnectionName, _SUSUIControllerConnectionName, _SUSUICreateInstallationKeybagWithSecret,
+                          _SUSUICreateInstallationKeybagWithSecretAndHandler, _SUSUILog, _SUSUILogAuthenticationUI,
+                          _SUSUILogEmergencyCallUI, _SUSUILogKeybagInterface, _SUSUILogPostUpdateAlert,
+                          _SUSUIPreferencesChangedNotification, _SUSUIRequiresAlertPresentationAfterUpdate,
+                          _SUSUISettingsBundleIdentifier, _SoftwareUpdateServicesUIVersionNumber,
+                          _SoftwareUpdateServicesUIVersionString, _kSUSUIPreferencesID ]
+    objc-classes:       [ _SUSUIAuthenticationAlertAction, _SUSUIAuthenticationInterface, _SUSUICommandLineToolClient,
+                          _SUSUIControllerClient, _SUSUIExternalSettingsAppDefaults, _SUSUIFakeDocumentation,
+                          _SUSUIFakeSUAutoInstallForecast, _SUSUIFakeSUAutoInstallOperation, _SUSUIFakeSUDescriptor,
+                          _SUSUIFakeSUDownload, _SUSUIFakeSUDownloadMetadata, _SUSUIFakeSUOperationProgress, _SUSUIPreferences,
+                          _SUSUIRemoteEmergencyCallAlertAction, _SUSUISoftwareUpdateDefaults ]
+    objc-ivars:         [ _SUSUIAuthenticationAlertAction._autoInstallOperation,
+                          _SUSUIAuthenticationAlertAction._canDeferInstallation, _SUSUIAuthenticationAlertAction._download,
+                          _SUSUIAuthenticationAlertAction._forInstallTonight, _SUSUIAuthenticationAlertAction._loaded,
+                          _SUSUIAuthenticationInterface._defaults, _SUSUIAuthenticationInterface._isController,
+                          _SUSUIAuthenticationInterface._isPasscodeLocked, _SUSUIAuthenticationInterface._keybag,
+                          _SUSUICommandLineToolClient._connected, _SUSUICommandLineToolClient._delegate,
+                          _SUSUICommandLineToolClient._serverConnection, _SUSUICommandLineToolClient._serverIsExiting,
+                          _SUSUIControllerClient._connected, _SUSUIControllerClient._serverConnection,
+                          _SUSUIControllerClient._serverIsExiting, _SUSUIFakeSUAutoInstallForecast._now,
+                          _SUSUIFakeSUAutoInstallOperation._cancelled, _SUSUIFakeSUAutoInstallOperation._uuid,
+                          _SUSUIPreferences._alertAfterDownload, _SUSUIPreferences._needsAlertPresentationAfterOTAUpdate,
+                          _SUSUIPreferences._passcodeRequiredDays, _SUSUISoftwareUpdateDefaults._sbLegacyDefaults ]
+...

@@ -1,0 +1,15 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/FoundInAppsPlugins.framework/FoundInAppsPlugins
+current-version:       1034.2
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _FoundInAppsPluginsVersionNumber, _FoundInAppsPluginsVersionString ]
+    objc-classes:       [ _FIAPHistoricalDataRequest, _FIAPResult ]
+    objc-ivars:         [ _FIAPHistoricalDataRequest._endDate, _FIAPHistoricalDataRequest._personHandle,
+                          _FIAPHistoricalDataRequest._pluginIdentifier, _FIAPHistoricalDataRequest._requestId,
+                          _FIAPHistoricalDataRequest._startDate, _FIAPResult._error, _FIAPResult._historicalDataRequests ]
+...

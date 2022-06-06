@@ -1,0 +1,44 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AppSSOCore.framework/AppSSOCore
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SOAuthorizationOptionCoreNoUserInterface, _SOErrorDomain, _SOErrorSubcodeKey, _appSSO_handleResponse,
+                          _appSSO_handleResponseCredential, _appSSO_init, _appSSO_performResponse,
+                          _appSSO_performResponseCredential, _appSSO_willHandle, _appSSO_willPerform ]
+    objc-classes:       [ _SOAuthorizationCore, _SOAuthorizationCredentialCore, _SOAuthorizationHintsCore,
+                          _SOAuthorizationParametersCore, _SOAuthorizationPool, _SOAuthorizationPoolItem,
+                          _SOAuthorizationRequestParametersCore, _SOAuthorizationResult, _SOClient, _SOConfiguration,
+                          _SOConfigurationClient, _SOConfigurationVersion, _SOErrorHelper, _SOFullProfile, _SOInternalProtocols,
+                          _SOProfile, _SOServiceConnection, _SOUtils ]
+    objc-ivars:         [ _SOAuthorizationCore._authorizationOptions, _SOAuthorizationCore._client,
+                          _SOAuthorizationCore._delegate, _SOAuthorizationCore._delegateDispatchQueue,
+                          _SOAuthorizationCore._requestParametersCore, _SOAuthorizationCredentialCore._httpAuthorizationHeaders,
+                          _SOAuthorizationCredentialCore._httpBody, _SOAuthorizationCredentialCore._httpResponse,
+                          _SOAuthorizationHintsCore._localizedExtensionBundleDisplayName,
+                          _SOAuthorizationParametersCore._auditTokenData, _SOAuthorizationParametersCore._httpBody,
+                          _SOAuthorizationParametersCore._httpHeaders, _SOAuthorizationParametersCore._operation,
+                          _SOAuthorizationParametersCore._responseCode, _SOAuthorizationParametersCore._url,
+                          _SOAuthorizationParametersCore._useInternalExtensions, _SOAuthorizationPool._pool,
+                          _SOAuthorizationPoolItem._authorization, _SOAuthorizationPoolItem._delegate,
+                          _SOAuthorizationRequestParametersCore._auditTokenData,
+                          _SOAuthorizationRequestParametersCore._authorizationOptions,
+                          _SOAuthorizationRequestParametersCore._callerBundleIdentifier,
+                          _SOAuthorizationRequestParametersCore._extensionData, _SOAuthorizationRequestParametersCore._httpBody,
+                          _SOAuthorizationRequestParametersCore._httpHeaders, _SOAuthorizationRequestParametersCore._realm,
+                          _SOAuthorizationRequestParametersCore._requestedOperation,
+                          _SOAuthorizationRequestParametersCore._responseCode, _SOAuthorizationRequestParametersCore._url,
+                          _SOAuthorizationRequestParametersCore._useInternalExtensions,
+                          _SOAuthorizationResult._authorizationHandleCredentialCompletion,
+                          _SOAuthorizationResult._authorizationHandleResponseCompletion, _SOClient._serviceConnection,
+                          _SOConfiguration._profiles, _SOConfigurationClient._client, _SOConfigurationClient._configuration,
+                          _SOConfigurationClient._configurationVersion, _SOConfigurationVersion._mode,
+                          _SOConfigurationVersion._token, _SOConfigurationVersion._version, _SOFullProfile._extensionData,
+                          _SOFullProfile._extensionTeamIdentifier, _SOProfile._URLPrefix, _SOProfile._extensionBundleIdentifier,
+                          _SOProfile._hosts, _SOProfile._realm, _SOProfile._type, _SOServiceConnection._queue,
+                          _SOServiceConnection._xpcConnection ]
+...

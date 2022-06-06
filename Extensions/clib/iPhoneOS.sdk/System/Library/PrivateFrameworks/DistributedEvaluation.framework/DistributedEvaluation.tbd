@@ -1,0 +1,58 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/DistributedEvaluation.framework/DistributedEvaluation
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _AddErrorToDictionary, _DESAggregatorLogEvaluation, _DESAggregatorLogRecording, _DESAmendedRecordInfo,
+                          _DESApplyAsynchronousEnumerator, _DESApplyAsynchronousEnumeratorWithCompletion,
+                          _DESDiagnosticsSubmissionAllowed, _DESEncryptedDataReadFrom, _DESGetDeviceClass, _DESGetDeviceID,
+                          _DESGetDeviceType, _DESGetOSVersion, _DESIsInternalInstall, _DESPFLNoisableReadFrom,
+                          _DESPathHasFileVault, _DESRecipeResponseLocalOnlyPrefix, _DESRecipeResponseURLPartHost,
+                          _DESRecipeResponseURLPartPath, _DESRecipeResponseURLPartQueryItemKeyAttachmentPrefix,
+                          _DESRecipeResponseURLPartQueryItemKeyBaseURL, _DESRecipeResponseURLPartQueryItemKeyCoreDuetEvents,
+                          _DESRecipeResponseURLPartQueryItemKeyDeadline, _DESRecipeResponseURLPartQueryItemKeyDeferralDate,
+                          _DESRecipeResponseURLPartQueryItemKeyLocaleIdentifier, _DESRecipeResponseURLPartQueryItemKeyRecipeId,
+                          _DESRecipeResponseURLPartQueryItemKeyRecipePath, _DESRecipeResponseURLPartQueryItemKeyRecipeType,
+                          _DESRecipeResponseURLPartScheme, _DESServiceAvailable, _DESServiceGetXPCInterface,
+                          _DESSubmissionLogDirectoryURL, _DESSubmissionLogFileURLs, _DESSubmissionLogGarbageCollect,
+                          _DESSubmissionLogSetHandler, _DESWriteSubmissionLog, _DistributedEvaluationVersionNumber,
+                          _DistributedEvaluationVersionString, __DESIsHorseman, _kDESDistributedEvaluationErrorDomain ]
+    objc-classes:       [ _DESBundleRegistry, _DESDeviceIdentifierStore, _DESEncryptedData, _DESEvaluationSession,
+                          _DESExceptionCatchingEvaluator, _DESJSONPredicate, _DESPFLEncryptor, _DESPFLNoisable, _DESRecipe,
+                          _DESRecipeEvaluationSession, _DESRecordSet, _DESRecordStore, _DESServiceConnection ]
+    objc-ivars:         [ _DESBundleRegistry._bundleMap, _DESDeviceIdentifierStore._deviceIdentifiers,
+                          _DESDeviceIdentifierStore._queue, _DESDeviceIdentifierStore._storeURL, _DESEncryptedData._algorithm,
+                          _DESEncryptedData._data, _DESEncryptedData._encryptedKey, _DESEncryptedData._has,
+                          _DESEncryptedData._version, _DESEvaluationSession._baseURL, _DESEvaluationSession._deviceIdentifier,
+                          _DESEvaluationSession._enableOriginReturnRoute, _DESEvaluationSession._enableParsecReturnRoute,
+                          _DESEvaluationSession._evaluator, _DESEvaluationSession._localeIdentifier,
+                          _DESEvaluationSession._parSession, _DESEvaluationSession._postbackBaseURL,
+                          _DESEvaluationSession._queue, _DESEvaluationSession._recipeCountLimit,
+                          _DESEvaluationSession._recipeType, _DESEvaluationSession._recordSet,
+                          _DESEvaluationSession._serviceConnection, _DESEvaluationSession._session,
+                          _DESEvaluationSession._skipPolicy, _DESEvaluationSession._timeLimit,
+                          _DESExceptionCatchingEvaluator._evaluator, _DESPFLEncryptor._privatizationIdentifier,
+                          _DESPFLEncryptor._privatizer, _DESPFLEncryptor._version, _DESPFLNoisable._data32s,
+                          _DESPFLNoisable._datas, _DESPFLNoisable._has, _DESPFLNoisable._iteration, _DESPFLNoisable._recipeId,
+                          _DESPFLNoisable._uuid, _DESPFLNoisable._version, _DESPFLNoisable._weight, _DESRecipe._attachments,
+                          _DESRecipe._parametersUsed, _DESRecipe._recipeId, _DESRecipe._recipeType, _DESRecipe._recipeUserInfo,
+                          _DESRecipeEvaluationSession._JSONResult, _DESRecipeEvaluationSession._attachmentsToDelete,
+                          _DESRecipeEvaluationSession._baseURL, _DESRecipeEvaluationSession._binaryResult,
+                          _DESRecipeEvaluationSession._deadline, _DESRecipeEvaluationSession._deferralDate,
+                          _DESRecipeEvaluationSession._error, _DESRecipeEvaluationSession._evaluationResult,
+                          _DESRecipeEvaluationSession._localeIdentifier, _DESRecipeEvaluationSession._matchingRecordSet,
+                          _DESRecipeEvaluationSession._protocolClass, _DESRecipeEvaluationSession._recipe,
+                          _DESRecipeEvaluationSession._resumeTimestamp, _DESRecipeEvaluationSession._startDate,
+                          _DESRecipeEvaluationSession._testingCompletionHandler,
+                          _DESRecipeEvaluationSession._testingRecipeAttachments, _DESRecipeEvaluationSession._testingRecipePath,
+                          _DESRecipeEvaluationSession._wasResumedFromURL, _DESRecordSet._coreDuetEvents,
+                          _DESRecordSet._dataFetcher, _DESRecordSet._nativeRecordInfo, _DESRecordSet._nativeRecords,
+                          _DESRecordSet._predicate, _DESRecordStore._bundleId, _DESServiceConnection._activity,
+                          _DESServiceConnection._bundleRegistry, _DESServiceConnection._connection,
+                          _DESServiceConnection._connectionStartTime, _DESServiceConnection._identifierStore,
+                          _DESServiceConnection._queue ]
+...

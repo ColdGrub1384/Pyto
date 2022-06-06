@@ -1,0 +1,26 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NCLaunchStats.framework/NCLaunchStats
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _KeepAppsUpToDateEnabledChangedNotification, _kMGQueryhas ]
+    objc-classes:       [ _NCLaunchStats ]
+    objc-ivars:         [ _NCLaunchStats._appUpdateTimes, _NCLaunchStats._appsRequestingRefresh,
+                          _NCLaunchStats._asyncRecommendHandler, _NCLaunchStats._bootstrapWidgetIds,
+                          _NCLaunchStats._bootstrapWidgetPrewarmActivity, _NCLaunchStats._bootstrapWidgetTimeline,
+                          _NCLaunchStats._defaultRequiresNetwork, _NCLaunchStats._defaultSchedulingPriority,
+                          _NCLaunchStats._historyDeletionActivity, _NCLaunchStats._ncLog, _NCLaunchStats._predictionTimeline,
+                          _NCLaunchStats._predictionUpdateActivity, _NCLaunchStats._predictor, _NCLaunchStats._scheduler,
+                          _NCLaunchStats._store, _NCLaunchStats._syncQueue, _NCLaunchStats._widgetPrewarmActivity,
+                          _NCLaunchStats._widgetStream, _NCLaunchStats._widgetViewTime, _NCLaunchStats.appSpecificTriggerToken,
+                          _NCLaunchStats.backgroundAppRefreshSwitchedOn, _NCLaunchStats.bundleAttr,
+                          _NCLaunchStats.classCLockedToken, _NCLaunchStats.generatePredictionToken,
+                          _NCLaunchStats.isClassCLocked, _NCLaunchStats.kTimeGuardBand, _NCLaunchStats.launchTracker,
+                          _NCLaunchStats.numPrewarmedLaunches, _NCLaunchStats.numRepeatedPrewarms,
+                          _NCLaunchStats.predictedWidgetsToken, _NCLaunchStats.prewarmDurationTracker,
+                          _NCLaunchStats.prewarmTimeTracker, _NCLaunchStats.seqTracker, _NCLaunchStats.sessionDuet ]
+...

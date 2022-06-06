@@ -1,0 +1,62 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/ContactsDonation.framework/ContactsDonation
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CNDDonationsEnabledNotificationName, _CNDDonationsEnabledPreferencesKey,
+                          _CNDSIMCardItemIdentifierTransform, _CNDSIMCardItemValueTransform, _CNDonationAccountsBundleIdentifier,
+                          _CNDonationCoreRoutineBundleIdentifier, _CNDonationErrorDomain, _CNDonationOriginBundleIdentifierKey,
+                          _CNDonationOriginClusterIdentifierKey, _CNDonationOriginDonationDateKey,
+                          _CNDonationOriginDonationIdentifierKey, _CNDonationOriginExpirationDateKey,
+                          _CNDonationOriginPlistEncodingVersionKey, _CNDonationSIMCardBundleIdentifier,
+                          _CNDonationStoreMeCardIdentifier, _CNDonationStoreMeCardValuesDidChangeNotification,
+                          _CNDonationToolBundleIdentifier, _CNDonationValueEmailAddressKey, _CNDonationValueLabelKey,
+                          _CNDonationValueNameComponentsFamilyNameKey, _CNDonationValueNameComponentsGivenNameKey,
+                          _CNDonationValueNameComponentsKey, _CNDonationValueNameComponentsMiddleNameKey,
+                          _CNDonationValueNameComponentsNamePrefixKey, _CNDonationValueNameComponentsNameSuffixKey,
+                          _CNDonationValueNameComponentsNicknameKey, _CNDonationValueOriginKey, _CNDonationValuePhoneNumberKey,
+                          _CNDonationValuePlistEncodingVersionKey, _CNDonationValuePostalAddressCityKey,
+                          _CNDonationValuePostalAddressCountryKey, _CNDonationValuePostalAddressDonationStyleAddress,
+                          _CNDonationValuePostalAddressDonationStyleKey, _CNDonationValuePostalAddressDonationStyleLocation,
+                          _CNDonationValuePostalAddressISOCountryCodeKey, _CNDonationValuePostalAddressKey,
+                          _CNDonationValuePostalAddressPostalCodeKey, _CNDonationValuePostalAddressStateKey,
+                          _CNDonationValuePostalAddressStreetKey, _CNDonationValuePostalAddressSubAdministrativeAreaKey,
+                          _CNDonationValuePostalAddressSubLocalityKey, _ContactsDonationVersionNumber,
+                          _ContactsDonationVersionString ]
+    objc-classes:       [ _CNDCoreTelephonyServices, _CNDDonationPreferences, _CNDDonorExtension, _CNDDonorLoader,
+                          _CNDInMemoryDonationPreferences, _CNDSIMCardItem, _CNDSIMCardMonitor, _CNDonationAgentXPCAdapter,
+                          _CNDonationExtensionRequestHandler, _CNDonationLoggerProvider, _CNDonationOrigin, _CNDonationStore,
+                          _CNDonationValue, _CNMutableDonationOrigin, __CNDExtensionContext, __CNDHostExtensionContext,
+                          __CNDRemoteExtensionContext, __CNDonationAccountLogger, __CNDonationAgentLogger,
+                          __CNDonationAgentXPCMethodScope, __CNDonationAnalyticsLogger, __CNDonationExtensionLogger,
+                          __CNDonationPreferencesLogger, __CNDonationToolLogger, __CNEmailAddressDonationValue,
+                          __CNImageDataDonationValue, __CNNameComponentsDonationValue, __CNPhoneNumberDonationValue,
+                          __CNPostalAddressDonationValue ]
+    objc-ivars:         [ _CNDDonationPreferences._donationPreferenceCheckingBlock,
+                          _CNDDonationPreferences._donationPreferenceSettingBlock, _CNDDonationPreferences._logger,
+                          _CNDDonationPreferences._notificationCenter, _CNDDonorExtension._extension, _CNDDonorExtension._logger,
+                          _CNDDonorLoader._loggerProvider, _CNDInMemoryDonationPreferences._donationsEnabled,
+                          _CNDSIMCardItem._identifier, _CNDSIMCardItem._value, _CNDSIMCardMonitor._coreTelephonyClient,
+                          _CNDSIMCardMonitor._coreTelephonyServices, _CNDSIMCardMonitor._serverConnection,
+                          _CNDSIMCardMonitor._serverConnectionQueue, _CNDSIMCardMonitor._subject,
+                          _CNDSIMCardMonitor._subjectToken, _CNDonationLoggerProvider._accountLoggerImpl,
+                          _CNDonationLoggerProvider._agentLoggerImpl, _CNDonationLoggerProvider._analyticsLoggerImpl,
+                          _CNDonationLoggerProvider._extensionLoggerImpl, _CNDonationLoggerProvider._preferencesLoggerImpl,
+                          _CNDonationLoggerProvider._toolLoggerImpl, _CNDonationOrigin._bundleIdentifier,
+                          _CNDonationOrigin._clusterIdentifier, _CNDonationOrigin._donationDate,
+                          _CNDonationOrigin._donationIdentifier, _CNDonationOrigin._expirationDate, _CNDonationStore._adapter,
+                          _CNDonationValue._origin, __CNDRemoteExtensionContext._requestHandler,
+                          __CNDonationAccountLogger._log_t, __CNDonationAgentLogger._log_t,
+                          __CNDonationAgentXPCMethodScope._promise, __CNDonationAgentXPCMethodScope._proxy,
+                          __CNDonationAnalyticsLogger._log_t, __CNDonationExtensionLogger._log_t,
+                          __CNDonationPreferencesLogger._log_t, __CNDonationToolLogger._log_t,
+                          __CNEmailAddressDonationValue._emailAddress, __CNEmailAddressDonationValue._label,
+                          __CNImageDataDonationValue._imageData, __CNNameComponentsDonationValue._nameComponents,
+                          __CNPhoneNumberDonationValue._label, __CNPhoneNumberDonationValue._phoneNumber,
+                          __CNPostalAddressDonationValue._label, __CNPostalAddressDonationValue._postalAddress,
+                          __CNPostalAddressDonationValue._style ]
+...

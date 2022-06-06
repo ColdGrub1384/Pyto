@@ -1,0 +1,59 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MDM.framework/MDM
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MCDeviceIsNetworkTethered, __getBaseInterfaceForService, __isIPv4AddressAndNetmaskUseful,
+                          __isIPv4ConfigInfoUseful, __isIPv4ConfigMethodAutomatic, __isIPv4ConfigMethodManual,
+                          __isIPv4SockaddrUseful, __isIPv6AddressAndPrefixLengthUseful, __isIPv6ConfigInfoUseful,
+                          __isIPv6ConfigMethodAutomatic, __isIPv6ConfigMethodManual, __isIPv6SockaddrUseful,
+                          __isServiceUsefulUSBEthernet, __isUSBEthernetInterface, __isUsefulIPv4Protocol, __isUsefulIPv6Protocol,
+                          __serviceIDFromDynamicStoreKey, _kIdentifierKey, _kMCMDMPCommandKey, _kMCMDMPCommandUUIDKey,
+                          _kMCMDMPErrorChainErrorCodeKey, _kMCMDMPErrorChainErrorDomainKey, _kMCMDMPErrorChainKey,
+                          _kMCMDMPErrorChainLocalizedDescriptionKey, _kMCMDMPErrorChainUSEnglishDescriptionKey,
+                          _kMCMDMPPushMagicKey, _kMCMDMPRequestTypeActivationLockBypassCode,
+                          _kMCMDMPRequestTypeApplyRedemptionCode, _kMCMDMPRequestTypeAvailableOSUpdates,
+                          _kMCMDMPRequestTypeCertificateList, _kMCMDMPRequestTypeClearActivationLockBypassCode,
+                          _kMCMDMPRequestTypeClearPasscode, _kMCMDMPRequestTypeClearRestrictionsPassword,
+                          _kMCMDMPRequestTypeDeleteUser, _kMCMDMPRequestTypeDeviceConfigured,
+                          _kMCMDMPRequestTypeDeviceInformation, _kMCMDMPRequestTypeDeviceLocation, _kMCMDMPRequestTypeDeviceLock,
+                          _kMCMDMPRequestTypeDisableLostMode, _kMCMDMPRequestTypeEnableLostMode, _kMCMDMPRequestTypeEraseDevice,
+                          _kMCMDMPRequestTypeInstallApplication, _kMCMDMPRequestTypeInstallMedia,
+                          _kMCMDMPRequestTypeInstallProfile, _kMCMDMPRequestTypeInstallProfileSilent,
+                          _kMCMDMPRequestTypeInstallProvisioningProfile, _kMCMDMPRequestTypeInstalledApplicationList,
+                          _kMCMDMPRequestTypeInviteToProgram, _kMCMDMPRequestTypeLogOutUser,
+                          _kMCMDMPRequestTypeManagedApplicationAttributes, _kMCMDMPRequestTypeManagedApplicationConfiguration,
+                          _kMCMDMPRequestTypeManagedApplicationFeedback, _kMCMDMPRequestTypeManagedApplicationsList,
+                          _kMCMDMPRequestTypeManagedMediaList, _kMCMDMPRequestTypeOSUpdateStatus,
+                          _kMCMDMPRequestTypePlayLostModeSound, _kMCMDMPRequestTypeProfileList,
+                          _kMCMDMPRequestTypeProvisioningProfileList, _kMCMDMPRequestTypeRefreshCellularPlans,
+                          _kMCMDMPRequestTypeRemoveApplication, _kMCMDMPRequestTypeRemoveMedia, _kMCMDMPRequestTypeRemoveProfile,
+                          _kMCMDMPRequestTypeRemoveProvisioningProfile, _kMCMDMPRequestTypeRequestMirroring,
+                          _kMCMDMPRequestTypeRequestUnlockToken, _kMCMDMPRequestTypeRestartDevice,
+                          _kMCMDMPRequestTypeRestrictions, _kMCMDMPRequestTypeScheduleOSUpdate,
+                          _kMCMDMPRequestTypeScheduleOSUpdateScan, _kMCMDMPRequestTypeSecurityInfo, _kMCMDMPRequestTypeSettings,
+                          _kMCMDMPRequestTypeShutDownDevice, _kMCMDMPRequestTypeStopMirroring,
+                          _kMCMDMPRequestTypeTriggerDiagnostics, _kMCMDMPRequestTypeUserList,
+                          _kMCMDMPRequestTypeValidateApplications, _kMCMDMPSettingsSettingsAppAttributes,
+                          _kMCMDMPSettingsSettingsAppConfig, _kMCMDMPSettingsSettingsBluetooth,
+                          _kMCMDMPSettingsSettingsDataRoaming, _kMCMDMPSettingsSettingsDeviceName,
+                          _kMCMDMPSettingsSettingsMaximumResidentUsers, _kMCMDMPSettingsSettingsPersonalHotspot,
+                          _kMCMDMPSettingsSettingsVoiceRoaming, _kMCMDMPSettingsSettingsWallpaper, _kMCMDMPSettingsStatusKey,
+                          _kMCMDMPStatusIdle, _kMCMDMPStatusNotNow, _kMCMDMPStatusNotPermitted, _kMCMDMPTokenKey,
+                          _kMCMDMPTopicKey, _kMCMDMPUnlockTokenKey ]
+    objc-classes:       [ _MCAppleAccountUtilities, _MCBlockOperation, _MCMDMAggregateLogger, _MCMDMParser, _MCMDMUtilities,
+                          _MCManagedAssetManager, _MCSSAuthenticationRequestDelegate, _MCSSDownloadManifestRequestDelegate,
+                          _MCSSItemLookupRequestDelegate, _MCSSPersonalizeOffersDelegate, _MCSSPurchaseRequestDelegate,
+                          _MCSSRequestDelegate, _MCUserMDMParser, __MCBlockOperationContext ]
+    objc-ivars:         [ _MCBlockOperation._block, _MCMDMParser._isChaperoned, _MCMDMParser._isMDM,
+                          _MCMDMParser._managingProfileIdentifier, _MCMDMParser._operationQueue, _MCMDMParser._server,
+                          _MCSSAuthenticationRequestDelegate._authenticatedAccount,
+                          _MCSSDownloadManifestRequestDelegate._response, _MCSSItemLookupRequestDelegate._items,
+                          _MCSSPersonalizeOffersDelegate._response, _MCSSRequestDelegate._completionBlock,
+                          _MCSSRequestDelegate._request, _MCSSRequestDelegate._timeoutTimer,
+                          __MCBlockOperationContext._operation ]
+...

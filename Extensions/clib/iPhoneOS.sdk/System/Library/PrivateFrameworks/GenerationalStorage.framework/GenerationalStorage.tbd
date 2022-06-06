@@ -1,0 +1,57 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/GenerationalStorage.framework/GenerationalStorage
+current-version:       309
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _GSAdditionCreationDisplayNameKey, _GSAdditionCreationInfoValidate, _GSAdditionCreationKeepFileIDKey,
+                          _GSAdditionCreationNameKey, _GSAdditionCreationNameSpaceKey, _GSAdditionCreationOnDuplicateKey,
+                          _GSAdditionCreationOptionsKey, _GSAdditionCreationPOSIXNameKey, _GSAdditionCreationUserInfoKey,
+                          _GSAdditionFieldNameSpaceKey, _GSAdditionFieldOptionsKey, _GSAdditionFieldSizeKey,
+                          _GSAdditionFieldURLKey, _GSArchiveTree, _GSDaemonConnectionClose, _GSDaemonInterface, _GSDaemonProxy,
+                          _GSDocumentVersionsNameSpace, _GSGenerationalStorageErrorDomain, _GSGetDocumentID,
+                          _GSLibraryAddGenerationWithOptionsByCopyingFile, _GSLibraryAddGenerationWithOptionsByMovingFile,
+                          _GSLibraryCopyAllGenerationsInfos, _GSLibraryCopyGeneration, _GSLibraryCopyGenerationInfoDictionary,
+                          _GSLibraryCopyGenerationInfoValueForKey, _GSLibraryCopyGenerationInfos, _GSLibraryCopyGenerationNames,
+                          _GSLibraryCopyGenerationOriginalDisplayName, _GSLibraryCopyURLForGeneration,
+                          _GSLibraryCreateClientManaged, _GSLibraryDestroyClientManaged, _GSLibraryDocumentDidSafeSave,
+                          _GSLibraryDocumentWillSafeSave, _GSLibraryGetGenerationOptions, _GSLibraryGetOrAllocateDocumentId,
+                          _GSLibraryGetStorageOptions, _GSLibraryHasGenerationsForPaths, _GSLibraryInternalStatGeneration,
+                          _GSLibraryPrivateTransferGenerationToClientName, _GSLibraryRemoveGenerations,
+                          _GSLibraryResolveDocumentId2, _GSLibraryRestoreGeneration, _GSLibrarySetGenerationInfoValueForKey,
+                          _GSLibrarySetGenerationOptions, _GSLibrarySetGenerationOriginalDisplayName,
+                          _GSLibrarySetStorageOptions, _GSLibraryTransferDocumentId, _GSMergeInfoValueDictionary,
+                          _GSMutableInfoDictionary, _GSSetGenerationOptions, _GSSetInfoDictionary, _GSSetOriginalDisplayName,
+                          _GSSetOriginalPOSIXName, _GSTrackDocument, _GSUbiquitousConflictsNameSpace, __BeforePathRemove,
+                          __GSError, __GSErrorForErrno, __GSErrorForStatus, __GSIsDocumentRevision, __GSOpenByID, __PathRename,
+                          __PathResolve, __RemoveSubTrees, __RemoveTree, __SetBirthTimeSpecForFD, _get_volume_uuid,
+                          _kGSLibraryErrorDomain ]
+    objc-classes:       [ _GSAddition, _GSClientManagedLibrary, _GSDaemonProxySync, _GSDocumentIdentifier,
+                          _GSPermanentAdditionEnumerator, _GSPermanentStorage, _GSStagingPrefix, _GSStorageManager,
+                          _GSTemporaryAddtionEnumerator, _GSTemporaryStorage, __CopyfileCallbackCtx ]
+    objc-ivars:         [ _GSAddition._displayName, _GSAddition._namespace, _GSAddition._options, _GSAddition._originalName,
+                          _GSAddition._size, _GSAddition._storage, _GSAddition._url, _GSAddition._userInfo,
+                          _GSClientManagedLibrary._ts, _GSDaemonProxySync._error, _GSDaemonProxySync._result,
+                          _GSDaemonProxySync._target, _GSDocumentIdentifier.deviceID, _GSDocumentIdentifier.documentID,
+                          _GSDocumentIdentifier.volumeUUID, _GSPermanentAdditionEnumerator._array,
+                          _GSPermanentAdditionEnumerator._error, _GSPermanentAdditionEnumerator._nameSpace,
+                          _GSPermanentAdditionEnumerator._pos, _GSPermanentAdditionEnumerator._proxy,
+                          _GSPermanentAdditionEnumerator._storage, _GSPermanentAdditionEnumerator._token,
+                          _GSPermanentAdditionEnumerator._withOptions, _GSPermanentAdditionEnumerator._withoutOptions,
+                          _GSPermanentStorage._documentID, _GSPermanentStorage._documentURL, _GSPermanentStorage._privExtension,
+                          _GSPermanentStorage._privHandle, _GSPermanentStorage._pubExtension, _GSPermanentStorage._pubHandle,
+                          _GSPermanentStorage._remoteID, _GSPermanentStorage._stagingPrefix, _GSPermanentStorage._storageID,
+                          _GSStagingPrefix._deviceID, _GSStagingPrefix._extension, _GSStagingPrefix._path,
+                          _GSStagingPrefix._pathComponents, _GSStagingPrefix._sandboxHandle, _GSStagingPrefix._volumeUUID,
+                          _GSTemporaryAddtionEnumerator._array, _GSTemporaryAddtionEnumerator._enumerator,
+                          _GSTemporaryAddtionEnumerator._error, _GSTemporaryAddtionEnumerator._nameSpace,
+                          _GSTemporaryAddtionEnumerator._pos, _GSTemporaryAddtionEnumerator._storage,
+                          _GSTemporaryAddtionEnumerator._withOptions, _GSTemporaryAddtionEnumerator._withoutOption,
+                          _GSTemporaryStorage._documentURL, _GSTemporaryStorage._libraryURL, _GSTemporaryStorage._lockFd,
+                          _GSTemporaryStorage._stagingURL, _GSTemporaryStorage._workQueue, __CopyfileCallbackCtx._doArchive,
+                          __CopyfileCallbackCtx._doUnarchive, __CopyfileCallbackCtx._generationSize,
+                          __CopyfileCallbackCtx._progress ]
+...

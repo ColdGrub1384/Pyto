@@ -12,12 +12,45 @@
 static char _extensionsimporter_module_docstring[] =
     "Import frameworks and LLVM bitcode.";
 
-// MARK: - module_from_bitcode
-
-PyObject *cython_print_result(PyObject *self, PyObject *args, PyObject *kw) {
-    printf("ª\n");
-    return Py_None;
+void *lli_msgSend(id self, SEL msg, int argc, va_list parameters) {
+    
+    NSLog(@"Will invoke %@", NSStringFromSelector(msg));
+    SEL sel = NSSelectorFromString(NSStringFromSelector(msg));
+    
+    NSMethodSignature *signature = [self methodSignatureForSelector:sel];
+        
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setTarget:self]; // 0
+    [invocation setSelector:sel]; // 1
+    
+    int i;
+    for (i = 2; i < argc+2; i += 1) { // 2
+        void *arg = va_arg(parameters, void *);
+        [invocation setArgument:&arg atIndex:i];
+    }
+    
+    [invocation invoke];
+        
+    const char *returnType = [invocation.methodSignature methodReturnType];
+    
+    if (strcmp(returnType, "v") == 0) {
+        return NULL;
+    } else if (strcmp(returnType, "@") && strcmp(returnType, "#")) {
+        // Not an object
+        
+        void *value;
+        [invocation getReturnValue:&value];
+        return value;
+    } else {
+        // An object
+        
+        id object;
+        [invocation getReturnValue:&object];
+        return (void *)CFBridgingRetain(object);
+    }
 }
+
+// MARK: - module_from_bitcode
 
 static char _extensionsimporter_module_from_bitcode_docstring[] =
     "Returns a module from the path of an LLVM bitcode file.";

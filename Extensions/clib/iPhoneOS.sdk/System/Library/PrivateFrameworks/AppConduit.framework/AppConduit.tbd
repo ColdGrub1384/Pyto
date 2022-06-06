@@ -1,0 +1,73 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AppConduit.framework/AppConduit
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ACXAppShipsWithOS, _ACXApplicationBundleIdentiferKey, _ACXApplicationNameKey, _ACXApplicationTeamID,
+                          _ACXApplicationUniqueID, _ACXApplicationsUpdatedDarwinNotification, _ACXArchitectureCompatibilityKey,
+                          _ACXArrayContainsOnlyClass, _ACXArrayifyThing, _ACXAsyncTransaction, _ACXBetaAppKey, _ACXBooleanValue,
+                          _ACXClockfaceExtensionPaths, _ACXComplicationsPrincipalClass, _ACXConnectionCreationDateErrorKey,
+                          _ACXConnectionIdentifierErrorKey, _ACXConnectionWifiAssertedKey, _ACXContainerAppBundleIdKey,
+                          _ACXCopyDataDirectory, _ACXCopyLogDirectory, _ACXCopyPairingStoreSubdirectoryInBase,
+                          _ACXCopyStagingDirectory, _ACXCopyStagingDirectoryPath, _ACXDictionaryContainsOnlyClasses,
+                          _ACXErrorDomain, _ACXFunctionNameErrorKey, _ACXGetPOSIXError, _ACXIDSMessageIDKey,
+                          _ACXInitializeDiskLogging, _ACXIntentsRestrictedWhileLockedAggregateKey,
+                          _ACXIntentsSupportedAggregateKey, _ACXIsInternalBuild, _ACXLoadInfoPlist,
+                          _ACXObjectsAreDifferentOrDifferentNullness, _ACXObjectsAreTheSameOrSameNullness, _ACXPluginBundleIdKey,
+                          _ACXRandomDirWithTemplateURL, _ACXRemoteApplicationBundleIDsNotificationPayloadKey,
+                          _ACXRemoteApplicationDatabaseResyncedDistributedNotification,
+                          _ACXRemoteApplicationDevicePairingIDNotificationPayloadKey,
+                          _ACXRemoteApplicationsInstalledDistributedNotification,
+                          _ACXRemoteApplicationsUninstalledDistributedNotification,
+                          _ACXRemoteApplicationsUpdatedDistributedNotification, _ACXRemoveApplicationDataErrorDictionaryKey,
+                          _ACXServerStatusKey, _ACXShowAppBlacklistedNotice, _ACXShowAppOnWatchKey,
+                          _ACXShowArchitectureNotSupportedNotice, _ACXShowCapabilitiesMismatchNotice,
+                          _ACXShowInstallationUnavailableNotice, _ACXShowLowDiskSpaceNotice, _ACXShowRuntimeNotSupportedNotice,
+                          _ACXShowUntrustedAppNotice, _ACXShowUserNoticeWithTapToRadarButton, _ACXSourceFileLineErrorKey,
+                          _ACXStringifyObject, _ACXSupportedComplicationFamilies, _ACXUnlocalizedValueKey,
+                          _ACXUserActivityTypesKey, _ACXWatchAppBundleURLKey, _ACXWatchKitAppExecutableHash,
+                          _ACXWatchKitCompatibilityKey, _ACXWatchKitVersion, _ACXYOrN, _AppConduitVersionNumber,
+                          _AppConduitVersionString, __CreateAndLogError, __CreateAndLogErrorV, __CreateError, _gLogHandle,
+                          _kACXSourceAppWatchApplicationStore, _kAlwaysInstallKey, _kAppIsDeletable,
+                          _kApplicationIsLocallyAvailable, _kApplicationMode, _kApplicationStateVersion, _kApplicationStates,
+                          _kApplicationType, _kAutoInstallOverride, _kCompanionAppName, _kCompanionAppURL,
+                          _kCompletedInitialPairedSync, _kCounterpartIdentifiers, _kDBUUID, _kInitiallyInstallAllExistingApps,
+                          _kIsEmbeddedPlaceholder, _kIsPurchaseReDownload, _kIsTrustedApp, _kLastLSSequenceNumber,
+                          _kLocalizedInfoPlistStrings, _kMinimumOSVersion, _kNPSDomainName, _kNSUserActivityTypes,
+                          _kNeedsReunionSync, _kOldApplicationState, _kPendingAppUpdateStates, _kSequenceNumber,
+                          _kSourceAppIdentifier, _kStoreMetadata, _kUIRequiredDeviceCapabilities, _kValidatedByProfile,
+                          _kWKCompanionAppBundleIdentifier, _kWKPluginBundleIdKey, _kWKRunsIndependently, _kWKWatchOnly,
+                          _kWatchAppURL, _kWatchKitAppExecutableHash, _kWatchKitAppSlices ]
+    objc-classes:       [ _ACXApplication, _ACXApplicationStatus, _ACXDeviceConnection,
+                          _ACXDeviceConnectionDelegateProtocolInterface, _ACXDeviceConnectionProtocolInterface,
+                          _ACXRemoteApplication ]
+    objc-ivars:         [ _ACXApplication._autoInstallOverride, _ACXApplication._clockFaceExtensionPaths,
+                          _ACXApplication._companionAppName, _ACXApplication._companionAppURL, _ACXApplication._deviceStatus,
+                          _ACXApplication._isEmbeddedPlaceholder, _ACXApplication._isPurchasedReDownload,
+                          _ACXApplication._isTrusted, _ACXApplication._lsSequenceNumber, _ACXApplication._sourceAppIdentifier,
+                          _ACXApplication._watchAppURL, _ACXApplicationStatus._architectureCompatibility,
+                          _ACXApplicationStatus._installStatus, _ACXApplicationStatus._lastInstallationError,
+                          _ACXApplicationStatus._uniqueInstallID, _ACXApplicationStatus._watchKitCompatibility,
+                          _ACXDeviceConnection._delegate, _ACXDeviceConnection._internalQueue,
+                          _ACXDeviceConnection._observerQueue, _ACXDeviceConnection._observerReEstablishTimer,
+                          _ACXDeviceConnection._observers, _ACXDeviceConnection._xpcConnection,
+                          _ACXRemoteApplication._applicationMode, _ACXRemoteApplication._applicationName,
+                          _ACXRemoteApplication._applicationType, _ACXRemoteApplication._architectureSlices,
+                          _ACXRemoteApplication._bundleIdentifier, _ACXRemoteApplication._bundleShortVersion,
+                          _ACXRemoteApplication._bundleVersion, _ACXRemoteApplication._companionAppBundleID,
+                          _ACXRemoteApplication._complicationPrincipalClass, _ACXRemoteApplication._counterpartIdentifiers,
+                          _ACXRemoteApplication._databaseUUID, _ACXRemoteApplication._hasClockfaces,
+                          _ACXRemoteApplication._intentsRestrictedWhileLocked, _ACXRemoteApplication._intentsSupported,
+                          _ACXRemoteApplication._isBetaApp, _ACXRemoteApplication._isDeletable,
+                          _ACXRemoteApplication._isLocallyAvailable, _ACXRemoteApplication._isProfileValidated,
+                          _ACXRemoteApplication._localizedInfoPlistStrings, _ACXRemoteApplication._minimumOSVersion,
+                          _ACXRemoteApplication._requiredCapabilities, _ACXRemoteApplication._sequenceNumber,
+                          _ACXRemoteApplication._storeMetadata, _ACXRemoteApplication._supportedComplicationFamilies,
+                          _ACXRemoteApplication._teamID, _ACXRemoteApplication._userActivityTypes,
+                          _ACXRemoteApplication._watchKitAppExecutableHash, _ACXRemoteApplication._watchKitAppExtensionBundleID,
+                          _ACXRemoteApplication._watchKitVersion ]
+...

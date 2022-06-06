@@ -1,0 +1,49 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/IOUSBHost.framework/IOUSBHost
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _IOUSBGetBillboardDescriptor, _IOUSBGetConfigurationMaxPowerMilliAmps, _IOUSBGetContainerIDDescriptor,
+                          _IOUSBGetEndpointAddress, _IOUSBGetEndpointDirection, _IOUSBGetEndpointIntervalEncodedMicroframes,
+                          _IOUSBGetEndpointIntervalFrames, _IOUSBGetEndpointIntervalMicroframes, _IOUSBGetEndpointMaxPacketSize,
+                          _IOUSBGetEndpointMaxStreams, _IOUSBGetEndpointMaxStreamsEncoded, _IOUSBGetEndpointNumber,
+                          _IOUSBGetEndpointType, _IOUSBGetNextAssociatedDescriptor, _IOUSBGetNextAssociatedDescriptorWithType,
+                          _IOUSBGetNextCapabilityDescriptor, _IOUSBGetNextCapabilityDescriptorWithType, _IOUSBGetNextDescriptor,
+                          _IOUSBGetNextDescriptorWithType, _IOUSBGetNextEndpointDescriptor,
+                          _IOUSBGetNextInterfaceAssociationDescriptor, _IOUSBGetNextInterfaceDescriptor,
+                          _IOUSBGetSuperSpeedDeviceCapabilityDescriptor, _IOUSBGetUSB20ExtensionDeviceCapabilityDescriptor,
+                          _IOUSBHostDefaultControlCompletionTimeout, _IOUSBHostDevicePropertyKeyContainerID,
+                          _IOUSBHostDevicePropertyKeyCurrentConfiguration, _IOUSBHostDevicePropertyKeySerialNumberString,
+                          _IOUSBHostDevicePropertyKeyVendorString, _IOUSBHostErrorDomain,
+                          _IOUSBHostInterfacePropertyKeyAlternateSetting, _IOUSBHostMatchingPropertyKeyConfigurationValue,
+                          _IOUSBHostMatchingPropertyKeyDeviceClass, _IOUSBHostMatchingPropertyKeyDeviceProtocol,
+                          _IOUSBHostMatchingPropertyKeyDeviceReleaseNumber, _IOUSBHostMatchingPropertyKeyDeviceSubClass,
+                          _IOUSBHostMatchingPropertyKeyInterfaceClass, _IOUSBHostMatchingPropertyKeyInterfaceNumber,
+                          _IOUSBHostMatchingPropertyKeyInterfaceProtocol, _IOUSBHostMatchingPropertyKeyInterfaceSubClass,
+                          _IOUSBHostMatchingPropertyKeyProductID, _IOUSBHostMatchingPropertyKeyProductIDArray,
+                          _IOUSBHostMatchingPropertyKeyProductIDMask, _IOUSBHostMatchingPropertyKeySpeed,
+                          _IOUSBHostMatchingPropertyKeyVendorID, _IOUSBHostPropertyKeyLocationID, _IOUSBHostVersionNumber,
+                          _IOUSBHostVersionString ]
+    objc-classes:       [ _IOBufferMutableData, _IOUSBHostDevice, _IOUSBHostIOSource, _IOUSBHostInterestNotificationReference,
+                          _IOUSBHostInterface, _IOUSBHostObject, _IOUSBHostPipe, _IOUSBHostStream ]
+    objc-ivars:         [ _IOBufferMutableData._bytes, _IOBufferMutableData._deallocator, _IOBufferMutableData._length,
+                          _IOUSBHostIOSource._debugLoggingMask, _IOUSBHostIOSource._deviceAddress,
+                          _IOUSBHostIOSource._endpointAddress, _IOUSBHostIOSource._hostInterface,
+                          _IOUSBHostIOSource._ioConnection, _IOUSBHostIOSource._ioNotificationPortRef,
+                          _IOUSBHostInterestNotificationReference._hostObject,
+                          _IOUSBHostInterestNotificationReference._interestNotificationLock,
+                          _IOUSBHostInterestNotificationReference._interestNotificationPortDestroyed,
+                          _IOUSBHostObject._debugLoggingMask, _IOUSBHostObject._descriptorCache,
+                          _IOUSBHostObject._interestHandler, _IOUSBHostObject._interestNotificationObject,
+                          _IOUSBHostObject._interestNotificationPortRef, _IOUSBHostObject._interestNotificationQueue,
+                          _IOUSBHostObject._interestNotificationReference, _IOUSBHostObject._invalidDescriptorCache,
+                          _IOUSBHostObject._ioConnection, _IOUSBHostObject._ioNotificationPortRef, _IOUSBHostObject._ioService,
+                          _IOUSBHostObject._queue, _IOUSBHostObject._supportedStringLanguages,
+                          _IOUSBHostPipe._currentDescriptorsCache, _IOUSBHostPipe._invalidDescriptorCache,
+                          _IOUSBHostPipe._originalDescriptorsCache, _IOUSBHostPipe._streamsEnabled, _IOUSBHostStream._hostPipe,
+                          _IOUSBHostStream._streamID ]
+...

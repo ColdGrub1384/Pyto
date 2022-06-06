@@ -1,0 +1,64 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/RemoteXPC.framework/RemoteXPC
+current-version:       1738.0.3
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _XPC_REMOTE_CONNECTION_PROTOCOL_VERSION_CURRENT, __xpc_type_remote_connection,
+                          _xpc_remote_channel_arm_read, _xpc_remote_channel_attach_stream, _xpc_remote_channel_cancel,
+                          _xpc_remote_channel_create, _xpc_remote_channel_send, _xpc_remote_connection_activate,
+                          _xpc_remote_connection_cancel, _xpc_remote_connection_copy_remote_address_string,
+                          _xpc_remote_connection_copy_remote_endpoint,
+                          _xpc_remote_connection_create_asymmetric_connected_ipv6_pair,
+                          _xpc_remote_connection_create_connected_ipv6_pair, _xpc_remote_connection_create_connected_pair,
+                          _xpc_remote_connection_create_remote_service_listener, _xpc_remote_connection_create_with_connected_fd,
+                          _xpc_remote_connection_create_with_nw_connection, _xpc_remote_connection_create_with_remote_service,
+                          _xpc_remote_connection_get_failsafe_version_flags, _xpc_remote_connection_get_remote_service_version,
+                          _xpc_remote_connection_get_version_flags, _xpc_remote_connection_send_barrier,
+                          _xpc_remote_connection_send_message, _xpc_remote_connection_send_message_with_reply,
+                          _xpc_remote_connection_send_message_with_reply_sync, _xpc_remote_connection_set_event_handler,
+                          _xpc_remote_connection_set_local_service_version, _xpc_remote_connection_set_target_queue,
+                          _xpc_remote_connection_set_traffic_class, _xpc_remote_connection_setup_nw_parameters,
+                          _xpc_remote_listener_cancel, _xpc_remote_listener_create_for_remote_service ]
+    objc-classes:       [ _OS_xpc_remote_channel, _OS_xpc_remote_connection, _OS_xpc_remote_listener, _OS_xpc_remote_message,
+                          _OS_xpc_remote_outstanding_reply, _OS_xpc_remote_pending_stream, _OS_xpc_remote_stream ]
+    objc-ivars:         [ _OS_xpc_remote_channel.conn, _OS_xpc_remote_channel.error, _OS_xpc_remote_channel.event_handler,
+                          _OS_xpc_remote_channel.msg_handler, _OS_xpc_remote_channel.parent_io, _OS_xpc_remote_channel.queue,
+                          _OS_xpc_remote_channel.state, _OS_xpc_remote_channel.stream_direction,
+                          _OS_xpc_remote_channel.stream_io, _OS_xpc_remote_channel.tx_complete,
+                          _OS_xpc_remote_channel.wire_version, _OS_xpc_remote_connection._event_handler,
+                          _OS_xpc_remote_connection._internal_queue, _OS_xpc_remote_connection._listener,
+                          _OS_xpc_remote_connection._send_in_progress, _OS_xpc_remote_connection._state,
+                          _OS_xpc_remote_connection._target_queue, _OS_xpc_remote_connection._type,
+                          _OS_xpc_remote_connection.error, _OS_xpc_remote_connection.first_msg_id,
+                          _OS_xpc_remote_connection.local_service_version, _OS_xpc_remote_connection.msgq_stqh_first,
+                          _OS_xpc_remote_connection.msgq_stqh_last, _OS_xpc_remote_connection.next_msg_id,
+                          _OS_xpc_remote_connection.outstanding_replies_stqh_first,
+                          _OS_xpc_remote_connection.outstanding_replies_stqh_last,
+                          _OS_xpc_remote_connection.pending_streams_stqh_first,
+                          _OS_xpc_remote_connection.pending_streams_stqh_last, _OS_xpc_remote_connection.preexisting_connection,
+                          _OS_xpc_remote_connection.preexisting_socket, _OS_xpc_remote_connection.protocol_feature_flags,
+                          _OS_xpc_remote_connection.protocol_version_number, _OS_xpc_remote_connection.remote_service,
+                          _OS_xpc_remote_connection.remote_service_name, _OS_xpc_remote_connection.remote_service_version,
+                          _OS_xpc_remote_connection.reply_channel, _OS_xpc_remote_connection.reply_channel_helo_received,
+                          _OS_xpc_remote_connection.requires_nw_listener_create_workaround,
+                          _OS_xpc_remote_connection.root_channel, _OS_xpc_remote_connection.root_channel_helo_received,
+                          _OS_xpc_remote_connection.root_connection, _OS_xpc_remote_connection.root_listener,
+                          _OS_xpc_remote_connection.server_mode, _OS_xpc_remote_connection.streams_stqh_first,
+                          _OS_xpc_remote_connection.streams_stqh_last, _OS_xpc_remote_connection.traffic_class,
+                          _OS_xpc_remote_listener.accept_handler, _OS_xpc_remote_listener.cancel_handler,
+                          _OS_xpc_remote_listener.canceled, _OS_xpc_remote_listener.queue, _OS_xpc_remote_listener.type,
+                          _OS_xpc_remote_message.barrier, _OS_xpc_remote_message.body, _OS_xpc_remote_message.link_stqe_next,
+                          _OS_xpc_remote_message.msg_id, _OS_xpc_remote_message.ool, _OS_xpc_remote_message.ool_length,
+                          _OS_xpc_remote_message.reply_handler, _OS_xpc_remote_message.reply_queue,
+                          _OS_xpc_remote_outstanding_reply.link_stqe_next, _OS_xpc_remote_outstanding_reply.msg_id,
+                          _OS_xpc_remote_outstanding_reply.reply_handler, _OS_xpc_remote_outstanding_reply.reply_queue,
+                          _OS_xpc_remote_pending_stream.channel, _OS_xpc_remote_pending_stream.completion_handler,
+                          _OS_xpc_remote_pending_stream.direction, _OS_xpc_remote_pending_stream.error,
+                          _OS_xpc_remote_pending_stream.io, _OS_xpc_remote_pending_stream.link_stqe_next,
+                          _OS_xpc_remote_pending_stream.stream_id, _OS_xpc_remote_stream.channel,
+                          _OS_xpc_remote_stream.link_stqe_next ]
+...

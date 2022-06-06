@@ -1,0 +1,43 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/ConversationKit.framework/ConversationKit
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ConversationKitVersionNumber, _ConversationKitVersionString ]
+    objc-classes:       [ _CNKBuzzedAnimator, _CNKCrossFadeAnimator, _CNKEffectsLayoutController,
+                          _CNKFaceTimeCameraViewController, _CNKFaceTimeConstraintsController,
+                          _CNKFaceTimeInCallControlsDragController, _CNKFaceTimeInCallControlsViewController,
+                          _CNKFaceTimeMultiwayConversationViewController, _CNKMostActiveParticipantViewController,
+                          _CNKPipZoomControl, _CNKStagingAreaAnimator, _CNKStagingAreaViewController,
+                          __TtC15ConversationKit10CallCenter, __TtC15ConversationKit12GradientView,
+                          __TtC15ConversationKit12MonogramView, __TtC15ConversationKit14TapInteraction,
+                          __TtC15ConversationKit15ParticipantCell, __TtC15ConversationKit15ParticipantView,
+                          __TtC15ConversationKit18InCallControlsView, __TtC15ConversationKit19InCallControlButton,
+                          __TtC15ConversationKit19ParticipantGridView, __TtC15ConversationKit19ParticipantInfoView,
+                          __TtC15ConversationKit20LocalParticipantView, __TtC15ConversationKit20ParticipantAlertView,
+                          __TtC15ConversationKit20ParticipantVideoView, __TtC15ConversationKit21ParticipantListLayout,
+                          __TtC15ConversationKit21ParticipantViewButton, __TtC15ConversationKit22AudioVisualizationView,
+                          __TtC15ConversationKit22ConversationController, __TtC15ConversationKit22ParticipantContactView,
+                          __TtC15ConversationKit23AudioVisualizationLayer, __TtC15ConversationKit23InCallControlsTitleCell,
+                          __TtC15ConversationKit23ParticipantMonogramView, __TtC15ConversationKit26ParticipantVideoCameraView,
+                          __TtC15ConversationKit27AudioVisualizationRingLayer,
+                          __TtC15ConversationKit27ParticipantVideoOverlayView,
+                          __TtC15ConversationKit29ParticipantGridViewController,
+                          __TtC15ConversationKit29ParticipantListViewController,
+                          __TtC15ConversationKit33ParticipantViewLabelContainerView,
+                          __TtC15ConversationKit36ParticipantsCollectionViewDataSource,
+                          __TtC15ConversationKit36ReportAProblemContractViewController,
+                          __TtC15ConversationKit38InCallControlsParticipantTableViewCell,
+                          __TtC15ConversationKit41InCallControlsAddParticipantTableViewCell,
+                          __TtC15ConversationKit41InCallControlsReportAProblemTableViewCell,
+                          __TtC15ConversationKit45InCallControlsParticipantsTableViewController,
+                          __TtC15ConversationKitP33_EE14EEE54384AD0705927B0F6107BB7E18ReportAProblemView,
+                          __TtC15ConversationKitP33_EE14EEE54384AD0705927B0F6107BB7E36ReportAProblemSymptomsViewController,
+                          __TtC15ConversationKitP33_EE14EEE54384AD0705927B0F6107BB7E42ReportAProblemAcknowledgmentViewController,
+                          __TtC15ConversationKitP33_FE359806F8692A6EC27FE04A771E72D538ParticipantViewLabelContainerViewLayer,
+                          __TtCC15ConversationKit30ParticipantContactDetailsCacheP33_84AC34FA5CB4344A8378F61D97FA6ADC12BoxedDetails ]
+...

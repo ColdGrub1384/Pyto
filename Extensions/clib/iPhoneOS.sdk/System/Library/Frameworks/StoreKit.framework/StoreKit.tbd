@@ -1,0 +1,63 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 9FC5E0DF-8C91-3101-BA4E-767F492B42E7', 'armv7s: D2C6E744-B440-3E97-BFF7-DF391BE479E5', 
+                   'arm64: CCB756DC-16F1-30A8-8EF1-5AF6BC3D05D8', 'arm64e: C3E2946B-6D61-31A0-80B6-663164D74238' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/StoreKit.framework/StoreKit'
+exports:         
+  - archs:           [ armv7, armv7s ]
+    symbols:         [ _SKGetDataForError, _SKGetErrorForData, _SKXPCCreateCFObjectFromXPCObject, 
+                       _SKXPCCreateXPCObjectFromCFObject, _SKXPCDictionaryCopyCFObject, 
+                       _SKXPCDictionaryCopyCFObjectWithClass, _SKXPCDictionarySetCFObject ]
+    objc-classes:    [ SKCloudServiceSetupRemoteViewController, SKDownloadChangeset, 
+                       SKHandleInvalidReceiptRequest, SKPaymentInternal, SKPaymentQueueInternal, 
+                       SKPaymentTransactionInternal, SKPrivacyController, SKProductInternal, 
+                       SKProductsRequestInternal, SKProductsResponseInternal, SKRequestInternal, 
+                       SKStoreReviewPresentationWindow, SKStoreReviewViewController, 
+                       _SKStoreProductActivityAnimationController ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _SKAccountPageAccountURLString, _SKAccountPageCharityURLString, 
+                       _SKAccountPageCustomURLString, _SKAccountPageEditBillingURLString, 
+                       _SKAccountPageGiftURLString, _SKAccountPageManageSubscriptionsURLString, 
+                       _SKAccountPagePaymentsShippingURLString, _SKAccountPageRedeemURLString, 
+                       _SKCloudServiceCapabilitiesDidChangeNotification, _SKCloudServiceSetupActionSubscribe, 
+                       _SKCloudServiceSetupMessageIdentifierAddMusic, _SKCloudServiceSetupMessageIdentifierConnect, 
+                       _SKCloudServiceSetupMessageIdentifierJoin, _SKCloudServiceSetupMessageIdentifierPlayMusic, 
+                       _SKCloudServiceSetupOptionsActionKey, _SKCloudServiceSetupOptionsAffiliateTokenKey, 
+                       _SKCloudServiceSetupOptionsCampaignTokenKey, _SKCloudServiceSetupOptionsITunesItemIdentifierKey, 
+                       _SKCloudServiceSetupOptionsMessageIdentifierKey, _SKDownloadTimeRemainingUnknown, 
+                       _SKErrorDomain, _SKGetRatingStarsImage, _SKReceiptPropertyIsExpired, 
+                       _SKReceiptPropertyIsRevoked, _SKReceiptPropertyIsVolumePurchase, 
+                       _SKStoreProductAppleCampaignParsec, _SKStoreProductParameterAdNetworkAttributionSignature, 
+                       _SKStoreProductParameterAdNetworkCampaignIdentifier, _SKStoreProductParameterAdNetworkIdentifier, 
+                       _SKStoreProductParameterAdNetworkNonce, _SKStoreProductParameterAdNetworkTimestamp, 
+                       _SKStoreProductParameterAdvertisingPartnerToken, _SKStoreProductParameterAffiliateToken, 
+                       _SKStoreProductParameterAppleCampaignIdentifier, _SKStoreProductParameterCampaignIdentifier, 
+                       _SKStoreProductParameterCampaignToken, _SKStoreProductParameterHighlightedITunesItemIdentifier, 
+                       _SKStoreProductParameterITunesItemIdentifier, _SKStoreProductParameterPopoverSourceRect, 
+                       _SKStoreProductParameterProductIdentifier, _SKStoreProductParameterProviderToken, 
+                       _SKStoreProductParameterQToken, _SKStorefrontCountryCodeDidChangeNotification, 
+                       _SKStorefrontIdentifierDidChangeNotification, _SKTerminateForInvalidReceipt, 
+                       _SKUIServiceNavigationOptionBackButtonHidden, _SKUIServiceNavigationOptionBackButtonTitle, 
+                       _SKUIServiceNavigationOptionRightButtonEnabled, _SKUIServiceNavigationOptionRightButtonStyle, 
+                       _SKUIServiceNavigationOptionRightButtonTitle, _SKUIServiceNavigationOptionTitle, 
+                       _SKUIServiceReviewSandboxMode, __SKCloudServiceSetupOptionsAudioAccessorySerialNumberKey, 
+                       __SKCloudServiceSetupOptionsAudioAccessoryUniqueDeviceIdentifierKey ]
+    objc-classes:    [ SKAccountPageViewController, SKAdNetwork, SKArcadeService, 
+                       SKArcadeSubscribeViewController, SKCloudServiceController, 
+                       SKCloudServiceSetupConfiguration, SKCloudServiceSetupExtension, 
+                       SKCloudServiceSetupReloadContext, SKCloudServiceSetupViewController, 
+                       SKComposeReviewViewController, SKDownload, SKInGameAnalytics, 
+                       SKInstallSheetStatusUpdateRequest, SKInternalProductStorePromotionController, 
+                       SKMutablePayment, SKPayment, SKPaymentDiscount, SKPaymentQueue, 
+                       SKPaymentQueueClient, SKPaymentTransaction, SKProduct, SKProductDiscount, 
+                       SKProductPageExtension, SKProductStorePromotionController, 
+                       SKProductSubscriptionPeriod, SKProductsRequest, SKProductsResponse, 
+                       SKPromotedIAPGetInfoInternalRequest, SKPromotedIAPGetOrderRequest, 
+                       SKPromotedIAPGetVisibilityRequest, SKPromotedIAPSetOrderRequest, 
+                       SKPromotedIAPSetVisibilityRequest, SKPurchaseIntent, SKReceiptRefreshRequest, 
+                       SKRequest, SKStarRatingAlertController, SKStarRatingControl, 
+                       SKStoreExtension, SKStorePageRequest, SKStorePageViewController, 
+                       SKStoreProductActivityViewController, SKStoreProductViewController, 
+                       SKStoreReviewController, SKStorefront, SKTermsPageViewController ]
+...

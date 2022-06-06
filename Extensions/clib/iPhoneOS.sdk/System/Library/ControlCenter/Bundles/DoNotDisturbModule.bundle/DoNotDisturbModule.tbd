@@ -1,0 +1,17 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/ControlCenter/Bundles/DoNotDisturbModule.bundle/DoNotDisturbModule
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _DNDLogControlCenter, _DoNotDisturbModuleVersionNumber, _DoNotDisturbModuleVersionString ]
+    objc-classes:       [ _DNDUIControlCenterModule ]
+    objc-ivars:         [ _DNDUIControlCenterModule._assertionService, _DNDUIControlCenterModule._availableLifetimeDetails,
+                          _DNDUIControlCenterModule._contentModuleContext,
+                          _DNDUIControlCenterModule._currentAssertionLifetimeDetails, _DNDUIControlCenterModule._currentState,
+                          _DNDUIControlCenterModule._lifetimeDetailsProvider, _DNDUIControlCenterModule._selectedOnExpansion,
+                          _DNDUIControlCenterModule._stateService ]
+...

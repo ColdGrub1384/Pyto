@@ -1,0 +1,20 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Calculate.framework/Calculate
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CalculateExpression, _CalculateExpressionError, _CalculateInternationalExpression,
+                          _CalculatePerformExpression ]
+    objc-classes:       [ _Converter, _CurrencyCache ]
+    objc-ivars:         [ _Converter._additionalResults, _Converter._conversionType, _Converter._currencyUpdateTimeOut,
+                          _Converter._inputString, _Converter._inputUnit, _Converter._inputValue, _Converter._isCurrency,
+                          _Converter._localizedInputValueAndUnit, _Converter._localizedOutputUnit,
+                          _Converter._localizedOutputValue, _Converter._localizedOutputValueAndUnit, _Converter._outputUnit,
+                          _Converter._outputValue, _CurrencyCache._currencyData, _CurrencyCache._currentCurrency,
+                          _CurrencyCache._currentRate, _CurrencyCache._currentString, _CurrencyCache._lastRefreshDate,
+                          _CurrencyCache._mutableCurrencyCache, _CurrencyCache._serializer, _CurrencyCache._uuid ]
+...

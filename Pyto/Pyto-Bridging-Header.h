@@ -4,6 +4,7 @@
 
 #import "Python.h"
 #import "Model/Python Bridging/Selectors/BlockBasedSelector.h"
+#import <Foundation/Foundation.h>
 
 #if MAIN && !SCREENSHOTS
 #import <openssl/pkcs7.h>
@@ -20,6 +21,8 @@
 #import "../TextKit_LineNumbers/LineNumberTextView/LineNumberTextView.h"
 #import "../Blink/KBWebViewBase.h"
 #import "../Extensions/_extensionsimporter.h"
+
+typedef NSArray* (*clang_complete_t)(const char *, const char *, int, int, NSArray*);
 #endif
 
 #include <os/proc.h>

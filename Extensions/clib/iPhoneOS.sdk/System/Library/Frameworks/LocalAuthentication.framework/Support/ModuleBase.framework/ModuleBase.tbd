@@ -1,0 +1,22 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/Frameworks/LocalAuthentication.framework/Support/ModuleBase.framework/ModuleBase
+current-version:       693.0.4
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:       [ _AuthenticationInProgress, _AuthenticationManager, _ContextPlugin, _MechanismManager, _Module ]
+    objc-ivars:         [ _AuthenticationInProgress._internalOptions, _AuthenticationInProgress._mechanism,
+                          _AuthenticationInProgress._originatorId, _AuthenticationInProgress._originatorPid,
+                          _AuthenticationInProgress._originatorUid, _AuthenticationInProgress._policy,
+                          _AuthenticationInProgress._reply, _AuthenticationInProgress._running,
+                          _AuthenticationInProgress._started, _AuthenticationInProgress._uiDelegate,
+                          _AuthenticationManager._completionHandler, _AuthenticationManager._idleBlocks,
+                          _AuthenticationManager._pendingAuthentication, _AuthenticationManager._runningAuthentication,
+                          _ContextPlugin._cachedExternalizedContext, _ContextPlugin._contextOwner,
+                          _ContextPlugin._internalOperationOptions, _ContextPlugin._resultInfo,
+                          _MechanismManager._evaluatedPolicy, _MechanismManager._mechanismContext, _MechanismManager._plugins,
+                          _MechanismManager._serverQueue, _Module._mechanismManager ]
+...

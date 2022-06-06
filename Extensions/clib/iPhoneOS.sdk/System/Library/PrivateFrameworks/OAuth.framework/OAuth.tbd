@@ -1,0 +1,15 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/OAuth.framework/OAuth
+current-version:       25
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _OAAuthTokenKey, _OAConsumerKeyKey, _OANonceKey, _OASignatureKey, _OASignatureMethodKey,
+                          _OATimestampKey, _OAVersionKey, _oauth_version ]
+    objc-classes:       [ _OACredential, _OAHMAC_SHA1Signer, _OAPlainTextSigner, _OAURLRequestSigner ]
+    objc-ivars:         [ _OACredential._consumerKey, _OACredential._consumerSecret, _OACredential._oauthToken,
+                          _OACredential._oauthTokenSecret, _OAURLRequestSigner._credential, _OAURLRequestSigner._signatureMethod ]
+...

@@ -1,0 +1,16 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SpotlightReceiver.framework/SpotlightReceiver
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SpotlightReceiverEntitlement, _SpotlightReceiverRegister, _SpotlightReceiverVersionNumber,
+                          _SpotlightReceiverVersionString, _SpotlightSenderEntitlement ]
+    objc-classes:       [ _CSRecieverConnection ]
+    objc-ivars:         [ _CSRecieverConnection._INIntentClassNames, _CSRecieverConnection._bundleIDs,
+                          _CSRecieverConnection._contentTypes, _CSRecieverConnection._receiver,
+                          _CSRecieverConnection._supportedJobs ]
+...

@@ -1,0 +1,32 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/ExchangeSyncExpress.framework/ExchangeSyncExpress
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _DADCalendarDirectorySearchRecordType_Groups, _DADCalendarDirectorySearchRecordType_Locations,
+                          _DADCalendarDirectorySearchRecordType_Resources, _DADCalendarDirectorySearchRecordType_Users,
+                          _DataAccessMonitoredFolderUpdated, _DataAccessMonitoringConnectionFailed, _kESDPortName,
+                          _kESExchangeAccountWipeOnly, _kESExchangeDeviceID, _kESExchangeUserEnrollmentMode,
+                          _kESMailChangeNotification ]
+    objc-classes:       [ _ESDAMContainerIDCacheKey, _ESDConnection, _ESDownloadContext, _ESECalendarAvailabilityContext,
+                          _ESECalendarDirectorySearchContext, _ESSharedCalendarContext ]
+    objc-ivars:         [ _ESDAMContainerIDCacheKey._accountID, _ESDAMContainerIDCacheKey._dataclass,
+                          _ESDConnection._accountIdsWithAlreadyResetCerts,
+                          _ESDConnection._accountIdsWithAlreadyResetThrottleTimers, _ESDConnection._connExchange,
+                          _ESDConnection._inFlightAttachmentDownloads, _ESDConnection._inFlightCalendarAvailabilityRequests,
+                          _ESDConnection._inFlightCalendarDirectorySearches, _ESDConnection._inFlightFolderChanges,
+                          _ESDConnection._inFlightOofSettingsRequests, _ESDConnection._inFlightSearchQueries,
+                          _ESDConnection._inFlightShareRequests, _ESDConnection._muckingWithConn,
+                          _ESDConnection._muckingWithInFlightCollections, _ESDConnection._registered,
+                          _ESDConnection._statusReportBlock, _ESDownloadContext._accountID, _ESDownloadContext._attachmentUUID,
+                          _ESDownloadContext._completionBlock, _ESDownloadContext._progressBlock, _ESDownloadContext._queue,
+                          _ESECalendarAvailabilityContext._completionBlock, _ESECalendarAvailabilityContext._resultsBlock,
+                          _ESECalendarDirectorySearchContext._completionBlock, _ESECalendarDirectorySearchContext._resultsBlock,
+                          _ESSharedCalendarContext._accountID, _ESSharedCalendarContext._calendarID,
+                          _ESSharedCalendarContext._completionBlock, _ESSharedCalendarContext._queue,
+                          _ESSharedCalendarContext._shouldSyncCalendar ]
+...

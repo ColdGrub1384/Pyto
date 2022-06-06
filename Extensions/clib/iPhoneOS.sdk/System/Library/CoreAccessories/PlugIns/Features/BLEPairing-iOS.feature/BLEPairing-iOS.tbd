@@ -1,0 +1,21 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          '/System/Library/CoreAccessories/PlugIns/Features/BLEPairing-iOS.feature/BLEPairing-iOS'
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ascii_to_hex, _getMemoryUse, _init_logging, _kXPCIAPBluetoothDeviceGetAccessoryConnectNotification,
+                          _kXPCIAPBluetoothDeviceGetAccessoryPairingInfo, _kXPCIAPBluetoothDeviceModeStr,
+                          _kXPCIAPBluetoothDevicePairingDataStr, _kXPCIAPBluetoothDevicePairingInfoUpdateStr,
+                          _kXPCIAPBluetoothDeviceStartBLEUpdatesStr, _kXPCIAPBluetoothDeviceStateUpdateStr,
+                          _kXPCIAPBluetoothDeviceStopBLEUpdatesStr, _kXPCIAPBluetoothForceUpdatesStr,
+                          _kXPCIAPBluetoothInfoAccessoryMfg, _kXPCIAPBluetoothInfoAccessoryModel, _kXPCIAPBluetoothInfoPairTypes,
+                          _kXPCIAPBluetoothInfoPairUUID, _kXPCIAPBluetoothPairDataStr, _kXPCIAPBluetoothPairInfoStr,
+                          _kXPCIAPBluetoothPairModeOnStr, _kXPCIAPBluetoothPairStatusStr, _kXPCIAPBluetoothPairTypeStr,
+                          _kXPCIAPBluetoothRadioOnStr, _kXPCIAPBluetoothUpdatesPairInfoStr, _kXPCIAPBluetoothUpdatesRadioStr,
+                          _kXPCMACAddressStr, _obfuscatedPointer, _printBytes, _removeNewline ]
+    objc-classes:       [ _ACCBLEPairingAccessory, _ACCBLEPairingFeaturePlugin, _ACCBLEPairingShim ]
+...

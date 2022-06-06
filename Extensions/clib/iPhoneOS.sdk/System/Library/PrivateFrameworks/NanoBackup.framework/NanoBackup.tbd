@@ -1,0 +1,22 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NanoBackup.framework/NanoBackup
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NBBackupDirectoryPath, _NBLoggingDaemonObjectInit, _NBLoggingFrameworkObjectInit, _nb_daemon_log,
+                          _nb_framework_log ]
+    objc-classes:       [ _NBBackup, _NBManager ]
+    objc-ivars:         [ _NBBackup._activeWatchFaceFileURL, _NBBackup._backingColor, _NBBackup._backupType,
+                          _NBBackup._bcmWindowMaterial, _NBBackup._bottomEnclosureMaterial, _NBBackup._coverGlassColor,
+                          _NBBackup._deviceColor, _NBBackup._deviceEnclosureColor, _NBBackup._diagnosticsOptInEnabled,
+                          _NBBackup._fcmMaterial, _NBBackup._hasResolvedActiveWatchFaceFilePath, _NBBackup._housingColor,
+                          _NBBackup._lastModificationDate, _NBBackup._locationOptInEnabled, _NBBackup._marketingVersion,
+                          _NBBackup._name, _NBBackup._productName, _NBBackup._productType, _NBBackup._sizeInBytes,
+                          _NBBackup._systemBuildVersion, _NBBackup._systemVersion, _NBBackup._topEnclosureMaterial,
+                          _NBBackup._uuid, _NBBackup._watchFace, _NBBackup._watchFaceColor, _NBManager._externalQueue,
+                          _NBManager._internalQueue, _NBManager._xpcConnection ]
+...

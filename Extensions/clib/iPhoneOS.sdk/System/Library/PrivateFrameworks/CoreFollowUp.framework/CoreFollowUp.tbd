@@ -1,0 +1,72 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CoreFollowUp.framework/CoreFollowUp
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CoreFollowUpVersionNumber, _CoreFollowUpVersionString, _FLDaemonExportedInterface, _FLError,
+                          _FLErrorDomain, _FLFollowUpActionLaunchArgumentsKey, _FLFollowUpBridgeBundleIdentifier,
+                          _FLFollowUpBridgeUrlPrefix, _FLFollowUpItemsKey, _FLFollowUpNotificationBundleIdentifier,
+                          _FLFollowUpNotificationDefaultCategory, _FLFollowUpNotificationSampleCategory,
+                          _FLFollowUpPreferencesBundleIdentifier, _FLFollowUpPreferencesIdentifierPrefix,
+                          _FLFollowUpPreferencesUrlPrefix, _FLFollowUpSingleActionKey, _FLFollowUpSingleItemKey,
+                          _FLFollowUpViewModelKey, _FLGroupIdentifierAccount, _FLGroupIdentifierDevice,
+                          _FLGroupIdentifierUnknown, _FLHSA2ActionChangePassword, _FLInternalItemWhitelistWarning,
+                          _FLItemRefreshResultFailure, _FLItemRefreshResultRemoved, _FLItemRefreshResultSuccess, _FLLoc,
+                          _FLLocDeviceSpecific, _FLNotificationOptionBannerAlert, _FLNotificationOptionExtensionActions,
+                          _FLNotificationOptionForce, _FLNotificationOptionLockscreen, _FLNotificationOptionNotificationCenter,
+                          _FLNotificationOptionSpringboardAlert, __FLLocKeyFromDeviceClass, __FLLogSystem, __FLLogSystemQuery,
+                          __FLSignpostCreate, __FLSignpostGetNanoseconds, __FLSignpostLogSystem ]
+    objc-classes:       [ _FLApprovedItemsDecorator, _FLApprovedItemsFilter, _FLConstants, _FLDaemon, _FLEnvironment,
+                          _FLExtensionHostContext, _FLFollowUpAction, _FLFollowUpController, _FLFollowUpItem,
+                          _FLFollowUpNotification, _FLGroupViewModelImpl, _FLHSA2LoginNotification,
+                          _FLHSA2PasswordResetNotification, _FLHeadlessActionHandler, _FLHeadlessExtensionLoader,
+                          _FLItemChangeObserver, _FLItemDetailViewModel, _FLTelemetryAggregateController, _FLTelemetryFactory,
+                          _FLTelemetryProcessor, _FLTopLevelViewModel, _FLUtilities ]
+    objc-ivars:         [ _FLApprovedItemsFilter._approvedClientIdentifiers, _FLApprovedItemsFilter._approvedItemIdentifiers,
+                          _FLDaemon._conn, _FLDaemon._connLock, _FLDaemon._daemonXPCEndpoint, _FLExtensionHostContext._delegate,
+                          _FLFollowUpAction._eventSource, _FLFollowUpAction._identifier, _FLFollowUpAction._label,
+                          _FLFollowUpAction._launchActionArguments, _FLFollowUpAction._launchActionURL, _FLFollowUpAction._sqlID,
+                          _FLFollowUpAction._url, _FLFollowUpAction._userInfo, _FLFollowUpController._clientIdentifier,
+                          _FLFollowUpController._delegate, _FLFollowUpController._listener,
+                          _FLFollowUpController._machServiceName, _FLFollowUpItem._actions, _FLFollowUpItem._bundleIconName,
+                          _FLFollowUpItem._categoryIdentifier, _FLFollowUpItem._clientIdentifier,
+                          _FLFollowUpItem._delegateMachServiceName, _FLFollowUpItem._displayStyle,
+                          _FLFollowUpItem._extensionIdentifier, _FLFollowUpItem._groupIdentifier,
+                          _FLFollowUpItem._informativeFooterText, _FLFollowUpItem._informativeText,
+                          _FLFollowUpItem._notification, _FLFollowUpItem._representingBundlePath,
+                          _FLFollowUpItem._shouldPersistWhenActivated, _FLFollowUpItem._shouldPersistWhenDismissed,
+                          _FLFollowUpItem._showInSettings, _FLFollowUpItem._sqlID, _FLFollowUpItem._targetBundleIdentifier,
+                          _FLFollowUpItem._title, _FLFollowUpItem._uniqueIdentifier, _FLFollowUpItem._userInfo,
+                          _FLFollowUpNotification._activateAction, _FLFollowUpNotification._clearAction,
+                          _FLFollowUpNotification._creationDate, _FLFollowUpNotification._dismissAction,
+                          _FLFollowUpNotification._firstNotificationDelay, _FLFollowUpNotification._frequency,
+                          _FLFollowUpNotification._informativeText, _FLFollowUpNotification._options,
+                          _FLFollowUpNotification._previousNotificationActionDate, _FLFollowUpNotification._sqlID,
+                          _FLFollowUpNotification._title, _FLFollowUpNotification._unlockActionLabel,
+                          _FLGroupViewModelImpl._groupTitle, _FLGroupViewModelImpl._identifier,
+                          _FLGroupViewModelImpl._mutableItems, _FLGroupViewModelImpl._rowTitle,
+                          _FLHSA2LoginNotification._altDSID, _FLHSA2LoginNotification._appleID,
+                          _FLHSA2LoginNotification._approveButtonTitle, _FLHSA2LoginNotification._codePrompt,
+                          _FLHSA2LoginNotification._deviceColorString, _FLHSA2LoginNotification._deviceModel,
+                          _FLHSA2LoginNotification._deviceType, _FLHSA2LoginNotification._dismissButtonTitle,
+                          _FLHSA2LoginNotification._informativeText, _FLHSA2LoginNotification._latitude,
+                          _FLHSA2LoginNotification._longitude, _FLHSA2LoginNotification._pushMessageID,
+                          _FLHSA2LoginNotification._supportedDismissActions, _FLHSA2LoginNotification._title,
+                          _FLHSA2LoginNotification._userAllowedSignIn, _FLHSA2PasswordResetNotification._appleID,
+                          _FLHSA2PasswordResetNotification._approveButtonTitle,
+                          _FLHSA2PasswordResetNotification._dismissButtonTitle,
+                          _FLHSA2PasswordResetNotification._informativeText, _FLHSA2PasswordResetNotification._title,
+                          _FLHeadlessActionHandler._item, _FLHeadlessExtensionLoader._delegate,
+                          _FLHeadlessExtensionLoader._extension, _FLHeadlessExtensionLoader._extensionContext,
+                          _FLHeadlessExtensionLoader._identifier, _FLHeadlessExtensionLoader._requestInterruptionBlock,
+                          _FLHeadlessExtensionLoader._sessionID, _FLItemChangeObserver._itemChangeObserver,
+                          _FLItemChangeObserver._notifyToken, _FLItemDetailViewModel._controller,
+                          _FLItemDetailViewModel._observer, _FLItemDetailViewModel._originalItemIdentifiers,
+                          _FLItemDetailViewModel._originalItems, _FLTelemetryProcessor._telemetryController,
+                          _FLTopLevelViewModel._bundleIdentifier, _FLTopLevelViewModel._controller,
+                          _FLTopLevelViewModel._localizedDeviceRowTitle, _FLTopLevelViewModel._observer ]
+...

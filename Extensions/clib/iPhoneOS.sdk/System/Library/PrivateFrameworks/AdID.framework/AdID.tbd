@@ -1,0 +1,42 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AdID.framework/AdID
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ADSimulatedCrashKillCode_InternalInconsistency, _AdIDVersionNumber, _AdIDVersionString ]
+    objc-classes:       [ _ADAMSBagManager, _ADAdTrackingSchedulingManager, _ADAppUsageVectorManager, _ADAppVector,
+                          _ADClientDPIDManager, _ADDeviceKnowledgeManager, _ADIDManagerService, _ADJingleOptOutRequest,
+                          _ADJingleRequest, _ADJingleRequestManager, _ADJingleSegmentRequest, _ADLATStatusManager,
+                          _ADMobileAssets, _ADOptInStatusService, _ADSegmentDataManager ]
+    objc-ivars:         [ _ADAdTrackingSchedulingManager._accountChangedNotifyToken,
+                          _ADAdTrackingSchedulingManager._isConfigRequestInFlight,
+                          _ADAdTrackingSchedulingManager._pushConnection, _ADAdTrackingSchedulingManager._storeFrontNotifyToken,
+                          _ADAppUsageVectorManager._adamIDtoBundleID, _ADAppUsageVectorManager._appUsageEvents,
+                          _ADAppUsageVectorManager._appUsageVectors, _ADAppUsageVectorManager._lookbackPeriods,
+                          _ADAppUsageVectorManager._maxQueryElements, _ADAppUsageVectorManager._task,
+                          _ADAppUsageVectorManager._vectorWeightTotals, _ADAppUsageVectorManager._version, _ADAppVector._adamID,
+                          _ADClientDPIDManager._DPID, _ADClientDPIDManager._backupFlowQueue,
+                          _ADClientDPIDManager._dpidReconcileStartDate, _ADClientDPIDManager._dpidReconcileState,
+                          _ADClientDPIDManager._isPrivateContainerSecure, _ADClientDPIDManager._isTest,
+                          _ADClientDPIDManager._operationsInProgress, _ADClientDPIDManager._privateContainer,
+                          _ADClientDPIDManager._qualityOfService, _ADClientDPIDManager._recordID,
+                          _ADClientDPIDManager._sandboxEnvironment, _ADClientDPIDManager._supportsDeviceToDeviceEncryption,
+                          _ADClientDPIDManager._updateInProgress, _ADClientDPIDManager._zoneID,
+                          _ADDeviceKnowledgeManager._refreshInterval, _ADDeviceKnowledgeManager._taskIsRunning,
+                          _ADDeviceKnowledgeManager._xpc_task, _ADIDManagerService._forceReconcileQueue,
+                          _ADIDManagerService._listener, _ADIDManagerService._reconcileArray, _ADJingleRequest._DSID,
+                          _ADJingleRequest._bagKey, _ADJingleRequest._completionHandler, _ADJingleRequest._error,
+                          _ADJingleRequest._requestBody, _ADJingleRequest._requestHeaders, _ADJingleRequest._responseBody,
+                          _ADJingleRequest._responseHeaders, _ADJingleRequest._statusCode, _ADJingleRequest._token,
+                          _ADJingleRequestManager._jingleRequestInProgress, _ADJingleRequestManager._pendingJingleRequests,
+                          _ADLATStatusManager._pendingJingleRequestToken, _ADLATStatusManager._sendingLATToAdPlatforms,
+                          _ADLATStatusManager._sendingLATToJingle, _ADMobileAssets._assetPath, _ADMobileAssets._assetQueue,
+                          _ADMobileAssets._assetType, _ADMobileAssets._creationTime, _ADMobileAssets._lookbackPeriods,
+                          _ADMobileAssets._maxQueryElements, _ADMobileAssets._operationInProgress, _ADMobileAssets._task,
+                          _ADMobileAssets._version, _ADOptInStatusService._listener, _ADOptInStatusService._requestInFlight,
+                          _ADSegmentDataManager._pendingJingleRequestToken, _ADSegmentDataManager._segmentUpdateInProgress ]
+...

@@ -1,0 +1,21 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/HealthProfile.framework/HealthProfile
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _HealthProfileVersionNumber, _HealthProfileVersionString ]
+    objc-classes:       [ __TtC13HealthProfile16ProfileBarButton, __TtC13HealthProfile16ProfileBasicCell,
+                          __TtC13HealthProfile17OrganDonationCell, __TtC13HealthProfile17ProfileButtonCell,
+                          __TtC13HealthProfile18ProfileContactCell, __TtC13HealthProfile19MeContactAvatarView,
+                          __TtC13HealthProfile21ProfileViewController, __TtC13HealthProfile23FetchMeContactOperation,
+                          __TtC13HealthProfile23ProfileTableViewAdaptor, __TtC13HealthProfile25LastBackedUpDateFormatter,
+                          __TtC13HealthProfile26MedicalIDProfileDataSource, __TtC13HealthProfile30OrganDonationProfileDataSource,
+                          __TtC13HealthProfile33ActivityIndicatorDetailFooterView,
+                          __TtC13HealthProfile33OrganDonationStatusViewController,
+                          __TtC13HealthProfile37OrganDonationRegisteredViewController,
+                          __TtCC13HealthProfile33OrganDonationRegisteredDataSource8EditItem ]
+...

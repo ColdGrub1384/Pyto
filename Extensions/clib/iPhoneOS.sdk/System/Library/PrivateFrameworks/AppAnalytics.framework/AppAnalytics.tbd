@@ -1,0 +1,26 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AppAnalytics.framework/AppAnalytics
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ AppAnalyticsTests, ArticleNotificationExtension, ArticleNotificationServiceExtension, BookAnalytics,
+                          BookCore, BookStoreUI, Books, BooksNotificationContentExtension, Feldspar Tests,
+                          MarketingNotificationExtension, NVCDemo, NanoBooks, News, NewsAnalytics, NewsAnalyticsTests,
+                          NewsAnalyticsUpload, NewsArticles, NewsArticlesTests, NewsFeed, NewsFeedTests, NewsFormat,
+                          NewsFormatTests, NewsInternalSettings, NewsServices, NewsServicesInternal, NewsSettings,
+                          NewsSubscription, NewsSubscriptionTests, NewsToday, NewsUI, NewsUI2, NewsUI2Tests, NotesAnalytics,
+                          OpenInNews, Stocks, StocksAnalytics, StocksAnalyticsTests, StocksCore, StocksCoreTests, StocksTests,
+                          StocksToday, StocksUI, StocksUITests, com.apple.news, iBooksProductPageExtension,
+                          iBooksSpotlightExtension, newsd ]
+    symbols:            [ _AppAnalyticsVersionNumber, _AppAnalyticsVersionString ]
+    objc-classes:       [ _AAAccessSessionManager, _AAAccessTracker, _AAClient, _AADataEventTraits, _AADelayedToken, _AAEndpoint,
+                          _AAEventData, _AAEventProperty, _AAGroup, _AAJSON, _AALoggingEventProcessor, _AAProcessEvent,
+                          _AAProcessorManager, _AARawDataEvent, _AARawEvent, _AARawEventProperty, _AASession, _AASessionData,
+                          _AASessionManager, _AASessionObserver, _AATimedData, _AATracker, _AAUploadBatchEventConfig,
+                          _AAUploadBatchEventProcessor, _AAViewingSession, _AAViewingSessionManager,
+                          __TtCC12AppAnalytics12MescalSignerP33_50212C62307B91282DB5DA35D73009738Contract ]
+...

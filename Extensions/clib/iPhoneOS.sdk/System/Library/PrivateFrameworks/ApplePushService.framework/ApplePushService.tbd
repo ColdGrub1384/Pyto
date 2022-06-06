@@ -1,0 +1,62 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/ApplePushService.framework/ApplePushService
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _APSAlert, _APSBundleIdentifier, _APSCachedIPKey, _APSCarrierNameKey,
+                          _APSClientIdentityUpdatedNotification, _APSConnectionInitiateEntitlement,
+                          _APSConnectionOverrideNamedDelegatePort, _APSConnectionSystemProcessEntitlement,
+                          _APSCreateDictionaryFromXPCObject, _APSCreateXPCObjectFromDictionary, _APSCriticalWakeEntitlement,
+                          _APSDarkWakeEntitlement, _APSDataForPropertyList, _APSDecodeDictionary, _APSDefaultTokenName,
+                          _APSDefaultUserID, _APSDemoHostsKey, _APSEncodeDictionary, _APSEnvironmentDemo,
+                          _APSEnvironmentDevelopment, _APSEnvironmentProduction, _APSEnvironmentQA2, _APSError, _APSErrorDomain,
+                          _APSForceKeepAliveV1Key, _APSGetEnableCriticalReliability, _APSGetEnableStatusNotifications,
+                          _APSGetEnabledTopicsFromXPCDictionary, _APSGetIgnoredTopicsFromXPCDictionary,
+                          _APSGetOpportunisticTopicsFromXPCDictionary, _APSGetUsesAppLaunchStats, _APSGetXPCArrayFromDictionary,
+                          _APSGetXPCBoolFromDictionary, _APSGetXPCConnectionContext, _APSGetXPCDataFromDictionary,
+                          _APSGetXPCDictionaryFromDictionary, _APSGetXPCDoubleFromDictionary, _APSGetXPCIntFromDictionary,
+                          _APSGetXPCNSUIntegerFromDictionary, _APSGetXPCStringFromDictionary, _APSHexStringFromNSData,
+                          _APSIncomingMessagePriorityString, _APSInsertBoolsToXPCDictionary, _APSInsertDatasToXPCDictionary,
+                          _APSInsertDoublesToXPCDictionary, _APSInsertEnabledTopicsToXPCDictionary,
+                          _APSInsertIgnoredTopicsToXPCDictionary, _APSInsertIntsToXPCDictionary,
+                          _APSInsertNSArraysToXPCDictionary, _APSInsertNSDictionariesToXPCDictionary,
+                          _APSInsertNSStringsToXPCDictionary, _APSInsertNSUIntegersToXPCDictionary,
+                          _APSInsertOpportunisticTopicsToXPCDictionary, _APSLaunchdJobLabel, _APSNSDataFromHexString,
+                          _APSPerAppTokenAppIdsKey, _APSPersistentTopicsKey, _APSPowerLog, _APSPrettyPrintCollection,
+                          _APSPropertyListFromNSData, _APSPushWakeEntitlement, _APSSafeArrayOfStrings,
+                          _APSSetXPCConnectionContext, _APSSystemUsersKey, _APSUnderlyingError, _APSUsesAppLaunchStatsKey,
+                          _APSXPCConfigureConnection, _APSXPCConnectionSetEventHandlers, _APSXPCCreateConnectionForService,
+                          _APSXPCCreateConnectionForServiceWithQueue, _APSXPCCreateServerConnection, _APSXPCMessageTypeKey,
+                          _kAPSTaskClientServiceName ]
+    objc-classes:       [ _APSAccessCheck, _APSConnection, _APSDNSRequest, _APSDNSResponse, _APSIncomingMessage,
+                          _APSIncomingMessageCheckpointTrace, _APSLog, _APSMessage, _APSMultiUserFS, _APSMultiUserMode,
+                          _APSOutgoingMessage, _APSOutgoingMessageCheckpointTrace, _APSPair, _APSTaskClient ]
+    objc-ivars:         [ _APSConnection._connection, _APSConnection._connectionPort, _APSConnection._connectionPortName,
+                          _APSConnection._delegateQueue, _APSConnection._delegateReference,
+                          _APSConnection._enableCriticalReliability, _APSConnection._enableStatusNotifications,
+                          _APSConnection._enabledTopics, _APSConnection._environmentName, _APSConnection._everHadDelegate,
+                          _APSConnection._idsToOutgoingMessages, _APSConnection._ignoredTopics, _APSConnection._isConnected,
+                          _APSConnection._isDeallocing, _APSConnection._isDisconnected, _APSConnection._isReconnectScheduled,
+                          _APSConnection._isShutdown, _APSConnection._ivarQueue, _APSConnection._largeMessageSize,
+                          _APSConnection._machQueue, _APSConnection._mach_source, _APSConnection._messageSize,
+                          _APSConnection._nextOutgoingMessageID, _APSConnection._opportunisticTopics,
+                          _APSConnection._portNameIsBundleId, _APSConnection._processName, _APSConnection._publicToken,
+                          _APSConnection._queuedDelegateBlocks, _APSConnection._reconnectDelay,
+                          _APSConnection._usesAppLaunchStats, _APSDNSRequest._environment, _APSDNSRequest._flags,
+                          _APSDNSRequest._hostname, _APSDNSRequest._requestStartTime, _APSDNSRequest._responseBlock,
+                          _APSDNSRequest._timeout, _APSDNSResponse._hostname, _APSDNSResponse._ipv4Address,
+                          _APSDNSResponse._ipv6Address, _APSIncomingMessage._checkpointTrace,
+                          _APSIncomingMessageCheckpointTrace._sendToClient,
+                          _APSIncomingMessageCheckpointTrace._storeInMessageStore, _APSMessage._ivarQueue, _APSMessage._plist,
+                          _APSMessage._properties, _APSMessage._xpcMessage, _APSMultiUserFS._isMultiUser,
+                          _APSMultiUserFS._systemPathCache, _APSMultiUserMode._isLoggedInUser, _APSMultiUserMode._isMultiUser,
+                          _APSOutgoingMessage._ackReceived, _APSOutgoingMessage._checkpointTrace,
+                          _APSOutgoingMessageCheckpointTrace._messageOnQueue, _APSOutgoingMessageCheckpointTrace._sendToDaemon,
+                          _APSOutgoingMessageCheckpointTrace._waitForACK, _APSPair._first, _APSPair._second,
+                          _APSTaskClient._clientQueue, _APSTaskClient._connection, _APSTaskClient._environment,
+                          _APSTaskClient._outstandingDNSRequests ]
+...

@@ -1,0 +1,37 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/UserFS.framework/PlugIns/livefiles_exfat.dylib
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CONV_DuplicateName, _CONV_GetCurrentTime, _CONV_UTF8ToUnistr255, _CONV_Unistr255ToUTF8,
+                          _CONV_Unistr255ToUpperCase, _CONV_UnistrUTF8ToUpperCase, _DIROPS_ChecksumFileSet,
+                          _DIROPS_CreateHTForDirectory, _DIROPS_CreateNewEntry, _DIROPS_DestroyHTForDirectory,
+                          _DIROPS_GetMD5Digest, _DIROPS_GetRecordId, _DIROPS_GetStartCluster, _DIROPS_LookForDirEntry,
+                          _DIROPS_LookForDirEntryByName, _DIROPS_LookupInternal, _DIROPS_MarkNodeDirEntriesAsDeleted,
+                          _DIROPS_ReleaseHTForDirectory, _DIROPS_UpdateDirectoryEntries, _DIROPS_VerifyIfLinkAndGetLinkLength,
+                          _DIROPS_VolumeOffsetForCluster, _DIROPS_isDirEmpty, _EXFAT_Create, _EXFAT_GetAttr, _EXFAT_Link,
+                          _EXFAT_LoggerInit, _EXFAT_Lookup, _EXFAT_MkDir, _EXFAT_Read, _EXFAT_ReadDir, _EXFAT_ReadDirAttr,
+                          _EXFAT_ReadLink, _EXFAT_Reclaim, _EXFAT_Remove, _EXFAT_Rename, _EXFAT_RmDir, _EXFAT_ScanDir,
+                          _EXFAT_SetAttr, _EXFAT_SymLink, _EXFAT_Write, _ExFat_fsOps, _FATMOD_FlushAllCacheEntries,
+                          _FAT_Access_M_AllocateClusters, _FAT_Access_M_BitmapCacheFini, _FAT_Access_M_BitmapCacheInit,
+                          _FAT_Access_M_ChainLength, _FAT_Access_M_ContiguousClustersInChain, _FAT_Access_M_FATChainFree,
+                          _FAT_Access_M_FATFini, _FAT_Access_M_FATInit, _FAT_Access_M_FindFirstFreeCluster,
+                          _FAT_Access_M_GetClustersFatEntryContent, _FAT_Access_M_GetTotalFreeClusters,
+                          _FAT_Access_M_TruncateLastClusters, _FILEOPS_GetAtrrFromDirEntry, _FILEOPS_GetFileID,
+                          _FILERECORD_AllocateRecord, _FILERECORD_DeInitChainCache,
+                          _FILERECORD_EvictAllFileChainCacheEntriesFromGivenOffset, _FILERECORD_FreeRecord,
+                          _FILERECORD_GetChainFromCache, _FILERECORD_InitChainCache, _FILERECORD_MultiLock,
+                          _FSOPS_FlushCacheAndFreeLck, _FSOPS_SetDeviceAsDirty, _FSOPS_SetDirtyBitAndAcquireLck,
+                          _MultiReadSingleWrite_DeInit, _MultiReadSingleWrite_FreeRead, _MultiReadSingleWrite_FreeWrite,
+                          _MultiReadSingleWrite_Init, _MultiReadSingleWrite_LockRead, _MultiReadSingleWrite_LockWrite,
+                          _MultiReadSingleWrite_TryLockWrite, _RAWFILE_read, _RAWFILE_write, _ZeroFill_DeInit, _ZeroFill_Fill,
+                          _ZeroFill_Init, _days_per_year, _exfat_secondsWest, _exfat_timestamp_from_unix,
+                          _exfat_timestamp_to_nanoseconds, _exfat_timestamp_to_unix, _gbIsLoggerInit, _gpeExfatToOsLevel,
+                          _gpsExFatLog, _guMaxLRU, _hexdigits, _ht_AllocateHashTable, _ht_DeAllocateHashTable, _ht_LookupByEntry,
+                          _ht_LookupByName, _ht_free_all, _ht_insert, _ht_reached_low_bound, _ht_reached_max_bound, _ht_remove,
+                          _leap_months, _livefiles_plugin_init, _non_leap_months, _puRecordId2FaType, _utf_extrabytes ]
+...

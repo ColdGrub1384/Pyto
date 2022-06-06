@@ -1,0 +1,55 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CoreSuggestionsUI.framework/CoreSuggestionsUI
+current-version:       1034.2
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CoreSuggestionsUIVersionNumber, _CoreSuggestionsUIVersionString,
+                          _SGUIAccessibilityIdentifierActionButton, _SGUIAccessibilityIdentifierCloseButton,
+                          _SGUIAccessibilityIdentifierSubtitleLabel, _SGUIAccessibilityIdentifierTitleLabel ]
+    objc-classes:       [ _SGBanner, _SGContactSuggestion, _SGContactSuggestionBase, _SGEventSuggestion, _SGEventSuggestionBase,
+                          _SGFoundInSuggestionPresenter, _SGList, _SGReminderSuggestion, _SGReminderSuggestionBase,
+                          _SGSuggestionAction, _SGSuggestionPresenter, _SGSuggestionSection, _SGSuggestionStore,
+                          _SGSuggestionTableViewCell, _SGSuggestionTableViewController, _SGTappableTextView, _SGUIDateFormatting,
+                          _SGUIIconSupport ]
+    objc-ivars:         [ _SGBanner._accessoryType, _SGBanner._action, _SGBanner._attributedSubtitle, _SGBanner._closeButton,
+                          _SGBanner._closeButtonCenterXAnchor, _SGBanner._closeButtonHorizontalPositionConstraint,
+                          _SGBanner._closeButtonWidthConstraint, _SGBanner._currentStyle, _SGBanner._disclosureImageView,
+                          _SGBanner._disclosureImageViewHorizontalPositionConstraint, _SGBanner._firstImageView,
+                          _SGBanner._horisontalSpaceBetweenImagesConstraint, _SGBanner._imageCenterYConstraint,
+                          _SGBanner._images, _SGBanner._needsSubtitleUpdate, _SGBanner._secondImageView, _SGBanner._subtitle,
+                          _SGBanner._subtitleBaselineConstraint, _SGBanner._subtitleLabel, _SGBanner._titleBaselineConstraint,
+                          _SGBanner._titleLabel, _SGBanner._titleLeadingConstraint,
+                          _SGBanner._verticalSpaceBetweenImagesConstraint, _SGContactSuggestion._delegate,
+                          _SGContactSuggestionBase._realtimeContact, _SGContactSuggestionBase._suggestionDelegate,
+                          _SGEventSuggestion._calendarImage, _SGEventSuggestionBase._eventKitEvent,
+                          _SGEventSuggestionBase._realtimeEvent, _SGEventSuggestionBase._suggestionDelegate,
+                          _SGFoundInSuggestionPresenter._contactStoreObserverToken,
+                          _SGFoundInSuggestionPresenter._contentOptions, _SGFoundInSuggestionPresenter._filterBlock,
+                          _SGFoundInSuggestionPresenter._loadScheduled, _SGFoundInSuggestionPresenter._searchableItems,
+                          _SGList._array, _SGList._comparator, _SGList._delegate, _SGReminderSuggestionBase._reminder,
+                          _SGReminderSuggestionBase._suggestionDelegate, _SGSuggestionAction._handler,
+                          _SGSuggestionAction._title, _SGSuggestionPresenter._banner,
+                          _SGSuggestionPresenter._bannerDismissAction, _SGSuggestionPresenter._bannerPrimaryAction,
+                          _SGSuggestionPresenter._delegate, _SGSuggestionPresenter._presentedViewController,
+                          _SGSuggestionPresenter._suggestionStore, _SGSuggestionPresenter._wantsToShowBanner,
+                          _SGSuggestionStore._modified, _SGSuggestionStore._notificationsLockCount,
+                          _SGSuggestionStore._suggestionDelegate, _SGSuggestionStore._suggestions,
+                          _SGSuggestionTableViewCell._bottomMarginConstraint, _SGSuggestionTableViewCell._controller,
+                          _SGSuggestionTableViewCell._currentStyle, _SGSuggestionTableViewCell._dismissAction,
+                          _SGSuggestionTableViewCell._dismissButton, _SGSuggestionTableViewCell._iconImageView,
+                          _SGSuggestionTableViewCell._interLabelBaselineDeltaConstraint,
+                          _SGSuggestionTableViewCell._interSubtitleAndButtonBaselineConstraint,
+                          _SGSuggestionTableViewCell._interTitleAndButtonBaselineConstraint,
+                          _SGSuggestionTableViewCell._observerToken, _SGSuggestionTableViewCell._primaryAction,
+                          _SGSuggestionTableViewCell._primaryButton, _SGSuggestionTableViewCell._subtitleLabel,
+                          _SGSuggestionTableViewCell._suggestion, _SGSuggestionTableViewCell._titleLabel,
+                          _SGSuggestionTableViewCell._topMarginConstraint, _SGSuggestionTableViewController._suggestionStore,
+                          _SGTappableTextView._activeRangeHighlightedColor, _SGTappableTextView._activeRangeNormalColor,
+                          _SGTappableTextView._activeRanges, _SGTappableTextView._clientText, _SGTappableTextView._currentStyle,
+                          _SGTappableTextView._needsLabelUpdate, _SGTappableTextView._tappableDelegate,
+                          _SGTappableTextView._trackingRange, _SGTappableTextView._trackingRangeHighlighted ]
+...

@@ -1,0 +1,13 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 7FFCB700-2FC3-37C9-8CC5-435ABB01D2FB', 'armv7s: 0A2E1079-BE07-3CE6-ACF8-7EBA9143E21C', 
+                   'arm64: 33FD42CA-EAED-3656-8827-3B498805827E', 'arm64e: 7941BC90-F71F-30AA-BD9A-B40F6339F75B' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/CoreAudioKit.framework/CoreAudioKit'
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:    [ AUAudioUnitRemoteViewController, AUAudioUnitViewConfiguration, 
+                       AUAudioUnitViewService, AUViewController, CABTMIDICentralViewController, 
+                       CABTMIDILocalPeripheralViewController, CAInterAppAudioSwitcherView, 
+                       CAInterAppAudioTransportView ]
+...

@@ -1,0 +1,41 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AppleCV3DHA.framework/AppleCV3DHA
+current-version:       2.57.1
+compatibility-version: 2.57.1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CV3DHAFeatureExtractionConfigCreate, _CV3DHAFeatureExtractionConfigGetEnableOrientationAssignment,
+                          _CV3DHAFeatureExtractionConfigGetEnableParedGrid, _CV3DHAFeatureExtractionConfigGetExtraTestEnable,
+                          _CV3DHAFeatureExtractionConfigGetExtraTestThreshold, _CV3DHAFeatureExtractionConfigGetHeight,
+                          _CV3DHAFeatureExtractionConfigGetMaxHeight, _CV3DHAFeatureExtractionConfigGetMaxNumberOfKeypoints,
+                          _CV3DHAFeatureExtractionConfigGetMaxNumberOfKeypointsPerOctave,
+                          _CV3DHAFeatureExtractionConfigGetMaxWidth, _CV3DHAFeatureExtractionConfigGetNumberOfBinsHardwareX,
+                          _CV3DHAFeatureExtractionConfigGetNumberOfBinsHardwareY, _CV3DHAFeatureExtractionConfigGetNumberOfBinsX,
+                          _CV3DHAFeatureExtractionConfigGetNumberOfBinsY, _CV3DHAFeatureExtractionConfigGetNumberOfBinsZ,
+                          _CV3DHAFeatureExtractionConfigGetNumberOfOctaves, _CV3DHAFeatureExtractionConfigGetResponseThreshold,
+                          _CV3DHAFeatureExtractionConfigGetRoiBottom, _CV3DHAFeatureExtractionConfigGetRoiLeft,
+                          _CV3DHAFeatureExtractionConfigGetRoiRight, _CV3DHAFeatureExtractionConfigGetRoiTop,
+                          _CV3DHAFeatureExtractionConfigGetStride, _CV3DHAFeatureExtractionConfigGetWidth,
+                          _CV3DHAFeatureExtractionConfigRelease, _CV3DHAFeatureExtractionConfigSetEnableOrientationAssignment,
+                          _CV3DHAFeatureExtractionConfigSetEnableParedGrid, _CV3DHAFeatureExtractionConfigSetExtraTestEnable,
+                          _CV3DHAFeatureExtractionConfigSetExtraTestThreshold, _CV3DHAFeatureExtractionConfigSetImageSize,
+                          _CV3DHAFeatureExtractionConfigSetMaxImageSize, _CV3DHAFeatureExtractionConfigSetMaxNumberOfKeypoints,
+                          _CV3DHAFeatureExtractionConfigSetMaxNumberOfKeypointsPerOctave,
+                          _CV3DHAFeatureExtractionConfigSetNumberOfBinsHardwareXY,
+                          _CV3DHAFeatureExtractionConfigSetNumberOfBinsXYZ, _CV3DHAFeatureExtractionConfigSetNumberOfOctaves,
+                          _CV3DHAFeatureExtractionConfigSetResponseThreshold, _CV3DHAFeatureExtractionConfigSetRoi,
+                          _CV3DHAFeatureExtractionCreate, _CV3DHAFeatureExtractionExtractDescriptors,
+                          _CV3DHAFeatureExtractionExtractInputImageHeight, _CV3DHAFeatureExtractionExtractInputImageWidth,
+                          _CV3DHAFeatureExtractionExtractKeyPoints, _CV3DHAFeatureExtractionExtractNumberOfKeypoints,
+                          _CV3DHAFeatureExtractionExtractNumberOfOctaves, _CV3DHAFeatureExtractionGetActionBuffer,
+                          _CV3DHAFeatureExtractionGetActionSizeInBytes,
+                          _CV3DHAFeatureExtractionGetKeypointAndDescriptorSizeInBytes,
+                          _CV3DHAFeatureExtractionGetOperationBuffer, _CV3DHAFeatureExtractionGetOperationSizeInBytes,
+                          _CV3DHAFeatureExtractionGetOutputSizeInBytes, _CV3DHAFeatureExtractionInitDirect,
+                          _CV3DHAFeatureExtractionInitGP, _CV3DHAFeatureExtractionInitGPWithSession,
+                          _CV3DHAFeatureExtractionProcess, _CV3DHAFeatureExtractionProcessKeyOutputs,
+                          _CV3DHAFeatureExtractionRelease ]
+...

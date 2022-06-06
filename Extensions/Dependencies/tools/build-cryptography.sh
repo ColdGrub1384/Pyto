@@ -40,5 +40,5 @@ popd
 rm -rf object
 popd
 python3 ../tools/make_frameworks.py cryptography Cryptography
-../tools/copy-scripts.sh build/lib*/cryptography ../../../downloadable-site-packages/compiled/cryptography
+../tools/copy-scripts.sh build/lib*/cryptography ../../../site-packages/cryptography
 

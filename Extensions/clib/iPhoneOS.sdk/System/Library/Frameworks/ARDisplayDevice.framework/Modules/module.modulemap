@@ -1,0 +1,5 @@
+framework module ARDisplayDevice {
+    umbrella header "ARDisplayDevice.h"          // Use the headers imported in the umbrella header to describe the module
+    module * { export * }            // Creates a submodule for each header in the umbrella header
+    export *                         // Re-export all content from submodules into the main module
+}

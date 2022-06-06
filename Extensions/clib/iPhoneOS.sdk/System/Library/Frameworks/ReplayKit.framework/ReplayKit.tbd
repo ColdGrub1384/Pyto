@@ -1,0 +1,41 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: CE6A5A81-FB51-3C86-A4B5-DFA07E739B0F', 'armv7s: 34656AC8-6A24-3A08-BB70-85C1B017DD68', 
+                   'arm64: F001367B-D9D0-3A59-817A-91DB17E6F8BC', 'arm64e: F56B49CE-3955-3C07-83B0-DE182BC908CF' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/ReplayKit.framework/ReplayKit'
+exports:         
+  - archs:           [ armv7, armv7s ]
+    symbols:         [ _RPScreenRecorderRequiredFreeSpace, _RPScreenRecorderTempDirectory, 
+                       _RPStoreInfoAppNameKey, _RPStoreInfoAuthorKey, _RPStoreInfoBundleIDKey, 
+                       _RPStoreInfoCategoriesKey, _RPStoreInfoItemURLKey, _RPVideoOverlayBackgroundMaskImageName, 
+                       _RPVideoOverlayDefaultGlyphAlpha, _RPVideoOverlayFlatBackgroundAlpha, 
+                       _RPVideoOverlayFlatBackgroundWhite, _RPVideoOverlayGlyphMaskImageName, 
+                       _RPVideoOverlayHighlightedGlyphAlpha ]
+    objc-classes:    [ RPPassThroughView, RPPictureInPictureController, RPPictureInPictureViewController, 
+                       RPPictureInPictureWindow, RPSharedConstants, RPSystemRecordingIndicatorWindow, 
+                       RPYouTubeActivityProgressOverlay ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _RPApplicationInfoBundleIdentifierKey, _RPBroadcastPickerExtensionBundleIdentifierKey, 
+                       _RPBroadcastPickerExtensionMicrophoneButtonKey, _RPRecordingErrorDomain, 
+                       _RPVideoEditorExtensionAppNameKey, _RPVideoEditorExtensionBundleIdentifierKey, 
+                       _RPVideoEditorExtensionFileAttachmentKey, _RPVideoEditorExtensionMoviePathKey, 
+                       _RPVideoEditorExtensionOverrideShareMessageKey, _RPVideoEditorExtensionOverrideTintColorKey, 
+                       _RPVideoSampleOrientationKey, _ReplayKitVersionNumber, _ReplayKitVersionString, 
+                       _audioBufferListFromData, _copySampleBufferFromSourceBuffer, 
+                       _createEmptyAudioSampleBufferWithTimeInterval, _createSampleBufferWithPixelBuffer, 
+                       _decodeAudioSampleBuffer, _encodeAudioSampleBuffer, _sampleBufferFromIOSurface ]
+    objc-classes:    [ RPAppAudioCaptureManager, RPBroadcastActivityExtensionHostContext, 
+                       RPBroadcastActivityHostViewController, RPBroadcastActivityViewController, 
+                       RPBroadcastConfiguration, RPBroadcastController, RPBroadcastExtensionHostContext, 
+                       RPBroadcastExtensionProxy, RPBroadcastHandler, RPBroadcastHostViewController, 
+                       RPBroadcastMP4ClipHandler, RPBroadcastPickerExtensionHostContext, 
+                       RPBroadcastPickerHostViewController, RPBroadcastPickerStandaloneViewController, 
+                       RPBroadcastSampleHandler, RPBroadcastViewController, RPDaemonProxy, 
+                       RPExtensionContext, RPExtensionHostContext, RPFlatVideoOverlayButton, 
+                       RPHighFidelityVideoOverlayButton, RPIOSurfaceObject, RPModalPresentationWindow, 
+                       RPPipView, RPPipViewController, RPPreviewViewController, RPScreenRecorder, 
+                       RPStoreInfo, RPStoreManager, RPSystemBroadcastPickerView, 
+                       RPSystemBroadcastPickerViewController, RPTouchPassthroughView, 
+                       RPVideoEditorExtensionHostContext, RPVideoEditorHostViewController ]
+...

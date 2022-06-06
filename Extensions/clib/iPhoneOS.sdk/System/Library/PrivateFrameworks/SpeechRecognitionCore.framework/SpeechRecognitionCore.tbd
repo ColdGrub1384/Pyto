@@ -1,0 +1,21 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SpeechRecognitionCore.framework/SpeechRecognitionCore
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _RXAdLibCreate, _RXGlobalSetDownloadProgressCallback, _RXLanguageModelCreate,
+                          _RXLanguageModelCreateWithURL, _RXLanguageModelWriteToURL, _RXLanguageObjectAddObject,
+                          _RXLanguageObjectAddPhrase, _RXLanguageObjectApplyBlock, _RXLanguageObjectGetCount,
+                          _RXLanguageObjectGetObjectAtIndex, _RXLanguageObjectGetType, _RXLanguageObjectGetTypeID,
+                          _RXLanguageObjectRemoveObjectAtIndex, _RXLanguageObjectSetObjectAtIndex, _RXObjectCopyProperty,
+                          _RXObjectSetProperty, _RXPathCreate, _RXRecognitionSystemAddLeadingContext,
+                          _RXRecognitionSystemAddOtherContext, _RXRecognitionSystemAddTraining, _RXRecognitionSystemCreate,
+                          _RXRecognitionSystemGetTypeID, _RXRecognitionSystemReset, _RXRecognitionSystemSetResetMode,
+                          _RXRecognizerCreate, _RXRecognizerGetTypeID, _RXSignpostLog, _RXVocabularyCreateWithLocale,
+                          _RXVocabularyCreateWithURL, _RXVocabularyGetTypeID, _RXWordCreate,
+                          _kRXRecognitionSystemTrainingCategory_Contact, _kRXRecognitionSystemTrainingCategory_Default ]
+...

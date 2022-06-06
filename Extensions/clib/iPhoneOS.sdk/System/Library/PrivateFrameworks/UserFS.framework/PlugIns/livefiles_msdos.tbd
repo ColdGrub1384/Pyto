@@ -1,0 +1,43 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/UserFS.framework/PlugIns/livefiles_msdos.dylib
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CONV_DuplicateName, _CONV_GetCurrentTime, _CONV_UTF8ToLowerCase, _CONV_UTF8ToUnistr255,
+                          _CONV_Unistr255ToLowerCase, _CONV_Unistr255ToUTF8, _CONV_convert_to_fsm, _DIROPS_CreateHTForDirectory,
+                          _DIROPS_CreateNewEntry, _DIROPS_DestroyHTForDirectory, _DIROPS_GetDirCluster, _DIROPS_GetMD5Digest,
+                          _DIROPS_GetRecordId, _DIROPS_GetStartCluster, _DIROPS_IsDotOrDotDotName, _DIROPS_LookForDirEntry,
+                          _DIROPS_LookForDirEntryByName, _DIROPS_LookupInternal, _DIROPS_MarkNodeDirEntriesAsDeleted,
+                          _DIROPS_ReleaseHTForDirectory, _DIROPS_SetStartCluster, _DIROPS_UpdateDirLastModifiedTime,
+                          _DIROPS_UpdateDirectoryEntry, _DIROPS_VerifyIfLinkAndGetLinkLength, _DIROPS_VolumeOffsetForCluster,
+                          _DIROPS_isDirEmpty, _FATMOD_FlushAllCacheEntries, _FATMOD_SetDriveDirtyBit,
+                          _FAT_Access_M_AllocateClusters, _FAT_Access_M_ChainLength, _FAT_Access_M_ContiguousClustersInChain,
+                          _FAT_Access_M_FATChainFree, _FAT_Access_M_FATFini, _FAT_Access_M_FATInit, _FAT_Access_M_Fat12EntryGet,
+                          _FAT_Access_M_Fat12EntryOffset, _FAT_Access_M_Fat12EntrySet, _FAT_Access_M_Fat16EntryGet,
+                          _FAT_Access_M_Fat16EntryOffset, _FAT_Access_M_Fat16EntrySet, _FAT_Access_M_Fat32EntryGet,
+                          _FAT_Access_M_Fat32EntryOffset, _FAT_Access_M_Fat32EntrySet,
+                          _FAT_Access_M_FindFirstFreeClusterFromGivenCluster, _FAT_Access_M_GetClustersFatEntryContent,
+                          _FAT_Access_M_GetTotalFreeClusters, _FAT_Access_M_TruncateLastClusters,
+                          _FILEOPS_UpdateLastModifiedTime, _FILERECORD_AllocateRecord, _FILERECORD_DeInitChainCache,
+                          _FILERECORD_EvictAllFileChainCacheEntriesFromGivenOffset, _FILERECORD_FreeRecord,
+                          _FILERECORD_GetChainFromCache, _FILERECORD_InitChainCache, _FILERECORD_MultiLock,
+                          _FSOPS_FlushCacheAndFreeLck, _FSOPS_SetDirtyBitAndAcquireLck, _MSDOS_Create,
+                          _MSDOS_GetAtrrFromDirEntry, _MSDOS_GetAttr, _MSDOS_GetFileID, _MSDOS_Link, _MSDOS_LoggerInit,
+                          _MSDOS_Lookup, _MSDOS_MkDir, _MSDOS_Read, _MSDOS_ReadDir, _MSDOS_ReadDirAttr, _MSDOS_ReadLink,
+                          _MSDOS_Reclaim, _MSDOS_Remove, _MSDOS_Rename, _MSDOS_RmDir, _MSDOS_ScanDir, _MSDOS_SetAttr,
+                          _MSDOS_SymLink, _MSDOS_Write, _MSDOS_fsOps, _MultiReadSingleWrite_DeInit,
+                          _MultiReadSingleWrite_FreeRead, _MultiReadSingleWrite_FreeWrite, _MultiReadSingleWrite_Init,
+                          _MultiReadSingleWrite_LockRead, _MultiReadSingleWrite_LockWrite, _MultiReadSingleWrite_TryLockWrite,
+                          _RAWFILE_read, _RAWFILE_write, _ZeroFill_DeInit, _ZeroFill_Fill, _ZeroFill_Init, _gbIsLoggerInit,
+                          _gpeMsDosToOsLevel, _gpsMsDosLog, _guMaxLRU, _hexdigits, _ht_AllocateHashTable,
+                          _ht_DeAllocateHashTable, _ht_LookupByEntry, _ht_LookupByName, _ht_free_all, _ht_insert,
+                          _ht_reached_low_bound, _ht_reached_max_bound, _ht_remove, _livefiles_plugin_init,
+                          _msdosfs_apply_generation_to_short_name, _msdosfs_dos2unicodefn, _msdosfs_dos2unixtime,
+                          _msdosfs_getunicodefn, _msdosfs_unicode2dos, _msdosfs_unicode2winfn, _msdosfs_unicode_to_dos_name,
+                          _msdosfs_unix2dostime, _msdosfs_winChkName, _msdosfs_winChksum, _msdosfs_winSlotCnt, _puLongNameOffset,
+                          _puRecordId2FaType, _utf_extrabytes ]
+...

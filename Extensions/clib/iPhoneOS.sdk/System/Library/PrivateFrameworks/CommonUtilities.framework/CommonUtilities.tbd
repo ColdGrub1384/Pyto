@@ -1,0 +1,34 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CommonUtilities.framework/CommonUtilities
+current-version:       800
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CUTAuditTokenTaskHasEntitlement, _CUTCreateDictionaryFromXPCObject, _CUTCreateXPCObjectFromDictionary,
+                          _CUTDataForPropertyList, _CUTGetMainBundle, _CUTGetMainBundleIdentifier, _CUTGetXPCBoolFromDictionary,
+                          _CUTGetXPCConnectionContext, _CUTGetXPCDataFromDictionary, _CUTGetXPCDoubleFromDictionary,
+                          _CUTGetXPCIntFromDictionary, _CUTGetXPCStringFromDictionary, _CUTInsertBoolsToXPCDictionary,
+                          _CUTInsertDatasToXPCDictionary, _CUTInsertDoublesToXPCDictionary, _CUTInsertIntsToXPCDictionary,
+                          _CUTInsertNSStringsToXPCDictionary, _CUTIsInternalInstall, _CUTMapObjectProperties,
+                          _CUTProcessNameForPid, _CUTPropertyListFromNSData, _CUTReportingBatchingIntervalDefault,
+                          _CUTReportingErrorDomain, _CUTSafeArrayOfStrings, _CUTSetXPCConnectionContext, _CUTTemporaryPath,
+                          _CUTWeakLinkClass, _CUTWeakLinkSymbol, _CUTWiFiManagerMaxMeasurementErrorKey,
+                          _CUTWiFiManagerPMDurationKey, _CUTWiFiManagerSSIDKey, _CUTWiFiManagerTotalDurationKey, _CUTXPCAlert,
+                          _CUTXPCAlertv, _CUTXPCConfigureConnection, _CUTXPCConnectionSetEventHandlers,
+                          _CUTXPCCreateConnectionForService, _CUTXPCCreateConnectionForServiceWithQueue,
+                          _CUTXPCCreateServerConnection, _cut_arc_os_release, _cut_backtrace, _cut_log_group_generation,
+                          _cut_non_arc_os_release ]
+    objc-classes:       [ _CUTAsyncReducer, _CUTAsyncReducerState, _CUTCheckpoint, _CUTCheckpointInstant, _CUTCheckpointRange,
+                          _CUTCheckpointSignpost, _CUTCheckpointTrace, _CUTDeferredTaskQueue, _CUTFileCopier,
+                          _CUTNetworkInterfaceListener, _CUTPowerAssertion, _CUTPowerMonitor, _CUTPromise, _CUTPromiseSeal,
+                          _CUTReachability, _CUTReporting, _CUTResult, _CUTTelephonyManager, _CUTUnsafePromise,
+                          _CUTUnsafePromiseSeal, _CUTWeakReference, _CUTWiFiManager ]
+    objc-ivars:         [ _CUTCheckpoint._frozen, _CUTNetworkInterfaceListener._IPv4Addresses,
+                          _CUTNetworkInterfaceListener._IPv6Addresses, _CUTNetworkInterfaceListener._cellState,
+                          _CUTNetworkInterfaceListener._delegateMap, _CUTNetworkInterfaceListener._delegateQueue,
+                          _CUTNetworkInterfaceListener._dynamicStore, _CUTNetworkInterfaceListener._wifiState,
+                          _CUTPowerAssertion._internal, _CUTResult._inError, _CUTResult._inValue, _CUTResult._state ]
+...

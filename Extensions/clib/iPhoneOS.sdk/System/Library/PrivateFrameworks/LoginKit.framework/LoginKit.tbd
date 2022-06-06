@@ -1,0 +1,64 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/LoginKit.framework/LoginKit
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _LKBuddLogPredicate, _LKBuddProcessName, _LKCourseDescriptionKey,
+                          _LKCourseEnrolledStudentIdentifiersKey, _LKCourseGroupNameKey, _LKCourseGroupsKey, _LKCourseIDKey,
+                          _LKCourseIDsKey, _LKCourseInstructorIdentifiersKey, _LKCourseNameKey, _LKCoursesKey,
+                          _LKDirectUserSwitchMessage, _LKEMCSRecoveryCompletionMessage, _LKEMCSRecoveryStartUpMessage,
+                          _LKErrorDomain, _LKErrorPasscodeBackOffInterval, _LKFastLogoutMessage, _LKKeychainItemAdditionMessage,
+                          _LKKeychainItemInsertionMessage, _LKKeychaingItemDeviceOnlyCheckMessage,
+                          _LKKeychaingItemSecureObjectSyncCheckMessage, _LKLegacyLogoutMessage, _LKLogDefault, _LKLogParsing,
+                          _LKLogRegression, _LKLogSubsystem, _LKLoggedInNotificationName, _LKLoginDaemonClientEntitlement,
+                          _LKLoginDaemonClientServiceName, _LKLoginDaemonLoginUIEntitlement, _LKLoginDaemonLoginUIServiceName,
+                          _LKLoginUILogPredicate, _LKLoginUIProcessName, _LKOrganizationDisplayNameKey,
+                          _LKPayloadCertificatePersistentID, _LKReadyToLoginNotificationName, _LKRegisterLoginKitLogging,
+                          _LKSecurityFrameworkName, _LKSecurityLogPredicate, _LKSecurityProcessName, _LKSpringBoardProcessName,
+                          _LKStartUpTransitionCompletionMessage, _LKStartupTransitionLogPredicate, _LKUserAppleIDKey,
+                          _LKUserFamilyNameKey, _LKUserFullNameKey, _LKUserGivenNameKey, _LKUserIdentifierKey,
+                          _LKUserLargeImageURLKey, _LKUserManagementFrameworkName, _LKUserManagementLogPredicate,
+                          _LKUserMediumImageURLKey, _LKUserPasswordComplexKey, _LKUserPasswordFourDigitKey,
+                          _LKUserPasswordSixDigitKey, _LKUserPasswordTypeKey, _LKUserPhoneticFamilyNameKey,
+                          _LKUserPhoneticGivenNameKey, _LKUserSwitchMessage, _LKUsersKey, _LK_FORCE_NON_NIL ]
+    objc-classes:       [ _LKClass, _LKClassConfiguration, _LKClassGroup, _LKClasses, _LKError, _LKLogEvent,
+                          _LKLogEventController, _LKLogKeychainItemAdditionEvent, _LKLoginController, _LKLoginSupport,
+                          _LKLogoutSupport, _LKNamingSimilarity, _LKNotificationListenerOperation, _LKOperation,
+                          _LKPlatformSupport, _LKRecoverEMCSOperation, _LKRegression, _LKStartupSupport, _LKSwitchOperation,
+                          _LKUser, _LKUsers ]
+    objc-ivars:         [ _LKClass._avatarNameSimilarityDictionary, _LKClass._classDescription, _LKClass._classID,
+                          _LKClass._classImageURL, _LKClass._className, _LKClass._givenNameSimilarityDictionary,
+                          _LKClass._instructors, _LKClass._students, _LKClassConfiguration._classGroups,
+                          _LKClassConfiguration._classRosterInformationDictionary, _LKClassConfiguration._classes,
+                          _LKClassConfiguration._classesByClassGroupName, _LKClassConfiguration._classesByClassID,
+                          _LKClassConfiguration._instructors, _LKClassConfiguration._payloadCertificatePersistentID,
+                          _LKClassConfiguration._schoolName, _LKClassConfiguration._students,
+                          _LKClassConfiguration._usersByUsername, _LKClassConfiguration._usersWithAppleIDByIdentifier,
+                          _LKClassGroup._classGroupName, _LKClassGroup._classes, _LKClasses._classes,
+                          _LKLogEvent._activityIdentifier, _LKLogEvent._composedMessage, _LKLogEvent._date, _LKLogEvent._process,
+                          _LKLogEvent._senderImagePath, _LKLogEventController._dynamicdsema,
+                          _LKLogEventController._logEnumarationEndTime, _LKLogEventController._logEventHandler,
+                          _LKLogEventController._mutableKeychainItemsAddedByActivityID, _LKLogEventController._streamingLogs,
+                          _LKLogEventController._switchOperation, _LKLogEventController._switchOperationsMutableArray,
+                          _LKLogKeychainItemAdditionEvent._keychainItemAdded, _LKLoginController._completionHandler,
+                          _LKLoginController._connection, _LKLoginSupport._completionQueue, _LKLoginSupport._listenerQueue,
+                          _LKNamingSimilarity._similarity, _LKNotificationListenerOperation._notificationListenerCompletionBlock,
+                          _LKNotificationListenerOperation._notificationType, _LKNotificationListenerOperation._notifyToken,
+                          _LKNotificationListenerOperation._operationCancelled,
+                          _LKNotificationListenerOperation._operationExecuting,
+                          _LKNotificationListenerOperation._operationFinished, _LKNotificationListenerOperation._operationReady,
+                          _LKNotificationListenerOperation._timeOutPeriod, _LKOperation._duration, _LKOperation._endTime,
+                          _LKOperation._startTime, _LKRecoverEMCSOperation._recoveredKeychainItemCount,
+                          _LKSwitchOperation._mutableKeychainItemsAddedAfterRecoverEMCS,
+                          _LKSwitchOperation._recoverEMCSOperation, _LKSwitchOperation._switchType, _LKUser._contact,
+                          _LKUser._identifier, _LKUser._isAttemptedPhoneticTranscription,
+                          _LKUser._isPhoneticInfoProvidedInConfiguration, _LKUser._largeImageURL, _LKUser._lastOnlineAuth,
+                          _LKUser._localLargeImageURL, _LKUser._localMediumImageURL, _LKUser._mediumImageURL,
+                          _LKUser._namingSimilarityInfoByClassID, _LKUser._passwordType, _LKUser._phoneticFamilyName,
+                          _LKUser._phoneticGivenName, _LKUser._retryCount, _LKUser._tokenizedPhoneticDisplayName,
+                          _LKUsers._students ]
+...

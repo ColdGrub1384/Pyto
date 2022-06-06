@@ -1,0 +1,22 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 582111E5-64D5-3302-98F1-CF3AB5FB1A26', 'arm64e: 6A954F55-9512-3C8E-8BF1-0959DEE4BBB8' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/ARDisplayDevice.framework/ARDisplayDevice'
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _ARDisplayDeviceHMEDetectionKey, _ARDisplayDeviceHMEEnrollmentKey, 
+                       _ARDisplayDeviceHMEHeadlockedKey, _ARDisplayDeviceHMEOverdriveKey, 
+                       _ARDisplayDeviceHMEStatusKey, _ARDisplayDeviceVersionNumber, 
+                       _ARDisplayDeviceVersionString, _adc_packDistortVertexInput, 
+                       _addc_MTLViewportToString, _addc_NSDataToString, _addc_matrixToString, 
+                       _addc_matrix_make_translation, _addc_vector_float3ToString, 
+                       _addc_vector_float4ToString, _toShort2N, _toUShort2N ]
+    objc-classes:    [ ARDDLog, ARDisplayConfiguration, ARDisplayDeviceConfig, ARDisplayDeviceConfigPOV, 
+                       ARDisplayDeviceExtensionService, ARDisplayDeviceInterface, 
+                       ARDisplayDevicePrincipal, ARDisplayDeviceRemoteExtensionContext, 
+                       ARDisplayDeviceUserDefaults, ARDisplayExtensionPrincipal, 
+                       ARDisplayExtensionService, ARDisplayHostExtensionContext, 
+                       ARDisplayPointOfView, ARDisplayRemoteExtensionContext, ARDisplayService ]
+...

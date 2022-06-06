@@ -1,0 +1,18 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NewsDaemon.framework/NewsDaemon
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NDAnalyticsMachServiceName, _NDFeedMachServiceName, _NDNewsdDataContainerClass,
+                          _NDNewsdDataContainerIdentifier, _NDNewsdProcessName, _NDSharedClientLog, _NDSharedServiceLog,
+                          _NDTodayMachServiceName, _NewsDaemonVersionNumber, _NewsDaemonVersionString ]
+    objc-classes:       [ _NDNewsDaemonContext, _NDNewsServiceConnection, _NDNewsServiceConnectionClientProxy ]
+    objc-ivars:         [ _NDNewsDaemonContext._daemon, _NDNewsDaemonContext._updateResultsHandler,
+                          _NDNewsServiceConnection._accessQueue, _NDNewsServiceConnection._client,
+                          _NDNewsServiceConnection._connection, _NDNewsServiceConnection._daemon,
+                          _NDNewsServiceConnectionClientProxy._client ]
+...

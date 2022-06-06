@@ -1,0 +1,43 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NetAppsUtilitiesUI.framework/NetAppsUtilitiesUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NACGFloatByLinearlyInterpolatingFloats, _NACGFloatCeilForScale, _NACGFloatEpsilon,
+                          _NACGFloatEqualToFloat, _NACGFloatGreaterThanFloat, _NACGFloatGreaterThanOrEqualToFloat,
+                          _NACGFloatIsOne, _NACGFloatIsZero, _NACGFloatLessThanFloat, _NACGFloatLessThanOrEqualToFloat,
+                          _NACGFloatPowerOf2Ceil, _NADegreesToRadians, _NARadiansFromCGAffineTransform, _NARadiansToDegrees,
+                          _NARectUnit, _NARectWithCGSize, _NAStringFromCGPoint, _NAStringFromCGRect, _NAStringFromCGSize,
+                          _NAUICurrentContentSizeCategoryIsLargerThanOrEqualToCategory,
+                          _NAUIEnumerateContentSizeCategoriesInIncreasingOrder, _NAUILayoutMetricsForUIEdgeInsetsNamed,
+                          _NAUILayoutSizeNoDimension, _NAUIShortDescriptionFromUIContentSizeCategory,
+                          _NSStringFromUIInterfaceOrientation, _NSStringFromUIInterfaceOrientationMask,
+                          _NetAppsUtilitiesUIVersionNumber, _NetAppsUtilitiesUIVersionString ]
+    objc-classes:       [ _NAUIContentSizeLayoutConstraint, _NAUIDeviceUtilities, _NAUILayoutConstraintSet,
+                          _NAUITextStyleDescriptor, _NAUIUIViewControllerNoticationObserver, _NAUIUsageStatistics, _NAUIWeakRef,
+                          __NAUIAmbigousLayoutView, __NAUIAutoUpdatingFontObserver, __NAUINamedViewConstraints ]
+    objc-ivars:         [ _NAUIContentSizeLayoutConstraint._additionalConstant,
+                          _NAUIContentSizeLayoutConstraint._allowsAccessibilityTextStyleSizes,
+                          _NAUIContentSizeLayoutConstraint._autoUpdatingConstantShrinks,
+                          _NAUIContentSizeLayoutConstraint._autoitem, _NAUIContentSizeLayoutConstraint._constantLoadingBlock,
+                          _NAUIContentSizeLayoutConstraint._defaultConstant,
+                          _NAUIContentSizeLayoutConstraint._dynamicTextStyleDescriptor,
+                          _NAUIContentSizeLayoutConstraint._isConstantUpdatingConstraint,
+                          _NAUIContentSizeLayoutConstraint._preferredContentSizeDidChangeObserver,
+                          _NAUIContentSizeLayoutConstraint._textStyle,
+                          _NAUIContentSizeLayoutConstraint._textStyleDefaultBodyLeading, _NAUILayoutConstraintSet._builder,
+                          _NAUILayoutConstraintSet._constraints, _NAUILayoutConstraintSet._owningView,
+                          _NAUITextStyleDescriptor._allowsAccessibilitySizes, _NAUITextStyleDescriptor._allowsSmallSizes,
+                          _NAUITextStyleDescriptor._symbolicTraits, _NAUITextStyleDescriptor._textStyle,
+                          _NAUIUIViewControllerNoticationObserver._observations,
+                          _NAUIUIViewControllerNoticationObserver._viewController,
+                          _NAUIUsageStatistics._nextAllowedUsageEventType, _NAUIUsageStatistics._queue,
+                          _NAUIUsageStatistics._usageStatisticsDomain, _NAUIWeakRef._useWeakStorage, _NAUIWeakRef._weakPointer,
+                          _NAUIWeakRef._weakStorage, __NAUIAutoUpdatingFontObserver._notificationObserver,
+                          __NAUIAutoUpdatingFontObserver._target, __NAUINamedViewConstraints._constraints,
+                          __NAUINamedViewConstraints._name, __NAUINamedViewConstraints._stalenessToken ]
+...

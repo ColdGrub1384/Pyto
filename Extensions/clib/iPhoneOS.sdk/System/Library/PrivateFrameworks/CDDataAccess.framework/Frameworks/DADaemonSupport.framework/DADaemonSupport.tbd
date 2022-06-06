@@ -1,0 +1,52 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CDDataAccess.framework/Frameworks/DADaemonSupport.framework/DADaemonSupport
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ ___RootDomainConnect, __devicePowerChanged, _gDADHighAvailabilityQueue, _gDADMainRunloopStopped,
+                          _gDADOperationQueue, _handleSignal ]
+    objc-classes:       [ _DAAgent, _DAChangeHistoryClerk, _DACoreDAVAgent, _DADAgentManager, _DADBuddyStateObserver, _DADMain,
+                          _DADREMLocalDBWatcher, _DADREMShareResponseDelegate, _DADREMXPCPerformerDelegate,
+                          _DADSystemAvailabilityChecker, _DADaemonPowerAssertionManager, _DAFolderSyncRequest, _DARefreshManager,
+                          _DARefreshWrapper, _DATokenRegistrationRequest, _REMDAAccountInfo, __DAChangeHistoryABLegacyClerk,
+                          __DAChangeHistoryContactsClerk ]
+    objc-ivars:         [ _DAAgent._account, _DAAgent._isMonitoring, _DAAgent._isWaitingForPassword, _DAAgent._lastRetryTimeout,
+                          _DAAgent._networkReachableBlock, _DAAgent._syncWhenReachable, _DACoreDAVAgent._optionsProbe,
+                          _DACoreDAVAgent._optionsTimeoutTimer, _DADAgentManager._CTCellularUsagePolicyNotificationQ,
+                          _DADAgentManager._activeAgents, _DADAgentManager._activeAgentsQueue,
+                          _DADAgentManager._buddyStateObserver, _DADAgentManager._ctServerConnection,
+                          _DADAgentManager._disableMonitoringAgentsTokens, _DADAgentManager._nextDisableMonitoringAgentsToken,
+                          _DADAgentManager._pendingAccountSetupCount, _DADAgentManager._pmNotifier, _DADAgentManager._pmPort,
+                          _DADAgentManager._pmRunLoopSource, _DADAgentManager._startAgentsWhenSystemReadyBlock,
+                          _DADAgentManager._subCalHandlers, _DADAgentManager._watchedIDs,
+                          _DADBuddyStateObserver._buddyDidFinishHandler, _DADBuddyStateObserver._buddyStatePollingTimer,
+                          _DADBuddyStateObserver._notifyToken, _DADBuddyStateObserver._queue, _DADMain._aggdStatsQueue,
+                          _DADMain._aggdStatsSource, _DADMain._delayedShutdownTimer, _DADMain._forceShutdownTimer,
+                          _DADMain._runLoopStoppedRef, _DADMain._userSwitchTasks,
+                          _DADREMLocalDBWatcher._concernedRemindersPartyToBlockMap, _DADREMShareResponseDelegate._calendarID,
+                          _DADREMShareResponseDelegate._shareID, _DADREMXPCPerformerDelegate._accountID,
+                          _DADREMXPCPerformerDelegate._delegateID, _DADREMXPCPerformerDelegate._finished,
+                          _DADREMXPCPerformerDelegate._remXPCCompletion, _DAFolderSyncRequest._actions,
+                          _DAFolderSyncRequest._containsPostponedActions, _DAFolderSyncRequest._folder,
+                          _DAFolderSyncRequest._hasRemoteChanges, _DAFolderSyncRequest._isInitialUberSync,
+                          _DAFolderSyncRequest._isResyncAfterConnectionFailed, _DAFolderSyncRequest._isResyncAfterServerError,
+                          _DARefreshManager._apsConnections, _DARefreshManager._dailyRefreshInitialized,
+                          _DARefreshManager._enabledTopicWrappersByEnv, _DARefreshManager._pcQueue,
+                          _DARefreshManager._persistAPSAfterShutdown, _DARefreshManager._suspendedTopicWrappersByEnv,
+                          _DARefreshManager._tokenRegistrationTimer, _DARefreshManager._wrappers,
+                          _DARefreshManager._wrappersForDailyRefresh, _DARefreshWrapper._curStyle, _DARefreshWrapper._delegate,
+                          _DARefreshWrapper._fetchInterval, _DARefreshWrapper._pushRegistrationTime,
+                          _DARefreshWrapper._pushState, _DARefreshWrapper._refreshCollections, _DARefreshWrapper._refreshReason,
+                          _DARefreshWrapper._tokenRegistrations, _DATokenRegistrationRequest._delegate,
+                          _DATokenRegistrationRequest._finished, _DATokenRegistrationRequest._hsa2Session,
+                          _DATokenRegistrationRequest._onBehalfOfBundleIdentifier, _DATokenRegistrationRequest._pushKey,
+                          _DATokenRegistrationRequest._request, _DATokenRegistrationRequest._session,
+                          _DATokenRegistrationRequest._task, _DATokenRegistrationRequest._token,
+                          _DATokenRegistrationRequest._wrapper, _REMDAAccountInfo._accountDescription,
+                          _REMDAAccountInfo._accountID, _REMDAAccountInfo._rem_accountObjectID,
+                          __DAChangeHistoryABLegacyClerk._addressBook, __DAChangeHistoryContactsClerk._contactStore ]
+...

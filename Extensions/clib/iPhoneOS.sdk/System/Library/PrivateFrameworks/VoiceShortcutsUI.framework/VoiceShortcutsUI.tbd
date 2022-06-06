@@ -1,0 +1,47 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/VoiceShortcutsUI.framework/VoiceShortcutsUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _VCLoggingCategory, _VCLoggingSubsystem, _VCUILogContext, _VCUILogInitIfNeeded,
+                          _VoiceShortcutsUIVersionNumber, _VoiceShortcutsUIVersionString ]
+    objc-classes:       [ _VCUIActionDonationCell, _VCUIActionDonationDataSource, _VCUIActionDonationDetailsViewController,
+                          _VCUIActionDonationsListViewController, _VCUIActionStatusView, _VCUIActiveVoiceShortcutsViewController,
+                          _VCUICKPEntryPoint, _VCUIInteractionDonationDataSource, _VCUIPerformActionCardProvider,
+                          _VCUIPerformActionCardViewController, _VCUIProgressCardViewController,
+                          _VCUIUserActivityDonationDataSource, _VCUIVoiceShortcutCard, _VCUIVoiceShortcutCell,
+                          _VCUIVoiceShortcutsViewController, __VCUIActionStatusErrorView ]
+    objc-ivars:         [ _VCUIActionDonationCell._cardView, _VCUIActionDonationCell._dimmingIneligibleForPrediction,
+                          _VCUIActionDonationCell._donation, _VCUIActionDonationCell._showAppName,
+                          _VCUIActionDonationDataSource._donations, _VCUIActionDonationDataSource._fetcherClass,
+                          _VCUIActionDonationDataSource._queue, _VCUIActionDonationDataSource._tableView,
+                          _VCUIActionDonationDetailsViewController._donation,
+                          _VCUIActionDonationsListViewController._activityDataSource,
+                          _VCUIActionDonationsListViewController._activityTableView,
+                          _VCUIActionDonationsListViewController._interactionDataSource,
+                          _VCUIActionDonationsListViewController._interactionTableView,
+                          _VCUIActionDonationsListViewController._prototypeCell,
+                          _VCUIActionDonationsListViewController._segmentedControl, _VCUIActionStatusView._activityView,
+                          _VCUIActionStatusView._delegate, _VCUIActionStatusView._errorView,
+                          _VCUIActiveVoiceShortcutsViewController._prototypeCell,
+                          _VCUIActiveVoiceShortcutsViewController._searchController,
+                          _VCUIActiveVoiceShortcutsViewController._voiceShortcutClient,
+                          _VCUIActiveVoiceShortcutsViewController._voiceShortcuts,
+                          _VCUIPerformActionCardViewController._commandCompletionBlocksDictionary,
+                          _VCUIPerformActionCardViewController._commandWorkflowControllersDictionary,
+                          _VCUIPerformActionCardViewController._currentWorkflowController,
+                          _VCUIProgressCardViewController._animatesStateTransitions,
+                          _VCUIProgressCardViewController._hairlineView, _VCUIProgressCardViewController._progress,
+                          _VCUIProgressCardViewController._progressIndicatorViewController,
+                          _VCUIProgressCardViewController._progressStateMachine, _VCUIProgressCardViewController._statusView,
+                          _VCUIProgressCardViewController._statusViewFailureHeightConstraint,
+                          _VCUIProgressCardViewController._statusViewSuccessHeightConstraint, _VCUIVoiceShortcutCard._intent,
+                          _VCUIVoiceShortcutCard._intentResponse, _VCUIVoiceShortcutCard._sectionCommands,
+                          _VCUIVoiceShortcutCard._shortcutIdentifier, _VCUIVoiceShortcutCell._cardView,
+                          _VCUIVoiceShortcutCell._voiceShortcut, __VCUIActionStatusErrorView._errorIconBackgroundView,
+                          __VCUIActionStatusErrorView._errorIconView, __VCUIActionStatusErrorView._errorLabel ]
+...

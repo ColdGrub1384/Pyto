@@ -1,0 +1,39 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SearchAds.framework/SearchAds
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SearchAdsVersionNumber, _SearchAdsVersionString ]
+    objc-classes:       [ _ADDataObject, _ADInstallAttributionData, _ADLocationManager, _ADResponseData, _ADSearchAdsSettings,
+                          _ADSearchObject, _ADSearchSession ]
+    objc-ivars:         [ _ADDataObject._error, _ADDataObject._iAdData, _ADInstallAttributionData._adNetworkID,
+                          _ADInstallAttributionData._adamID, _ADInstallAttributionData._campaignID,
+                          _ADInstallAttributionData._signature, _ADInstallAttributionData._timestamp,
+                          _ADInstallAttributionData._uuid, _ADLocationManager._actualLocation, _ADLocationManager._callerStatus,
+                          _ADLocationManager._currentPlacemark, _ADLocationManager._isLocationInitialized,
+                          _ADLocationManager._isLocationUpdating, _ADLocationManager._lastPlacemarkLocation,
+                          _ADLocationManager._listeners, _ADLocationManager._locationManager, _ADLocationManager._locationQueue,
+                          _ADLocationManager._updatingPlacemark, _ADResponseData._algoID, _ADResponseData._clientRequestID,
+                          _ADResponseData._format, _ADResponseData._impressionID, _ADResponseData._installAttribution,
+                          _ADResponseData._lineItem, _ADResponseData._metadata, _ADResponseData._odmlResponse,
+                          _ADResponseData._privacy, _ADResponseData._templateType, _ADSearchAdsSettings._algoID,
+                          _ADSearchAdsSettings._clickExpirationThresholdInSeconds, _ADSearchAdsSettings._clientSettings,
+                          _ADSearchAdsSettings._defaultAdTargetingServerURL, _ADSearchAdsSettings._defaultToroServerURL,
+                          _ADSearchAdsSettings._frequencyCapExpirationInSeconds, _ADSearchAdsSettings._isBaseline,
+                          _ADSearchAdsSettings._isCustomTemplate, _ADSearchAdsSettings._isRequestedImage,
+                          _ADSearchAdsSettings._isRequestedRating, _ADSearchAdsSettings._isTest,
+                          _ADSearchAdsSettings._locationGridSpacing, _ADSearchAdsSettings._maxClickCapElements,
+                          _ADSearchAdsSettings._maxFrequencyCapElements, _ADSearchAdsSettings._requestedIcon,
+                          _ADSearchAdsSettings._requestedLocationAccuracy, _ADSearchAdsSettings._requestedText,
+                          _ADSearchAdsSettings._reverseGeolocationRefreshThresholdInMeters, _ADSearchAdsSettings._templateType,
+                          _ADSearchAdsSettings._userKeyboards, _ADSearchObject._deviceRequestID, _ADSearchObject._error,
+                          _ADSearchObject._routingInfoData, _ADSearchObject._sponsoredSearchRequestData,
+                          _ADSearchObject._userTargetingIdentifier, _ADSearchSession._appID, _ADSearchSession._appVersion,
+                          _ADSearchSession._appsRank, _ADSearchSession._campaignNamespace, _ADSearchSession._capData,
+                          _ADSearchSession._clientRequestID, _ADSearchSession._idNotificationQueue,
+                          _ADSearchSession._notificationObserver, _ADSearchSession._notificationReceivedAndWaiting ]
+...

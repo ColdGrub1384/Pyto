@@ -1,0 +1,21 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/HealthMenstrualCyclesUI.framework/HealthMenstrualCyclesUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _HKMCLocalizedStringForDateComponents ]
+    objc-classes:       [ _HKMCCycleTimelineFlowLayout, _HKMCCycleTimelineFlowLayoutAttributes,
+                          _HKMCCycleTimelinePillConfiguration ]
+    objc-ivars:         [ _HKMCCycleTimelineFlowLayout._cellSize, _HKMCCycleTimelineFlowLayout._centerIndexPath,
+                          _HKMCCycleTimelineFlowLayout._centerPillHeight, _HKMCCycleTimelineFlowLayout._introPillConfiguration,
+                          _HKMCCycleTimelineFlowLayout._offsetFactor, _HKMCCycleTimelineFlowLayout._pillAspectRatio,
+                          _HKMCCycleTimelineFlowLayout._pillConfigurations, _HKMCCycleTimelineFlowLayout._totalZoomWidth,
+                          _HKMCCycleTimelineFlowLayout._yOffset, _HKMCCycleTimelineFlowLayout._zoomAreaOffset,
+                          _HKMCCycleTimelineFlowLayout._zoomRange, _HKMCCycleTimelineFlowLayoutAttributes._pillFrame,
+                          _HKMCCycleTimelineFlowLayoutAttributes._shrinkFactor, _HKMCCycleTimelinePillConfiguration._spacing,
+                          _HKMCCycleTimelinePillConfiguration._width ]
+...

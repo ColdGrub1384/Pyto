@@ -1,0 +1,69 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CTCarrierSpace.framework/CTCarrierSpace
+current-version:       0
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CTCarrierSpaceConvertDataUnits, _CTCarrierSpaceDataUnitsAsString, _CTCarrierSpaceDeviceTypeAsString,
+                          _CTCarrierSpaceErrorDomain, _CTCarrierSpacePlanCategoryAsString,
+                          _CTCarrierSpacePlanPurchaseStatusAsString, _CTCarrierSpacePlanStatusAsString,
+                          _CTCarrierSpaceRegistrationStatusAsString, _kCTCarrierSpaceConnectionAccountIdentifier,
+                          _kCTCarrierSpaceTestConfigBillingCycleEndDateKey, _kCTCarrierSpaceTestConfigDataCapacityKey,
+                          _kCTCarrierSpaceTestConfigDataUnitsKey, _kCTCarrierSpaceTestConfigDataUsedKey,
+                          _kCTCarrierSpaceTestConfigJSONKey, _kCarrierSpaceXpcServiceName ]
+    objc-classes:       [ _CTCarrierSpaceAppsInfo, _CTCarrierSpaceAuthInfo, _CTCarrierSpaceAuthenticationContext,
+                          _CTCarrierSpaceCapabilities, _CTCarrierSpaceClient, _CTCarrierSpaceClientDelegateProxy,
+                          _CTCarrierSpaceDataPlanMetrics, _CTCarrierSpaceDataPlanMetricsError,
+                          _CTCarrierSpaceDataPlanMetricsItem, _CTCarrierSpaceError, _CTCarrierSpaceInfo,
+                          _CTCarrierSpacePlanGroupInfo, _CTCarrierSpacePlanGroupOptionInfo, _CTCarrierSpacePlansInfo,
+                          _CTCarrierSpaceUsageAccountMetrics, _CTCarrierSpaceUsageInfo, _CTCarrierSpaceUsagePlanItemData,
+                          _CTCarrierSpaceUsagePlanItemMessages, _CTCarrierSpaceUsagePlanItemVoice,
+                          _CTCarrierSpaceUsagePlanMetrics, _CTCarrierSpaceUserConsentFlowInfo ]
+    objc-ivars:         [ _CTCarrierSpaceAppsInfo._appsList, _CTCarrierSpaceAppsInfo._appsURL,
+                          _CTCarrierSpaceAuthInfo._accessToken, _CTCarrierSpaceAuthInfo._expiresAt,
+                          _CTCarrierSpaceAuthInfo._refreshToken, _CTCarrierSpaceAuthInfo._shouldCache,
+                          _CTCarrierSpaceAuthenticationContext._authURL, _CTCarrierSpaceAuthenticationContext._carrierName,
+                          _CTCarrierSpaceAuthenticationContext._clientID, _CTCarrierSpaceAuthenticationContext._iccid,
+                          _CTCarrierSpaceAuthenticationContext._scope,
+                          _CTCarrierSpaceAuthenticationContext._sourceApplicationAccountIdentifier,
+                          _CTCarrierSpaceAuthenticationContext._supportsState, _CTCarrierSpaceAuthenticationContext._tokenURL,
+                          _CTCarrierSpaceCapabilities._supportsApplications, _CTCarrierSpaceCapabilities._supportsPlans,
+                          _CTCarrierSpaceCapabilities._supportsServices, _CTCarrierSpaceCapabilities._supportsUsage,
+                          _CTCarrierSpaceClient._callbackQueue, _CTCarrierSpaceClient._connection,
+                          _CTCarrierSpaceClient._delegate, _CTCarrierSpaceClient._delegateProxy, _CTCarrierSpaceClient._endpoint,
+                          _CTCarrierSpaceClient._queue, _CTCarrierSpaceClientDelegateProxy._delegate,
+                          _CTCarrierSpaceDataPlanMetrics._billingCycleEndDate, _CTCarrierSpaceDataPlanMetrics._domestic,
+                          _CTCarrierSpaceDataPlanMetrics._domesticCapacity, _CTCarrierSpaceDataPlanMetrics._regStatus,
+                          _CTCarrierSpaceDataPlanMetricsItem._capacity, _CTCarrierSpaceDataPlanMetricsItem._capacityBytes,
+                          _CTCarrierSpaceDataPlanMetricsItem._capacityValid, _CTCarrierSpaceDataPlanMetricsItem._units,
+                          _CTCarrierSpaceInfo._appsInfo, _CTCarrierSpaceInfo._plansInfo, _CTCarrierSpaceInfo._usageInfo,
+                          _CTCarrierSpacePlanGroupInfo._groupId, _CTCarrierSpacePlanGroupInfo._groupOptionsList,
+                          _CTCarrierSpacePlanGroupInfo._planCategory, _CTCarrierSpacePlanGroupOptionInfo._planDetailsURL,
+                          _CTCarrierSpacePlanGroupOptionInfo._planId, _CTCarrierSpacePlanGroupOptionInfo._planLabel,
+                          _CTCarrierSpacePlanGroupOptionInfo._planPurchasable,
+                          _CTCarrierSpacePlanGroupOptionInfo._planPurchaseURL,
+                          _CTCarrierSpacePlanGroupOptionInfo._planSubscriptionStatus,
+                          _CTCarrierSpacePlanGroupOptionInfo._planTermsURL, _CTCarrierSpacePlanGroupOptionInfo._planType,
+                          _CTCarrierSpacePlanGroupOptionInfo._planValue, _CTCarrierSpacePlansInfo._morePlansURL,
+                          _CTCarrierSpacePlansInfo._planGroupsList, _CTCarrierSpaceUsageAccountMetrics._applicablePlans,
+                          _CTCarrierSpaceUsageAccountMetrics._billingCycleEndDate,
+                          _CTCarrierSpaceUsageAccountMetrics._deviceType, _CTCarrierSpaceUsageAccountMetrics._localDevice,
+                          _CTCarrierSpaceUsageAccountMetrics._networkUsageLabel, _CTCarrierSpaceUsageAccountMetrics._planType,
+                          _CTCarrierSpaceUsageAccountMetrics._subscriptionStatus, _CTCarrierSpaceUsageInfo._accountMetrics,
+                          _CTCarrierSpaceUsageInfo._moreDetailsURL, _CTCarrierSpaceUsagePlanItemData._capacity,
+                          _CTCarrierSpaceUsagePlanItemData._maxDataBeforeThrottling,
+                          _CTCarrierSpaceUsagePlanItemData._sharedDataUsed,
+                          _CTCarrierSpaceUsagePlanItemData._sharedPlanIdentifier,
+                          _CTCarrierSpaceUsagePlanItemData._thisDeviceDataUsed, _CTCarrierSpaceUsagePlanItemData._units,
+                          _CTCarrierSpaceUsagePlanItemMessages._capacity, _CTCarrierSpaceUsagePlanItemMessages._used,
+                          _CTCarrierSpaceUsagePlanItemVoice._minutesCapacity, _CTCarrierSpaceUsagePlanItemVoice._minutesUsed,
+                          _CTCarrierSpaceUsagePlanMetrics._currentUsedPlan, _CTCarrierSpaceUsagePlanMetrics._dataUsage,
+                          _CTCarrierSpaceUsagePlanMetrics._lastUpdatedAt, _CTCarrierSpaceUsagePlanMetrics._messages,
+                          _CTCarrierSpaceUsagePlanMetrics._planCategory, _CTCarrierSpaceUsagePlanMetrics._planLabel,
+                          _CTCarrierSpaceUsagePlanMetrics._remainingBalance, _CTCarrierSpaceUsagePlanMetrics._throttled,
+                          _CTCarrierSpaceUsagePlanMetrics._voice, _CTCarrierSpaceUserConsentFlowInfo._postData,
+                          _CTCarrierSpaceUserConsentFlowInfo._webURL ]
+...

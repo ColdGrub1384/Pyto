@@ -1,0 +1,46 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/OSAnalyticsPrivate.framework/OSAnalyticsPrivate
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _OSAnalyticsPrivateVersionNumber, _OSAnalyticsPrivateVersionString ]
+    objc-classes:       [ _OSAEphemeralLog, _OSAHttpSubmitter, _OSAStreamDeflater, _OSASubmissionPolicy, _OSASubmitter,
+                          _OSAXPCServices, _PCCEndpoint, _PCCGroupJob, _PCCIDSEndpoint, _PCCJob, _PCCProxiedDevice,
+                          _PCCProxyingDevice, _PCCRequest ]
+    objc-ivars:         [ _OSAEphemeralLog._content, _OSAHttpSubmitter._connection, _OSAHttpSubmitter._last_thoughput_check,
+                          _OSAHttpSubmitter._payload, _OSAHttpSubmitter._response, _OSAHttpSubmitter._submissionSem,
+                          _OSAHttpSubmitter._submissionURL, _OSAHttpSubmitter._thoughput_warnings,
+                          _OSAStreamDeflater._capViolation, _OSAStreamDeflater._in, _OSAStreamDeflater._out,
+                          _OSAStreamDeflater._strm, _OSASubmissionPolicy._cadenceThrottleCache,
+                          _OSASubmissionPolicy._default_template, _OSASubmissionPolicy._hasTasking,
+                          _OSASubmissionPolicy._identifier, _OSASubmissionPolicy._ignoreProxies,
+                          _OSASubmissionPolicy._permissive, _OSASubmissionPolicy._policies, _OSASubmissionPolicy._prefaces,
+                          _OSASubmissionPolicy._primary_template, _OSASubmissionPolicy._results,
+                          _OSASubmissionPolicy._specific_files, _OSASubmissionPolicy._usingCellular,
+                          _OSASubmitter._allowUnsignedBlobs, _OSASubmitter._connectionType, _OSASubmitter._dryRun,
+                          _OSASubmitter._internalWhitelist, _OSASubmitter._jobCount, _OSASubmitter._launchInfo,
+                          _OSASubmitter._responseCode, _OSASubmitter._responseData, _OSASubmitter._responseError,
+                          _OSASubmitter._responseHeaders, _OSAXPCServices._listenerConnection, _OSAXPCServices._txn,
+                          _OSAXPCServices._txnTimer, _PCCEndpoint._delegate, _PCCEndpoint._deviceIds, _PCCEndpoint._fileTimeout,
+                          _PCCGroupJob._consecutive_error_count, _PCCGroupJob._content, _PCCGroupJob._error_count,
+                          _PCCGroupJob._group_type, _PCCGroupJob._log_sets, _PCCGroupJob._rejected_count,
+                          _PCCGroupJob._success_count, _PCCGroupJob._total_count, _PCCIDSEndpoint._homeDeviceService,
+                          _PCCIDSEndpoint._pairedWatchService, _PCCIDSEndpoint._serviceByDevice, _PCCJob._errObj, _PCCJob._event,
+                          _PCCJob._jid, _PCCJob._lastTouch, _PCCJob._metadata, _PCCJob._options, _PCCJob._package,
+                          _PCCJob._target, _PCCJob._type, _PCCProxiedDevice._endpoint, _PCCProxiedDevice._expiryTimer,
+                          _PCCProxiedDevice._groupXferJob, _PCCProxiedDevice._jobByTracker, _PCCProxiedDevice._jobTimeout,
+                          _PCCProxiedDevice._job_queue, _PCCProxiedDevice._preserveFiles, _PCCProxiedDevice._txn,
+                          _PCCProxiedDevice.expire_count, _PCCProxiedDevice.file_count, _PCCProxiedDevice.job_count,
+                          _PCCProxiedDevice.msg_count, _PCCProxiedDevice.up_count, _PCCProxyingDevice._endpoint,
+                          _PCCProxyingDevice._expiryTimer, _PCCProxyingDevice._lastTouch, _PCCProxyingDevice._reqById,
+                          _PCCProxyingDevice._reqByTracker, _PCCProxyingDevice._requestTimeout,
+                          _PCCProxyingDevice._request_queue, _PCCProxyingDevice._sync_proxy_queue,
+                          _PCCProxyingDevice._sync_summary, _PCCProxyingDevice._tasking_summary, _PCCProxyingDevice._txn,
+                          _PCCProxyingDevice.expire_count, _PCCProxyingDevice.file_count, _PCCProxyingDevice.msg_count,
+                          _PCCProxyingDevice.request_count, _PCCProxyingDevice.up_count, _PCCRequest._callback,
+                          _PCCRequest._event, _PCCRequest._jid, _PCCRequest._options, _PCCRequest._type ]
+...

@@ -1,0 +1,29 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CoreFollowUpUI.framework/CoreFollowUpUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CoreFollowUpUIVersionNumber, _CoreFollowUpUIVersionString, _SPYGLASS_START_USING_ICLOUD_UID,
+                          _SPYGLASS_VERIFY_PRIMARY_EMAIL_UID, _SPYGLASS_VERIFY_TERMS_UID, _createFollowUpSubtitle,
+                          _createFollowUpTitle ]
+    objc-classes:       [ _FLExtensionContext, _FLExtensionViewController, _FLFollowUpActionHandler, _FLHeaderCell,
+                          _FLHostViewController, _FLNetworkStatePrompter, _FLPreferencesController,
+                          _FLPreferencesFollowUpItemListViewController, _FLReachabilityObserver, _FLSpecifierTapHandler,
+                          _FLViewExtensionLoader ]
+    objc-ivars:         [ _FLExtensionContext._shadowPrincipalObject, _FLExtensionViewController._context,
+                          _FLFollowUpActionHandler._completionHandler, _FLFollowUpActionHandler._extensionLoader,
+                          _FLFollowUpActionHandler._extensionRequestedViewControllerPresentation,
+                          _FLFollowUpActionHandler._remoteViewController, _FLHeaderCell._constraints,
+                          _FLHeaderCell._followSubtitle, _FLHeaderCell._followTitle, _FLNetworkStatePrompter._presenter,
+                          _FLPreferencesController._activityIndicatorActive, _FLPreferencesController._itemChangeObserver,
+                          _FLPreferencesController._listViewController, _FLPreferencesController._spyglassController,
+                          _FLPreferencesController._spyglassWhitelist, _FLPreferencesController._topViewModel,
+                          _FLPreferencesFollowUpItemListViewController._actionHandler,
+                          _FLPreferencesFollowUpItemListViewController._presentationContext,
+                          _FLPreferencesFollowUpItemListViewController._viewModel, _FLReachabilityObserver._completionHandler,
+                          _FLSpecifierTapHandler._delegate, _FLViewExtensionLoader._extensionViewController ]
+...

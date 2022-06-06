@@ -1,0 +1,48 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MobileSync.framework/MobileSync
+current-version:       932
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _BookmarksDataSourceCreator, _CalendarsDataSourceCreator, _ContactsDataSourceCreator, _CreateCleanUuid,
+                          _CreateDataSourceForDataClassName, _DataSourceCanSyncWithVersion, _DataSourceClearAllRecords,
+                          _DataSourceClearSyncAnchors, _DataSourceCommit, _DataSourceDeleteDataSource, _DataSourceGetAllRecords,
+                          _DataSourceGetChanges, _DataSourceGetCountOfRecords, _DataSourceGetEntityTypeProcessOrder,
+                          _DataSourceGetSyncTypeAndExchangeSyncAnchors, _DataSourceGetVersion, _DataSourceLockFilePath,
+                          _DataSourceMigrateRecords, _DataSourceProcessChanges, _DataSourceRemoveStore, _DataSourceRollback,
+                          _DataSourceShouldLockData, _GetInstantMessageServiceTypeABToSyncServices,
+                          _GetInstantMessageServiceTypeSyncServicesToAB, _MailAccountsDataSourceCreator,
+                          _SSAllContactDescriptorKeys, _SSAllContactMultivalueDescriptorKeys, _SSGetPropertyTypeABToSyncServices,
+                          _SSGetPropertyTypeSyncServicesToAB, _SSRecordIdentifierTypeFromSSIdentifier,
+                          _SSUniqueIdentifierFromSSIdentifier, _SyncPlaybackEnabled, __SSEntityTypeToPropertyName,
+                          __copySetOfEmailAddressesFromMessageFramework, __reallyCopySetOfEmailAddressesFromMessageFramework,
+                          __resetDataSourceState, _dataClassNameForDataType, _dataTypeForDataClassName,
+                          _kContactsSyncClientIdentifier, _kDataClassBookmarks, _kDataClassCalendars, _kDataClassContacts,
+                          _kDataClassMailAccounts, _kDataClassNotes, _kDataSourceClearDefaultStoreKey,
+                          _kDataSourceUpdateAnchorsOnPullKey, _kDataStoreDisplayNameKey, _kDataStoreSetAsDefaultKey,
+                          _kDataStoreSetAsDefaultOnlyIfNotSetKey, _kDataStoreTypeKey, _kDataTypeBookmarks, _kDataTypeCalendars,
+                          _kDataTypeContacts, _kDataTypeMailAccounts, _kDataTypeNotes, _kDefaultCalendarsDataSourceVersion,
+                          _kDefaultDataSourceVersion, _kImageChangedKey, _kIsEventsOnlySource, _kIsRemindersOnlySource,
+                          _kIsTetheredSync, _kMaxCompressedImageSize, _kOrganizerAddressSet, _kSSRecordIdentifierTypeContact,
+                          _kSSRecordIdentifierTypeGroup, _kSSRecordIdentifierTypeValue, _kSSSyncRecordIdentifierPrefix,
+                          _kShouldClearHiddenBookmarksKey, _kShouldSendAllCalendarsOnFastSyncKey,
+                          _kShouldSyncAttendeesAndOrganizers, _kShouldSyncCalendarColors, _kSyncAgentClientIdentifier,
+                          _recordIdentifierIsLocal, _sa_log_facilities_initailize_static, _sa_log_facility, _setPlaybackEnabled ]
+    objc-classes:       [ _SSCNContactChange, _SSCNContactEnumerator, _SSCNGroupChange, _SSCNGroupEnumerator ]
+    objc-ivars:         [ _SSCNContactChange._changeType, _SSCNContactChange._contact, _SSCNContactChange._contactIdentifier,
+                          _SSCNContactEnumerator._containerIdentifier, _SSCNContactEnumerator._didSetup,
+                          _SSCNContactEnumerator._done, _SSCNContactEnumerator._enumerator,
+                          _SSCNContactEnumerator._enumeratorComplete, _SSCNContactEnumerator._fetchQueue,
+                          _SSCNContactEnumerator._fetchReadySemaphore, _SSCNContactEnumerator._fetchRequestedSemaphore,
+                          _SSCNContactEnumerator._historyResult, _SSCNContactEnumerator._latestChangeAnchor,
+                          _SSCNContactEnumerator._nextContact, _SSCNContactEnumerator._returnAllContacts,
+                          _SSCNContactEnumerator._store, _SSCNGroupChange._changeType, _SSCNGroupChange._group,
+                          _SSCNGroupChange._groupIdentifier, _SSCNGroupEnumerator._allGroups,
+                          _SSCNGroupEnumerator._containerIdentifier, _SSCNGroupEnumerator._didSetup, _SSCNGroupEnumerator._done,
+                          _SSCNGroupEnumerator._enumerator, _SSCNGroupEnumerator._groupIndex,
+                          _SSCNGroupEnumerator._historyResult, _SSCNGroupEnumerator._returnAllGroups,
+                          _SSCNGroupEnumerator._store ]
+...

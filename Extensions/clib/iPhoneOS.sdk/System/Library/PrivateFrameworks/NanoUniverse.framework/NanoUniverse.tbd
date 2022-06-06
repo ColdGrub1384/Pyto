@@ -1,0 +1,40 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NanoUniverse.framework/NanoUniverse
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NULoadMtlTextureFromMemory, _NULoggingObjectForDomain, _NanoUniverseVersionNumber,
+                          _NanoUniverseVersionString, __Z10UMQuatMakeDv3_f, __Z10UMQuatMakeDv3_fS_S_, __Z10UMQuatMakefff,
+                          __Z11UMTranslate8float4x4Dv3_f, __Z11UMTranspose8float3x3, __Z14UMFloat3x3Make6UMQuat,
+                          __Z14UMFloat3x3MakeDv3_fS_S_, __Z19UMFloat4x4MakeOrthoffffff, __Z19UMFloat4x4MakeScaleDv3_f,
+                          __Z19UMFloat4x4MakeScalef, __Z20UMFloat4x4MakeLookAtDv3_fS_S_, __Z21UMFloat4x4MakeRotateXf,
+                          __Z21UMFloat4x4MakeRotateZf, __Z23UMFloat4x4MakeTranslateDv3_f, __Z25UMFloat4x4MakePerspectiveffff,
+                          __Z5UMMul6UMQuatS_, __Z5UMMul8float3x3Dv3_f, __Z5UMMul8float3x3S_, __Z5UMMul8float4x4Dv4_f,
+                          __Z5UMMul8float4x4S_, __Z7UMSlerp6UMQuatS_f, __Z8UMNegate8float3x3, _kUMFloat4x4Identity,
+                          _kUMFloat4x4Zero ]
+    objc-classes:       [ _NUAnimation, _NUMetalQuad, _NURenderer, _NUResources, _NUScene, _NUSpheroid, _NUView, __NUGeometry ]
+    objc-ivars:         [ _NUAnimation._animatable, _NUAnimation._ctrl1, _NUAnimation._ctrl2, _NUAnimation._delay,
+                          _NUAnimation._duration, _NUAnimation._frameInterval, _NUAnimation._from, _NUAnimation._function,
+                          _NUAnimation._key, _NUAnimation._observer, _NUAnimation._pauseTime, _NUAnimation._paused,
+                          _NUAnimation._prevTime, _NUAnimation._repeat, _NUAnimation._startTime, _NUAnimation._to,
+                          _NUAnimation._values, _NUAnimation._valuesCount, _NUMetalQuad._baseTime, _NUMetalQuad._isPrepared,
+                          _NUMetalQuad._renderer, _NUMetalQuad._resources, _NUMetalQuad._scene, _NUMetalQuad._viewport,
+                          _NURenderer._bundle, _NURenderer._mtlDevice, _NURenderer._octahedronGeomRange,
+                          _NURenderer._quadGeomRange, _NURenderer._resources, _NURenderer._viewMtlPixelFormat,
+                          _NUResources._textures, _NUScene._animations, _NUScene._backgroundType, _NUScene._collectionType,
+                          _NUScene._currentDateBlock, _NUScene._date, _NUScene._focus, _NUScene._isUpdatable,
+                          _NUScene._isUpdateNeeded, _NUScene._minFrameInterval, _NUScene._orbit, _NUScene._position,
+                          _NUScene._projectionType, _NUScene._roll, _NUScene._snap, _NUScene._spheroids, _NUScene._target,
+                          _NUScene._up, _NUScene._yearsSince1970, _NUSpheroid._angle, _NUSpheroid._centerCoordinate,
+                          _NUSpheroid._colorize, _NUSpheroid._distance, _NUSpheroid._distanceScale, _NUSpheroid._facing,
+                          _NUSpheroid._homeCoordinate, _NUSpheroid._light, _NUSpheroid._opacity, _NUSpheroid._parent,
+                          _NUSpheroid._position, _NUSpheroid._programType, _NUSpheroid._radius, _NUSpheroid._radiusScale,
+                          _NUSpheroid._rotation, _NUSpheroid._scene, _NUSpheroid._spriteType, _NUSpheroid._type,
+                          _NUSpheroid._visible, _NUView._bundle, _NUView._delegate, _NUView._device, _NUView._quad,
+                          _NUView._quadView, _NUView._resourceProviderKey, _NUView._resources, __NUGeometry._icount,
+                          __NUGeometry._indices, __NUGeometry._vcount, __NUGeometry._vertices ]
+...

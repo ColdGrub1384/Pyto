@@ -1,0 +1,71 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NetAppsUtilities.framework/NetAppsUtilities
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NACancelableCancel, _NAEmptyResult, _NAEqualObjects, _NAErrorDomain, _NAFutureCallbackStack,
+                          _NAStringFromBOOL, _NSStringFromNADiffOperationType, __NADictionaryOfMetrics, __NAPopScopedDescriptor,
+                          __NAPushScopedDescriptor, _kNAIdentityBuilderDefaultComparisonBlock,
+                          _kNAIdentityBuilderDefaultDoubleComparisionBlock, _kNAIdentityBuilderDefaultFloatComparisionBlock,
+                          _kNAIdentityBuilderDefaultHashBlock, _kNAIdentityBuilderDefaultNSNumberComparisonBlock,
+                          _kNAIdentityBuilderPointerComparisonBlock, _kNAIdentityBuilderPointerHashBlock ]
+    objc-classes:       [ _NACancelationToken, _NADeallocationSentinel, _NADeallocationTracer, _NADecayingTimer,
+                          _NADelegateDispatcher, _NADelegateMethodLogSettings, _NADescriptionBuilder, _NAFilterEnumerator,
+                          _NAFlatMapEnumerator, _NAFuture, _NAGroupDiffOperation, _NAGroupedItemDiff, _NAIdentity,
+                          _NAIdentityBuilder, _NAIdentityCharacteristic, _NAItemDiffOperation, _NAMutableTreeNode, _NAPair,
+                          _NAPromise, _NAQueue, _NAScheduler, _NASimpleDiffableItemGroup, _NATreeNode,
+                          _NATreeNodeDeepNodeEnumerator, _NAUniqueArrayDiff, _NAUniqueArrayDiffOptions, _NAValueThrottler,
+                          __NABoundedQueueingStrategy, __NADefaultQueueingStrategy, __NADelegateMethodMetadata,
+                          __NAImmediateScheduler, __NAKeyValueObserverProxy, __NALazyFuture, __NAMainThreadScheduler,
+                          __NANotificationObserverProxy, __NAObserverProxy, __NAOperationQueueScheduler,
+                          __NAPriorityQueueingStrategy, __NAQueueScheduler, __NASetContainer ]
+    objc-ivars:         [ _NACancelationToken._cancelationBlocks, _NACancelationToken._isCanceled,
+                          _NADeallocationSentinel._finalizer, _NADeallocationSentinel._targetObject,
+                          _NADeallocationSentinel._tracer, _NADeallocationTracer._delegate, _NADecayingTimer._block,
+                          _NADecayingTimer._minimumUnit, _NADecayingTimer._referenceDate, _NADecayingTimer._timer,
+                          _NADelegateDispatcher._cachedMethodMetadataBySelector, _NADelegateDispatcher._lock,
+                          _NADelegateDispatcher._logSettings, _NADelegateDispatcher._observerTable,
+                          _NADelegateDispatcher._overrideObservers, _NADelegateDispatcher._protocol,
+                          _NADelegateMethodLogSettings._argumentFormatter, _NADelegateMethodLogSettings._log,
+                          _NADelegateMethodLogSettings._logType, _NADelegateMethodLogSettings._logger,
+                          _NADescriptionBuilder._activeComponent, _NADescriptionBuilder._activePrefix,
+                          _NADescriptionBuilder._description, _NADescriptionBuilder._object, _NADescriptionBuilder._proem,
+                          _NADescriptionBuilder._useDebugDescription, _NAFilterEnumerator._enumerator,
+                          _NAFilterEnumerator._filter, _NAFlatMapEnumerator._enumerator, _NAFlatMapEnumerator._map,
+                          _NAFuture._completionBlocks, _NAFuture._descriptor, _NAFuture._finished, _NAFuture._lock,
+                          _NAFuture._resultError, _NAFuture._resultValue, _NAGroupDiffOperation._fromIndex,
+                          _NAGroupDiffOperation._group, _NAGroupDiffOperation._toIndex, _NAGroupDiffOperation._type,
+                          _NAGroupedItemDiff._changeTest, _NAGroupedItemDiff._fromGroups, _NAGroupedItemDiff._groupOperations,
+                          _NAGroupedItemDiff._itemOperations, _NAGroupedItemDiff._toGroups, _NAIdentity._characteristics,
+                          _NAIdentityBuilder._builtIdentity, _NAIdentityBuilder._characteristics,
+                          _NAIdentityCharacteristic._comparisonBlock, _NAIdentityCharacteristic._hashBlock,
+                          _NAIdentityCharacteristic._retrievalBlock, _NAIdentityCharacteristic._role,
+                          _NAItemDiffOperation._fromIndexPath, _NAItemDiffOperation._item, _NAItemDiffOperation._toIndexPath,
+                          _NAItemDiffOperation._type, _NAPair._first, _NAPair._second, _NAPromise._future, _NAQueue._buffer,
+                          _NAQueue._strategy, _NASimpleDiffableItemGroup._diffableItems,
+                          _NASimpleDiffableItemGroup._groupIdentifier, _NATreeNode._internalChildNodes,
+                          _NATreeNode._representedObject, _NATreeNodeDeepNodeEnumerator._enumeratorStack,
+                          _NATreeNodeDeepNodeEnumerator._node, _NAUniqueArrayDiff._changedIndexes,
+                          _NAUniqueArrayDiff._deletedIndexes, _NAUniqueArrayDiff._fromArray, _NAUniqueArrayDiff._insertedIndexes,
+                          _NAUniqueArrayDiff._movedIndexes, _NAUniqueArrayDiff._toArray, _NAUniqueArrayDiffOptions._allowMoves,
+                          _NAUniqueArrayDiffOptions._changeComparator, _NAUniqueArrayDiffOptions._equalComparator,
+                          _NAUniqueArrayDiffOptions._hashGenerator, _NAValueThrottler._observerBlocks,
+                          _NAValueThrottler._throttleInterval, _NAValueThrottler._updateScheduler, _NAValueThrottler._value,
+                          _NAValueThrottler._valueUpdateCancelationToken, __NABoundedQueueingStrategy._capacity,
+                          __NABoundedQueueingStrategy._overflowHandler, __NADelegateMethodMetadata._customHandler,
+                          __NADelegateMethodMetadata._customLogSettingsByArgumentIndex,
+                          __NADelegateMethodMetadata._methodSignature, __NAKeyValueObserverProxy._isObserving,
+                          __NAKeyValueObserverProxy._keyPath, __NAKeyValueObserverProxy._observedObject,
+                          __NAKeyValueObserverProxy._observerBlock, __NALazyFuture._accessQueue, __NALazyFuture._block,
+                          __NALazyFuture._scheduler, __NALazyFuture._started, __NANotificationObserverProxy._notificationName,
+                          __NANotificationObserverProxy._notificationObserver, __NANotificationObserverProxy._observerBlock,
+                          __NANotificationObserverProxy._observerQueue, __NAObserverProxy._valid,
+                          __NAObserverProxy._weakObserver, __NAOperationQueueScheduler._queue,
+                          __NAPriorityQueueingStrategy._priorityComparator, __NAQueueScheduler._queue,
+                          __NASetContainer._comparator, __NASetContainer._hashGenerator, __NASetContainer._index,
+                          __NASetContainer._object ]
+...

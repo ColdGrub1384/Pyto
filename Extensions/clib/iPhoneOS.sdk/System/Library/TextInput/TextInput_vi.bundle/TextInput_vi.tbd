@@ -1,0 +1,15 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/TextInput/TextInput_vi.bundle/TextInput_vi
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ __ZNK17TIInputManager_vi21create_quality_filterERKN2KB19CandidateCollectionENS0_10LookupTypeE,
+                          __ZTV17TIInputManager_vi ]
+    objc-classes:       [ _TIKeyboardInputManager_vi ]
+    objc-ivars:         [ _TIKeyboardInputManager_vi.m_compositionDisabled, _TIKeyboardInputManager_vi.m_transliterator,
+                          _TIKeyboardInputManager_vi.m_useInternalIndex ]
+...

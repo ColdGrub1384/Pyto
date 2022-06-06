@@ -1,0 +1,25 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AppleIDSSOAuthentication.framework/AppleIDSSOAuthentication
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _AIDAAccountPropertyAltDSID, _AIDAAccountPropertyDSID, _AIDAErrorDomain, _AIDAServiceTypeCloud,
+                          _AIDAServiceTypeCloudAutomation, _AIDAServiceTypeFaceTime, _AIDAServiceTypeGameCenter,
+                          _AIDAServiceTypeMessages, _AIDAServiceTypeStore, _AppleIDAuthenticationAppleIDSettingsTokenIdentifier,
+                          _AppleIDAuthenticationPBTokenIdentifier, _AppleIDAuthenticationServicesKey,
+                          _AppleIDAuthenticationiCloudFamilySettingsTokenIdentifier,
+                          _AppleIDAuthenticationiCloudSettingsTokenIdentifier, __AIDALogSystem, __AIDASignpostCreate,
+                          __AIDASignpostGetNanoseconds, __AIDASignpostLogSystem, _kDeviceProvisioningMIDKey,
+                          _kDeviceProvisioningOTPKey, _kLegacyAlternateDSIDKey, _kiCloudPersonIDKey, _kiCloudPrimaryAccountKey ]
+    objc-classes:       [ _AIDAAccountManager, _AIDAMutableServiceContext, _AIDAServiceContext, _AIDAServiceOwnersManager ]
+    objc-ivars:         [ _AIDAAccountManager._accountManagerLock, _AIDAAccountManager._accountStore,
+                          _AIDAAccountManager._accounts, _AIDAAccountManager._delegate, _AIDAAccountManager._handlerByObserver,
+                          _AIDAAccountManager._serviceOwnersManager, _AIDAServiceContext._authenticationResults,
+                          _AIDAServiceContext._cdpUiProvider, _AIDAServiceContext._shouldForceOperation,
+                          _AIDAServiceContext._viewController, _AIDAServiceOwnersManager._accountStore,
+                          _AIDAServiceOwnersManager._serviceOwners, _AIDAServiceOwnersManager._serviceOwnersLock ]
+...

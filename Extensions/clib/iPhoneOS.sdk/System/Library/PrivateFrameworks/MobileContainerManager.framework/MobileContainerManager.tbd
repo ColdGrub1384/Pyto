@@ -1,0 +1,43 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MobileContainerManager.framework/MobileContainerManager
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MCMErrorDomain, _MCMFunctionNameErrorKey, _MCMPathArgumentErrorKey, _MCMSourceFileLineErrorKey,
+                          _kMCMACLFailureError, _kMCMBadInitializerValuesError, _kMCMBadReplyContentsError,
+                          _kMCMBundleOwnerMigrationFailError, _kMCMCacheAddError, _kMCMCacheFailedToRebuildError,
+                          _kMCMCacheInconsistencyError, _kMCMCacheInvalidDataError, _kMCMCacheRemoveError,
+                          _kMCMContainerNotFoundError, _kMCMContainersWithClassInitError, _kMCMCreateBaseDirectoryError,
+                          _kMCMCreateContainerClassDirectoryError, _kMCMCreateDeathRowDirectoryError,
+                          _kMCMCreateReplaceDirectoryError, _kMCMCreateStagingDirectoryError, _kMCMCreateSubDirectoryError,
+                          _kMCMCreateTempDirectoryError, _kMCMDataProtectionFailLockedError, _kMCMDestroyContainerError,
+                          _kMCMExceptionError, _kMCMExistingContainerReplaceError, _kMCMFailureToGetErrorReply,
+                          _kMCMGetMetadataErrorError, _kMCMIdentifierNotFoundInDbError, _kMCMInvalidCommandError,
+                          _kMCMInvalidContainerObjectError, _kMCMInvalidEntitlementInfoError, _kMCMInvalidMetadataError,
+                          _kMCMInvalidMetadataURLMismatchError, _kMCMInvalidParametersError, _kMCMInvalidReplyError,
+                          _kMCMInvalidURLError, _kMCMMismatchedClassReplaceError, _kMCMMismatchedUserReplaceError,
+                          _kMCMMoveStagingToLiveError, _kMCMMoveToDeathRowError, _kMCMNilIdentifierError,
+                          _kMCMNotEntitledForOperationError, _kMCMPathNotFoundError, _kMCMPendingUpdateNoLongerValidError,
+                          _kMCMReadEntitlementFileError, _kMCMReadMetadataError, _kMCMRegenerateUUIDMoveError,
+                          _kMCMRemoveIndividualStagingDirectoryError, _kMCMRemoveLegacyDirectoryError,
+                          _kMCMRemoveStagingDirectoryError, _kMCMRemoveTempContainerError, _kMCMReplaceContainerError,
+                          _kMCMReplaceMoveToTempError, _kMCMReplaceRecoverError, _kMCMReplaceRemoveError, _kMCMReplaceURLError,
+                          _kMCMRestoreContainerError, _kMCMRestorePathExistsError, _kMCMSQLiteError,
+                          _kMCMSQLiteUnexpectedNumChangesError, _kMCMSameContainerReplaceError, _kMCMSetSandboxMappingError,
+                          _kMCMSetupProxyError, _kMCMStageForDeleteError, _kMCMStageSharedContentFailureError, _kMCMSuccess,
+                          _kMCMUndefinedContainerClassError, _kMCMUnknownSubdirectoriesForClassError,
+                          _kMCMValueNotFoundForKeyError, _kMCMWriteEntitlementFileError, _kMCMWriteMetadataDictionaryError,
+                          _kMCMXPCInterruptedReplyError, _kMCMXPCInvalidReplyError, _kMCMXPCSetupError,
+                          _kMCMXPCUnknownReplyError ]
+    objc-classes:       [ _MCMAppContainer, _MCMAppDataContainer, _MCMContainer, _MCMContainerManager, _MCMDataContainer,
+                          _MCMFrameworkContainer, _MCMInternalDaemonDataContainer, _MCMPluginKitPluginContainer,
+                          _MCMPluginKitPluginDataContainer, _MCMSharedDataContainer, _MCMSharedSystemDataContainer,
+                          _MCMSystemDataContainer, _MCMTempDirDataContainer, _MCMVPNPluginContainer, _MCMVPNPluginDataContainer,
+                          _MCMXPCServiceDataContainer ]
+    objc-ivars:         [ _MCMContainer._containerClass, _MCMContainer._identifier, _MCMContainer._personaUniqueString,
+                          _MCMContainer._thisContainer, _MCMContainer._uuid ]
+...

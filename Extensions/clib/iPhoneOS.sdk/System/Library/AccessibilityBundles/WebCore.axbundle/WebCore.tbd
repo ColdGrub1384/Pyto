@@ -1,0 +1,18 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/AccessibilityBundles/WebCore.axbundle/WebCore
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _accessibilityLocalizedString ]
+    objc-classes:       [ _AXLiveRegionNode, _AXWebCoreGlue, _AXWebThreadPreparer, _UIKitAccessibilityTextMarker,
+                          _UIKitWebAccessibilityObjectWrapper, _WAKScrollViewAccessibility,
+                          ___UIKitAccessibilityTextMarker_super, ___UIKitWebAccessibilityObjectWrapper_super,
+                          ___WAKScrollViewAccessibility_super ]
+    objc-ivars:         [ _AXLiveRegionNode._label, _AXLiveRegionNode._object, _AXLiveRegionNode._traits,
+                          _AXLiveRegionNode._value, _AXWebThreadPreparer._preparedAnswer,
+                          _AXWebThreadPreparer._preparedThisRunLoop ]
+...

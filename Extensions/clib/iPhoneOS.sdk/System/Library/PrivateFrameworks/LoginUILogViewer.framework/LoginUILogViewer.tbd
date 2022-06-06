@@ -1,0 +1,57 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/LoginUILogViewer.framework/LoginUILogViewer
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _LoginUILogViewerVersionNumber, _LoginUILogViewerVersionString, _kAnimationDuration, _kClearButtonSize,
+                          _kDefaultLogFontSize, _kLUICurrentPredicateCellContentMargin, _kLogViewDefaultHeight,
+                          _kResultLabelDefaultText, _kScreenshotDateLabelHeight, _kStreamRefreshInterval, _kTouchButtonSize,
+                          _secondStringWithDate ]
+    objc-classes:       [ _LUILogContentViewController, _LUILogFilterCurrentPredicateTableViewCell,
+                          _LUILogFilterPredicateCandidateCollectionViewCell, _LUILogFilterView, _LUILogFilterViewController,
+                          _LUILogLocatorView, _LUILogOptionsView, _LUILogScreenshotCollectionViewCell, _LUILogScreenshotItem,
+                          _LUILogViewerAssistiveTouch, _LUILogViewerController, _LUILogViewerView ]
+    objc-ivars:         [ _LUILogContentViewController._delegate, _LUILogContentViewController._logLocatorView,
+                          _LUILogContentViewController._logOptionsView, _LUILogContentViewController._panGesture,
+                          _LUILogContentViewController._screenshotItems, _LUILogContentViewController._scrollIndicatorView,
+                          _LUILogContentViewController._spinner, _LUILogContentViewController._textView,
+                          _LUILogContentViewController._textViewHolderView, _LUILogFilterCurrentPredicateTableViewCell._delegate,
+                          _LUILogFilterCurrentPredicateTableViewCell._deleteButton,
+                          _LUILogFilterCurrentPredicateTableViewCell._titleLabel,
+                          _LUILogFilterPredicateCandidateCollectionViewCell._titleLabel, _LUILogFilterView._addButton,
+                          _LUILogFilterView._applyButton, _LUILogFilterView._currentPredicateLabel,
+                          _LUILogFilterView._enterPredicateStackView, _LUILogFilterView._existingPredicatesTableView,
+                          _LUILogFilterView._horizontalSeparatorLine, _LUILogFilterView._predicateTextField,
+                          _LUILogFilterView._predicatesComparisonCandidateCollectionView,
+                          _LUILogFilterView._predicatesKeyCandidateCollectionView,
+                          _LUILogFilterView._predicatesValueCandidateCollectionView,
+                          _LUILogFilterView._veriticalSeparatorLineFirst, _LUILogFilterView._veriticalSeparatorLineSecond,
+                          _LUILogFilterViewController._delegate, _LUILogFilterViewController._filterView,
+                          _LUILogLocatorView._downArrowButton, _LUILogLocatorView._screenshotButton,
+                          _LUILogLocatorView._screenshotCollectionView, _LUILogLocatorView._upArrowButton,
+                          _LUILogOptionsView._buttonStackView, _LUILogOptionsView._halfHourButton,
+                          _LUILogOptionsView._hourButton, _LUILogOptionsView._lastDayButton, _LUILogOptionsView._streamButton,
+                          _LUILogOptionsView._tenMinutesLogButton, _LUILogScreenshotCollectionViewCell._clearButton,
+                          _LUILogScreenshotCollectionViewCell._clearButtonAction,
+                          _LUILogScreenshotCollectionViewCell._screenshotDateLabel,
+                          _LUILogScreenshotCollectionViewCell._screenshotImageView, _LUILogScreenshotItem._screenshotDate,
+                          _LUILogScreenshotItem._screenshotImage, _LUILogScreenshotItem._visibleRange,
+                          _LUILogViewerController._assistiveTouch, _LUILogViewerController._baseView,
+                          _LUILogViewerController._currentHighlightIndex, _LUILogViewerController._delegate,
+                          _LUILogViewerController._firstLogDate, _LUILogViewerController._highlightRanges,
+                          _LUILogViewerController._isFetchingLogs, _LUILogViewerController._isStreaming,
+                          _LUILogViewerController._lastLogDate, _LUILogViewerController._logContentViewController,
+                          _LUILogViewerController._logFilterViewController, _LUILogViewerController._logInterval,
+                          _LUILogViewerController._logMinutesArray, _LUILogViewerController._logMinutesSet,
+                          _LUILogViewerController._logViewerView, _LUILogViewerController._outsideKeyboardIsShowing,
+                          _LUILogViewerController._pageViewController, _LUILogViewerController._panGesture,
+                          _LUILogViewerController._predicates, _LUILogViewerView._buttonStack, _LUILogViewerView._clearButton,
+                          _LUILogViewerView._closeButton, _LUILogViewerView._contentHolderView, _LUILogViewerView._delegate,
+                          _LUILogViewerView._filterButton, _LUILogViewerView._filterView, _LUILogViewerView._leftCaretButton,
+                          _LUILogViewerView._logButton, _LUILogViewerView._rightCaretButton, _LUILogViewerView._searchBar,
+                          _LUILogViewerView._searchResultLabel ]
+...

@@ -1,0 +1,23 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NanoComplicationSettings.framework/NanoComplicationSettings
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ApplicationsChanged, _ComplicationSettingsChanged, _NCSActiveKey, _NCSAppBundleIdentifierKey,
+                          _NCSComplicationBundleIdentifierKey, _NCSComplicationDefinitionsKey, _NCSComplicationNameKey,
+                          _NCSDomainKey, _NCSInstallStateKey, _NCSNanoComplicationSettingsVersionNumber,
+                          _NCSNanoComplicationSettingsVersionString, _NCSSelectedComplicationIdentifierKey,
+                          _NCSSettingsChangedNotification, _NCSSockPuppetAppIdentifierKey, _NCSSockPuppetBundleIdentifier,
+                          _PairedDeviceChanged, _SPApplicationsChanged ]
+    objc-classes:       [ _NCSComplication, _NCSInternalSettingsManager, _NCSSettingsManager ]
+    objc-ivars:         [ _NCSComplication._active, _NCSComplication._appBundleIdentifier, _NCSComplication._cannotBeDisabled,
+                          _NCSComplication._complicationBundleIdentifier, _NCSComplication._installState, _NCSComplication._name,
+                          _NCSComplication._sockPuppetIdentifier, _NCSInternalSettingsManager._complicationDefinitions,
+                          _NCSInternalSettingsManager._queue, _NCSInternalSettingsManager._selectedComplicationIdentifier,
+                          _NCSInternalSettingsManager._storedSettings, _NCSInternalSettingsManager._syncManager,
+                          _NCSSettingsManager._delegate ]
+...

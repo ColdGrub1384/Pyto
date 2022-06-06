@@ -1,0 +1,56 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/HIDPlugins/IOHIDEventProcessorFilter.plugin/IOHIDEventProcessorFilter
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _IOHIDEventProcessorFactory, __ZN11ButtonEvent18setMultiEventCountEP12__IOHIDEventl,
+                          __ZN11ButtonEvent20createSyntheticEventEb, __ZN11ButtonEvent7FDEnterEP12__IOHIDEvent,
+                          __ZN11ButtonEvent7FUEnterEP12__IOHIDEvent, __ZN11ButtonEvent7LPEnterEP12__IOHIDEvent,
+                          __ZN11ButtonEvent7SDEnterEP12__IOHIDEvent, __ZN11ButtonEvent7SUEnterEP12__IOHIDEvent,
+                          __ZN11ButtonEvent7TDEnterEP12__IOHIDEvent, __ZN11ButtonEvent7TEEnterEP12__IOHIDEvent,
+                          __ZN11ButtonEvent7TOEnterEP12__IOHIDEvent, __ZN11ButtonEvent7TUEnterEP12__IOHIDEvent,
+                          __ZN11ButtonEvent9NoneEnterEP12__IOHIDEvent, __ZN19IOHIDEventProcessor13dispatchEventEP12__IOHIDEventb,
+                          __ZN19IOHIDEventProcessor14QueryInterfaceE11CFUUIDBytesPPv,
+                          __ZN19IOHIDEventProcessor14QueryInterfaceEPv11CFUUIDBytesPS0_,
+                          __ZN19IOHIDEventProcessor15filterCopyEventEP12__IOHIDEvent,
+                          __ZN19IOHIDEventProcessor15filterCopyEventEPvP12__IOHIDEvent,
+                          __ZN19IOHIDEventProcessor16returnToFreePoolEP5Event,
+                          __ZN19IOHIDEventProcessor16setEventCallbackEPFvPvS0_S0_P12__IOHIDEventjES0_S0_,
+                          __ZN19IOHIDEventProcessor16setEventCallbackEPvPFvS0_S0_S0_P12__IOHIDEventjES0_S0_,
+                          __ZN19IOHIDEventProcessor20setPropertyForClientEPK10__CFStringPKvS4_,
+                          __ZN19IOHIDEventProcessor20setPropertyForClientEPvPK10__CFStringPKvS5_,
+                          __ZN19IOHIDEventProcessor21copyPropertyForClientEPK10__CFStringPKv,
+                          __ZN19IOHIDEventProcessor21copyPropertyForClientEPvPK10__CFStringPKv,
+                          __ZN19IOHIDEventProcessor24sIOHIDEventProcessorFtblE,
+                          __ZN19IOHIDEventProcessor25scheduleWithDispatchQueueEP16dispatch_queue_s,
+                          __ZN19IOHIDEventProcessor25scheduleWithDispatchQueueEPvP16dispatch_queue_s,
+                          __ZN19IOHIDEventProcessor27unscheduleFromDispatchQueueEP16dispatch_queue_s,
+                          __ZN19IOHIDEventProcessor27unscheduleFromDispatchQueueEPvP16dispatch_queue_s,
+                          __ZN19IOHIDEventProcessor4openEP14__IOHIDServicej, __ZN19IOHIDEventProcessor4openEPvP14__IOHIDServicej,
+                          __ZN19IOHIDEventProcessor5matchEP14__IOHIDServicej,
+                          __ZN19IOHIDEventProcessor5matchEPvP14__IOHIDServicej, __ZN19IOHIDEventProcessor6AddRefEPv,
+                          __ZN19IOHIDEventProcessor6AddRefEv, __ZN19IOHIDEventProcessor6filterEP12__IOHIDEvent,
+                          __ZN19IOHIDEventProcessor6filterEPvP12__IOHIDEvent, __ZN19IOHIDEventProcessor7ReleaseEPv,
+                          __ZN19IOHIDEventProcessor7ReleaseEv, __ZN19IOHIDEventProcessorC1EPK8__CFUUID,
+                          __ZN19IOHIDEventProcessorC2EPK8__CFUUID, __ZN19IOHIDEventProcessorD1Ev, __ZN19IOHIDEventProcessorD2Ev,
+                          __ZN5Event10conformsToEjjj, __ZN5Event12stateHandlerE13_KPTransitionP12__IOHIDEvent,
+                          __ZN5Event13dispatchEventEP12__IOHIDEventb, __ZN5Event4initEP19IOHIDEventProcessorP5Timerjjjyyy,
+                          __ZN5Event9completedEv, __ZN5EventC2Ev, __ZN5EventD0Ev, __ZN5EventD1Ev, __ZN5EventD2Ev,
+                          __ZN5Timer11insertEventEP5Event, __ZN5Timer11removeEventEP5Event, __ZN5Timer13updateTimeoutEv,
+                          __ZN5Timer14timeoutHandlerEv, __ZN5Timer18checkEventTimeoutsEv,
+                          __ZN5Timer20registerEventTimeoutEP5Eventy, __ZN5Timer4initEP16dispatch_queue_s,
+                          __ZN5Timer6cancelEP16dispatch_queue_s, __ZN5TimerC1Ev, __ZN5TimerC2Ev,
+                          __ZN8TapEvent18setMultiEventCountEP12__IOHIDEventl, __ZN8TapEvent20createSyntheticEventEb,
+                          __ZN8TapEvent7FDEnterEP12__IOHIDEvent, __ZN8TapEvent7FUEnterEP12__IOHIDEvent,
+                          __ZN8TapEvent7LPEnterEP12__IOHIDEvent, __ZN8TapEvent7SDEnterEP12__IOHIDEvent,
+                          __ZN8TapEvent7SUEnterEP12__IOHIDEvent, __ZN8TapEvent7TDEnterEP12__IOHIDEvent,
+                          __ZN8TapEvent7TEEnterEP12__IOHIDEvent, __ZN8TapEvent7TOEnterEP12__IOHIDEvent,
+                          __ZN8TapEvent7TUEnterEP12__IOHIDEvent, __ZN8TapEvent9NoneEnterEP12__IOHIDEvent,
+                          __ZNK19IOHIDEventProcessor9serializeEP14__CFDictionary, __ZTI11ButtonEvent, __ZTI5Event,
+                          __ZTI8TapEvent, __ZTS11ButtonEvent, __ZTS5Event, __ZTS8TapEvent, __ZTV11ButtonEvent, __ZTV5Event,
+                          __ZTV8TapEvent, __stateMap ]
+...

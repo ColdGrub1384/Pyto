@@ -1,0 +1,29 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NanoPreferencesSync.framework/NanoPreferencesSync
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NPSHasCompletedInitialSync, _NPSLoggingDaemonObjectInit, _NPSLoggingDomainAccessorObjectInit,
+                          _NPSLoggingFrameworkObjectInit, _NPSManagedConfigurationClientID, _NPSShouldRun,
+                          _kNPSInitialSyncCompletionDarwinNotification, _kNPSInitialSyncKey,
+                          _kNPSPathComponentsToBackupFolderWithinPairingDataStore, _kNanoPreferencesSyncDomain, _nps_daemon_log,
+                          _nps_domain_accessor_log, _nps_framework_log ]
+    objc-classes:       [ _NPSDomainAccessor, _NPSDomainAccessorFilePresenter, _NPSDomainAccessorInternal,
+                          _NPSDomainAccessorUtils, _NPSManager ]
+    objc-ivars:         [ _NPSDomainAccessor._externalQueue, _NPSDomainAccessor._initializedWithActiveDevice,
+                          _NPSDomainAccessor._internalAccessor, _NPSDomainAccessor._invalidationQueue,
+                          _NPSDomainAccessorFilePresenter._current, _NPSDomainAccessorFilePresenter._delegate,
+                          _NPSDomainAccessorFilePresenter._domainURL, _NPSDomainAccessorFilePresenter._presenterOperationQueue,
+                          _NPSDomainAccessorFilePresenter._presenterUnderlyingQueue,
+                          _NPSDomainAccessorInternal._dirtyKeysForWriting, _NPSDomainAccessorInternal._domain,
+                          _NPSDomainAccessorInternal._domainURL, _NPSDomainAccessorInternal._externalQueue,
+                          _NPSDomainAccessorInternal._filePresenter, _NPSDomainAccessorInternal._hasReadFromDisk,
+                          _NPSDomainAccessorInternal._internalQueue, _NPSDomainAccessorInternal._map,
+                          _NPSDomainAccessorInternal._nanoSettingsDirectoryExists, _NPSDomainAccessorInternal._pairingID,
+                          _NPSDomainAccessorInternal._pairingStorePath, _NPSDomainAccessorInternal._referenceCounter,
+                          _NPSManager._internalQueue, _NPSManager._xpcConnection ]
+...

@@ -1,0 +1,21 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Accessibility.framework/Frameworks/ZoomServices.framework/ZoomServices
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ZOTDeviceRotation, _ZOTDisplayMainScreenSize, _ZOTMainScreenRect, _ZOTMainScreenSize,
+                          _ZOTRotateFromScreen, _ZOTRotateToScreen, _ZOTTimeUnset, _ZOTWindowServerDisplay,
+                          _ZWAttributeKeyActiveZoomMode, _ZWAttributeKeyAppActivationAnimationStartDelay,
+                          _ZWAttributeKeyAppDeactivationAnimationStartDelay, _ZWAttributeKeyAppSwitcherRevealAnimationStartDelay,
+                          _ZWAttributeKeyReachabilityScaleFactor, _ZWAttributeKeyShouldSuppressKeyCommandHUD,
+                          _ZWAttributeKeyZoomFrame, _ZWAttributeKeyZoomLevel, _ZoomServicesPrimaryZoomWindowClientIdentifier ]
+    objc-classes:       [ _AXZoomListenerContainer, _ZoomServices ]
+    objc-ivars:         [ _AXZoomListenerContainer.handler, _AXZoomListenerContainer.identifier,
+                          _ZoomServices._registeredForZoomListener, _ZoomServices._showingZoomLens,
+                          _ZoomServices._springBoardReady, _ZoomServices._triedToShowLensBeofreSBReady,
+                          _ZoomServices._zoomListeners, _ZoomServices._zoomWindowClient ]
+...

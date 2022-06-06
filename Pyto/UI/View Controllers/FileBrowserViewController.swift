@@ -137,7 +137,10 @@ fileprivate extension URL {
         let descriptor = open(directory.path, O_EVTONLY)
         let folderObserver = DispatchSource.makeFileSystemObjectSource(fileDescriptor: descriptor, eventMask: .all, queue: DispatchQueue.main)
         folderObserver.setEventHandler {
-            self.load()
+            DispatchQueue.main.async {
+                self.load()
+                self.lint()
+            }
         }
         folderObserver.resume()
         folderObservers[directory] = (observer: folderObserver, descriptor: descriptor)
@@ -172,6 +175,8 @@ fileprivate extension URL {
             if view.window != nil {
                 observe(directory: directory)
             }
+            
+            lint()
         }
     }
     
@@ -448,6 +453,158 @@ fileprivate extension URL {
     
     var dataSource: UICollectionViewDiffableDataSource<Section, URL>!
     
+    @objc static var visibles = NSMutableArray()
+    
+    // MARK: - Linter
+    
+    @objc func showLinter(_ sender: Any) {
+        guard #available(iOS 15.0, *) else {
+            return
+        }
+        
+        var linters = [Linter]()
+        var warnings = [URL: [Linter.Warning]]()
+        
+        for warning in (self.warnings as? [Linter.Warning]) ?? [] {
+            if warnings[warning.url] != nil {
+                warnings[warning.url]?.append(warning)
+            } else {
+                warnings[warning.url] = [warning]
+            }
+        }
+        
+        
+        for warn in warnings {
+            linters.append(Linter(fileBrowser: self, fileURL: warn.key, code: (try? String(contentsOf: warn.key)) ?? "", warnings: warn.value))
+        }
+        
+        let linterVC = UIHostingController(rootView: ProjectLinter(linters: linters))
+        linterVC.modalPresentationStyle = .pageSheet
+        present(linterVC, animated: true)
+    }
+    
+    @objc var identifier = UUID().uuidString
+    
+    var warnings = [Any]() {
+        didSet {
+            
+            guard #available(iOS 15.0, *), let warnings = self.warnings as? [Linter.Warning] else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if warnings.count == 0 {
+                    self.navigationItem.leftBarButtonItem = nil
+                } else {
+                    let hasErrors = warnings.contains(where: { $0.typeDescription.hasSuffix("-error") })
+                    
+                    let button = UIBarButtonItem(image: hasErrors ? UIImage(systemName: "xmark.octagon.fill") : UIImage(systemName: "exclamationmark.triangle.fill"), style: .plain, target: self, action: #selector(self.showLinter(_:)))
+                    button.tintColor = hasErrors ? .systemRed : .systemYellow
+                    self.navigationItem.leftBarButtonItem = button
+                }
+            }
+        }
+    }
+    
+    @objc var lintResult: String? {
+        didSet {
+            guard #available(iOS 15.0, *) else {
+                return
+            }
+            
+            if let lintResult = lintResult {
+                warnings = Linter.warnings(pylintOutput: lintResult)
+            } else {
+                warnings = []
+            }
+        }
+    }
+    
+    func lint() {
+        var url: URL!
+        if FileManager.default.fileExists(atPath: directory.appendingPathComponent("__init__.py").path) {
+            url = directory
+        } else {
+            for file in files {
+                if FileManager.default.fileExists(atPath: file.appendingPathComponent("__init__.py").path) {
+                    url = file
+                    break
+                }
+            }
+        }
+        
+        guard url != nil else {
+            return
+        }
+        
+        DispatchQueue.global().async {
+            Python.shared.run(code: """
+            try:
+                import sys
+                import io
+                import traceback
+                import threading
+                import console
+                
+                from astroid import MANAGER
+                MANAGER.astroid_cache.clear()
+                
+                console.__clear_mods__()
+                
+                threading.current_thread().script_path = '\(URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("script.py").path)'
+                
+                import multiprocessing
+                import configparser
+                import optparse
+                import getopt
+                
+                from pylint import lint
+                from pylint.reporters import text
+                
+                from pyto import FileBrowserViewController
+                
+                _id = '\(self.identifier)'
+                
+                if hasattr(sys, "sys") and hasattr(sys.sys.path, "path"):
+                    path = list(sys.sys.path.path)
+                else:
+                    path = sys.path
+                
+                try:
+                    sys.path = sys.path.path
+                except AttributeError:
+                    pass
+                
+                output = io.StringIO()
+                            
+                try:
+
+                    args = ["-E", "\(url.path.replacingOccurrences(of: "\"", with: "\\\""))"]
+
+                    reporter = text.TextReporter(output)
+
+                    lint.Run(args, reporter=reporter, exit=False) # exit=False means don't exit when the run is over
+                except Exception:
+                    traceback.print_exc()
+                except (SystemExit, KeyboardInterrupt):
+                    pass
+                
+                res = output.getvalue()
+                print(res)
+                
+                for visible in list(FileBrowserViewController.visibles):
+                    try:
+                        if str(visible.identifier) == _id:
+                            visible.lintResult = res
+                            break
+                    except AttributeError:
+                        pass
+            except Exception:
+                pass
+            """)
+        }
+    }
+    
     // MARK: - Table view controller
     
     private var alreadyShown = false
@@ -456,8 +613,18 @@ fileprivate extension URL {
         return [UIKeyCommand.command(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: NSLocalizedString("find", comment: "'Find'"))]
     }
     
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if Self.visibles.contains(self) {
+            Self.visibles.remove(self)
+        }
+    }
+    
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        Self.visibles.add(self)
         
         load()
         

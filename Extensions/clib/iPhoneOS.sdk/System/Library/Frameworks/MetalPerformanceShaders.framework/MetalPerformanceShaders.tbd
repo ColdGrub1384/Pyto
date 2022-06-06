@@ -1,0 +1,387 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: A3ED655B-727E-391A-A741-7B73B4939695', 'armv7s: E3657660-EFCF-3278-A7EF-6C52F5DF55C8', 
+                   'arm64: FF57B5E3-A6F6-3834-8992-8B9826EA488E', 'arm64e: 9AAB95C7-9DBD-3C26-AC0D-ACE5A844DBCF' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/MetalPerformanceShaders.framework/MetalPerformanceShaders'
+current-version: 122.0.46
+exports:         
+  - archs:           [ armv7, armv7s ]
+    symbols:         [ _MPSExerciseDeviceKernelList_Private, _MPSGetDeviceInfo, _MPSGetDevicePixelInfo, 
+                       _MPSGetTemporaryBufferFromCommandBufferCache, _MPSGetTemporaryTextureFromCommandBufferCache, 
+                       _MPSRectNoClip, _MPSReturnTemporaryBufferToCommandBufferCache, 
+                       _MPSReturnTemporaryTextureToCommandBufferCache ]
+    objc-classes:    [ MPSBinaryImageKernel, MPSCNNConvolution, MPSCNNConvolutionDescriptor, 
+                       MPSCNNCrossChannelNormalization, MPSCNNFullyConnected, MPSCNNKernel, 
+                       MPSCNNLocalContrastNormalization, MPSCNNLogSoftMax, MPSCNNNeuron, 
+                       MPSCNNNeuronAbsolute, MPSCNNNeuronLinear, MPSCNNNeuronReLU, 
+                       MPSCNNNeuronSigmoid, MPSCNNNeuronTanH, MPSCNNPooling, MPSCNNPoolingAverage, 
+                       MPSCNNPoolingMax, MPSCNNSoftMax, MPSCNNSpatialNormalization, 
+                       MPSImage, MPSImageAreaMax, MPSImageAreaMin, MPSImageBox, MPSImageConversion, 
+                       MPSImageConvolution, MPSImageDescriptor, MPSImageDilate, MPSImageErode, 
+                       MPSImageGaussianBlur, MPSImageGaussianPyramid, MPSImageHistogram, 
+                       MPSImageHistogramEqualization, MPSImageHistogramSpecification, 
+                       MPSImageIntegral, MPSImageIntegralOfSquares, MPSImageLanczosScale, 
+                       MPSImageLaplacian, MPSImageMedian, MPSImageSobel, MPSImageTent, 
+                       MPSImageThresholdBinary, MPSImageThresholdBinaryInverse, MPSImageThresholdToZero, 
+                       MPSImageThresholdToZeroInverse, MPSImageThresholdTruncate, 
+                       MPSImageTranspose, MPSKernel, MPSMatrix, MPSMatrixDescriptor, 
+                       MPSMatrixMultiplication, MPSTemporaryImage, MPSUnaryImageKernel ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    re-exports:      [ '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSCore.framework/MPSCore', 
+                       '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSImage.framework/MPSImage', 
+                       '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSMatrix.framework/MPSMatrix', 
+                       '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSNDArray.framework/MPSNDArray', 
+                       '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSNeuralNetwork.framework/MPSNeuralNetwork', 
+                       '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSRayIntersector.framework/MPSRayIntersector' ]
+    symbols:         [ _MPSGetPreferredDevice, _MPSHintTemporaryMemoryHighWaterMark, 
+                       _MPSSetHeapCacheDuration, _MPSSupportsMTLDevice ]
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: D5E4AF7E-C44D-3901-8E7E-471CA7211179', 'arm64e: 82AD74FF-6F4B-382D-A5BE-47633AB14447' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSCore.framework/MPSCore'
+current-version: 122.0.46
+exports:         
+  - archs:           [ arm64, arm64e ]
+    symbols:         [ __Z21MPSDecrementReadCountP17MPSTemporaryImage, __Z21MPSDecrementReadCountP18MPSTemporaryMatrix, 
+                       __Z21MPSDecrementReadCountP18MPSTemporaryVector, __Z21MPSDecrementReadCountP19MPSTemporaryNDArray, 
+                       __Z21MPSDecrementReadCountP7NSArrayIP8MPSImageE, __Z21MPSDecrementReadCountP7NSArrayIP8MPSStateE, 
+                       __Z21MPSDecrementReadCountP8MPSImage, __Z21MPSDecrementReadCountP8MPSState, 
+                       __Z25MPSGetEffectiveClipRegion7MTLSize9MPSRegion, __Z25MPSGetEffectiveClipRegion7MTLSize9MTLRegion, 
+                       __ZN10MPSLibrary13ReleaseMPSKeyEP11MPSKey_data, __ZN10MPSLibrary15GetComputeStateEjRK23MPSFunctionConstantList30MPSThreadGroupSizeMultipleType, 
+                       __ZN10MPSLibrary19CreateUberShaderKeyEP8NSStringRK23MPSFunctionConstantListyPFvPU21objcproto10MTLLibrary11objc_objectPK13MPSKernelInfoS4_U13block_pointerFvPU22objcproto11MTLFunction11objc_objectP7NSErrorEEy30MPSThreadGroupSizeMultipleType24MPSDriverCompilerOptions, 
+                       __ZN10MPSLibrary19ReleaseComputeStateEPU34objcproto23MTLComputePipelineState11objc_object, 
+                       __ZN10MPSLibrary20GetComputeStateAsyncEjRK23MPSFunctionConstantList30MPSThreadGroupSizeMultipleType, 
+                       __ZN10MPSLibrary20PrefetchComputeStateEjRK23MPSFunctionConstantList30MPSThreadGroupSizeMultipleType, 
+                       __ZN10MPSLibrary23NewComputePipelineStateEP8NSStringP25MTLFunctionConstantValues30MPSThreadGroupSizeMultipleType, 
+                       __ZN10MPSLibrary25GetPipelineStateForMPSKeyEP11MPSKey_dataPU27objcproto16MTLCommandBuffer11objc_object, 
+                       __ZN10MPSLibraryD1Ev, __ZN10MPSLibraryD2Ev, __ZN12MPSAutoCache13GetTempBufferEmP15MTLSizeAndAlign, 
+                       __ZN12MPSAutoCache14GetTempTextureEPK12MPSPixelInfoPK7MTLSizeP20MTLTextureDescriptorbP19TextureSizeAndAlign, 
+                       __ZN12MPSAutoCache15WarmAllocationsEPU27objcproto16MTLCommandBuffer11objc_objectmm, 
+                       __ZN12MPSAutoCache15WarmAllocationsEPU27objcproto16MTLCommandBuffer11objc_objectmmm, 
+                       __ZN12MPSAutoCache16PrefetchHeapSizeEPU27objcproto16MTLCommandBuffer11objc_objectm, 
+                       __ZN12MPSAutoCache19ReleaseTempResourceEPU22objcproto11MTLResource11objc_object, 
+                       __ZN12MPSAutoCache20SetHeapCacheDurationEPU27objcproto16MTLCommandBuffer11objc_objectd, 
+                       __ZN12MPSAutoCache24GetCompressedTempTextureEPK12MPSPixelInfoPK7MTLSizeP20MTLTextureDescriptorbP19TextureSizeAndAlign, 
+                       __ZN12MPSAutoCache30UserCacheFrameForCommandBufferEPU27objcproto16MTLCommandBuffer11objc_object, 
+                       __ZN12MPSAutoCacheC1EPU27objcproto16MTLCommandBuffer11objc_objectPU21objcproto10MTLTexture11objc_object, 
+                       __ZN12MPSAutoCacheC2EPU27objcproto16MTLCommandBuffer11objc_objectPU21objcproto10MTLTexture11objc_object, 
+                       __ZN12MPSAutoCacheD1Ev, __ZN12MPSAutoCacheD2Ev, __ZN13MPSAutoBuffer14AllocateBufferEP8NSString, 
+                       __ZN13MPSAutoBuffer14InitWithBufferEPU19objcproto9MTLBuffer11objc_object, 
+                       __ZN13MPSAutoBuffer22ReleaseTemporaryBufferEv, __ZN13MPSAutoBuffer23GetResourceSize_PrivateEv, 
+                       __ZN13MPSAutoBuffer23InitDeferredUsingDeviceEmPU19objcproto9MTLDevice11objc_object, 
+                       __ZN13MPSAutoBuffer29InitDeferredUsingTextureCacheEmPU27objcproto16MTLCommandBuffer11objc_object, 
+                       __ZN13MPSAutoBufferD1Ev, __ZN13MPSAutoBufferD2Ev, __ZN14MPSAutoTexture15AllocateTextureEP8NSString, 
+                       __ZN14MPSAutoTexture15InitWithTextureEPU21objcproto10MTLTexture11objc_object28MPSImageFeatureChannelFormat, 
+                       __ZN14MPSAutoTexture23GetResourceSize_PrivateEPm, __ZN14MPSAutoTexture23InitDeferredUsingDeviceEP20MTLTextureDescriptorP9MPSDevice28MPSImageFeatureChannelFormatb, 
+                       __ZN14MPSAutoTexture23ReleaseTemporaryTextureEv, __ZN14MPSAutoTexture29InitDeferredUsingTextureCacheEP20MTLTextureDescriptorPU27objcproto16MTLCommandBuffer11objc_object28MPSImageFeatureChannelFormatb, 
+                       __ZN14MPSAutoTextureD1Ev, __ZN14MPSAutoTextureD2Ev, __ZN15MPSDevice_MacOS10AddKernelsEPK14MPSLibraryInfoP10MPSLibrary, 
+                       __ZN9MPSDevice10GetSamplerE16MPSImageEdgeMode21MPSFilterSamplingMode23MPSFilterCoordinateMode, 
+                       __ZN9MPSDevice11DeleteQueueEPU26objcproto15MTLCommandQueue11objc_object, 
+                       __ZN9MPSDevice12GetHeapBlockEm, __ZN9MPSDevice12GetMPSDeviceEPU19objcproto9MTLDevice11objc_object, 
+                       __ZN9MPSDevice12GetPixelInfoE14MTLPixelFormat28MPSImageFeatureChannelFormat, 
+                       __ZN9MPSDevice15ReturnHeapBlockEP11objc_objecty, __ZN9MPSDevice19ExerciseLibraryListEv, 
+                       __ZN9MPSDevice22GetMPSLibrary_DoNotUseEPK14MPSLibraryInfo, 
+                       __ZN9MPSDevice8GetQueueEv, __ZN9MPSDeviceC2EPU19objcproto9MTLDevice11objc_object, 
+                       __ZN9MPSDeviceD0Ev, __ZN9MPSDeviceD1Ev, __ZN9MPSDeviceD2Ev, 
+                       __ZNK13MPSAutoBuffer5PrintEv ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients: [ MPSImage, MPSMatrix, MPSNDArray, MPSNeuralNetwork, MPSParallelPrimitives, 
+                         MPSRayIntersector, MetalPerformanceShaders ]
+    symbols:         [ _MPSConvertFloatToHalf, _MPSConvertHalfToFloat, _MPSCopyToFromNetworkByteOrder16, 
+                       _MPSCopyToFromNetworkByteOrder32, _MPSEncodeCopyTexture, _MPSGetEffectiveFeatureChannelsCount, 
+                       _MPSGetHeapSizeForCommandBuffer, _MPSGetImageType, _MPSGetLinearTextureSize2D, 
+                       _MPSGetTemporaryBufferFromCommandBufferCache, _MPSGetTemporaryTextureFromCommandBufferCache, 
+                       _MPSGetvImageFunction, _MPSGetvecLibFunction, _MPSImageBatchIncrementReadCount, 
+                       _MPSImageBatchIterate, _MPSImageBatchResourceSize, _MPSImageBatchSynchronize, 
+                       _MPSImageFeatureChannelFormatGetName, _MPSIsTextureTwiddled, 
+                       _MPSNewBufferForTexture, _MPSRectNoClip, _MPSReturnGetName, 
+                       _MPSReturnTemporaryBufferToCommandBufferCache, _MPSReturnTemporaryTextureToCommandBufferCache, 
+                       _MPSSeparatePassDimensions, _MPSSetDeviceOptionsSPI, _MPSStateBatchIncrementReadCount, 
+                       _MPSStateBatchResourceSize, _MPSStateBatchSynchronize, _kMPSEmptyLibraryInfo ]
+    objc-classes:    [ MPSCommandBuffer, MPSExternalPluginBase, MPSImage, MPSImageDescriptor, 
+                       MPSKernel, MPSKeyedUnarchiver, MPSMatrix, MPSMatrixDescriptor, 
+                       MPSNDArray, MPSNDArrayDescriptor, MPSParallelExclusiveScan, 
+                       MPSParallelInclusiveScan, MPSParallelRadixSort, MPSParallelRandom, 
+                       MPSParallelRandomDistributionDescriptor, MPSParallelRandomMTGP32, 
+                       MPSParallelRandomPhilox, MPSParallelReduceArgMax, MPSParallelReduceArgMin, 
+                       MPSParallelReduceMax, MPSParallelReduceMin, MPSParallelReduceSum, 
+                       MPSPredicate, MPSPredicatedCommandEncoder, MPSState, MPSStateResourceList, 
+                       MPSTemporaryImage, MPSTemporaryMatrix, MPSTemporaryNDArray, 
+                       MPSTemporaryVector, MPSVector, MPSVectorDescriptor, MPSVirtualImage ]
+    objc-ivars:      [ MPSExternalPluginBase._self, MPSImage._device, MPSImage._featureChannelFormat, 
+                       MPSImage._featureChannels, MPSImage._featureChannelsLayout, 
+                       MPSImage._height, MPSImage._numberOfImages, MPSImage._pixelInfo, 
+                       MPSImage._texture, MPSImage._textureType, MPSImage._width, 
+                       MPSImageDescriptor._featureChannels, MPSImageDescriptor._height, 
+                       MPSImageDescriptor._width, MPSKernel._allowedOptions, MPSKernel._device, 
+                       MPSKernel._enableConcurrency, MPSKernel._fileVersion, MPSKernel._label, 
+                       MPSKernel._library, MPSKernel._options, MPSKernel._privateOptions, 
+                       MPSMatrix._buffer, MPSMatrix._columns, MPSMatrix._dataType, 
+                       MPSMatrix._matrixBytes, MPSMatrix._offset, MPSMatrix._rowBytes, 
+                       MPSMatrix._rows, MPSNDArray._dataType, MPSNDArray._dimensionLengths, 
+                       MPSNDArray._dimensionOrder, MPSNDArray._numberOfDimensions, 
+                       MPSNDArray._rowBytes, MPSNDArray._sliceLengths, MPSNDArray._sliceOffsets, 
+                       MPSNDArrayDescriptor._dimensionOrder, MPSParallelRandomMTGP32._bernoulliParameter, 
+                       MPSParallelRandomPhilox._bernoulliParameter, MPSState._flags, 
+                       MPSState._readCount, MPSState._resourceCount, MPSState._resources, 
+                       MPSTemporaryImage._readCount, MPSVector._buffer, MPSVector._offset ]
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 4BCF8939-8085-321E-8231-C520BC6C9A53', 'arm64e: 7684C91F-4381-30BB-8B39-20E7716959DC' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSImage.framework/MPSImage'
+current-version: 122.0.46
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients: [ MPSNeuralNetwork, MetalPerformanceShaders ]
+    symbols:         [ _MPSSubTileEncode ]
+    objc-classes:    [ MPSBinaryImageKernel, MPSImageAdd, MPSImageAreaMax, MPSImageAreaMin, 
+                       MPSImageArithmetic, MPSImageBilinearScale, MPSImageBox, MPSImageBox3D, 
+                       MPSImageConversion, MPSImageConvolution, MPSImageCopyToMatrix, 
+                       MPSImageDilate, MPSImageDivide, MPSImageErode, MPSImageEuclideanDistanceTransform, 
+                       MPSImageFindKeypoints, MPSImageGaussianBlur, MPSImageGaussianPyramid, 
+                       MPSImageGuidedFilter, MPSImageHistogram, MPSImageHistogramEqualization, 
+                       MPSImageHistogramSpecification, MPSImageIntegral, MPSImageIntegralOfSquares, 
+                       MPSImageLanczosScale, MPSImageLaplacian, MPSImageLaplacianPyramid, 
+                       MPSImageLaplacianPyramidAdd, MPSImageLaplacianPyramidSubtract, 
+                       MPSImageMedian, MPSImageMultiply, MPSImageNormalizedHistogram, 
+                       MPSImageReduceColumnMax, MPSImageReduceColumnMean, MPSImageReduceColumnMin, 
+                       MPSImageReduceColumnSum, MPSImageReduceRowMax, MPSImageReduceRowMean, 
+                       MPSImageReduceRowMin, MPSImageReduceRowSum, MPSImageSobel, 
+                       MPSImageSpatioTemporalGuidedFilter, MPSImageSpatioTemporalGuidedFilterDescriptor, 
+                       MPSImageStatisticsMean, MPSImageStatisticsMeanAndVariance, 
+                       MPSImageStatisticsMinAndMax, MPSImageSubtract, MPSImageTent, 
+                       MPSImageThresholdBinary, MPSImageThresholdBinaryInverse, MPSImageThresholdToZero, 
+                       MPSImageThresholdToZeroInverse, MPSImageThresholdTruncate, 
+                       MPSImageTranspose, MPSMatrixCopyToImage, MPSUnaryImageKernel ]
+    objc-ivars:      [ MPSBinaryImageKernel._encode, MPSBinaryImageKernel._encodeData, 
+                       MPSUnaryImageKernel._encode, MPSUnaryImageKernel._encodeData, 
+                       MPSUnaryImageKernel._getPreferredTileSize ]
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: B021F83F-20AC-3250-B05B-F82508103613', 'arm64e: 43BAC7EB-C229-3AEA-8E2E-6BD32CCD971A' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSMatrix.framework/MPSMatrix'
+current-version: 122.0.46
+exports:         
+  - archs:           [ arm64, arm64e ]
+    symbols:         [ __Z21MPSDecrementReadCountP18MPSTemporaryMatrix, __Z21MPSDecrementReadCountP18MPSTemporaryVector ]
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients: [ MPSNeuralNetwork, MetalPerformanceShaders ]
+    objc-classes:    [ MPSMatrixBinaryKernel, MPSMatrixCopy, MPSMatrixCopyDescriptor, 
+                       MPSMatrixDecompositionCholesky, MPSMatrixDecompositionLU, 
+                       MPSMatrixFindTopK, MPSMatrixLogSoftMax, MPSMatrixLogSoftMaxGradient, 
+                       MPSMatrixMultiplication, MPSMatrixRandom, MPSMatrixRandomDistributionDescriptor, 
+                       MPSMatrixRandomMTGP32, MPSMatrixRandomPhilox, MPSMatrixSoftMax, 
+                       MPSMatrixSoftMaxGradient, MPSMatrixSolveCholesky, MPSMatrixSolveLU, 
+                       MPSMatrixSolveTriangular, MPSMatrixUnaryKernel, MPSMatrixVectorMultiplication ]
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 8C06ACA6-4C0D-3558-8B00-322BF6E6D52F', 'arm64e: 6470F885-8FF7-34F5-9F52-5E195DBB337E' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSNDArray.framework/MPSNDArray'
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients: [ MetalPerformanceShaders ]
+    objc-classes:    [ MPSNDArrayACos, MPSNDArrayACosGradient, MPSNDArrayACosh, MPSNDArrayACoshGradient, 
+                       MPSNDArrayAND, MPSNDArrayANDPrimaryGradient, MPSNDArrayANDSecondaryGradient, 
+                       MPSNDArrayASin, MPSNDArrayASinGradient, MPSNDArrayASinh, MPSNDArrayASinhGradient, 
+                       MPSNDArrayATan, MPSNDArrayATanGradient, MPSNDArrayATanh, MPSNDArrayATanhGradient, 
+                       MPSNDArrayAbsolute, MPSNDArrayAbsoluteGradient, MPSNDArrayAddition, 
+                       MPSNDArrayAdditionPrimaryGradient, MPSNDArrayAdditionSecondaryGradient, 
+                       MPSNDArrayBinaryKernel, MPSNDArrayBinaryPrimaryGradientKernel, 
+                       MPSNDArrayBinarySecondaryGradientKernel, MPSNDArrayCeil, MPSNDArrayCeilGradient, 
+                       MPSNDArrayClamp, MPSNDArrayClampPrimaryGradient, MPSNDArrayClampSecondaryGradient, 
+                       MPSNDArrayClampTertiaryGradient, MPSNDArrayCos, MPSNDArrayCosGradient, 
+                       MPSNDArrayCosh, MPSNDArrayCoshGradient, MPSNDArrayDivision, 
+                       MPSNDArrayDivisionPrimaryGradient, MPSNDArrayDivisionSecondaryGradient, 
+                       MPSNDArrayEqual, MPSNDArrayEqualPrimaryGradient, MPSNDArrayEqualSecondaryGradient, 
+                       MPSNDArrayErf, MPSNDArrayErfGradient, MPSNDArrayExponent, 
+                       MPSNDArrayExponentBase10, MPSNDArrayExponentBase10Gradient, 
+                       MPSNDArrayExponentBase2, MPSNDArrayExponentBase2Gradient, 
+                       MPSNDArrayExponentGradient, MPSNDArrayFloor, MPSNDArrayFloorGradient, 
+                       MPSNDArrayGather, MPSNDArrayGatherGradient, MPSNDArrayGatherGradientState, 
+                       MPSNDArrayGradientState, MPSNDArrayGreaterThan, MPSNDArrayGreaterThanOrEqualTo, 
+                       MPSNDArrayGreaterThanOrEqualToPrimaryGradient, MPSNDArrayGreaterThanOrEqualToSecondaryGradient, 
+                       MPSNDArrayGreaterThanPrimaryGradient, MPSNDArrayGreaterThanSecondaryGradient, 
+                       MPSNDArrayIsFinite, MPSNDArrayIsFiniteGradient, MPSNDArrayIsInfinite, 
+                       MPSNDArrayIsInfiniteGradient, MPSNDArrayIsNaN, MPSNDArrayIsNaNGradient, 
+                       MPSNDArrayLessThan, MPSNDArrayLessThanOrEqualTo, MPSNDArrayLessThanOrEqualToPrimaryGradient, 
+                       MPSNDArrayLessThanOrEqualToSecondaryGradient, MPSNDArrayLessThanPrimaryGradient, 
+                       MPSNDArrayLessThanSecondaryGradient, MPSNDArrayLogSoftMax, 
+                       MPSNDArrayLogSoftMaxGradient, MPSNDArrayLogarithm, MPSNDArrayLogarithmBase10, 
+                       MPSNDArrayLogarithmBase10Gradient, MPSNDArrayLogarithmBase2, 
+                       MPSNDArrayLogarithmBase2Gradient, MPSNDArrayLogarithmGradient, 
+                       MPSNDArrayMathBinaryKernel, MPSNDArrayMathBinaryPrimaryGradient, 
+                       MPSNDArrayMathBinarySecondaryGradient, MPSNDArrayMathTernaryKernel, 
+                       MPSNDArrayMathTernaryPrimaryGradient, MPSNDArrayMathTernarySecondaryGradient, 
+                       MPSNDArrayMathTernaryTertiaryGradient, MPSNDArrayMathUnaryGradient, 
+                       MPSNDArrayMathUnaryKernel, MPSNDArrayMatrixMultiplication, 
+                       MPSNDArrayMaximum, MPSNDArrayMaximumPrimaryGradient, MPSNDArrayMaximumSecondaryGradient, 
+                       MPSNDArrayMinimum, MPSNDArrayMinimumPrimaryGradient, MPSNDArrayMinimumSecondaryGradient, 
+                       MPSNDArrayModulo, MPSNDArrayModuloPrimaryGradient, MPSNDArrayModuloSecondaryGradient, 
+                       MPSNDArrayMultiaryBase, MPSNDArrayMultiaryGradientKernel, 
+                       MPSNDArrayMultiaryKernel, MPSNDArrayMultiplication, MPSNDArrayMultiplicationPrimaryGradient, 
+                       MPSNDArrayMultiplicationSecondaryGradient, MPSNDArrayNAND, 
+                       MPSNDArrayNANDPrimaryGradient, MPSNDArrayNANDSecondaryGradient, 
+                       MPSNDArrayNOR, MPSNDArrayNORPrimaryGradient, MPSNDArrayNORSecondaryGradient, 
+                       MPSNDArrayNOT, MPSNDArrayNOTGradient, MPSNDArrayNegative, 
+                       MPSNDArrayNegativeGradient, MPSNDArrayNeuronGeLU, MPSNDArrayNeuronGeLUGradient, 
+                       MPSNDArrayNeuronGradient, MPSNDArrayNeuronKernel, MPSNDArrayNotEqual, 
+                       MPSNDArrayNotEqualPrimaryGradient, MPSNDArrayNotEqualSecondaryGradient, 
+                       MPSNDArrayOR, MPSNDArrayORPrimaryGradient, MPSNDArrayORSecondaryGradient, 
+                       MPSNDArrayPower, MPSNDArrayPowerPrimaryGradient, MPSNDArrayPowerSecondaryGradient, 
+                       MPSNDArrayReciprocal, MPSNDArrayReciprocalGradient, MPSNDArrayReductionBase, 
+                       MPSNDArrayReductionBaseGradient, MPSNDArrayReductionSum, MPSNDArrayReductionSumGradient, 
+                       MPSNDArrayReverseSquareRoot, MPSNDArrayReverseSquareRootGradient, 
+                       MPSNDArraySelect, MPSNDArraySelectPrimaryGradient, MPSNDArraySelectSecondaryGradient, 
+                       MPSNDArraySelectTertiaryGradient, MPSNDArraySign, MPSNDArraySignGradient, 
+                       MPSNDArraySin, MPSNDArraySinGradient, MPSNDArraySinh, MPSNDArraySinhGradient, 
+                       MPSNDArraySoftMax, MPSNDArraySoftMaxGradient, MPSNDArraySquare, 
+                       MPSNDArraySquareGradient, MPSNDArraySquareRoot, MPSNDArraySquareRootGradient, 
+                       MPSNDArrayStridedSlice, MPSNDArrayStridedSliceGradient, MPSNDArraySubtraction, 
+                       MPSNDArraySubtractionPrimaryGradient, MPSNDArraySubtractionSecondaryGradient, 
+                       MPSNDArrayTan, MPSNDArrayTanGradient, MPSNDArrayTanh, MPSNDArrayTanhGradient, 
+                       MPSNDArrayUnaryGradientKernel, MPSNDArrayUnaryKernel, MPSNDArrayXNOR, 
+                       MPSNDArrayXNORPrimaryGradient, MPSNDArrayXNORSecondaryGradient, 
+                       MPSNDArrayXOR, MPSNDArrayXORPrimaryGradient, MPSNDArrayXORSecondaryGradient ]
+    objc-ivars:      [ MPSNDArrayGatherGradientState._axis ]
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 41CBA9CF-A1BF-38FF-9642-4C00C38318A3', 'arm64e: ED26F966-E942-369F-85C6-5EDA1B7DDF73' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSNeuralNetwork.framework/MPSNeuralNetwork'
+current-version: 122.0.46
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients: [ MetalPerformanceShaders ]
+    symbols:         [ _DeadlockedBecauseTheCPUBasedWeightUpdateForThePreviousBatchOccursAtCompletionOfThisCmdBuf_TryGPUUpdateOrNewCmdBufInstead ]
+    objc-classes:    [ MPSCNNAdd, MPSCNNAddGradient, MPSCNNArithmetic, MPSCNNArithmeticGradient, 
+                       MPSCNNArithmeticGradientState, MPSCNNBatchNormalization, MPSCNNBatchNormalizationGradient, 
+                       MPSCNNBatchNormalizationGradientNode, MPSCNNBatchNormalizationNode, 
+                       MPSCNNBatchNormalizationState, MPSCNNBatchNormalizationStatistics, 
+                       MPSCNNBatchNormalizationStatisticsGradient, MPSCNNBinaryConvolution, 
+                       MPSCNNBinaryConvolutionNode, MPSCNNBinaryFullyConnected, MPSCNNBinaryFullyConnectedNode, 
+                       MPSCNNBinaryKernel, MPSCNNConvolution, MPSCNNConvolutionDescriptor, 
+                       MPSCNNConvolutionGradient, MPSCNNConvolutionGradientNode, 
+                       MPSCNNConvolutionGradientState, MPSCNNConvolutionGradientStateNode, 
+                       MPSCNNConvolutionNode, MPSCNNConvolutionState, MPSCNNConvolutionStateNode, 
+                       MPSCNNConvolutionTranspose, MPSCNNConvolutionTransposeGradient, 
+                       MPSCNNConvolutionTransposeGradientNode, MPSCNNConvolutionTransposeGradientState, 
+                       MPSCNNConvolutionTransposeGradientStateNode, MPSCNNConvolutionTransposeNode, 
+                       MPSCNNConvolutionWeightsAndBiasesState, MPSCNNCrossChannelNormalization, 
+                       MPSCNNCrossChannelNormalizationGradient, MPSCNNCrossChannelNormalizationGradientNode, 
+                       MPSCNNCrossChannelNormalizationNode, MPSCNNDepthWiseConvolutionDescriptor, 
+                       MPSCNNDilatedPoolingMax, MPSCNNDilatedPoolingMaxGradient, 
+                       MPSCNNDilatedPoolingMaxGradientNode, MPSCNNDilatedPoolingMaxNode, 
+                       MPSCNNDivide, MPSCNNDropout, MPSCNNDropoutGradient, MPSCNNDropoutGradientNode, 
+                       MPSCNNDropoutGradientState, MPSCNNDropoutNode, MPSCNNFullyConnected, 
+                       MPSCNNFullyConnectedGradient, MPSCNNFullyConnectedGradientNode, 
+                       MPSCNNFullyConnectedNode, MPSCNNGradientKernel, MPSCNNGroupNormalization, 
+                       MPSCNNGroupNormalizationGradient, MPSCNNGroupNormalizationGradientNode, 
+                       MPSCNNGroupNormalizationNode, MPSCNNInstanceNormalization, 
+                       MPSCNNInstanceNormalizationGradient, MPSCNNInstanceNormalizationGradientNode, 
+                       MPSCNNInstanceNormalizationGradientState, MPSCNNInstanceNormalizationNode, 
+                       MPSCNNKernel, MPSCNNLocalContrastNormalization, MPSCNNLocalContrastNormalizationGradient, 
+                       MPSCNNLocalContrastNormalizationGradientNode, MPSCNNLocalContrastNormalizationNode, 
+                       MPSCNNLogSoftMax, MPSCNNLogSoftMaxGradient, MPSCNNLogSoftMaxGradientNode, 
+                       MPSCNNLogSoftMaxNode, MPSCNNLoss, MPSCNNLossDataDescriptor, 
+                       MPSCNNLossDescriptor, MPSCNNLossLabels, MPSCNNLossNode, MPSCNNMultiaryKernel, 
+                       MPSCNNMultiply, MPSCNNMultiplyGradient, MPSCNNNeuron, MPSCNNNeuronAbsolute, 
+                       MPSCNNNeuronAbsoluteNode, MPSCNNNeuronELU, MPSCNNNeuronELUNode, 
+                       MPSCNNNeuronExponential, MPSCNNNeuronExponentialNode, MPSCNNNeuronGeLUNode, 
+                       MPSCNNNeuronGradient, MPSCNNNeuronGradientNode, MPSCNNNeuronHardSigmoid, 
+                       MPSCNNNeuronHardSigmoidNode, MPSCNNNeuronLinear, MPSCNNNeuronLinearNode, 
+                       MPSCNNNeuronLogarithm, MPSCNNNeuronLogarithmNode, MPSCNNNeuronNode, 
+                       MPSCNNNeuronPReLU, MPSCNNNeuronPReLUNode, MPSCNNNeuronPower, 
+                       MPSCNNNeuronPowerNode, MPSCNNNeuronReLU, MPSCNNNeuronReLUN, 
+                       MPSCNNNeuronReLUNNode, MPSCNNNeuronReLUNode, MPSCNNNeuronSigmoid, 
+                       MPSCNNNeuronSigmoidNode, MPSCNNNeuronSoftPlus, MPSCNNNeuronSoftPlusNode, 
+                       MPSCNNNeuronSoftSign, MPSCNNNeuronSoftSignNode, MPSCNNNeuronTanH, 
+                       MPSCNNNeuronTanHNode, MPSCNNNormalizationGammaAndBetaState, 
+                       MPSCNNNormalizationMeanAndVarianceState, MPSCNNPooling, MPSCNNPoolingAverage, 
+                       MPSCNNPoolingAverageGradient, MPSCNNPoolingAverageGradientNode, 
+                       MPSCNNPoolingAverageNode, MPSCNNPoolingGradientNode, MPSCNNPoolingL2Norm, 
+                       MPSCNNPoolingL2NormGradient, MPSCNNPoolingL2NormGradientNode, 
+                       MPSCNNPoolingL2NormNode, MPSCNNPoolingMax, MPSCNNPoolingMaxGradient, 
+                       MPSCNNPoolingMaxGradientNode, MPSCNNPoolingMaxNode, MPSCNNSoftMax, 
+                       MPSCNNSoftMaxGradient, MPSCNNSoftMaxGradientNode, MPSCNNSoftMaxNode, 
+                       MPSCNNSpatialNormalization, MPSCNNSpatialNormalizationGradient, 
+                       MPSCNNSpatialNormalizationGradientNode, MPSCNNSpatialNormalizationNode, 
+                       MPSCNNSubPixelConvolutionDescriptor, MPSCNNSubtract, MPSCNNSubtractGradient, 
+                       MPSCNNUpsampling, MPSCNNUpsamplingBilinear, MPSCNNUpsamplingBilinearGradient, 
+                       MPSCNNUpsamplingBilinearGradientNode, MPSCNNUpsamplingBilinearNode, 
+                       MPSCNNUpsamplingGradient, MPSCNNUpsamplingNearest, MPSCNNUpsamplingNearestGradient, 
+                       MPSCNNUpsamplingNearestGradientNode, MPSCNNUpsamplingNearestNode, 
+                       MPSCNNYOLOLoss, MPSCNNYOLOLossDescriptor, MPSCNNYOLOLossNode, 
+                       MPSExternalCNNBinary, MPSExternalCNNPoolingAverage, MPSExternalCNNUnary, 
+                       MPSGRUDescriptor, MPSLSTMDescriptor, MPSMatrixBatchNormalization, 
+                       MPSMatrixBatchNormalizationGradient, MPSMatrixFullyConnected, 
+                       MPSMatrixFullyConnectedGradient, MPSMatrixNeuron, MPSMatrixNeuronGradient, 
+                       MPSMatrixSum, MPSNNAdditionGradientNode, MPSNNAdditionNode, 
+                       MPSNNBilinearScaleNode, MPSNNBinaryGradientStateNode, MPSNNCompare, 
+                       MPSNNComparisonNode, MPSNNConcatenation, MPSNNConcatenationNode, 
+                       MPSNNCropAndResizeBilinear, MPSNNDefaultPadding, MPSNNDivisionNode, 
+                       MPSNNFilterNode, MPSNNForwardLoss, MPSNNForwardLossNode, MPSNNGradientFilterNode, 
+                       MPSNNGradientStateNode, MPSNNGramMatrixCalculation, MPSNNGramMatrixCalculationGradient, 
+                       MPSNNGramMatrixCalculationGradientNode, MPSNNGramMatrixCalculationNode, 
+                       MPSNNGraph, MPSNNGridSample, MPSNNImageNode, MPSNNInitialGradient, 
+                       MPSNNInitialGradientNode, MPSNNLanczosScaleNode, MPSNNLocalCorrelation, 
+                       MPSNNLossGradient, MPSNNLossGradientNode, MPSNNMultiaryGradientState, 
+                       MPSNNMultiplicationGradientNode, MPSNNMultiplicationNode, 
+                       MPSNNNeuronDescriptor, MPSNNOptimizer, MPSNNOptimizerAdam, 
+                       MPSNNOptimizerDescriptor, MPSNNOptimizerRMSProp, MPSNNOptimizerStochasticGradientDescent, 
+                       MPSNNPad, MPSNNPadGradient, MPSNNPadGradientNode, MPSNNPadNode, 
+                       MPSNNReduceColumnMax, MPSNNReduceColumnMean, MPSNNReduceColumnMin, 
+                       MPSNNReduceColumnSum, MPSNNReduceFeatureChannelsAndWeightsMean, 
+                       MPSNNReduceFeatureChannelsAndWeightsSum, MPSNNReduceFeatureChannelsArgumentMax, 
+                       MPSNNReduceFeatureChannelsArgumentMin, MPSNNReduceFeatureChannelsMax, 
+                       MPSNNReduceFeatureChannelsMean, MPSNNReduceFeatureChannelsMin, 
+                       MPSNNReduceFeatureChannelsSum, MPSNNReduceRowMax, MPSNNReduceRowMean, 
+                       MPSNNReduceRowMin, MPSNNReduceRowSum, MPSNNReductionColumnMaxNode, 
+                       MPSNNReductionColumnMeanNode, MPSNNReductionColumnMinNode, 
+                       MPSNNReductionColumnSumNode, MPSNNReductionFeatureChannelsArgumentMaxNode, 
+                       MPSNNReductionFeatureChannelsArgumentMinNode, MPSNNReductionFeatureChannelsMaxNode, 
+                       MPSNNReductionFeatureChannelsMeanNode, MPSNNReductionFeatureChannelsMinNode, 
+                       MPSNNReductionFeatureChannelsSumNode, MPSNNReductionRowMaxNode, 
+                       MPSNNReductionRowMeanNode, MPSNNReductionRowMinNode, MPSNNReductionRowSumNode, 
+                       MPSNNReductionSpatialMeanGradientNode, MPSNNReductionSpatialMeanNode, 
+                       MPSNNReshape, MPSNNReshapeGradient, MPSNNReshapeGradientNode, 
+                       MPSNNReshapeNode, MPSNNResizeBilinear, MPSNNScaleNode, MPSNNSlice, 
+                       MPSNNSubtractionGradientNode, MPSNNSubtractionNode, MPSNNUnaryReductionNode, 
+                       MPSPluginCNNConvolutionDescriptor, MPSRNNDescriptor, MPSRNNImageInferenceLayer, 
+                       MPSRNNMatrixInferenceLayer, MPSRNNMatrixTrainingLayer, MPSRNNMatrixTrainingState, 
+                       MPSRNNRecurrentImageState, MPSRNNRecurrentMatrixState, MPSRNNSingleGateDescriptor ]
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: F668D45A-CAAC-3639-BC3E-A4781AC166D4', 'arm64e: 8B4ACAEB-1B0B-31E1-B693-A4E2F11A09ED' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSRayIntersector.framework/MPSRayIntersector'
+current-version: 122.0.46
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients: [ MetalPerformanceShaders ]
+    symbols:         [ _MPSAccelerationStructureBuilderCPU, _MPSAccelerationStructureBuilderGPU, 
+                       _MPSAccelerationStructureNodeLayoutAOS, _MPSAccelerationStructureNodeLayoutSOA, 
+                       _MPSAccelerationStructureOptionBatchSize, _MPSAccelerationStructureOptionBins, 
+                       _MPSAccelerationStructureOptionBranchingFactor, _MPSAccelerationStructureOptionBuilder, 
+                       _MPSAccelerationStructureOptionComputeStatistics, _MPSAccelerationStructureOptionFragmentCost, 
+                       _MPSAccelerationStructureOptionMaxDepth, _MPSAccelerationStructureOptionMaxFragmentsPerLeaf, 
+                       _MPSAccelerationStructureOptionMaximumConcurrentNodeSize, 
+                       _MPSAccelerationStructureOptionMinFragmentsPerLeaf, _MPSAccelerationStructureOptionMinimumOverlap, 
+                       _MPSAccelerationStructureOptionNodeLayout, _MPSAccelerationStructureOptionSplitHeuristic, 
+                       _MPSAccelerationStructureSplitHeuristicBinnedSAH, _MPSAccelerationStructureSplitHeuristicBinnedSpatialSAH, 
+                       _MPSAccelerationStructureSplitHeuristicObjectMedian, _MPSAccelerationStructureSplitHeuristicSAH ]
+    objc-classes:    [ MPSAccelerationStructure, MPSAccelerationStructureGroup, MPSInstanceAccelerationStructure, 
+                       MPSPolygonAccelerationStructure, MPSPolygonBuffer, MPSQuadrilateralAccelerationStructure, 
+                       MPSRayIntersector, MPSSVGF, MPSSVGFDefaultTextureAllocator, 
+                       MPSSVGFDenoiser, MPSTemporalAA, MPSTriangleAccelerationStructure ]
+...

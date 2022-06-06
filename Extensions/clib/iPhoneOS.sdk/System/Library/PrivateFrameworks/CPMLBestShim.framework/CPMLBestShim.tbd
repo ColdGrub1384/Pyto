@@ -1,0 +1,19 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CPMLBestShim.framework/CPMLBestShim
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _kCPMLAppTitle, _kCPMLAppType, _kCPMLAppUsageTime, _kCPMLBTCondition, _kCPMLBundleID,
+                          _kCPMLChangeCount, _kCPMLConfidence, _kCPMLConnectStatus, _kCPMLDeviceType, _kCPMLEmergenceHalfLife,
+                          _kCPMLEmergenceTime, _kCPMLEventSunrise, _kCPMLEventSunset, _kCPMLEventTime, _kCPMLExpertProposal,
+                          _kCPMLExpertProposalMoot, _kCPMLExpertProposalNoDetail, _kCPMLExpertType, _kCPMLExpertTypeByEmergence,
+                          _kCPMLExpertTypeByEventTime, _kCPMLExpertTypeByPrediction, _kCPMLExpertUniqueX1, _kCPMLExpertUniqueX2,
+                          _kCPMLExpertUniqueX3, _kCPMLLastModifiedDate, _kCPMLRadioCondition, _kCPMLTimeSinceLastUsed,
+                          _kCPMLUUID, _kCPMLWifiCondition ]
+    objc-classes:       [ _CPMLBestAppShim, _CPMLBestShim, _CPMLBestShimContext ]
+    objc-ivars:         [ _CPMLBestShimContext.orderedSuggestions ]
+...

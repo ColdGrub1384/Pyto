@@ -1,0 +1,34 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/AppleMediaServicesUI.framework/AppleMediaServicesUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    objc-classes:       [ _AMSUIAlertDialogTask, _AMSUIAuthKitUpdatePromptController, _AMSUIAuthenticateTask, _AMSUIButton,
+                          _AMSUICGRectHelper, _AMSUIOnboardingFeature, _AMSUIOnboardingFeatureView, _AMSUIOnboardingHeaderView,
+                          _AMSUIOnboardingMultiFeatureHeaderView, _AMSUIOnboardingViewController,
+                          _AMSUIPrivacyAnimatedTransitioning, _AMSUIPrivacyIconViewController,
+                          _AMSUIPrivacyPresentationController, _AMSUIPrivacyViewController, _AMSUITintedBackgroundButton ]
+    objc-ivars:         [ _AMSUIAlertDialogTask._presentingViewController, _AMSUIAlertDialogTask._request,
+                          _AMSUIAuthKitUpdatePromptController._presentingViewController, _AMSUIAuthenticateTask._bag,
+                          _AMSUIAuthenticateTask._presentingViewController, _AMSUIOnboardingFeature._descriptionText,
+                          _AMSUIOnboardingFeature._image, _AMSUIOnboardingFeature._titleText,
+                          _AMSUIOnboardingFeatureView._descriptionLabel, _AMSUIOnboardingFeatureView._imageView,
+                          _AMSUIOnboardingFeatureView._titleLabel, _AMSUIOnboardingHeaderView._containerHeight,
+                          _AMSUIOnboardingHeaderView._descriptionLabel, _AMSUIOnboardingHeaderView._imageView,
+                          _AMSUIOnboardingHeaderView._isPresentedInFormSheet, _AMSUIOnboardingHeaderView._titleLabel,
+                          _AMSUIOnboardingMultiFeatureHeaderView._containerHeight,
+                          _AMSUIOnboardingMultiFeatureHeaderView._featureViews,
+                          _AMSUIOnboardingMultiFeatureHeaderView._isPresentedInFormSheet,
+                          _AMSUIOnboardingMultiFeatureHeaderView._titleLabel, _AMSUIOnboardingViewController._descriptionText,
+                          _AMSUIOnboardingViewController._image, _AMSUIOnboardingViewController._metricsQueue,
+                          _AMSUIOnboardingViewController._primaryButtonCallback,
+                          _AMSUIOnboardingViewController._primaryButtonText,
+                          _AMSUIOnboardingViewController._privacyLinkController, _AMSUIOnboardingViewController._titleText,
+                          _AMSUIOnboardingViewController._viewHasAppeared, _AMSUIOnboardingViewController._welcomeController,
+                          _AMSUIPrivacyAnimatedTransitioning._presentation, _AMSUIPrivacyAnimatedTransitioning._viewController,
+                          _AMSUIPrivacyIconViewController._imageView, _AMSUIPrivacyPresentationController._dimmingView ]
+...

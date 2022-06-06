@@ -1,0 +1,17 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/IncomingCallFilter.framework/IncomingCallFilter
+current-version:       800
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ICFCallProviderShouldAllowIncomingCall, _ICFCallProviderShouldAllowIncomingCallWithQueue,
+                          _ICFRegisterCallFilterBlockWithIdentifier, _ICFRegisterCallFilterResultBlockWithIdentifier,
+                          _ICFServiceIdentifierFaceTime, _ICFServiceIdentifierFaceTimeAudio, _ICFServiceIdentifierTelephony,
+                          _ICFServiceIdentifierTelephonyRelay, _ICFUnknownID, _ICFUnregisterCallFilterBlockWithIdentifier,
+                          _ICFUnregisterCallFilterResultBlockWithIdentifier ]
+    objc-classes:       [ _ICFCallServer ]
+    objc-ivars:         [ _ICFCallServer._clients, _ICFCallServer._connection, _ICFCallServer._hasRegistered ]
+...

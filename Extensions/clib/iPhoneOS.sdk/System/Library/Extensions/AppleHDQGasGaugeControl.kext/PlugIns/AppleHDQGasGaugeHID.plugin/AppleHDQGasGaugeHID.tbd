@@ -1,0 +1,22 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/Extensions/AppleHDQGasGaugeControl.kext/PlugIns/AppleHDQGasGaugeHID.plugin/AppleHDQGasGaugeHID
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _GGHIDPlugInFactory, _batteryThread, _battery_health_metric_config, _calculateChemicalWeightedRa,
+                          _calculateWra, _controlOp16, _controlRead16, _controlReadS16, _controlReadU16, _controlWrite16,
+                          _drainDataLog, _dumpBuffer, _findRaWeightMulitplier, _gaugeDisableInterrupts, _gaugeDisconnect,
+                          _gaugeEnableInterrupts, _getFWVersion, _ggctl_close_device, _ggctl_connect, _ggctl_controlRead16,
+                          _ggctl_controlWrite16, _ggctl_disconnect, _ggctl_drainDataLog, _ggctl_enable_currentlog,
+                          _ggctl_gaugeInterrupts, _ggctl_get_device_configuration, _ggctl_get_hdq_state, _ggctl_hdqBreak,
+                          _ggctl_hdqRead16, _ggctl_hdqRead8, _ggctl_hdqWrite8, _ggctl_map_currentlog, _ggctl_open_device,
+                          _ggctl_readBlock, _ggctl_reset, _ggctl_writeBlock, _hdqBreak, _hdqRead16, _hdqRead8, _hdqReadS16,
+                          _hdqReadS8, _hdqReadU16, _hdqReadU8, _hdqWrite8, _okToLoad, _pmps_service, _readBlock,
+                          _readIMAXAndSOCSmoothData, _readLifetimeData, _readRaTableData, _readRegister, _readShutdownReasonData,
+                          _registerName, _service, _startUpdateThread, _uart_close_device, _uart_open_device,
+                          _writeBatteryDiagnosticData, _writeBlock ]
+...

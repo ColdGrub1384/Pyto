@@ -1,0 +1,59 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/TelephonyRPC.framework/TelephonyRPC
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CTSUServerConnectionRef, _CTSUServerQueue, _ListOfVoicemailsToSyncWithManager,
+                          _NANOPHONE_APPLICATION_BUNDLE_ID, _NPHDeriveProgramName, _NPHDeviceHasBaseband,
+                          _NPHDeviceOSIsInternalInstall, _NPHIsDebugBuild, _NPHIsWalkaboutEnabled,
+                          _NPHSharedUtilitiesAppendBuildVersion, _NPHSharedUtilitiesLocaleHaptic,
+                          _NPHSharedUtilitiesLocaleHapticDucked, _NPHWiFiStringKey, _NSStringFromTUCallDisconnectedReason,
+                          _NanoPhoneVoicemailBodyReadFrom, _NanoPhoneVoicemailMetaReadFrom,
+                          _NanoPhoneVoicemailTranscriptReadFrom, _SYNC_MAX_VOICEMAIL_COUNT, _SYNC_MAX_VOICEMAIL_TOTAL_SIZE_BYTES,
+                          __NPHNumberOfCannedReplies, __NPHPhoneNumberActiveCountryCodeKey, __NPHPhoneNumberHomeCountryCodeKey,
+                          __NPHPhoneNumberNetworkCountryCodeKey, __TUReplyWithMessageStoreChangedKey,
+                          __TUReplyWithMessageStoreReplyArrayKey, _isTrashToInboxForVMDNotification,
+                          _kCarrierInfoIsVisualVoicemailServiceSubscribedKey, _kCarrierInfoVMShouldHideVoicemailUI,
+                          _kNPHIsVisualVoicemailServiceSubscribedDidChangeNotification, _mach_time_elapsed_to_seconds,
+                          _nph_ensure_on_main_queue, _nph_general_log, _syncOperationForVMDNotification ]
+    objc-classes:       [ _NPHCarrierInfoCompanionReplication, _NPHCountryCodeCompanionReplication, _NPHNanoRespondWithTextStore,
+                          _NPHNanoRespondWithTextStoreCompanionReplication, _NPHSYObjectWrapper, _NPHSharedUtilities,
+                          _NPHVMSyncSessionManager, _NPHVoicemailManager, _NanoPhoneVoicemailBody, _NanoPhoneVoicemailMeta,
+                          _NanoPhoneVoicemailTranscript, _VoicemailCompanionReplication ]
+    objc-ivars:         [ _NPHCarrierInfoCompanionReplication._coreTelephonyClient,
+                          _NPHCarrierInfoCompanionReplication._mobilePhoneUserDefaults,
+                          _NPHCarrierInfoCompanionReplication._nanoPhoneUserDefaults,
+                          _NPHCarrierInfoCompanionReplication._npsManager, _NPHCountryCodeCompanionReplication._npsManager,
+                          _NPHNanoRespondWithTextStore._userDefaults,
+                          _NPHNanoRespondWithTextStoreCompanionReplication._npsManager, _NPHSYObjectWrapper._type,
+                          _NPHSYObjectWrapper._wrappedObject, _NPHVMSyncSessionManager._cancel,
+                          _NPHVMSyncSessionManager._completionCallback, _NPHVMSyncSessionManager._deltaSyncChangeTypes,
+                          _NPHVMSyncSessionManager._deltaSyncChanges, _NPHVMSyncSessionManager._deltaSyncCurrentIdx,
+                          _NPHVMSyncSessionManager._sessionInvalidated, _NPHVMSyncSessionManager._vmSessionDelegate,
+                          _NPHVMSyncSessionManager._vmSessionProgressCallback, _NanoPhoneVoicemailBody._voicemailNumber,
+                          _NanoPhoneVoicemailBody._voicemailRecording, _NanoPhoneVoicemailMeta._callbackNumber,
+                          _NanoPhoneVoicemailMeta._dataPath, _NanoPhoneVoicemailMeta._date, _NanoPhoneVoicemailMeta._duration,
+                          _NanoPhoneVoicemailMeta._flags, _NanoPhoneVoicemailMeta._has, _NanoPhoneVoicemailMeta._identifier,
+                          _NanoPhoneVoicemailMeta._receiverDestinationID, _NanoPhoneVoicemailMeta._remoteUID,
+                          _NanoPhoneVoicemailMeta._sender, _NanoPhoneVoicemailMeta._voicemailBody,
+                          _NanoPhoneVoicemailMeta._voicemailNumber, _NanoPhoneVoicemailMeta._voicemailTranscript,
+                          _NanoPhoneVoicemailTranscript._transcriptionString, _NanoPhoneVoicemailTranscript._voicemailNumber,
+                          _VoicemailCompanionReplication._companionSyncQueue, _VoicemailCompanionReplication._concurrentQueue,
+                          _VoicemailCompanionReplication._coordinator, _VoicemailCompanionReplication._deltaSyncInProgress,
+                          _VoicemailCompanionReplication._deltaSyncSuccessful,
+                          _VoicemailCompanionReplication._didSuspendCompanionSyncQueue,
+                          _VoicemailCompanionReplication._domainAccessor,
+                          _VoicemailCompanionReplication._domainAccessorMutexLock, _VoicemailCompanionReplication._sigtermCalled,
+                          _VoicemailCompanionReplication._syncRestrictionsAtStartup,
+                          _VoicemailCompanionReplication._syncTransaction, _VoicemailCompanionReplication._syncTransactionMutex,
+                          _VoicemailCompanionReplication._vmAfterSyncComplete,
+                          _VoicemailCompanionReplication._vmServiceSyncSession, _VoicemailCompanionReplication._vmSyncService,
+                          _VoicemailCompanionReplication._vmSyncServiceQueue,
+                          _VoicemailCompanionReplication._vmSyncSessionManager, _VoicemailCompanionReplication._voicemailManager,
+                          _VoicemailCompanionReplication.vmdIsReadySemaphore,
+                          _VoicemailCompanionReplication.waitForFirstSyncRestrictionSemaphore ]
+...

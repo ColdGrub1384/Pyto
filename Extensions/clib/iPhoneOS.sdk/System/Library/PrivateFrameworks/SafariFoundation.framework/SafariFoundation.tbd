@@ -1,0 +1,52 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SafariFoundation.framework/SafariFoundation
+current-version:       608.1.48
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SFAutoFillFromAddressBookPreferenceKey, _SFAutoFillHelperErrorDomain,
+                          _SFCredentialProviderDeveloperEntitlement, _SFCredentialProviderExtensionPointIdentifier,
+                          _SFCredentialProviderShowsConfigurationUIKey, _SFCredentialProviderSystemEntitlement,
+                          _SFExternalCredentialIdentityStoreErrorDomain, _SFPasswordCredentialIdentityInvalidRowIdentifier,
+                          _SFPasswordGenerationNoLengthLimit, _SFSharablePasswordURLSchemeForAirDrop,
+                          _maximumNumberOfWebCredentialEntriesToReturnForAppID ]
+    objc-classes:       [ _SFAutoFillFeatureManager, _SFAutoFillHelperProxy, _SFCredentialProviderExtensionHelperProxy,
+                          _SFCredentialProviderExtensionManager, _SFCredentialProviderExtensionState,
+                          _SFDomainAssociationUtilities, _SFExternalCredentialIdentityStore,
+                          _SFExternalCredentialIdentityStoreManager, _SFPasswordCredentialIdentity, _SFSafariCredential,
+                          _SFSafariCredentialStore, _SFSharablePassword, _SFSharablePasswordReceiver,
+                          _SFSharedWebCredentialsDatabaseEntry, _SFStrongPasswordGenerator, _SFSuggestedUser,
+                          _SFSuggestedUserProvider, __SFSharablePasswordEncryptionInformation ]
+    objc-ivars:         [ _SFAutoFillFeatureManager._cachedAutoFillRestrictionValue,
+                          _SFAutoFillFeatureManager._cachedPasswordAutoFillEffectiveValue, _SFAutoFillHelperProxy._connection,
+                          _SFCredentialProviderExtensionHelperProxy._connection,
+                          _SFCredentialProviderExtensionManager._errorEncounteredDuringLastExtensionDiscovery,
+                          _SFCredentialProviderExtensionManager._extensionMatchingToken,
+                          _SFCredentialProviderExtensionManager._extensions,
+                          _SFCredentialProviderExtensionManager._extensionsSync,
+                          _SFCredentialProviderExtensionManager._observers, _SFCredentialProviderExtensionManager._queue,
+                          _SFCredentialProviderExtensionState._containingAppBundleIdentifier,
+                          _SFCredentialProviderExtensionState._enabled,
+                          _SFCredentialProviderExtensionState._localizedDisplayName,
+                          _SFCredentialProviderExtensionState._supportsIncrementalUpdates,
+                          _SFExternalCredentialIdentityStore._queue, _SFExternalCredentialIdentityStore._statements,
+                          _SFExternalCredentialIdentityStoreManager._queue, _SFPasswordCredentialIdentity._domainWithoutWWWDot,
+                          _SFPasswordCredentialIdentity._externalRecordIdentifier,
+                          _SFPasswordCredentialIdentity._owningExtensionState, _SFPasswordCredentialIdentity._rank,
+                          _SFPasswordCredentialIdentity._rowIdentifier, _SFPasswordCredentialIdentity._serviceIdentifier,
+                          _SFPasswordCredentialIdentity._serviceIdentifierType, _SFPasswordCredentialIdentity._user,
+                          _SFSafariCredential._creationDate, _SFSafariCredential._externalCredential,
+                          _SFSafariCredential._password, _SFSafariCredential._site, _SFSafariCredential._user,
+                          _SFSharablePassword._displayName, _SFSharablePassword._highLevelDomain, _SFSharablePassword._password,
+                          _SFSharablePassword._protectionSpaces, _SFSharablePassword._username,
+                          _SFSharedWebCredentialsDatabaseEntry._appID, _SFSharedWebCredentialsDatabaseEntry._approved,
+                          _SFSharedWebCredentialsDatabaseEntry._domain, _SFSharedWebCredentialsDatabaseEntry._service,
+                          _SFStrongPasswordGenerator._passwordGenerationManager, _SFSuggestedUser._type,
+                          _SFSuggestedUser._usageFrequency, _SFSuggestedUser._value, _SFSuggestedUserProvider._queue,
+                          _SFSuggestedUserProvider._suggestedEmails, _SFSuggestedUserProvider._suggestedNonEmails,
+                          __SFSharablePasswordEncryptionInformation._encryptedPasswordData,
+                          __SFSharablePasswordEncryptionInformation._encryptionKeyReference ]
+...

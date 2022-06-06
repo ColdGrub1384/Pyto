@@ -1,0 +1,70 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/NewsFoundation.framework/NewsFoundation
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _NFCallbackScopeAny, _NFCallbackScopeName, _NFCallbackScopeNames, _NFDeviceHasExtendedColorDisplay,
+                          _NFDeviceIsA7, _NFDeviceIsA8, _NFDeviceModelString, _NFDeviceOSVersion, _NFDevicePlatform,
+                          _NFGeneralDeviceString, _NFInternalBuild, _NFLockSync, _NFPoolMakeWeakObjectsPool,
+                          _NFPromiseInvokeOnQueue, _NFSeedBuild, _NFStateMachineErrorDomain, _NFStoreDemoMode,
+                          _NFWaiterErrorDomain, _NewsFoundationVersionNumber, _NewsFoundationVersionString,
+                          '_OBJC_EHTYPE_$_NFContainerCircularDependencyDetectedException',
+                          '_OBJC_EHTYPE_$_NFContainerContextMismatchException',
+                          '_OBJC_EHTYPE_$_NFContainerDefinitionMismatchException',
+                          '_OBJC_EHTYPE_$_NFContainerDefinitionNilFactoryException',
+                          '_OBJC_EHTYPE_$_NFContainerDefinitionNotOverridableException',
+                          '_OBJC_EHTYPE_$_NFContainerEnsuringNullableDefinitionException', '_OBJC_EHTYPE_$_NFContainerException',
+                          '_OBJC_EHTYPE_$_NFContainerMissingDefinitionException', '_OBJC_EHTYPE_$_NFRouterException',
+                          '_OBJC_EHTYPE_$_NFRouterRouteToNonRoutable', _kNFPromiseSealingErrorCode, _kNFPromiseSealingErrorName,
+                          _kNFReachabilityChangedNotification, _zalgo, _zalgoIfMain ]
+    objc-classes:       [ _NFCallbackDefinition, _NFCallbackRegistration, _NFCallbackScope, _NFCallbackStore, _NFContainer,
+                          _NFContainerCircularDependencyDetectedException, _NFContainerContextMismatchException,
+                          _NFContainerDefinitionMismatchException, _NFContainerDefinitionNilFactoryException,
+                          _NFContainerDefinitionNotOverridableException, _NFContainerEnsuringNullableDefinitionException,
+                          _NFContainerException, _NFContainerMissingDefinitionException, _NFContainerPool,
+                          _NFContainerPoolObject, _NFContainerRegistry, _NFContext, _NFDefinition, _NFEventManager,
+                          _NFEventTrigger, _NFKey, _NFLazy, _NFMultiDelegate, _NFMutexLock, _NFObjectReuseManager,
+                          _NFPendingPromise, _NFPromise, _NFPromiseSeal, _NFProxyContainer, _NFProxyResolver, _NFReachability,
+                          _NFRouter, _NFRouterException, _NFRouterRouteToNonRoutable, _NFStateMachine, _NFStateMachineEvent,
+                          _NFStateMachineState, _NFStateMachineTransition, _NFUnfairLock, _NFVoid, _NFWaiter ]
+    objc-ivars:         [ _NFCallbackDefinition._callbackBlock, _NFCallbackDefinition._privateContainer,
+                          _NFCallbackRegistration._callbackStore, _NFCallbackRegistration._privateContainer,
+                          _NFCallbackScope._names, _NFCallbackScope._scope, _NFCallbackStore._store, _NFContainer._callbackStore,
+                          _NFContainer._definitions, _NFContainer._pool, _NFContainer._privateContainers,
+                          _NFContainerPool._depth, _NFContainerPool._drainDepth, _NFContainerPool._graph,
+                          _NFContainerPool._objectGraphDrainingEnabled, _NFContainerPool._onDrainBlocks,
+                          _NFContainerPool._onDrainCopyPoolObjectGraphBlocks, _NFContainerPool._singletons,
+                          _NFContainerPoolObject._ownership, _NFContainerPoolObject._strongObject,
+                          _NFContainerPoolObject._weakObject, _NFContainerRegistry._callback,
+                          _NFContainerRegistry._privateContainer, _NFContainerRegistry._publicContainer,
+                          _NFContext._callbackStore, _NFContext._objects, _NFDefinition._canBeNil,
+                          _NFDefinition._canBeOverridden, _NFDefinition._cls, _NFDefinition._configurationBlock,
+                          _NFDefinition._factory, _NFDefinition._privateAccessContainer,
+                          _NFDefinition._privateAccessWeakContainer, _NFDefinition._protocol, _NFDefinition._scope,
+                          _NFDefinition._source, _NFDefinition._validationBlock, _NFEventManager._events,
+                          _NFEventManager._triggers, _NFEventTrigger._block, _NFEventTrigger._events, _NFEventTrigger._fireOnAny,
+                          _NFEventTrigger._fireOnce, _NFEventTrigger._key, _NFKey._address, _NFKey._name, _NFKey._type,
+                          _NFLazy._constructor, _NFLazy._lock, _NFLazy._value, _NFMultiDelegate._children,
+                          _NFMultiDelegate._delegateProtocol, _NFMutexLock._lock, _NFObjectReuseManager._inuseObjects,
+                          _NFObjectReuseManager._reuseFactory, _NFObjectReuseManager._reuseableObjects,
+                          _NFPendingPromise._promise, _NFPendingPromise._reject, _NFPendingPromise._resolve, _NFPromise._seal,
+                          _NFPromiseSeal._error, _NFPromiseSeal._handlers, _NFPromiseSeal._lock, _NFPromiseSeal._state,
+                          _NFPromiseSeal._value, _NFProxyContainer._container, _NFProxyContainer._privateContainer,
+                          _NFProxyResolver._callbackStore, _NFProxyResolver._context, _NFProxyResolver._pool,
+                          _NFProxyResolver._privateContainer, _NFProxyResolver._publicContainer,
+                          _NFReachability._currentNetworkPath, _NFReachability._currentReachabilityStatus,
+                          _NFReachability._networkPathMonitor, _NFReachability._observationQueue, _NFRouter._resolver,
+                          _NFStateMachine._events, _NFStateMachine._lock, _NFStateMachine._owner, _NFStateMachine._state,
+                          _NFStateMachine._states, _NFStateMachine._status, _NFStateMachine._statusToken,
+                          _NFStateMachineEvent._destinationState, _NFStateMachineEvent._fireBlock, _NFStateMachineEvent._name,
+                          _NFStateMachineEvent._states, _NFStateMachineState._canTryBlock, _NFStateMachineState._didEnterBlock,
+                          _NFStateMachineState._didExitBlock, _NFStateMachineState._name, _NFStateMachineState._willEnterBlock,
+                          _NFStateMachineState._willExitBlock, _NFStateMachineTransition._context,
+                          _NFStateMachineTransition._event, _NFStateMachineTransition._fromState,
+                          _NFStateMachineTransition._stateMachine, _NFStateMachineTransition._toState, _NFUnfairLock._unfairLock,
+                          _NFUnfairLock._unfairLockOptions, _NFWaiter._interval, _NFWaiter._timeout ]
+...

@@ -1,0 +1,12 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SensingProtocols.framework/SensingProtocols
+current-version:       2
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _BinaryFrameReadFrom, _SensingProtocolsVersionNumber, _SensingProtocolsVersionString ]
+    objc-classes:       [ _BinaryFrame ]
+...

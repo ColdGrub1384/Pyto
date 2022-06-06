@@ -1,0 +1,30 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MobileIcons.framework/MobileIcons
+current-version:       372
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _LIBytesNeededForGhostlyImageOfSize, _LIBytesPerRowForGhostlyImageOfWidth,
+                          _LICopyBestImageForVariantFromBundle, _LICopyBestImageForVariantFromImages, _LICopyIconPathsFromBundle,
+                          _LICopyIconPathsFromBundleForStyles, _LICreateCachedUncompressedDataFromImage, _LICreateDefaultIcon,
+                          _LICreateDeviceAppropriateHomeScreenIconImageFromBundle, _LICreateGhostlyVersion,
+                          _LICreateGhostlyVersionWithDataWrapper, _LICreateIconForBundle, _LICreateIconForBundleAndDisplayGamut,
+                          _LICreateIconForImage, _LICreateIconForImages, _LICreateIconFromCachedBitmap, _LICreateIconOverlay,
+                          _LICreateImageFromCachedUncompressedData, _LICreateImageFromUncompressedBitmapData,
+                          _LICreateUncompressedBitmapDataFromImage, _LICreateUncompressedBitmapDataFromImageWithOptions,
+                          _LIExpectedImageInputSizeForVariant, _LIGetHeaderForUncompressedBitmapData,
+                          _LIGetIconVariantDimensionsForStyle, _LIGetImageInfoFromCachedUncompressedData,
+                          _LIIconContinuousCornerRadiusForVariant, _LIIconOutputScaleForVariant, _LIIconOutputSizeForVariant,
+                          _LIIconOutputVisibleImageBoundsForVariant, _LISideInsetForHomeScreenVariant,
+                          _LITopInsetForHomeScreenVariant, __LICGImageWriteAsPNGToFilePath,
+                          __LICGPathCreateContinuousRoundedRect, __LICreateIconDataForBundleURLWithIconName,
+                          __LICreateIconDataForBundleURLWithIconNameWithOptions,
+                          __LICreateIconDataForContainersWithIconsDictionary,
+                          __LICreateIconDataForContainersWithIconsDictionaryAndPreferredIconNameWithOptions,
+                          __LICreateIconForBundleWithIconsDictionaryAndContainers, __Z10x_align_tomm, __Z14x_power_of_twom,
+                          __Z21CA_CFDictionaryCreatev, __Z21CA_CFDictionarySetIntP14__CFDictionaryPK10__CFStringi,
+                          __Z22CA_CFDictionarySetBoolP14__CFDictionaryPK10__CFStringb, _use_scaler_for_statistics ]
+...

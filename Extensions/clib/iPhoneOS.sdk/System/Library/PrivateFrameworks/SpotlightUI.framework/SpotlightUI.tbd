@@ -1,0 +1,61 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SpotlightUI.framework/SpotlightUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SPBuildApplications, _SPCopyVisibleApps, _SPFastApplicationsGet, _SPFastApplicationsGetNoBuild,
+                          _SPFastApplicationsSet, _SPFastHiddenAppsGetNoBuild, _SPSetAppUpdateBlock, _SPSpotlightAppBundleId,
+                          _SPSpotlightFocusConstant, _SPTransactionCreate, _SPTransactionDone, _SPUIBackgroundTransitionContext,
+                          _SPUIClientSceneDistanceSetting, _SPUIDismissalTransitionContext, _SPUIInitLogging,
+                          _SPUILegibilitySettingsSetting, _SPUILogSubsystem, _SPUIPresentationIntentSetting,
+                          _SPUIPresentationSourceSetting, _SPUIRemoteSearchIgnoreOcclusionsReason,
+                          _SPUIRemoteViewPresentationIntentDescription, _SPUIRemoteViewPresentationSourceDescription,
+                          _SPUIRevealProgressSetting, _SPUISearchBarAnimatedConstant, _SPUISearchBarScrollProgressConstant,
+                          _SPUISourceContextId, _SPUISourceLayerRenderId, _SPUTIAppType, _SpotlightBundleID,
+                          _SpotlightUIVersionNumber, _SpotlightUIVersionString, _offsetDistanceForAnimation,
+                          _searchScreenSceneIdentifier, _spuiLogHandles ]
+    objc-classes:       [ _SPApplication, _SPUIAppService, _SPUILegibilitySceneSettings, _SPUIMutableLegibilitySceneSettings,
+                          _SPUIMutableSearchBarSceneSettings, _SPUIMutableSearchViewSceneSettings,
+                          _SPUIRemoteSearchViewController, _SPUISearchBarController, _SPUISearchBarSceneSettings,
+                          _SPUISearchBarSceneSpecification, _SPUISearchBarTransitionContext, _SPUISearchViewClientSceneSettings,
+                          _SPUISearchViewMutableClientSceneSettings, _SPUISearchViewSceneSettings,
+                          _SPUISearchViewSceneSpecification, _SPUISearchViewSceneTransitionContext,
+                          _SPUISearchViewTodayViewTransitionContext, _SPUISpotlightRemoteViewController,
+                          _SPUISpotlightSceneManager, _SPUISpotlightSearchBarView, _SPXPCConnection, _SPXPCMessage, _SPXPCServer ]
+    objc-ivars:         [ _SPApplication._URL, _SPApplication._displayIdentifier, _SPApplication._displayNameInternal,
+                          _SPApplication._isWebClip, _SPApplication._keywords, _SPApplication._longDisplayName,
+                          _SPApplication._shortVersion, _SPUIAppService._activated, _SPUIAppService._appConnection,
+                          _SPUIAppService._appServiceQueue, _SPUIAppService._awakeNotifyToken,
+                          _SPUIAppService._backgroundConnection, _SPUIRemoteSearchViewController._delegate,
+                          _SPUIRemoteSearchViewController._didFinishDismissingSpotlightHandler,
+                          _SPUIRemoteSearchViewController._distanceToTopOfIcons,
+                          _SPUIRemoteSearchViewController._dummyTransitionView,
+                          _SPUIRemoteSearchViewController._finishedPresentingSpotlightHandler,
+                          _SPUIRemoteSearchViewController._revealProgress, _SPUIRemoteSearchViewController._source,
+                          _SPUIRemoteSearchViewController._willBeginDismissingSpotlightHandler,
+                          _SPUIRemoteSearchViewController._willStartPresetingSpotlightHandler,
+                          _SPUISearchBarController._delegate, _SPUISearchBarController._heightOfBar,
+                          _SPUISearchBarController._roundedCornerVisible,
+                          _SPUISpotlightRemoteViewController._crashedWhileForeground,
+                          _SPUISpotlightRemoteViewController._currentOrientation, _SPUISpotlightRemoteViewController._hostView,
+                          _SPUISpotlightRemoteViewController._legibilitySettings, _SPUISpotlightRemoteViewController._presenter,
+                          _SPUISpotlightRemoteViewController._scene, _SPUISpotlightRemoteViewController._sceneEventsQueue,
+                          _SPUISpotlightRemoteViewController._sceneIdentifier, _SPUISpotlightRemoteViewController._transaction,
+                          _SPUISpotlightSceneManager._appService, _SPUISpotlightSceneManager._foregroundScenes,
+                          _SPUISpotlightSceneManager._initializationAssertions, _SPUISpotlightSceneManager._layoutMonitor,
+                          _SPUISpotlightSceneManager._managedScenes, _SPUISpotlightSceneManager._spotlightProcessHandle,
+                          _SPUISpotlightSceneManager._watchdogTimer, _SPXPCConnection._bundleID, _SPXPCConnection._conn,
+                          _SPXPCConnection._context, _SPXPCConnection._disconnectHandler, _SPXPCConnection._eventQueue,
+                          _SPXPCConnection._messageHandler, _SPXPCConnection._ownsQueue, _SPXPCMessage._info,
+                          _SPXPCMessage._name, _SPXPCMessage._receivingConnection, _SPXPCMessage._replyTransaction,
+                          _SPXPCMessage._x_Objects, _SPXPCMessage._x_feedbackData, _SPXPCMessage._x_message,
+                          _SPXPCMessage._x_reply, _SPXPCMessage._x_reply_connection, _SPXPCMessage._x_rootObject,
+                          _SPXPCServer._conn, _SPXPCServer._connections, _SPXPCServer._connectionsQueue,
+                          _SPXPCServer._defaultMessageHandler, _SPXPCServer._disconnectHandler, _SPXPCServer._eventQueue,
+                          _SPXPCServer._firstConnectionBlock, _SPXPCServer._handlerMap, _SPXPCServer._idleTimerInterval,
+                          _SPXPCServer._qos, _SPXPCServer._shutdown, _SPXPCServer._timerQueue, _SPXPCServer.hadConnection ]
+...

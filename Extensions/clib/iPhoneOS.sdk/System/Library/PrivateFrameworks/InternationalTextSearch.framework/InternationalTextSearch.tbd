@@ -1,0 +1,21 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/InternationalTextSearch.framework/InternationalTextSearch
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ITSCollationContextFreeContextForDatabaseHandle, _ITSCopyFTSTableCreateStatementUsingCurrentLanguage,
+                          _ITSCopyFTSTableCreateStatementWithLanguageAndCollator, _ITSCopySearchCollatorForLanguage,
+                          _ITSCopyUserLanguage, _ITSCreateCollator, _ITSCreateCollatorWithPreferredLocale, _ITSCreateSortKey,
+                          _ITSFTSIsEnabled, _ITSRegisterSQLiteICUTokenizer, _ITSSetCollatorOverrideForDatabaseConnectionHandle,
+                          _ITSSetLocaleOverrideForDatabaseConnectionHandle, _ITSTokenListCopyEscapedTokenAtIndex,
+                          _ITSTokenListCreate, _ITSTokenListDestroy, _ITSTokenListGetCount, _ITSTokenListGetTokenAtIndex,
+                          _ITSTokenListGetTokenCollationKeyAtIndex, _ITSTokenListGetTokenCollationKeyLengthAtIndex,
+                          _ITSTokenListGetTokenEndByteOffsetAtIndex, _ITSTokenListGetTokenRangeAtIndex,
+                          _ITSTokenListGetTokenStartByteOffsetAtIndex, _ITSTokenListPopulateFromString,
+                          _ITSTokenListRemoveAllTokens, _InternationalTextSearchVersionNumber,
+                          _InternationalTextSearchVersionString ]
+...

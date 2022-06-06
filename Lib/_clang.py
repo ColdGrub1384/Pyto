@@ -18,7 +18,7 @@ def main():
     except ValueError:
         pass
 
-    sys.exit(system("clang -DCYTHON_LIMITED_API=1"+shlex.join(args)))
+    sys.exit(system("clang -mios-version-min=13.0 -DCYTHON_LIMITED_API=1"+shlex.join(args)))
 
 if __name__ == "__main__":
     main()

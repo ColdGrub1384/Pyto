@@ -1,0 +1,21 @@
+--- !tapi-tbd-v3
+archs:           [ armv7, armv7s, arm64, arm64e ]
+uuids:           [ 'armv7: 00000000-0000-0000-0000-000000000000', 'armv7s: 00000000-0000-0000-0000-000000000000', 
+                   'arm64: 37463188-351A-3B22-B559-B690EDB44CD1', 'arm64e: E6231C9D-8F6B-3723-80CA-6675B90E48AE' ]
+platform:        ios
+install-name:    '/System/Library/Frameworks/SoundAnalysis.framework/SoundAnalysis'
+exports:         
+  - archs:           [ armv7, armv7s, arm64, arm64e ]
+    symbols:         [ _SNErrorDomain, _SNSoundIdentifierApplause, _SNSoundIdentifierBabble, 
+                       _SNSoundIdentifierCheering, _SNSoundIdentifierDistressedBaby, 
+                       _SNSoundIdentifierLaughter, _SNSoundIdentifierMusic, _SNSoundIdentifierSpeech, 
+                       _SNVGGishFeatureEmbeddingCustomModelName, _SNVGGishFrontEndProcessingCustomModelName ]
+    objc-classes:    [ SNAudioFileAnalyzer, SNAudioOffsetResult, SNAudioStreamAnalyzer, 
+                       SNClassification, SNClassificationResult, SNClassifySoundRequest, 
+                       SNCreateFeaturePrintRequest, SNDetectSignalThresholdRequest, 
+                       SNDetectSoundRequest, SNDetectSpeechUtteranceRequest, SNDetectionResult, 
+                       SNDirectionOfArrivalResult, SNEstimateAudioOffsetRequest, 
+                       SNEstimateDirectionOfArrivalRequest, SNFeaturePrint, SNLKFSResult, 
+                       SNMeasureLKFSRequest, SNNullRequest, SNNullResult, SNResultsCollector, 
+                       SNSignalThresholdResult, SNSpeechUtteranceResult ]
+...

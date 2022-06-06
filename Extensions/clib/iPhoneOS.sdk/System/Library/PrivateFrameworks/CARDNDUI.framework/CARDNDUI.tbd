@@ -1,0 +1,14 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CARDNDUI.framework/CARDNDUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CARDNDUIVersionNumber, _CARDNDUIVersionString ]
+    objc-classes:       [ _CARDNDLearnMoreViewController, __CARLearnMoreViewController ]
+    objc-ivars:         [ __CARLearnMoreViewController._bottomMarginConstraint, __CARLearnMoreViewController._resourcePath,
+                          __CARLearnMoreViewController._textView ]
+...

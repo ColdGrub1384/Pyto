@@ -1,0 +1,21 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/SystemConfiguration/CaptiveNetworkSupport.bundle/CaptiveNetworkSupport
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CNAccountsATTValidate, _CNAccountsVZWQueryStart, _CNPluginStateIsBuiltin,
+                          _CNSServerCNSServer_subsystem, _CaptiveNetworkSupportVersionNumber,
+                          _CaptiveNetworkSupportVersionString, _NetIFCopyNetworkInterface, _SFRHandleGetResult,
+                          _captive_agent_abort_login, _captive_agent_abort_logout, _captive_agent_get_credentials,
+                          _captive_agent_get_credentials_abort, _captive_agent_login, _captive_agent_logout,
+                          _kCaptiveNetworkPluginAssertionID, _kUIBackgroundModes, _load, _sConfigdRunLoop, _sStopConfigdSource,
+                          _sStopThreadSource, _start, _stop ]
+    objc-classes:       [ _CarrierSettingsStatusIndicator ]
+    objc-ivars:         [ _CarrierSettingsStatusIndicator._callback, _CarrierSettingsStatusIndicator._coreTelephonyClient,
+                          _CarrierSettingsStatusIndicator._queue, _CarrierSettingsStatusIndicator._runloop,
+                          _CarrierSettingsStatusIndicator._runloopMode ]
+...

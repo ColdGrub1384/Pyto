@@ -1,0 +1,59 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MaterialKit.framework/MaterialKit
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    allowable-clients:  [ AXHearingSupport, BatteryWidget, ChargingViewService, ControlCenterUI, ControlCenterUIKit, CoverSheet,
+                          HomeUI, LoginUI, MaterialKitTester, MaterialKitTests, MediaControls, MediaRemoteUI, MusicUIService,
+                          NotificationCenter, PencilKit, PlatterKit, PreBoard, RecentsAppPopover, SearchUI, Sharing,
+                          SharingViewService, SiriUI, SpringBoard, 'SpringBoard-Tests', SpringBoardCore, SpringBoardFoundation,
+                          SpringBoardHome, SpringBoardUI, TVRemoteUI, UserNotificationsUIKit, UserNotificationsUIKitTests,
+                          Widgets ]
+    symbols:            [ _MTCompareBlurInputQualities, _MTCoreMaterialConfigurationForMaterialConfiguration,
+                          _MTCoreMaterialRecipeForMaterialRecipe, _MTCoreMaterialRecipeForMaterialRecipeAndUserInterfaceStyle,
+                          _MTCoreMaterialVisualStyleCategoryForVisualStyleCategory, _MTCoreMaterialVisualStyleForVisualStyle,
+                          _MTIsValidBlurInputQuality, _MTIsValidVisualStyle, _MTLogLuma, _MTLogMaterials, _MTLogSubsystem,
+                          _MTMainScreenScale, _MTRegisterMaterialKitLogging, _MTStringFromMaterialRecipe,
+                          _MaterialKitVersionNumber, _MaterialKitVersionString, _NSStringFromMTLumaDodgeGraphicsQuality,
+                          _NSStringFromMTLumaDodgePillBackgroundLuminance, _NSStringFromMTLumaDodgePillStyle,
+                          __MTCoreMaterialRecipeNameForMaterialRecipeAndUserInterfaceStyle,
+                          __MTInternalVibrancyEffectStyleForPublicStyle ]
+    objc-classes:       [ _MTLumaDodgePillDomain, _MTLumaDodgePillSettings, _MTLumaDodgePillStyleSettings, _MTLumaDodgePillView,
+                          _MTMaterialShadowView, _MTMaterialView, _MTPillView, _MTStaticColorPillView, _MTVisualStyling,
+                          _MTVisualStylingProvider, __MTLumaDodgePillLowQualityEffectView, __MTVisualStylingVibrancyEffect ]
+    objc-ivars:         [ _MTLumaDodgePillSettings._blackSettings, _MTLumaDodgePillSettings._brightLumaThreshold,
+                          _MTLumaDodgePillSettings._colorAddWhiteness, _MTLumaDodgePillSettings._cornerMask,
+                          _MTLumaDodgePillSettings._cornerRadius, _MTLumaDodgePillSettings._darkLumaThreshold,
+                          _MTLumaDodgePillSettings._edgeSpacing, _MTLumaDodgePillSettings._graySettings,
+                          _MTLumaDodgePillSettings._height, _MTLumaDodgePillSettings._initialLumaThreshold,
+                          _MTLumaDodgePillSettings._maxWidth, _MTLumaDodgePillSettings._minWidth,
+                          _MTLumaDodgePillSettings._noneSettings, _MTLumaDodgePillSettings._thinSettings,
+                          _MTLumaDodgePillSettings._whiteSettings, _MTLumaDodgePillStyleSettings._blur,
+                          _MTLumaDodgePillStyleSettings._brightness, _MTLumaDodgePillStyleSettings._colorAddOpacity,
+                          _MTLumaDodgePillStyleSettings._lumaMapPlusColorOpacity,
+                          _MTLumaDodgePillStyleSettings._overlayBlendOpacity, _MTLumaDodgePillStyleSettings._saturation,
+                          _MTLumaDodgePillView._backgroundLuminance, _MTLumaDodgePillView._backgroundLuminanceBias,
+                          _MTLumaDodgePillView._backgroundLumninanceObserver, _MTLumaDodgePillView._bounceAnimationKeys,
+                          _MTLumaDodgePillView._bounceAnimationsInFlight, _MTLumaDodgePillView._graphicsQuality,
+                          _MTLumaDodgePillView._lowQualityEffectView, _MTLumaDodgePillView._luma,
+                          _MTLumaDodgePillView._lumaIsValid, _MTLumaDodgePillView._settings, _MTLumaDodgePillView._style,
+                          _MTMaterialShadowView._captureOnlyMaterialView,
+                          _MTMaterialShadowView._captureOnlyMaterialViewSuppliedByClient, _MTMaterialShadowView._materialView,
+                          _MTMaterialShadowView._shadowView, _MTMaterialView._backdropFloatAnimatableProperty,
+                          _MTMaterialView._cmVisualStyleCategoriesToProviders, _MTMaterialView._configuration,
+                          _MTMaterialView._groupNameBase, _MTMaterialView._highlightView, _MTMaterialView._highlighted,
+                          _MTMaterialView._needsLayoutOnMoveToWindow, _MTMaterialView._observers, _MTMaterialView._recipe,
+                          _MTMaterialView._recipeBundle, _MTMaterialView._recipeDynamic,
+                          _MTMaterialView._recipeNamesByTraitCollection,
+                          _MTMaterialView._useBuiltInAlphaTransformerAndBackdropScaleAdjustment,
+                          _MTStaticColorPillView._pillColor, _MTVisualStyling._coreMaterialVisualStyling,
+                          _MTVisualStylingProvider._coreMaterialVisualStylingProvider,
+                          _MTVisualStylingProvider._privateObservers, _MTVisualStylingProvider._styleNamesToVisualStylings,
+                          _MTVisualStylingProvider._viewsAndLayersToCoreMaterialVisualStyles,
+                          _MTVisualStylingProvider._viewsAndLayersToObserverBlocks,
+                          __MTVisualStylingVibrancyEffect._visualStyling ]
+...

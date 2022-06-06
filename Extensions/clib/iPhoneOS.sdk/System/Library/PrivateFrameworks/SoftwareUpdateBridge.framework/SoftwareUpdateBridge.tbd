@@ -1,0 +1,61 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/SoftwareUpdateBridge.framework/SoftwareUpdateBridge
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _SUBActiveNRDevice, _SUBCompatibilityVersion, _SUBDocumentationAssetKeyDevice,
+                          _SUBDocumentationAssetKeyDeviceName, _SUBDocumentationAssetKeyID, _SUBDuetDenialDomain, _SUBError,
+                          _SUBErrorDomain, _SUBErrorUserInfo, _SUBErrorUserInfoChargerConnected, _SUBErrorUserInfoDenialReasons,
+                          _SUBEventDescPowerConstraintsUnmet, _SUBIsChargerConnected, _SUBIsRunningInStoreDemoMode,
+                          _SUBLoggingInit, _SUBMaxCompanionCompatibilityVersion, _SUBMessageCanProceedWithInstallationKey,
+                          _SUBMessageCompanionLockState, _SUBMessageCreateStashBagResponseKey,
+                          _SUBMessageCreatedStashBagResponse, _SUBMessageDescriptorArrayKey, _SUBMessageDescriptorKey,
+                          _SUBMessageDocumentationAssetServerURLKey, _SUBMessageDocumentationKey, _SUBMessageDownloadKey,
+                          _SUBMessageErrorKey, _SUBMessageManagerStateKey, _SUBMessagePairedUnlockNotSupported,
+                          _SUBMessagePairedUnlockPending, _SUBMessagePasscodeKey, _SUBMessageRequiredDiskSpaceKey,
+                          _SUBMessageSsoTokenKey, _SUBMessageSupportsInstallTonightKey, _SUBMessageTypeAddClient,
+                          _SUBMessageTypeBadgeBridgeApp, _SUBMessageTypeCreateStashBag, _SUBMessageTypeDisplayTerms,
+                          _SUBMessageTypeDisplayTermsCloud, _SUBMessageTypeDownloadProgress, _SUBMessageTypeFetchDocumentation,
+                          _SUBMessageTypeGetCloudDescriptors, _SUBMessageTypeGetCompanionLockState,
+                          _SUBMessageTypeGetSupportsInstallTonight, _SUBMessageTypeGizmoOSVersionDidChange,
+                          _SUBMessageTypeInstallResult, _SUBMessageTypeInstallUpdate, _SUBMessageTypeInstallationCanProceed,
+                          _SUBMessageTypeInstallationWillProceed, _SUBMessageTypeKey, _SUBMessageTypePerformMigration,
+                          _SUBMessageTypePresentingAlertOnGizmo, _SUBMessageTypePurgeUpdate, _SUBMessageTypeQueryManagerState,
+                          _SUBMessageTypeRemoveCloudDescriptor, _SUBMessageTypeRetrieveSsoToken, _SUBMessageTypeScanForUpdates,
+                          _SUBMessageTypeScanResult, _SUBMessageTypeSendTermsRequest, _SUBMessageTypeSetUserInstallRequestType,
+                          _SUBMessageTypeShowDownloadAndPrepareError, _SUBMessageTypeShowDuetConditions,
+                          _SUBMessageTypeShowInstallError, _SUBMessageTypeShowUpdateAvailable, _SUBMessageTypeStartDownload,
+                          _SUBMessageTypeUnlockCompanion, _SUBMessageTypeUserDidAcceptTermsAndConditions,
+                          _SUBMessageTypeUserDidAcceptTermsAndConditionsChanged,
+                          _SUBMessageTypeUserDidAcceptTermsAndConditionsWithReply, _SUBMessageTypeUserInstallRequestTypeChanged,
+                          _SUBMessageUserDidAcceptTermsAndConditionsKey, _SUBMessageUserInstallRequestTypeKey,
+                          _SUBMinCompanionCompatibilityVersion, _SUBNSURLSessionProxyDenialDomain, _SUBPhaseDownloading,
+                          _SUBPhasePreparingUpdate, _SUBPhaseStalled, _SUBPhaseWaitingForAdmissionControl,
+                          _SUBResultTypeForMessageType, _SUBSoftwareUpdateAssetType, _SUBStringForManagerState,
+                          _SUBStringForUserInstallRequestType, _SUBTCPConnectionDenialDomain, _SUBWatchUpdateBrainAssetType,
+                          __SUBTransactionCounter, _disableNotification, _enableNotification, _softwareupdatebridge_log,
+                          _stringForMAAssetCancelResult, _stringForMAAssetPurgeResult ]
+    objc-classes:       [ _SUBDescriptor, _SUBDocumentation, _SUBDownload, _SUBManager, _SUBProgress ]
+    objc-ivars:         [ _SUBDescriptor._autoSUEndTime, _SUBDescriptor._autoSUStartTime,
+                          _SUBDescriptor._dateOfLastScheduleOfAutoUpdate,
+                          _SUBDescriptor._dateOfLastScheduleOfAutoUpdateNotification,
+                          _SUBDescriptor._dateOfLastSentInstallNotification, _SUBDescriptor._denialReasons,
+                          _SUBDescriptor._displayTermsRequested, _SUBDescriptor._documentation, _SUBDescriptor._documentationID,
+                          _SUBDescriptor._downloadSize, _SUBDescriptor._installTonightScheduled,
+                          _SUBDescriptor._installationSize, _SUBDescriptor._isAwaitingAdmissionControlForInstallation,
+                          _SUBDescriptor._manifest, _SUBDescriptor._marketingVersion, _SUBDescriptor._msuPrepareSize,
+                          _SUBDescriptor._osName, _SUBDescriptor._productBuildVersion, _SUBDescriptor._productSystemName,
+                          _SUBDescriptor._productVersion, _SUBDescriptor._publisher, _SUBDescriptor._totalRequiredFreeSpace,
+                          _SUBDescriptor._unarchivedSize, _SUBDescriptor._userDidAcceptTermsAndConditions,
+                          _SUBDescriptor._userInstallRequestType, _SUBDescriptor._willProceedWithInstallation,
+                          _SUBDocumentation._documentationBundleURL, _SUBDocumentation._humanReadableUpdateName,
+                          _SUBDocumentation._licenseAgreement, _SUBDocumentation._phoneLanguage, _SUBDocumentation._releaseNotes,
+                          _SUBDocumentation._releaseNotesSummary, _SUBDownload._descriptor, _SUBDownload._progress,
+                          _SUBManager._delegate, _SUBManager._hasQueriedStateOnceFlag, _SUBManager._queue,
+                          _SUBManager._serverConnection, _SUBProgress._estimatedTimeRemaining, _SUBProgress._isDone,
+                          _SUBProgress._phase, _SUBProgress._portionComplete ]
+...

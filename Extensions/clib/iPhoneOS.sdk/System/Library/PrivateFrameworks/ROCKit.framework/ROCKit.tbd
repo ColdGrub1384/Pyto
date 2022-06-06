@@ -1,0 +1,62 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/ROCKit.framework/ROCKit
+current-version:       34
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ROCKSessionManagerOptionEnableMessageQueueSending, _kROCKDictionaryTypeEntryKey,
+                          _rock_NSArrayToXPCObject, _rock_NSBundleToXPCObject, _rock_NSDataToXPCObject, _rock_NSDateToXPCObject,
+                          _rock_NSDictionaryToXPCObject, _rock_NSErrorToXPCObject, _rock_NSFileHandleToXPCObject,
+                          _rock_NSHashTableToXPCObject, _rock_NSInvocationToXPCObject, _rock_NSMapTableToXPCObject,
+                          _rock_NSNullToXPCObject, _rock_NSNumberToXPCObject, _rock_NSObjectToXPCObject,
+                          _rock_NSPointerArrayToXPCObject, _rock_NSSetToXPCObject, _rock_NSStringToXPCObject,
+                          _rock_NSURLToXPCObject, _rock_NSUUIDToXPCObject, _rock_NSValueToXPCObject, _rock_XPCObjectToNSArray,
+                          _rock_XPCObjectToNSBundle, _rock_XPCObjectToNSData, _rock_XPCObjectToNSDate,
+                          _rock_XPCObjectToNSDictionary, _rock_XPCObjectToNSError, _rock_XPCObjectToNSFileHandle,
+                          _rock_XPCObjectToNSHashTable, _rock_XPCObjectToNSInvocation, _rock_XPCObjectToNSMapTable,
+                          _rock_XPCObjectToNSNull, _rock_XPCObjectToNSNumber, _rock_XPCObjectToNSObject,
+                          _rock_XPCObjectToNSPointerArray, _rock_XPCObjectToNSSet, _rock_XPCObjectToNSString,
+                          _rock_XPCObjectToNSURL, '_rock_XPCObjectToNSURL$V2', _rock_XPCObjectToNSUUID, _rock_XPCObjectToNSValue,
+                          _rock_blockSignatureVariant, _rock_sessionObjectFromXPCObject ]
+    objc-classes:       [ _ROCKBlockProxy, _ROCKConnection, _ROCKConnectionManager, _ROCKDispatchQueueProxy,
+                          _ROCKForwardingBlockProxy, _ROCKForwardingHybridProxy, _ROCKForwardingInterposer, _ROCKForwardingProxy,
+                          _ROCKImmutableProxy, _ROCKImpersonatableProxy, _ROCKImpersonator, _ROCKIncomingConnection,
+                          _ROCKInvocation, _ROCKMessageQueue, _ROCKRemoteBlockProxy, _ROCKRemoteHybridProxy, _ROCKRemoteProxy,
+                          _ROCKRunLoop, _ROCKRunLoopBlockSource, _ROCKSessionManager ]
+    objc-ivars:         [ _ROCKBlockProxy._blockLayout, _ROCKBlockProxy._remoteBlockProxy, _ROCKConnection._connectionUUID,
+                          _ROCKConnection._xpcEndpoint, _ROCKConnectionManager._connectionManagerHandler,
+                          _ROCKConnectionManager._enableMessageQueueSending, _ROCKConnectionManager._handlerQueue,
+                          _ROCKConnectionManager._managedConnections, _ROCKConnectionManager._managedConnectionsQueue,
+                          _ROCKConnectionManager._managedRemoteConnections,
+                          _ROCKConnectionManager._managedRemoteConnectionsQueue, _ROCKConnectionManager._managedServiceUUIDs,
+                          _ROCKConnectionManager._messageQueueInvocationMode,
+                          _ROCKConnectionManager._nextAvailableManagedConnectionIndex, _ROCKDispatchQueueProxy._remoteQueue,
+                          _ROCKDispatchQueueProxy._rockConnection, _ROCKDispatchQueueProxy._xpcDictionary,
+                          _ROCKForwardingInterposer._remoteObject, _ROCKForwardingProxy._instance,
+                          _ROCKForwardingProxy._protocols, _ROCKImmutableProxy._properties, _ROCKImmutableProxy._protocols,
+                          _ROCKImmutableProxy._xpcDictionary, _ROCKImpersonatableProxy._impersonatableProxyUUID,
+                          _ROCKImpersonatableProxy._sessionManager, _ROCKImpersonatableProxy._xpcDictionary,
+                          _ROCKIncomingConnection._xpcConnection, _ROCKInvocation._autoreleasingHandler,
+                          _ROCKInvocation._invocationQueue, _ROCKInvocation._returnHandler, _ROCKMessageQueue._connection,
+                          _ROCKMessageQueue._invocationMode, _ROCKMessageQueue._messageFlushQueue,
+                          _ROCKMessageQueue._messageHandlerQueue, _ROCKMessageQueue._messages, _ROCKMessageQueue._notifiers,
+                          _ROCKMessageQueue._semaphore, _ROCKRemoteBlockProxy._methodSignature,
+                          _ROCKRemoteHybridProxy._memoizedInstance, _ROCKRemoteProxy._connectionUUID,
+                          _ROCKRemoteProxy._invocationFlags, _ROCKRemoteProxy._protocols,
+                          _ROCKRemoteProxy._selectorsToMethodSignatures, _ROCKRunLoop._forwardInvocationHandler,
+                          _ROCKRunLoop._runLoopMode, _ROCKRunLoop._runLoopSource, _ROCKRunLoopBlockSource._blockCount,
+                          _ROCKRunLoopBlockSource._lock, _ROCKRunLoopBlockSource._modes, _ROCKRunLoopBlockSource._queuedBlock,
+                          _ROCKRunLoopBlockSource._queuedBlocks, _ROCKRunLoopBlockSource._source,
+                          _ROCKSessionManager._checkedInForwardingProxies, _ROCKSessionManager._classesToProtocols,
+                          _ROCKSessionManager._connectionManager, _ROCKSessionManager._connectionQueue,
+                          _ROCKSessionManager._eventHandler, _ROCKSessionManager._eventQueue,
+                          _ROCKSessionManager._impersonatableProxies, _ROCKSessionManager._impersonatedObjects,
+                          _ROCKSessionManager._instancesQueue, _ROCKSessionManager._invocationQueue,
+                          _ROCKSessionManager._objCTypesToMethodSignatures, _ROCKSessionManager._pendingForwardingProxies,
+                          _ROCKSessionManager._protocolsToMethodSignatures, _ROCKSessionManager._serializers,
+                          _ROCKSessionManager._serviceConnection, _ROCKSessionManager._stateQueue,
+                          _ROCKSessionManager._useMainThreadChecker, _ROCKSessionManager._xpcProtocolsToClasses ]
+...

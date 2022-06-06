@@ -1,0 +1,26 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/DiagnosticExtensions.framework/DiagnosticExtensions
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _DEUtilsValidateConnection, _DEUtilsValidateDestination, _DiagnosticExtensionsVersionNumber,
+                          _DiagnosticExtensionsVersionString, _pgrep, _signal_USR2 ]
+    objc-classes:       [ _DEArchive, _DEArchiveReader, _DEArchiver, _DEAttachmentGroup, _DEAttachmentItem, _DEExtension,
+                          _DEExtensionContext, _DEExtensionHostContext, _DEExtensionManager, _DEExtensionProvider, _DELogMover,
+                          _DELogging, _DEUtils, _DiagnosticExtensions_Subsystem ]
+    objc-ivars:         [ _DEArchive._archive, _DEArchive._hasClosedArchive, _DEArchive._sourceDir, _DEArchive._tarGzUrl,
+                          _DEArchiveReader._archive, _DEAttachmentGroup._attachmentItems, _DEAttachmentGroup._rootURL,
+                          _DEAttachmentItem._attachedPath, _DEAttachmentItem._attachmentType, _DEAttachmentItem._deleteOnAttach,
+                          _DEAttachmentItem._displayName, _DEAttachmentItem._filesize, _DEAttachmentItem._modificationDate,
+                          _DEAttachmentItem._path, _DEAttachmentItem._shouldCompress, _DEExtension._allowUserAttachmentSelection,
+                          _DEExtension._attachmentsName, _DEExtension._context, _DEExtension._extension,
+                          _DEExtension._identifier, _DEExtension._isLoggingEnabled, _DEExtension._loggingConsent,
+                          _DEExtensionManager._afterExtendedBlock, _DEExtensionManager._extendedLoaded,
+                          _DEExtensionManager._extensions, _DEExtensionManager._initialLoadQueue,
+                          _DEExtensionProvider._allowUserAttachmentSelection, _DEExtensionProvider._canGenerateNewAttachment,
+                          _DEExtensionProvider._loggingConsent, _DELogMover._conn, _DELogMover._serviceName ]
+...

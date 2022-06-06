@@ -1,0 +1,12 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/WatchdogClient.framework/WatchdogClient
+current-version:       67
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _wd_endpoint_activate, _wd_endpoint_add_queue, _wd_endpoint_add_work_processor, _wd_endpoint_register,
+                          _wd_endpoint_set_alive_func ]
+...

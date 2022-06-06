@@ -1,0 +1,28 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/MobileActivation.framework/MobileActivation
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _MAEActivateDeviceWithError, _MAECopyActivationRecordWithError, _MAECopyPCRTToken, _MAECopyUCRTToken,
+                          _MAECreateActivationInfo, _MAECreateActivationRequest, _MAECreateActivationRequestWithError,
+                          _MAECreateSessionRequestWithError, _MAECreateStorebagRequest, _MAEDeactivateDevice,
+                          _MAEDeactivateDeviceWithError, _MAEGetActivationBuild, _MAEGetActivationState,
+                          _MAEGetActivationStateWithError, _MAEGetActivationURLFromStorebag,
+                          _MAEGetActivationURLFromStorebagWithError, _MAEGetBrickState, _MAEHandleActivationInfo,
+                          _MAEInFieldCollected, _MAEIssueClientCertificate, _MAERecertifyDevice, _MAERecertifyDeviceWithError,
+                          _MAETryActivate, _MAEUCRTAvailable, _MAEUpdateBasebandTicketWithError, _MAGetActivationState,
+                          _MARequestReactivation, _MAUCRTActivationLocked, _MAUnbrickDevice, _MobileActivationErrorDomain,
+                          _MobileActivationFunctionNameErrorKey, _MobileActivationSourceFileLineErrorKey,
+                          _createMobileActivationError, _kMAActivationStateActivated, _kMAActivationStateFactoryActivated,
+                          _kMAActivationStateUnactivated, _kMANotificationCollectionPerformed, _kMANotificationIdentityChanged,
+                          _kMANotificationUCRTOOBPerformed, _kMAOptionsActivationLockInfo, _kMAOptionsActivationResponseHeaders,
+                          _kMAOptionsAllowInvalidNetworkCertificates, _kMAOptionsBasebandWaitCount,
+                          _kMAOptionsFactoryActivationRequest, _kNotificationActivationStateChanged,
+                          _kNotificationBrickStateChanged ]
+    objc-classes:       [ _MadGate ]
+    objc-ivars:         [ _MadGate._connection ]
+...

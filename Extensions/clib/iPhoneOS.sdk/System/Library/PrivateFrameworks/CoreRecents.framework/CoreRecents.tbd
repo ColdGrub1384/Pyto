@@ -1,0 +1,43 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/CoreRecents.framework/CoreRecents
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _CRAddressKindEmail, _CRAddressKindGroup, _CRAddressKindInstantMessage, _CRAddressKindMapLocation,
+                          _CRAddressKindPhoneNumber, _CRAddressKindURL, _CRIsInternalDevice,
+                          _CRRecentContactMetadataCreationTime, _CRRecentContactMetadataEventTime, _CRRecentContactMetadataFrom,
+                          _CRRecentContactMetadataFromAddress, _CRRecentContactMetadataFromAddressKind,
+                          _CRRecentContactMetadataFromDisplayName, _CRRecentContactMetadataReferenceURL,
+                          _CRRecentContactMetadataSubject, _CRRecentContactMetadataUpcomingEventIdentifier,
+                          _CRRecentContactsErrorDomain, _CRRecentContactsSyncKeyDict, _CRRecentContactsSyncKeyDictAddressKey,
+                          _CRRecentContactsSyncKeyDictKindKey, _CRRecentContactsSyncKeyDictMembersKey,
+                          _CRRecentWeightMailReceivedAddress, _CRRecentWeightMailReceivedTrustedAddress,
+                          _CRRecentWeightMailSentAddress, _CRRecentWeightMailViewedAddress,
+                          _CRRecentWeightMessagesReceivedAddress, _CRRecentWeightMessagesRespondedAddress,
+                          _CRRecentWeightMessagesSentAddress, _CRRecentWeightPassbookShippingAddress,
+                          _CRRecentsAgentMachServiceName, _CRRecentsDomainCalendar, _CRRecentsDomainEventKitContact,
+                          _CRRecentsDomainEventKitLocation, _CRRecentsDomainFaceTime, _CRRecentsDomainMail, _CRRecentsDomainMaps,
+                          _CRRecentsDomainMessages, _CRRecentsDomainPassbook, _CRRecentsDomainRemindersLocation,
+                          _CRiCloudAccountChangedNotification, __CRAddressArchiveKey, __CRContactIDArchiveKey,
+                          __CRDisplayNameArchiveKey, __CRGroupKindArchiveKey, __CRGroupNameArchiveKey, __CRKindArchiveKey,
+                          __CRLastSendingAddressArchiveKey, __CRLog, __CRLogV, __CRLoggingShouldLog, __CRMembersArchiveKey,
+                          __CRMetadataArchiveKey, __CROriginalSourceArchiveKey, __CRRawAddressArchiveKey,
+                          __CRRecentDatesArchiveKey, __CRRecentIDArchiveKey, __CRRecentsDomainArchiveKey, __CRWeightArchiveKey,
+                          _kCRLogFacilitySync, _kCRRecentContactMaxDateEvents, _sCRRecentRecentIdentifier, _sCRRecentSyncKeyDict,
+                          _sCRSQLite3MPrintTransform ]
+    objc-classes:       [ _CRDRecentContactsLibraryInterface, _CRRecentContact, _CRRecentContactsLibrary, _CRSQLRow,
+                          _CRSearchQuery ]
+    objc-ivars:         [ _CRRecentContact._address, _CRRecentContact._contactID, _CRRecentContact._decayedWeight,
+                          _CRRecentContact._displayName, _CRRecentContact._groupKind, _CRRecentContact._groupName,
+                          _CRRecentContact._kind, _CRRecentContact._lastSendingAddress, _CRRecentContact._members,
+                          _CRRecentContact._metadata, _CRRecentContact._originalSource, _CRRecentContact._rawAddress,
+                          _CRRecentContact._recentDates, _CRRecentContact._recentID, _CRRecentContact._recentsDomain,
+                          _CRRecentContact._weight, _CRRecentContactsLibrary._connection, _CRRecentContactsLibrary._replyQueue,
+                          _CRSQLRow._stmt, _CRSearchQuery._comparator, _CRSearchQuery._domains,
+                          _CRSearchQuery._implicitGroupThreshold, _CRSearchQuery._options, _CRSearchQuery._pageRange,
+                          _CRSearchQuery._predicate, _CRSearchQuery._uuid, _CRSearchQuery._weightDecayer ]
+...

@@ -1,0 +1,56 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/PowerLog.framework/PowerLog
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _PLBatchDropMessages, _PLBatteryGaugeGetSnapshot, _PLBatteryGaugePauseTracingForBundleId,
+                          _PLBatteryGaugePauseTracingForPid, _PLBatteryGaugePauseTracingForProcessName,
+                          _PLBatteryGaugeResumeTracingForBundleId, _PLBatteryGaugeResumeTracingForPid,
+                          _PLBatteryGaugeResumeTracingForProcessName, _PLBatteryGaugeStartTracingForBundleId,
+                          _PLBatteryGaugeStartTracingForPid, _PLBatteryGaugeStartTracingForProcessName,
+                          _PLBatteryGaugeStopTracingForBundleId, _PLBatteryGaugeStopTracingForPid,
+                          _PLBatteryGaugeStopTracingForProcessName, _PLBatteryGaugeVersion,
+                          _PLBatteryLifeMonitorLogCoreDuetAdmissionEvent, _PLBatteryLifeMonitorLogCoreDuetEvent,
+                          _PLBatteryLifeMonitorLogCoreDuetEventsAggregate, _PLBatteryLifeMonitorLogCoreDuetPredictionEvents,
+                          _PLBatteryLifeMonitorLogDuetEvent, _PLBatteryLifeMonitorReportBatteryCapacityForCoreDuet,
+                          _PLBatteryLifeMonitorReportCumulativeTotalDiscretionaryEnergyCoreDuet,
+                          _PLBatteryLifeMonitorReportDiscretionaryBudgetForDuet, _PLBatteryLifeMonitorReportEnergyCoreDuet,
+                          _PLBatteryLifeMonitorReportEnergyDuet, _PLBatteryLifeMonitorStopAllDuetEvents, _PLBatteryUsageUIQuery,
+                          _PLBuildEnergyBucket, _PLBuildEnergyBucketTillNow, _PLBuildUsageSnapshot, _PLCopyPowerlog,
+                          _PLCrashMoverCopyPowerlog, _PLForceBatching, _PLLogEvent, _PLLogRegisteredAggregateEvent,
+                          _PLLogRegisteredEvent, _PLLogRegisteredEventFilterByInterval, _PLLogTimeSensitiveRegisteredEvent,
+                          _PLMovePowerlogsToCR, _PLQuery, _PLQueryRegistered, _PLShouldLogEvent, _PLShouldLogRegisteredEvent,
+                          _PLSysdiagnoseCopyPowerlog, _PLTalkToPowerlogHelper ]
+    objc-classes:       [ _PLClientLogAggregator, _PLClientLogger, _PLCoreDuetEvent, _PLCoreDuetEventInterval,
+                          _PLDuetActivitySchedulerUsageSnapshot, _PLEnergyBucket, _PLModelingUtilities, _PLNetworkEnergyModel,
+                          _PLUsageSnapshot ]
+    objc-ivars:         [ _PLClientLogAggregator._aggregatesCache, _PLClientLogAggregator._executionQueue,
+                          _PLClientLogAggregator._flushTimer, _PLClientLogAggregator._logHandle,
+                          _PLClientLogAggregator._numAggregates, _PLClientLogAggregator._numAggregations,
+                          _PLClientLogger._adaptivePermissionWorkQueue, _PLClientLogger._batchDropMessages,
+                          _PLClientLogger._batchFlushQueue, _PLClientLogger._batchedDropMessageCount,
+                          _PLClientLogger._batchedTaskCache, _PLClientLogger._batchedTimerInFlight,
+                          _PLClientLogger._batchingClientWhitelist, _PLClientLogger._clientDebug,
+                          _PLClientLogger._eventFilterSaved, _PLClientLogger._forceBatching, _PLClientLogger._pendingTaskCache,
+                          _PLClientLogger._permissionCache, _PLClientLogger._processName, _PLClientLogger._talkToPowerlogHelper,
+                          _PLClientLogger._workQueue, _PLClientLogger._xpcConnection, _PLClientLogger._xpcConnectionHelper,
+                          _PLClientLogger._xpcConnectionHelperQueue, _PLClientLogger._xpcConnectionQueue,
+                          _PLCoreDuetEvent._bundleID, _PLCoreDuetEvent._childBundleIDToWeight, _PLCoreDuetEvent._eventIntervals,
+                          _PLCoreDuetEvent._processName, _PLCoreDuetEvent._updateType, _PLCoreDuetEventInterval._endDate,
+                          _PLCoreDuetEventInterval._startDate, _PLDuetActivitySchedulerUsageSnapshot._bundleID,
+                          _PLDuetActivitySchedulerUsageSnapshot._numberOfBytesDownloadedCell,
+                          _PLDuetActivitySchedulerUsageSnapshot._numberOfBytesDownloadedWiFi,
+                          _PLDuetActivitySchedulerUsageSnapshot._numberOfBytesUploadedCell,
+                          _PLDuetActivitySchedulerUsageSnapshot._numberOfBytesUploadedWiFi,
+                          _PLDuetActivitySchedulerUsageSnapshot._startDate, _PLDuetActivitySchedulerUsageSnapshot._stopDate,
+                          _PLEnergyBucket._level, _PLNetworkEnergyModel._linkCost, _PLNetworkEnergyModel._linkDuration,
+                          _PLNetworkEnergyModel._linkLevel1Parameters, _PLNetworkEnergyModel._linkType,
+                          _PLNetworkEnergyModel._overallBytes, _PLNetworkEnergyModel._overallDuration,
+                          _PLNetworkEnergyModel._powerlevel1Duration, _PLNetworkEnergyModel._powerlevel2Duration,
+                          _PLNetworkEnergyModel._powerlevel3Duration, _PLNetworkEnergyModel._taskUUID,
+                          _PLNetworkEnergyModel._updateCount, _PLUsageSnapshot._cpuUsage, _PLUsageSnapshot._timestamp ]
+...

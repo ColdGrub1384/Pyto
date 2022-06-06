@@ -1,0 +1,18 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/Engram.framework/Engram
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ENCypherErrorDomain, _ENGroupContextErrorDomain, _ENGroupContextErrorItemKey, _ENGroupIDErrorDomain ]
+    objc-classes:       [ _ENAccountIdentity, _ENAsyncReducer, _ENAsyncReducerState, _ENCypher, _ENCypher_AES128, _ENGroup,
+                          _ENGroupContext, _ENGroupContextCoreDataCache, _ENGroupContextInMemoryCache,
+                          _ENGroupContextNotifyingObserver, _ENGroupID, _ENKeyClassRegister, _ENLog, _ENPair, _ENParticipant,
+                          _ENParticipantDevice, _ENStableGroupID, __ENGroupInfo ]
+    objc-ivars:         [ _ENGroupContextCoreDataCache._container, _ENGroupContextCoreDataCache._queue,
+                          _ENParticipant._accountPublicKey, _ENParticipant._aliases, _ENParticipant._devices,
+                          _ENParticipantDevice._cypher, _ENParticipantDevice._devicePublicKey, _ENParticipantDevice._identifier ]
+...

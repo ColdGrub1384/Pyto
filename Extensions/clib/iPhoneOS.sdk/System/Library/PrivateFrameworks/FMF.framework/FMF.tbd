@@ -1,0 +1,65 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/FMF.framework/FMF
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _FMFDevicesChangedNotification, _FMFErrorDomain, _FMFFenceAcceptanceStatusAccepted,
+                          _FMFFenceAcceptanceStatusPending, _FMFFenceAcceptanceStatusPendingHidden, _FMFFenceErrorDomain,
+                          _FMFFenceTriggerArriving, _FMFFenceTriggerImmediate, _FMFFenceTriggerLeaving,
+                          _FMFFenceTriggerStatusEnter, _FMFFenceTriggerStatusExit, _FMFFenceTriggerStatusUndetermined,
+                          _FMFFenceTypeNotifyMe, _FMFFenceTypeNotifyOther, _FMFFollowersChangedNotification, _FMFGroupIdDefault,
+                          _FMFGroupIdGroup, _FMFGroupIdOneToOne, _FMFHomeKitAutomationDeviceChangedNotification,
+                          _FMFMeDeviceChangedNotification, _kFMFSyncXPCTimeout, _kMapImageKey ]
+    objc-classes:       [ _FMFAppAccountInfo, _FMFContactUtility, _FMFDevice, _FMFFence, _FMFFriendshipRequest, _FMFHandle,
+                          _FMFLabelUtil, _FMFLocation, _FMFMapCache, _FMFMapCacheImage, _FMFMapImageRequest, _FMFMapSession,
+                          _FMFPlacemark, _FMFSession, _FMFSessionDataManager, _FMFSessionProxy, _FMFSynchronizer ]
+    objc-ivars:         [ _FMFAppAccountInfo._appAuthToken, _FMFAppAccountInfo._appAuthTokenStatus,
+                          _FMFAppAccountInfo._appServerHost, _FMFAppAccountInfo._dsid, _FMFAppAccountInfo._legacyDsid,
+                          _FMFAppAccountInfo._legacyUsername, _FMFAppAccountInfo._username, _FMFContactUtility._contactFormatter,
+                          _FMFContactUtility._contactStore, _FMFDevice._deviceId, _FMFDevice._deviceName,
+                          _FMFDevice._idsDeviceId, _FMFDevice._isActiveDevice, _FMFDevice._isAutoMeCapable,
+                          _FMFDevice._isCompanionDevice, _FMFDevice._isThisDevice, _FMFFence._acceptanceStatus,
+                          _FMFFence._active, _FMFFence._ckRecordName, _FMFFence._ckRecordZoneOwnerName,
+                          _FMFFence._createdByIdentifier, _FMFFence._followerIds, _FMFFence._friendIdentifier, _FMFFence._fromMe,
+                          _FMFFence._identifier, _FMFFence._label, _FMFFence._location, _FMFFence._locationType,
+                          _FMFFence._pendingIdentifier, _FMFFence._placemark, _FMFFence._recipients, _FMFFence._recurring,
+                          _FMFFence._timestamp, _FMFFence._trigger, _FMFFence._type, _FMFFriendshipRequest._endDate,
+                          _FMFFriendshipRequest._fromHandle, _FMFFriendshipRequest._groupId, _FMFFriendshipRequest._requestId,
+                          _FMFFriendshipRequest._requestType, _FMFFriendshipRequest._toHandles, _FMFHandle.__prettyNameInternal,
+                          _FMFHandle._aliasServerIds, _FMFHandle._dsid, _FMFHandle._expiresByGroupId, _FMFHandle._favoriteOrder,
+                          _FMFHandle._hashedDSID, _FMFHandle._identifier, _FMFHandle._idsStatus, _FMFHandle._invitationSentToIds,
+                          _FMFHandle._isFamilyMember, _FMFHandle._pending, _FMFHandle._qualifiedIdentifier,
+                          _FMFHandle._reachable, _FMFHandle._serverId, _FMFHandle._trackingTimestamp, _FMFLocation._TTL,
+                          _FMFLocation._age, _FMFLocation._coordinate, _FMFLocation._distance, _FMFLocation._distanceDescription,
+                          _FMFLocation._distanceFromUser, _FMFLocation._handle, _FMFLocation._horizontalAccuracy,
+                          _FMFLocation._isBorderEnabled, _FMFLocation._label, _FMFLocation._largeAnnotationIcon,
+                          _FMFLocation._largeOverlayIcon, _FMFLocation._locatingInProgress, _FMFLocation._location,
+                          _FMFLocation._longAddress, _FMFLocation._maxLocatingInterval, _FMFLocation._overlay,
+                          _FMFLocation._placemark, _FMFLocation._shortAddressString, _FMFLocation._smallAnnotationIcon,
+                          _FMFLocation._smallOverlayIcon, _FMFLocation._timestamp, _FMFLocation._tintColor,
+                          _FMFMapCache._cacheMetaData, _FMFMapCache._cacheMetaQueue, _FMFMapCache._cachePath,
+                          _FMFMapCache._fileProtectionDeactivated, _FMFMapCache._gridImageMetaData, _FMFMapCache._gridImageQueue,
+                          _FMFMapCache._imageCachePath, _FMFMapCache._lastPruneDate, _FMFMapCache._mapImageMetaData,
+                          _FMFMapCache._mapImageQueue, _FMFMapCache._mapLocationDistanceThreshold,
+                          _FMFMapCache._noLocationImageMetaData, _FMFMapCache._noLocationImageQueue,
+                          _FMFMapCache._pendingImageQueue, _FMFMapCache._pendingMapImageMetaData, _FMFMapCacheImage._count,
+                          _FMFMapCacheImage._path, _FMFMapCacheImage._timestamp, _FMFMapImageRequest._altitude,
+                          _FMFMapImageRequest._cachingEnabled, _FMFMapImageRequest._height, _FMFMapImageRequest._location,
+                          _FMFMapImageRequest._pitch, _FMFMapImageRequest._priority, _FMFMapImageRequest._width,
+                          _FMFMapSession._connection, _FMFMapSession._mapCache, _FMFPlacemark._administrativeArea,
+                          _FMFPlacemark._country, _FMFPlacemark._formattedAddressLines, _FMFPlacemark._locality,
+                          _FMFPlacemark._state, _FMFPlacemark._streetAddress, _FMFPlacemark._streetName,
+                          _FMFSession._cachedCanShareLocationWithHandleByHandle,
+                          _FMFSession._cachedGetHandlesFollowingMyLocation, _FMFSession._cachedGetHandlesSharingLocationsWithMe,
+                          _FMFSession._cachedLocationForHandleByHandle, _FMFSession._cachedOfferExpirationForHandleByHandle,
+                          _FMFSession._connection, _FMFSession._connectionQueue, _FMFSession._delegate,
+                          _FMFSession._delegateQueue, _FMFSession._handlesQueue, _FMFSession._internalHandles,
+                          _FMFSession._isModelInitialized, _FMFSessionDataManager._fences, _FMFSessionDataManager._followers,
+                          _FMFSessionDataManager._following, _FMFSessionDataManager._locations,
+                          _FMFSessionDataManager._locationsCache, _FMFSessionProxy._session, _FMFSynchronizer._info,
+                          _FMFSynchronizer._sem, _FMFSynchronizer._timeout, _FMFSynchronizer._timeoutOccurred ]
+...

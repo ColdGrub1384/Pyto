@@ -1,0 +1,20 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/IntentsServices.framework/IntentsServices
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _INSAssistantErrorDomain, _INSExtensionServiceTraceCompletionHandlerWithCode,
+                          _INSExtractPreferencesResponseFromMetricsContext, _INSGenerateMetricsContextUsingAppPreferenceResponse,
+                          _INSJSONEncodedIntent, _INSJSONEncodedIntentResponse, _INSJSONEncodedSlotResolutionResult,
+                          _INSShouldLoadNativeMessagesExtensionAsBundleKey, _INSSiriAceErrorDomain,
+                          _INSSiriSerializedUserActivityKey, _IntentsServicesVersionNumber, _IntentsServicesVersionString ]
+    objc-classes:       [ _INSAnalytics, _INSExtensionService ]
+    objc-ivars:         [ _INSAnalytics._dataSource, _INSAnalytics._observerQueue, _INSAnalytics._observers,
+                          _INSExtensionService._currentBundleIdForDisplay, _INSExtensionService._currentConnection,
+                          _INSExtensionService._delegate, _INSExtensionService._extensionContext, _INSExtensionService._options,
+                          _INSExtensionService._queue, _INSExtensionService._requestDelegateQueue ]
+...

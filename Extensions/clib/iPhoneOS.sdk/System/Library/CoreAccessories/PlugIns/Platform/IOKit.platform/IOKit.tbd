@@ -1,0 +1,50 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/CoreAccessories/PlugIns/Platform/IOKit.platform/IOKit
+current-version:       0
+compatibility-version: 0
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _ACCPlatformIOKitPowerPlugin_BatteryChargeLevel, _ACCPlatformIOKitPowerPlugin_BatteryChargingState,
+                          _ACCPlatformIOKitPowerPlugin_BatteryChargingTypeChanged,
+                          _ACCPlatformIOKitPowerPlugin_IsExternalChargerConnected,
+                          _ACCPlatformSystemPower_SystemCanSleepNotification,
+                          _ACCPlatformSystemPower_SystemHasPoweredOnNotification,
+                          _ACCPlatformSystemPower_SystemWillSleepNotification, _ACCPlatformUSBCableTypePlugin_ConnectionUUID,
+                          _ACCPlatformUSBCableTypePlugin_USBCableTypeDidChange, _ACCPlatformUSBCableTypePlugin_USBCableTypeKey,
+                          _ACCPlatformUSBCameraKitHubPlugin_ConnectionUUID, _ACCPlatformUSBCameraKitHubPlugin_HubChange,
+                          _ACCPlatformUSBFaultPlugin_USBFaultNotification,
+                          _ACCPlatformUSBFaultPlugin_USBFaultNotification_ConnectionUUIDKey,
+                          _ACCPlatformUSBFaultPlugin_USBFaultNotification_FaultTypeKey, _ACCUserDefaultsDomain,
+                          _ACCUserDefaultsIapdDomain, _ACCUserDefaultsIapdKey_ChargingPowerBehavior,
+                          _ACCUserDefaultsIapdKey_ChargingPowerOverride, _ACCUserDefaultsIapdKey_PretendBatteryLevel,
+                          _ACCUserDefaultsIapdNotification, _ACCUserDefaultsKey_BypassTrustDialog,
+                          _ACCUserDefaultsKey_DisableWirelessCTA, _ACCUserDefaultsKey_EnableTrustDialog,
+                          _ACCUserDefaultsKey_KnownAccessories, _ACCUserDefaultsKey_ShowHiddenAccessories,
+                          _ACCUserDefaultsNotification, ___mapFamilyCodeToChargingType, _acc_userDefaultsIapd_boolForKey,
+                          _acc_userDefaultsIapd_copyArrayForKey, _acc_userDefaultsIapd_copyDictionaryForKey,
+                          _acc_userDefaultsIapd_copyDoubleForKey, _acc_userDefaultsIapd_copyIntegerForKey,
+                          _acc_userDefaultsIapd_copyStringForKey, _acc_userDefaults_boolForKey,
+                          _acc_userDefaults_copyArrayForKey, _acc_userDefaults_copyDictionaryForKey,
+                          _acc_userDefaults_copyDoubleForKey, _acc_userDefaults_copyIntegerForKey,
+                          _acc_userDefaults_copyStringForKey, _init_logging, _kCFACCUserDefaultsIapdKey_ChargingPowerBehavior,
+                          _kCFACCUserDefaultsIapdKey_ChargingPowerOverride, _kCFACCUserDefaultsIapdKey_PretendBatteryLevel,
+                          _kCFACCUserDefaultsKey_AuthenticationOverride, _kCFACCUserDefaultsKey_DisableWirelessCTA,
+                          _kCFACCUserDefaultsKey_EnableTrustDialog, _kCFACCUserDefaultsKey_MaxOutboundiAP2PacketSize,
+                          _kUSBBusCurrentAllocation, _kUSBCameraKitHubTotalCurrent, _kUSBCardReaderClass,
+                          _kUSBFailedRequestedPower ]
+    objc-classes:       [ _ACCPlatformPluginIOKit, _ACCUserDefaults, _IAPUIDManager, _PowerMonitor, _SleepAssertionManager,
+                          _USBCableTypeMonitor, _USBCameraKitHubMonitor, _USBFaultMonitor ]
+    objc-ivars:         [ _USBCableTypeMonitor._ioUSB30XHCIRemovablePortMatchIterator,
+                          _USBCableTypeMonitor._ioUSB30XHCIRemovablePortNotification,
+                          _USBCableTypeMonitor._ioUSB30XHCIRemovablePortNotifyPort,
+                          _USBCableTypeMonitor._ioUSB30XHCIRemovablePortService,
+                          _USBCableTypeMonitor._ioUSB30XHCIRemovablePortTerminateIterator, _USBCableTypeMonitor._registeredUUIDs,
+                          _USBCableTypeMonitor._uid, _USBFaultMonitor._ioUSBCardReaderMatchIterator,
+                          _USBFaultMonitor._ioUSBCardReaderNotification, _USBFaultMonitor._ioUSBCardReaderNotifyPort,
+                          _USBFaultMonitor._ioUSBCardReaderService, _USBFaultMonitor._ioUSBCardReaderTerminateIterator,
+                          _USBFaultMonitor._registeredUUIDs, _USBFaultMonitor._requestedUSBFaultNotifications,
+                          _USBFaultMonitor._uid, _USBFaultMonitor._usbFaultStates, _USBFaultMonitor._usbFaultStatesSent ]
+...

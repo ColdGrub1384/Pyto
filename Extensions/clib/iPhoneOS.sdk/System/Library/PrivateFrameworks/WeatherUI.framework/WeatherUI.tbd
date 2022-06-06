@@ -1,0 +1,44 @@
+--- !tapi-tbd-v2
+archs:                 [ armv7, armv7s, arm64, arm64e ]
+platform:              ios
+flags:                 [ flat_namespace, not_app_extension_safe ]
+install-name:          /System/Library/PrivateFrameworks/WeatherUI.framework/WeatherUI
+current-version:       1
+compatibility-version: 1
+exports:
+  - archs:              [ armv7, armv7s, arm64, arm64e ]
+    symbols:            [ _AlternativeFontColorAlpha, _ClearGraphicQuality, _CreateWeatherLabel, _DayOfYear, _DegreesFromRadians,
+                          _GraphicQuality, _HairlineThickness, _HourAngle, _RadiansFromDegrees, _RoundToPixel, _SunHeight,
+                          _WAGrayColor, _WAPrecipitationColor, _WAShadowColor, _WATealColor, _WATextColor,
+                          _WAWeatherMathResetForTimeChange, _WatchSystemTealColor, _WeatherUIFrameworkBundle ]
+    objc-classes:       [ _WUIAsynchronousAssetLoader, _WUIDynamicWeatherBackground,
+                          _WUIDynamicWeatherBackgroundInteractiveTransaction, _WUIGradientLayer, _WUIWeatherCondition,
+                          _WUIWeatherConditionBackgroundView ]
+    objc-ivars:         [ _WUIAsynchronousAssetLoader._caDataCache, _WUIAsynchronousAssetLoader._caml_parsing_queue,
+                          _WUIAsynchronousAssetLoader._dataCache, _WUIAsynchronousAssetLoader._delegate,
+                          _WUIAsynchronousAssetLoader._opportunityTimer, _WUIAsynchronousAssetLoader._queue,
+                          _WUIAsynchronousAssetLoader._resourceCache, _WUIDynamicWeatherBackground._backgroundCache,
+                          _WUIDynamicWeatherBackground._condition, _WUIDynamicWeatherBackground._currentBackground,
+                          _WUIDynamicWeatherBackground._darkeningLayer, _WUIDynamicWeatherBackground._gradientLayer,
+                          _WUIDynamicWeatherBackground._rootLayer, _WUIDynamicWeatherBackground._sunHeightOverride,
+                          _WUIDynamicWeatherBackground._transitionBackground,
+                          _WUIDynamicWeatherBackgroundInteractiveTransaction._layers,
+                          _WUIDynamicWeatherBackgroundInteractiveTransaction._progress,
+                          _WUIDynamicWeatherBackgroundInteractiveTransaction._swipeDirection,
+                          _WUIDynamicWeatherBackgroundInteractiveTransaction._toLayer, _WUIGradientLayer._allowsActions,
+                          _WUIWeatherCondition._CAMLState, _WUIWeatherCondition._alpha, _WUIWeatherCondition._city,
+                          _WUIWeatherCondition._condition, _WUIWeatherCondition._forcesCondition,
+                          _WUIWeatherCondition._forcesNight, _WUIWeatherCondition._gyroLayers, _WUIWeatherCondition._hidden,
+                          _WUIWeatherCondition._isRotating, _WUIWeatherCondition._layer, _WUIWeatherCondition._loadedFileName,
+                          _WUIWeatherCondition._multiCityMode, _WUIWeatherCondition._playing, _WUIWeatherCondition._rootLayer,
+                          _WUIWeatherCondition._shouldRasterize, _WUIWeatherCondition._speed,
+                          _WUIWeatherCondition._stateController, _WUIWeatherCondition._timeOffset,
+                          _WUIWeatherConditionBackgroundView._activeIndex, _WUIWeatherConditionBackgroundView._background,
+                          _WUIWeatherConditionBackgroundView._cities, _WUIWeatherConditionBackgroundView._crossfadeEffectTimer,
+                          _WUIWeatherConditionBackgroundView._crossfadeTransaction,
+                          _WUIWeatherConditionBackgroundView._hasViewAppeared,
+                          _WUIWeatherConditionBackgroundView._hidesConditions,
+                          _WUIWeatherConditionBackgroundView._introductionImageView,
+                          _WUIWeatherConditionBackgroundView._leftCondition, _WUIWeatherConditionBackgroundView._rightCondition,
+                          _WUIWeatherConditionBackgroundView._scrollOffset ]
+...

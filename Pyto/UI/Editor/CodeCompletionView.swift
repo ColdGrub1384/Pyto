@@ -106,7 +106,21 @@ class CodeCompletionManager: ObservableObject {
         }
     }
     
+    enum Language: String {
+        case cpp
+        case c
+        case objc
+        case python
+        case cython
+    }
+    
     weak var editor: EditorViewController?
+    
+    @Published var language = Language.python {
+        didSet {
+            objectWillChange.send()
+        }
+    }
     
     @Published var selectedIndex = 0 {
         didSet {
@@ -332,7 +346,7 @@ struct CompletionsView: View {
                     Color(.secondarySystemBackground)
                     VStack {
                         HStack {
-                            CodeView(code: signature ?? manager.suggestions[manager.selectedIndex], fontSize: 13)
+                            CodeView(code: signature ?? manager.suggestions[manager.selectedIndex], fontSize: 13, language: manager.language.rawValue)
                                 .lineLimit(3)
                                 .fixedSize(horizontal: false, vertical: true)
                             Spacer()
