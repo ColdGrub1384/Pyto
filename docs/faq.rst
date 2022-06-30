@@ -15,3 +15,8 @@ Some libraries contain native code (C extensions). They cannot be installed beca
 **************************
 
 Use the `background <background.html>`__ module to run a script in background. See `Using Django <django.html>`__ for an example.
+
+*Is there a Pyto users community that I could join?*
+****************************************************
+
+???.
