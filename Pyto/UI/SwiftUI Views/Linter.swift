@@ -129,28 +129,45 @@ struct Linter: View, Identifiable, Hashable {
             }
             
             ForEach(warnings, id: \.self) { warning in
-                VStack {
-                    HStack {
-                        Group {
-                            if warning.typeDescription.hasSuffix("error") {
-                                Image(systemName: "xmark.octagon.fill").foregroundColor(.red)
-                            } else {
-                                Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.yellow)
-                            }
-                        }.font(.title3)
-                        Text(warning.message).fixedSize(horizontal: false, vertical: true)
-                        Spacer()
-                        VStack {
-                            Text(warning.type).foregroundColor(.secondary)
-                            Spacer()
+                Button {
+                    if editor?.view.window != nil {
+                        editor?.dismiss(animated: true)
+                        
+                        var lineRanges = [NSRange]()
+                        (editor?.textView.text as? NSString)?.enumerateSubstrings(in: NSRange(location: 0, length: (editor?.textView.text as? NSString)?.length ?? 0), options: [], using: { line, range, _, _ in
+                            
+                            lineRanges.append(range)
+                        })
+                        
+                        if lineRanges.indices.contains(warning.lineno-1) {
+                            editor?.textView.becomeFirstResponder()
+                            editor?.textView.selectedRange = lineRanges[warning.lineno-1]
                         }
                     }
-                    
-                    
-                    if lines.indices.contains(warning.lineno-1) && showCode {
-                        codeView(warning: warning)
+                } label: {
+                    VStack {
+                        HStack {
+                            Group {
+                                if warning.typeDescription.hasSuffix("error") {
+                                    Image(systemName: "xmark.octagon.fill").foregroundColor(.red)
+                                } else {
+                                    Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.yellow)
+                                }
+                            }.font(.title3)
+                            Text(warning.message).foregroundColor(.primary).fixedSize(horizontal: false, vertical: true)
+                            Spacer()
+                            VStack {
+                                Text(warning.type).foregroundColor(.secondary)
+                                Spacer()
+                            }
+                        }
+                        
+                        
+                        if lines.indices.contains(warning.lineno-1) && showCode {
+                            codeView(warning: warning)
+                        }
                     }
-                }
+                }.frame(height: 100)
             }
         }
     }

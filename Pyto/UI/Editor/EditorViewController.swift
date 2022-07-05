@@ -6,7 +6,7 @@
 //  Copyright © 2018-2021 Emma Labbé. All rights reserved.
 //
 
-#if MAIN
+#if !WIDGET
 import UIKit
 import SourceEditor
 import SavannaKit
@@ -20,7 +20,7 @@ import AVKit
 import Foundation
 #endif
 
-#if MAIN
+#if !WIDGET
 func parseArgs(_ args: inout [String]) {
     ParseArgs(&args)
 }
@@ -55,7 +55,7 @@ func directory(for scriptURL: URL) -> URL {
     return url
 }
 
-#if MAIN
+#if !WIDGET
 /// The View controller used to edit source code.
 @objc class EditorViewController: UIViewController, InputAssistantViewDelegate, InputAssistantViewDataSource, UITextViewDelegate, UIDocumentPickerDelegate {
     
@@ -123,17 +123,17 @@ func directory(for scriptURL: URL) -> URL {
             
             document?.editor = self
             
-            #if !SCREENSHOTS
+#if !SCREENSHOTS
             textView.contentTextView.isEditable = !(document?.documentState == .editingDisabled)
-            #else
+#else
             textView.contentTextView.isEditable = true
-            #endif
+#endif
             
             NotificationCenter.default.addObserver(self, selector: #selector(stateChanged(_:)), name: UIDocument.stateChangedNotification, object: document)
             
             DispatchQueue.main.async { [weak self] in
                 if !(self?.parent is REPLViewController) && !(self?.parent is RunModuleViewController) {
-                    self?.view.window?.windowScene?.title = self?.document?.fileURL.deletingPathExtension().lastPathComponent
+                    self?.view.window?.windowScene?.title = self?.document?.fileURL.lastPathComponent
                 }
             }
             
@@ -226,7 +226,7 @@ func directory(for scriptURL: URL) -> URL {
                 return
             }
             
-            #if !SCREENSHOTS
+#if !SCREENSHOTS
             if let data = try? newValue.bookmarkData() {
                 do {
                     try self.document?.fileURL.setExtendedAttribute(data: data, forName: "currentDirectory")
@@ -234,7 +234,7 @@ func directory(for scriptURL: URL) -> URL {
                     print(error.localizedDescription)
                 }
             }
-            #endif
+#endif
         }
     }
     
@@ -243,11 +243,11 @@ func directory(for scriptURL: URL) -> URL {
     
     /// Handles state changes on a document..
     @objc func stateChanged(_ notification: Notification) {
-        #if !SCREENSHOTS
+#if !SCREENSHOTS
         textView.contentTextView.isEditable = !(document?.documentState == .editingDisabled)
-        #else
+#else
         textView.contentTextView.isEditable = true
-        #endif
+#endif
         
         if document?.documentState.contains(.inConflict) == true {
             save { [weak self] (_) in
@@ -267,7 +267,6 @@ func directory(for scriptURL: URL) -> URL {
                         
                         if doc.text != self.textView.text {
                             self.textView.text = doc.text
-                            self.lint()
                         }
                         
                         self.updateSuggestions(force: true)
@@ -390,27 +389,27 @@ func directory(for scriptURL: URL) -> URL {
      
      Format:
      {
-      "exc_type": "ZeroDivisionError",
-      "msg": "division by zero",
-      "as_text": "Traceback (most recent call last):\n  File \"/iCloud//test/exc.py\", line 12, in <module>\n    main()\n  File \"/iCloud//test/exc.py\", line 9, in main\n    return 0/0\nZeroDivisionError: division by zero\n",
-      "stack": [
-       {
-        "file_path": "/iCloud//test/exc.py",
-        "lineno": 9,
-        "line": "return 0/0",
-        "name": "main",
-        "index": 0
-        "_id": "xxx",
-       },
-       {
-        "file_path": "/iCloud//test/exc.py",
-        "lineno": 12,
-        "line": "main()",
-        "name": "<module>",
-        "index": 1
-        "_id": "xxx",
-       }
-      ]
+     "exc_type": "ZeroDivisionError",
+     "msg": "division by zero",
+     "as_text": "Traceback (most recent call last):\n  File \"/iCloud//test/exc.py\", line 12, in <module>\n    main()\n  File \"/iCloud//test/exc.py\", line 9, in main\n    return 0/0\nZeroDivisionError: division by zero\n",
+     "stack": [
+     {
+     "file_path": "/iCloud//test/exc.py",
+     "lineno": 9,
+     "line": "return 0/0",
+     "name": "main",
+     "index": 0
+     "_id": "xxx",
+     },
+     {
+     "file_path": "/iCloud//test/exc.py",
+     "lineno": 12,
+     "line": "main()",
+     "name": "<module>",
+     "index": 1
+     "_id": "xxx",
+     }
+     ]
      }
      */
     @objc func showTraceback(_ json: String) {
@@ -457,6 +456,9 @@ func directory(for scriptURL: URL) -> URL {
     
     /// Button for going back to scripts.
     var scriptsItem: UIBarButtonItem!
+    
+    /// Button for showing the linter.
+    var linterItem: UIBarButtonItem!
     
     /// The button for seeing definitions.
     var definitionsItem: UIBarButtonItem!
@@ -567,18 +569,18 @@ func directory(for scriptURL: URL) -> URL {
             return
         }
         
-        #if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
         let isPIPSupported = true
-        #else
+#else
         let isPIPSupported: Bool
         if #available(iOS 15.0, *), !isiOSAppOnMac {
             isPIPSupported = AVPictureInPictureController.isPictureInPictureSupported()
         } else {
             isPIPSupported = false
         }
-        #endif
+#endif
         
-        let unlockButtonItem = UIBarButtonItem(image: UIImage(systemName: "lock.fill"), style: .plain, target: self, action: #selector(setCwd(_:)))
+        let unlockButtonItem = UIBarButtonItem(image: UIImage(systemName: "lock"), style: .plain, target: self, action: #selector(setCwd(_:)))
         
         if ellipsisButtonItem == nil {
             ellipsisButtonItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: nil)
@@ -594,12 +596,12 @@ func directory(for scriptURL: URL) -> URL {
         makeDocsIfNeeded()
         
         ellipsisButtonItem.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
-        
+            
             UIAction(title: NSLocalizedString("runAndSetArguments", comment: "Description for key command for running and setting arguments."), image: UIImage(systemName: "play"), identifier: nil, discoverabilityTitle: NSLocalizedString("runAndSetArguments", comment: "Description for key command for running and setting arguments."), attributes: [], state: .off, handler: { [weak self] _ in
                 self?.setArgs(true)
             }),
             
-            UIAction(title: NSLocalizedString("debugger", comment: "'Debugger'"), image: UIImage(systemName: "ant"), identifier: nil, discoverabilityTitle: NSLocalizedString("debugger", comment: "'Debugger'"), attributes: [], state: .off, handler: { [weak self] _ in
+            UIAction(title: NSLocalizedString("debugger", comment: "'Debugger'"), image: UIImage(systemName: "ladybug"), identifier: nil, discoverabilityTitle: NSLocalizedString("debugger", comment: "'Debugger'"), attributes: [], state: .off, handler: { [weak self] _ in
                 self?.debug()
             }),
             
@@ -620,8 +622,8 @@ func directory(for scriptURL: URL) -> URL {
             })
         ])
         
-        runBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(run))
-        stopBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "stop.fill"), style: .plain, target: self, action: #selector(stop))
+        runBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "play"), style: .plain, target: self, action: #selector(run))
+        stopBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "stop"), style: .plain, target: self, action: #selector(stop))
         
         if pipItem == nil {
             pipItem = UIBarButtonItem(image: UIImage(systemName: "pip.enter"), style: .plain, target: self, action: #selector(togglePIP))
@@ -641,7 +643,7 @@ func directory(for scriptURL: URL) -> URL {
         scriptsItem = UIBarButtonItem(customView: scriptsButton)
         
         let defintionsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        defintionsButton.setImage(UIImage(systemName: "arrowtriangle.down.fill"), for: .normal)
+        defintionsButton.setImage(UIImage(systemName: "list.dash"), for: .normal)
         defintionsButton.addTarget(self, action: #selector(showDefintions(_:)), for: .touchUpInside)
         definitionsItem = UIBarButtonItem(customView: defintionsButton)
         
@@ -653,51 +655,109 @@ func directory(for scriptURL: URL) -> URL {
         }
         searchButton.addTarget(self, action: #selector(search), for: .touchUpInside)
         searchItem = UIBarButtonItem(customView: searchButton)
-                
+        
         if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController), (parent as? EditorSplitViewController)?.isConsoleShown != true {
             
             if document?.fileURL.pathExtension.lowercased() == "py" {
-                if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
-                    parentNavigationItem?.rightBarButtonItems = [
-                        stopBarButtonItem,
-                    ]+((traceback != nil) ? [showTracebackItem] : [])+(!FileManager.default.isReadableFile(atPath: document!.fileURL.deletingLastPathComponent().path) ? [unlockButtonItem] : [])+[ellipsisButtonItem]
+                
+                let pipItems: [UIBarButtonItem]
+                if #available(iOS 16.0, *) {
+                    pipItems = [pipItem!]
                 } else {
-                    parentNavigationItem?.rightBarButtonItems = [
-                        runBarButtonItem,
-                    ]+((traceback != nil) ? [showTracebackItem] : [])+(!FileManager.default.isReadableFile(atPath: document!.fileURL.deletingLastPathComponent().path) ? [unlockButtonItem] : [])+[ellipsisButtonItem]
+                    pipItems = []
                 }
                 
-                if #available(iOS 15, *) {
+                if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
+                    let runItems: [UIBarButtonItem]
+                    if #available(iOS 16.0, *) {
+                        runItems = []
+                    } else {
+                        runItems = [stopBarButtonItem!]
+                    }
+                    let items = runItems+((traceback != nil) ? [showTracebackItem!] : [])+(!FileManager.default.isReadableFile(atPath: document!.fileURL.deletingLastPathComponent().path) ? [unlockButtonItem] : [])+[ellipsisButtonItem!]
+                    parentNavigationItem?.rightBarButtonItems = items+pipItems
+                } else {
+                    let runItems: [UIBarButtonItem]
+                    if #available(iOS 16.0, *) {
+                        runItems = []
+                    } else {
+                        runItems = [runBarButtonItem]
+                    }
+                    let items = runItems+((traceback != nil) ? [showTracebackItem!] : [])+(!FileManager.default.isReadableFile(atPath: document!.fileURL.deletingLastPathComponent().path) ? [unlockButtonItem] : [])+[ellipsisButtonItem!]
+                    parentNavigationItem?.rightBarButtonItems = items+pipItems
+                }
+                
+                if #available(iOS 16.0, *), traitCollection.horizontalSizeClass == .regular {
+                } else if #available(iOS 15, *) {
                     parentNavigationItem?.leftBarButtonItems = [searchItem, definitionsItem]
                 } else {
                     parentNavigationItem?.leftBarButtonItems = [definitionsItem]
                 }
             } else {
-                if #available(iOS 15, *) {
+                if #available(iOS 16.0, *), traitCollection.horizontalSizeClass == .regular {
+                } else if #available(iOS 15, *) {
                     parentNavigationItem?.leftBarButtonItems = [searchItem]
                 } else {
                     parentNavigationItem?.leftBarButtonItems = []
                 }
                 
-                if document?.fileURL.pathExtension.lowercased() == "html" {
-                    if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
-                        parentNavigationItem?.rightBarButtonItems = [
-                            stopBarButtonItem
-                        ]
-                    } else {
-                        parentNavigationItem?.rightBarButtonItems = [
-                            runBarButtonItem
-                        ]
-                    }
+                if #available(iOS 16.0, *), traitCollection.horizontalSizeClass == .regular {
                 } else {
-                    parentNavigationItem?.rightBarButtonItems = []
+                    if document?.fileURL.pathExtension.lowercased() == "html" {
+                        if let path = document?.fileURL.path, Python.shared.isScriptRunning(path) {
+                            parentNavigationItem?.rightBarButtonItems = [
+                                stopBarButtonItem
+                            ]
+                        } else {
+                            parentNavigationItem?.rightBarButtonItems = [
+                                runBarButtonItem
+                            ]
+                        }
+                    } else {
+                        parentNavigationItem?.rightBarButtonItems = []
+                    }
                 }
             }
         }
-    
+        
         if !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController) {
-            parent?.title = document?.fileURL.deletingPathExtension().lastPathComponent
-            parent?.parent?.title = document?.fileURL.deletingPathExtension().lastPathComponent
+            parent?.title = document?.fileURL.lastPathComponent
+            parent?.parent?.title = document?.fileURL.lastPathComponent
+        }
+        
+        if #available(iOS 16.0, *), let url = document?.fileURL, !(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController) {
+            let props = UIDocumentProperties(url: url)
+            props.activityViewControllerProvider = {
+                UIActivityViewController(activityItems: [self.document!.fileURL], applicationActivities: nil)
+            }
+            props.dragItemsProvider = { session in
+                if let provider = NSItemProvider(contentsOf: url) {
+                    return [UIDragItem(itemProvider: provider)]
+                } else {
+                    return []
+                }
+            }
+            parentNavigationItem?.renameDelegate = self
+            parentNavigationItem?.documentProperties = props
+            parentNavigationItem?.style = .editor
+            
+            let runItem = (Python.shared.isScriptRunning(document?.fileURL.path ?? "") ? stopBarButtonItem! : runBarButtonItem!)
+            let debuggerItem = UIBarButtonItem(image: UIImage(systemName: "ladybug"), style: .plain, target: self, action: #selector(debug))
+            let snippetsItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.curlybraces"), style: .plain, target: self, action: #selector(showSnippets))
+            
+            if linterItem == nil {
+                linterItem = UIBarButtonItem(image: UIImage(systemName: "exclamationmark.bubble"), style: .plain, target: self, action: #selector(showLinter))
+            }
+            
+            let editorGroup = UIBarButtonItemGroup(barButtonItems: [linterItem, snippetsItem], representativeItem: nil)
+            let runGroup = UIBarButtonItemGroup(barButtonItems: [runItem, debuggerItem], representativeItem: nil)
+            
+            parentNavigationItem?.leadingItemGroups = [UIBarButtonItemGroup(barButtonItems: [definitionsItem], representativeItem: nil)]
+            parentNavigationItem?.centerItemGroups = [runGroup, editorGroup]
+        }
+        
+        if #available(iOS 16.0, *), traitCollection.horizontalSizeClass == .regular {
+            parentNavigationItem?.leftBarButtonItems = []
         }
         
         let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
@@ -710,6 +770,14 @@ func directory(for scriptURL: URL) -> URL {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func responds(to aSelector: Selector!) -> Bool {
+        if aSelector == #selector(toggleCompletionsView(_:)) {
+            return textView.isFirstResponder && completions.count > 0
+        } else {
+            return super.responds(to: aSelector)
+        }
     }
     
     override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -729,7 +797,7 @@ func directory(for scriptURL: URL) -> URL {
         }
         
         edgesForExtendedLayout = []
-                
+        
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange(_:)), name: ThemeDidChangeNotification, object: nil)
         NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil) { [weak self] (notif) in
             self?.textView.resignFirstResponder()
@@ -747,6 +815,10 @@ func directory(for scriptURL: URL) -> URL {
         textView.isHidden = true
         
         textView.addSubview(completionsHostingController.view)
+        
+        if #available(iOS 16.0, *) {
+            textView.isFindInteractionEnabled = true
+        }
         
         NoSuggestionsLabel = {
             let label = MarqueeLabel(frame: .zero, rate: 100, fadeLength: 1)
@@ -767,11 +839,11 @@ func directory(for scriptURL: URL) -> URL {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        #if !SCREENSHOTS
+#if !SCREENSHOTS
         textView.contentTextView.isEditable = !isSample
-        #else
+#else
         textView.contentTextView.isEditable = true
-        #endif
+#endif
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -817,18 +889,16 @@ func directory(for scriptURL: URL) -> URL {
             default:
                 (textView.textStorage as? CodeAttributedString)?.language = document?.fileURL.pathExtension.lowercased()
             }
-                        
+            
             self.textView.text = document?.text ?? ""
-            self.lint()
             
-            
-            #if !SCREENSHOTS
+#if !SCREENSHOTS
             if !FileManager.default.isWritableFile(atPath: doc.fileURL.path) {
                 self.navigationItem.leftBarButtonItem = nil
                 self.textView.contentTextView.isEditable = false
                 self.textView.contentTextView.inputAccessoryView = nil
             }
-            #endif
+#endif
             
             if doc.fileURL.path == Bundle.main.path(forResource: "installer", ofType: "py") && (!(parent is REPLViewController) && !(parent is RunModuleViewController) && !(parent is PipInstallerViewController)) {
                 self.parentNavigationItem?.leftBarButtonItems = []
@@ -889,7 +959,7 @@ func directory(for scriptURL: URL) -> URL {
             if Python.shared.isScriptRunning(path) {
                 stop()
             }
-                        
+            
             if Python.shared.isScriptRunning(path) || !Python.shared.isSetup {
                 _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (timer) in
                     if !Python.shared.isScriptRunning(path) && Python.shared.isSetup {
@@ -941,7 +1011,7 @@ func directory(for scriptURL: URL) -> URL {
         self.setup(theme: ConsoleViewController.choosenTheme)
     }
     
-    #if !Xcode11
+#if !Xcode11
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -950,10 +1020,8 @@ func directory(for scriptURL: URL) -> URL {
         if !completionsHostingController.view.isHidden {
             placeCompletionsView()
         }
-        
-        (textView as? EditorTextView)?.placeWarnings()
     }
-    #endif
+#endif
     
     override var canBecomeFirstResponder: Bool {
         return true
@@ -962,7 +1030,7 @@ func directory(for scriptURL: URL) -> URL {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(unindent) {
             return isIndented && textView.isFirstResponder
-        } else if action == #selector(search) {
+        } else if action == #selector(search) || action == #selector(find(_:)) {
             if #available(iOS 15.0, *) {
                 return true
             } else {
@@ -992,7 +1060,7 @@ func directory(for scriptURL: URL) -> URL {
     
     override var keyCommands: [UIKeyCommand]? {
         if textView.contentTextView.isFirstResponder {
-            var commands = [UIKeyCommand]()
+            var commands = [UIKeyCommand(input: UIKeyCommand.inputEscape, modifierFlags: [], action: #selector(toggleCompletionsView(_:)), discoverabilityTitle: "\(completionsHostingController?.view.isHidden == false ? "Show" : "Hide") completions")]
             
             if #available(iOS 15.0, *) {
             } else {
@@ -1015,7 +1083,7 @@ func directory(for scriptURL: URL) -> URL {
     // MARK: - Searching
     
     var searchVC: UIViewController!
-
+    
     /// Searches for text in code.
     @objc func search() {
         
@@ -1023,22 +1091,143 @@ func directory(for scriptURL: URL) -> URL {
             return
         }
         
-        if searchVC == nil {
-            searchVC = UIHostingController(rootView: TextViewSearch(textView: textView))
-            searchVC.modalPresentationStyle = .pageSheet
+        if #available(iOS 16.0, *) {
+            textView.findInteraction?.presentFindNavigator(showingReplace: true)
+        } else {
+            if searchVC == nil {
+                searchVC = UIHostingController(rootView: TextViewSearch(textView: textView))
+                searchVC.modalPresentationStyle = .pageSheet
+            }
+            
+            if let presentationController = searchVC.presentationController as? UISheetPresentationController {
+                presentationController.detents = [.medium(), .large()]
+                presentationController.prefersGrabberVisible = true
+            }
+            
+            present(searchVC, animated: true, completion: nil)
         }
-        
-        if let presentationController = searchVC.presentationController as? UISheetPresentationController {
-            presentationController.detents = [.medium(), .large()]
-            presentationController.prefersGrabberVisible = true
-        }
-        
-        present(searchVC, animated: true, completion: nil)
+    }
+    
+    @objc override func find(_ sender: Any?) {
+        search()
     }
     
     // MARK: - Actions
     
+    private var previousSelectedRange: NSRange?
+    
+    private var previousSelectedLine: String?
+    
+    @available(iOS 15.0, *)
+    @objc func showSnippets() {
+        previousSelectedRange = textView.selectedRange
+        previousSelectedLine = textView.currentLine
+        let snippetsView = SnippetsView(language: (textView.textStorage as? CodeAttributedString)?.language ?? "python", selectionHandler: { [weak self] codeString in
+            
+            var codeLines = [String]()
+            
+            if let range = self?.previousSelectedRange {
+                let line = self?.previousSelectedLine ?? ""
+                var indentation = ""
+                for char in line {
+                    let charString = String(char)
+                    if charString != " " && charString == "\t" {
+                        break
+                    }
+                    indentation += charString
+                }
+                
+                var firstLine = true
+                for codeLine in codeString.components(separatedBy: "\n") {
+                    guard !firstLine else {
+                        firstLine = false
+                        codeLines.append(codeLine)
+                        continue
+                    }
+                    
+                    codeLines.append(indentation+codeLine)
+                }
+                
+                let _code = self!.textView.text as NSString
+                self?.textView.text = _code.replacingCharacters(in: range, with: codeLines.joined(separator: "\n"))
+                self?.dismiss(animated: true) {
+                    self?.textView.becomeFirstResponder()
+                    self?.textView.selectedRange = NSRange(location: range.location, length: (codeLines.joined(separator: "\n") as NSString).length)
+                }
+            } else {
+                
+            }
+        })
+        
+        present(UIHostingController(rootView: snippetsView), animated: true)
+    }
+    
     private var definitionsNavVC: UINavigationController?
+    
+    @available(iOS 15.0, *)
+    fileprivate struct LinterView: SwiftUI.View {
+        
+        class WarningsHolder: ObservableObject {
+            
+            var warnings = [Linter.Warning]() {
+                didSet {
+                    objectWillChange.send()
+                }
+            }
+        }
+        
+        @ObservedObject var warningsHolder: WarningsHolder
+        
+        var fileURL: URL
+        
+        var editor: EditorViewController
+        
+        var body: some SwiftUI.View {
+            NavigationView {
+                VStack {
+                    if warningsHolder.warnings.count > 0 {
+                        List {
+                            Linter(editor: editor, fileURL: fileURL, code: editor.textView.text, warnings: warningsHolder.warnings, showCode: true, language: fileURL.pathExtension.lowercased() == "py" ? "python" : "objc")
+                        }
+                    } else {
+                        Spacer()
+                        Text("No errors or warnings").foregroundColor(.secondary)
+                        Spacer()
+                    }
+                }
+                    .navigationTitle("Linter")
+                    .toolbar {
+                        Button {
+                            editor.dismiss(animated: true)
+                        } label: {
+                            Text("Done").bold()
+                        }
+                    }
+                    .navigationBarHidden(editor.traitCollection.horizontalSizeClass == .regular)
+            }.navigationViewStyle(.stack)
+        }
+    }
+    
+    var warningsHolder: Any?
+    
+    var linterVC: UIViewController?
+    
+    @objc func showLinter() {
+        
+        guard #available(iOS 15.0, *), let fileURL = document?.fileURL else {
+            return
+        }
+        
+        if warningsHolder == nil {
+            warningsHolder = LinterView.WarningsHolder()
+        }
+        
+        lint()
+        
+        let linter = LinterView(warningsHolder: warningsHolder as! LinterView.WarningsHolder, fileURL: fileURL, editor: self)
+        
+        linterVC = UIHostingController(rootView: linter)
+    }
     
     /// Shows function definitions.
     @objc func showDefintions(_ sender: Any) {
@@ -1070,6 +1259,11 @@ func directory(for scriptURL: URL) -> URL {
                             textView.scrollToBottom()
                         }
                     }
+                    
+                    if lines.indices.contains(def.line-1) {
+                        textView.becomeFirstResponder()
+                        textView.selectedRange = lines[def.line-1]
+                    }
                 }
             }) {
                 navVC.dismiss(animated: true, completion: nil)
@@ -1082,6 +1276,8 @@ func directory(for scriptURL: URL) -> URL {
         
         navVC.popoverPresentationController?.barButtonItem = definitionsItem
         definitionsNavVC = navVC
+        
+        navVC.isNavigationBarHidden = traitCollection.horizontalSizeClass == .regular
         
         present(navVC, animated: true, completion: nil)
     }
@@ -1539,10 +1735,6 @@ func directory(for scriptURL: URL) -> URL {
     /// Comments / Uncomments line.
     @objc func toggleComment() {
         
-        guard textView.contentTextView.isFirstResponder else {
-            return
-        }
-        
         guard let selected = textView.contentTextView.selectedTextRange else {
             return
         }
@@ -1585,7 +1777,10 @@ func directory(for scriptURL: URL) -> URL {
                 line = "#"+currentLine
             }
             if let lineRange = textView.contentTextView.currentLineRange {
-                textView.contentTextView.replace(lineRange, withText: line)
+                let location = textView.offset(from: textView.beginningOfDocument, to: lineRange.start)
+                let length = textView.offset(from: lineRange.start, to: lineRange.end)
+                
+                textView.text = (textView.text as NSString).replacingCharacters(in: NSRange(location: location, length: length), with: line)
             }
         }
     }
@@ -1794,7 +1989,7 @@ func directory(for scriptURL: URL) -> URL {
                     continue
                 }
                 
-                (editor.textView as? EditorTextView)?.warnings = Linter.warnings(pylintOutput: warnings)
+                editor.warnings = Linter.warnings(pylintOutput: warnings)
             }
         }
     }
@@ -1808,19 +2003,19 @@ func directory(for scriptURL: URL) -> URL {
             Self.linterCode = textView.text
             Python.shared.run(code: """
             try:
-                import sys
                 import io
+                import sys
                 import traceback
                 import threading
                 import console
                 
                 from astroid import MANAGER
-                MANAGER.astroid_cache.clear()
+                #MANAGER.astroid_cache.clear()
                 
-                console.__clear_mods__()
+                #console.__clear_mods__()
                 
                 script_path = "\(document!.fileURL.path.replacingOccurrences(of: "\"", with: "\\\""))"
-                threading.current_thread().script_path = script_path
+                threading.current_thread().script_path = "/linter.py"
                 
                 import multiprocessing
                 import configparser
@@ -1875,7 +2070,7 @@ func directory(for scriptURL: URL) -> URL {
             
             DispatchQueue.global().async {
                 lintCSource(url: url, textView: self.textView) { warnings in
-                    (self.textView as? EditorTextView)?.warnings = warnings
+                    self.warnings = warnings
                 }
             }
         }
@@ -1886,26 +2081,6 @@ func directory(for scriptURL: URL) -> URL {
         #if MAIN
         setHasUnsavedChanges(textView.text != document?.text)
         #endif
-        
-        func removeUndoAndRedo() {
-            for (i, item) in (UIMenuController.shared.menuItems ?? []).enumerated() {
-                if item.action == #selector(EditorViewController.redo) || item.action == #selector(EditorViewController.undo) {
-                    UIMenuController.shared.menuItems?.remove(at: i)
-                    removeUndoAndRedo()
-                    break
-                }
-            }
-        }
-        
-        removeUndoAndRedo()
-        
-        if textView.undoManager?.canRedo == true {
-            UIMenuController.shared.menuItems?.insert(UIMenuItem(title: NSLocalizedString("menuItems.redo", comment: "The 'Redo' menu item"), action: #selector(EditorViewController.redo)), at: 0)
-        }
-        
-        if textView.undoManager?.canUndo == true {
-            UIMenuController.shared.menuItems?.insert(UIMenuItem(title: NSLocalizedString("menuItems.undo", comment: "The 'Undo' menu item"), action: #selector(EditorViewController.undo)), at: 0)
-        }
         
         let text = textView.text ?? ""
         EditorViewController.isCompleting = true
@@ -1929,7 +2104,6 @@ func directory(for scriptURL: URL) -> URL {
                 }
                 
                 editor?.textView.text = textView.text
-                editor?.lint()
             }
         }
         
@@ -1938,8 +2112,6 @@ func directory(for scriptURL: URL) -> URL {
                 (child as? PytoUIPreviewViewController)?.preview(self)
             }
         }
-        
-        lint()
     }
     
     
@@ -1954,7 +2126,6 @@ func directory(for scriptURL: URL) -> URL {
         
         if text == "\n", !completionsHostingController.view.isHidden, codeCompletionManager.completions.indices.contains(codeCompletionManager.selectedIndex) {
             if codeCompletionManager.completions[codeCompletionManager.selectedIndex].isEmpty || codeCompletionManager.isDocStringExpanded {
-                completionsHostingController.view.isHidden = true
                 completionsHostingController.view.isHidden = true
             } else {
                 inputAssistantView(inputAssistant, didSelectSuggestionAtIndex: codeCompletionManager.selectedIndex)
@@ -2184,6 +2355,26 @@ func directory(for scriptURL: URL) -> URL {
     }
 
     // MARK: - Suggestions
+    
+    /// Linter warnings.
+    var warnings = [Any]() {
+        didSet {
+            guard #available(iOS 15.0, *) else {
+                return
+            }
+            
+            (warningsHolder as? LinterView.WarningsHolder)?.warnings = (warnings as? [Linter.Warning]) ?? []
+            
+            guard let linter = linterVC else {
+                return
+            }
+            
+            linter.preferredContentSize = CGSize(width: 500, height: (120*warnings.count)+100)
+            linter.modalPresentationStyle = .popover
+            linter.popoverPresentationController?.barButtonItem = linterItem
+            present(linter, animated: false)
+        }
+    }
     
     /// Sets the position of the completions view.
     func placeCompletionsView() {
@@ -2792,6 +2983,10 @@ func directory(for scriptURL: URL) -> URL {
         }
     }
     
+    @objc func toggleCompletionsView(_ sender: Any) {
+        completionsHostingController.view.isHidden.toggle()
+    }
+    
     // MARK: - Input assistant view delegate
     
     func inputAssistantView(_ inputAssistantView: InputAssistantView, didSelectSuggestionAtIndex index: Int) {
@@ -2828,8 +3023,6 @@ func directory(for scriptURL: URL) -> URL {
             textView.text = text as String
             
             textView.selectedTextRange = textView.textRange(from: wordRange.start, to: wordRange.start)
-            
-            lint()
         }
         
         let selectedRange = textView.contentTextView.selectedRange
@@ -2988,6 +3181,68 @@ func directory(for scriptURL: URL) -> URL {
             }))
             
             present(alert, animated: true, completion: nil)
+        }
+    }
+}
+
+@available(iOS 16.0, *)
+extension EditorViewController: UINavigationItemRenameDelegate {
+    
+    func navigationItem(_ navigationItem: UINavigationItem, willBeginRenamingWith suggestedTitle: String, selectedRange: Range<String.Index>) -> (String, Range<String.Index>) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            guard let window = self.view.window else {
+                return
+            }
+            
+            guard let textField = findFirstResponder(inView: window) as? UITextField else {
+                return
+            }
+                        
+            textField.autocorrectionType = .no
+            textField.autocapitalizationType = .none
+            textField.smartDashesType = .no
+            textField.smartQuotesType = .no
+            textField.spellCheckingType = .no
+        }
+        
+        return (suggestedTitle, selectedRange)
+    }
+    
+    func navigationItem(_ navigationItem: UINavigationItem, didEndRenamingWith title: String) {
+        guard let url = document?.fileURL else {
+            return
+        }
+        
+        var newURL = url.deletingLastPathComponent().appendingPathComponent(title)
+        if !title.lowercased().hasSuffix(url.pathExtension.lowercased()) {
+            newURL.appendPathExtension(url.pathExtension)
+        }
+        
+        guard newURL != url else {
+            return
+        }
+        
+        save { _ in
+            self.document?.close(completionHandler: { _ in
+                do {
+                    try FileManager.default.moveItem(at: url, to: newURL)
+                    let document = PyDocument(fileURL: newURL)
+                    document.open { _ in
+                        self.isDocOpened = false
+                        self.parent?.title = document.fileURL.lastPathComponent
+                        self.document = document
+                        self.viewWillAppear(false)
+                        self.appKitWindow.representedURL = document.fileURL
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: NSLocalizedString("error", comment: "Error"), message: error.localizedDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Cancel"), style: .cancel))
+                        self.present(alert, animated: true)
+                    }
+                }
+            })
         }
     }
 }

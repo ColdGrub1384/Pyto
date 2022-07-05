@@ -12,75 +12,6 @@ import SwiftUI
 /// An `UITextView` to be used on the editor.
 class EditorTextView: LineNumberTextView, UITextViewDelegate {
     
-    @available(iOS 15.0, *)
-    struct WarningView: View {
-        
-        var warnings: [Linter.Warning]
-        
-        @State var selectedWarning: Linter.Warning?
-        
-        var textView: EditorTextView
-        
-        var vc: UIHostingController<AnyView>
-        
-        @State var isShowingWarnings = false
-        
-        var body: some View {
-            HStack {
-                Button {
-                    withAnimation {
-                        if selectedWarning != nil {
-                            selectedWarning = nil
-                        } else if warnings.count == 1 {
-                            selectedWarning = warnings[0]
-                        } else {
-                            textView.resignFirstResponder()
-                            isShowingWarnings = true
-                        }
-                    }
-                } label: {
-                    if (selectedWarning != nil && selectedWarning!.typeDescription.hasSuffix("error")) || (selectedWarning == nil && warnings.contains(where: { $0.typeDescription.hasSuffix("error") })) {
-                        Image(systemName: "xmark.octagon.fill").foregroundColor(.red).font(.footnote)
-                    } else {
-                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.yellow).font(.footnote)
-                    }
-                }.sheet(isPresented: $isShowingWarnings) {
-                    NavigationView {
-                        List {
-                            Linter(editor: textView.next as? EditorViewController, fileURL: (textView.next as? EditorViewController)?.document?.fileURL ?? URL(fileURLWithPath: "/"), code: textView.text, warnings: warnings, showCode: false, language: (textView.next as? EditorViewController)?.document?.fileURL.pathExtension.lowercased() == "py" ? "python" : "objc")
-                        }
-                            .navigationTitle("Linter")
-                            .toolbar {
-                                Button {
-                                    isShowingWarnings = false
-                                } label: {
-                                    Text("Done").bold()
-                                }
-                            }
-                    }.navigationViewStyle(.stack)
-                }.padding(.trailing, 3)
-                
-                if let selectedWarning = selectedWarning {
-                    Text(selectedWarning.message)
-                        .transition(.asymmetric(
-                        insertion: .move(edge: .trailing),
-                        removal: .identity))
-                        .font(.system(size: CGFloat(ThemeFontSize-5)))
-                }
-            }.onChange(of: selectedWarning) { _ in
-                vc.view.sizeToFit()
-                vc.view.frame.origin.x = textView.frame.width-vc.view.frame.width
-            }
-                .padding(2)
-                .background((warnings.contains(where: { $0.typeDescription.hasSuffix("error") }) ? Color.red : Color.yellow).opacity(0.3))
-                .frame(maxWidth: textView.frame.width-50)
-                .fixedSize()
-                .transition(.asymmetric(
-                    insertion: .move(edge: .trailing),
-                    removal: .move(edge: .leading)))
-        }
-    }
-    
     /// Undo.
     @objc func undo() {
         let theDelegate = delegate
@@ -97,62 +28,15 @@ class EditorTextView: LineNumberTextView, UITextViewDelegate {
         delegate = theDelegate
     }
     
-    var warnings = [Any]() {
-        didSet {
-            placeWarnings()
+    @objc override func find(_ sender: Any?) {
+        var next = self.next
+        while !(next is EditorViewController) && next != nil {
+            next = next?.next
         }
+        
+        (next as? EditorViewController)?.search()
     }
-    
-    var warningViews = [UIHostingController<AnyView>]()
-    
-    func placeWarnings() {
-        guard #available(iOS 15.0, *) else {
-            return
-        }
         
-        for vc in warningViews {
-            vc.removeFromParent()
-            vc.view.removeFromSuperview()
-        }
-        
-        var warnings = [Int: [Linter.Warning]]()
-        for warning in (self.warnings as? [Linter.Warning]) ?? [] {
-            if warnings[warning.lineno] != nil {
-                warnings[warning.lineno]?.append(warning)
-            } else {
-                warnings[warning.lineno] = [warning]
-            }
-        }
-        
-        for warning in warnings {
-            let vc = UIHostingController(rootView: AnyView(EmptyView()))
-            vc.rootView = AnyView(WarningView(warnings: warning.value, textView: self, vc: vc))
-            let view = vc.view!
-            view.sizeToFit()
-            
-            let text = (self.text as NSString)
-            var i = 1
-            text.enumerateSubstrings(in: NSRange(location: 0, length: text.length), options: .byLines) { line, lineRange, _, stop in
-                
-                if i == warning.key {
-                    stop.pointee = false
-                    
-                    guard let range = lineRange.toTextRange(textInput: self) else {
-                        return
-                    }
-                    
-                    view.frame.origin.y = self.firstRect(for: range).minY
-                    view.frame.origin.x = self.frame.width-view.frame.width
-                    (self.next as? UIViewController)?.addChild(vc)
-                    self.addSubview(view)
-                    self.warningViews.append(vc)
-                }
-                
-                i += 1
-            }
-        }
-    }
-    
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(undo) {
             return undoManager?.canUndo ?? false
@@ -171,8 +55,12 @@ class EditorTextView: LineNumberTextView, UITextViewDelegate {
                 next = next?.next
             }
             
-            if (next as? EditorViewController)?.numberOfSuggestionsInInputAssistantView() != 0 {
-                (next as? EditorViewController)?.nextSuggestion()
+            guard let editor = next as? EditorViewController else {
+                return super.pressesBegan(presses, with: event)
+            }
+            
+            if editor.numberOfSuggestionsInInputAssistantView() != 0 {
+                editor.nextSuggestion()
                 return
             }
         }
