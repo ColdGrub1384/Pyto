@@ -227,7 +227,7 @@ class DocumentationManager: ObservableObject {
     //                / index.html ...
     //                / pyto_documentation.json
     
-    static let documentationsURL = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("documentations")
+    static let documentationsURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent("documentations")
     
     let documentationsURL = documentationsURL
     
@@ -333,6 +333,11 @@ class DocumentationManager: ObservableObject {
         await MainActor.run {
             progress?.wrappedValue = request.progress
         }
+        
+        if !FileManager.default.fileExists(atPath: documentationsURL.path) {
+            try? FileManager.default.createDirectory(at: documentationsURL, withIntermediateDirectories: false, attributes: nil)
+        }
+        
         try await request.beginAccessingResources()
         for documentation in documentations {
             guard let zipURL = Bundle.main.url(forResource: documentation.filename, withExtension: nil) else {
