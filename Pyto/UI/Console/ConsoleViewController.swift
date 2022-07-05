@@ -252,9 +252,9 @@ import SwiftUI
     func print(_ text: String) {
         self.text += text
         
-        let semaphore: Python.Semaphore?
+        let semaphore: DispatchSemaphore?
         if !Thread.isMainThread {
-            semaphore = Python.Semaphore(value: 0)
+            semaphore = DispatchSemaphore(value: 0)
         } else {
             semaphore = nil
         }
@@ -700,7 +700,7 @@ import SwiftUI
     // MARK: - UI Presentation
     
     @available(iOS 13.0, *)
-    private class ViewController: UIViewController {
+    class ViewController: UIViewController {
         
         @objc func close() {
             dismiss(animated: true, completion: nil)
@@ -750,15 +750,14 @@ import SwiftUI
             view.backgroundColor = view.subviews.first?.backgroundColor
             
             navigationItem.leftItemsSupplementBackButton = true
-            navigationItem.leftBarButtonItems = view.subviews.first?.buttonItems as? [UIBarButtonItem]
+            navigationItem.leftBarButtonItems = view.subviews.first?.leftButtonItems as? [UIBarButtonItem]
+            navigationItem.rightBarButtonItems = view.subviews.first?.rightButtonItems as? [UIBarButtonItem]
             
             if let uiView = view.subviews.first, let view = PyView.values[uiView] {
                 let navVC = navigationController as? NavigationController
                 if navVC?.pyViews.contains(view) == false {
                     navVC?.pyViews.append(view)
                 }
-                
-                navigationController?.isNavigationBarHidden = view.navigationBarHidden
             }
         }
         
@@ -780,7 +779,11 @@ import SwiftUI
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             
-            view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+            if let uiView = view.subviews.first, let view = PyView.values[uiView], view is PyNavigationView {
+                self.view.subviews.first?.frame = self.view.frame
+            } else {
+                view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+            }
             
             appear()
         }
@@ -791,8 +794,21 @@ import SwiftUI
             coordinator.animate(alongsideTransition: { (_) in
             }) { (_) in
                 if self.view.window?.windowScene?.activationState == .foregroundActive || self.view.window?.windowScene?.activationState == .foregroundInactive {
-                    self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
+                    
+                    if let uiView = self.view.subviews.first, let view = PyView.values[uiView], view is PyNavigationView {
+                        self.view.subviews.first?.frame = self.view.frame
+                    } else {
+                        self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
+                    }                    
                 }
+            }
+        }
+        
+        override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+            
+            if let view = self.view.subviews.first {
+                PyView.values[view]?.updateBorderColor()
             }
         }
         
@@ -807,7 +823,11 @@ import SwiftUI
             guard let r = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
             
             guard r.origin.y > 0 else {
-                view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+                if let uiView = self.view.subviews.first, let view = PyView.values[uiView], view is PyNavigationView {
+                    self.view.subviews.first?.frame = self.view.frame
+                } else {
+                    self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
+                }
                 return
             }
             
@@ -822,13 +842,17 @@ import SwiftUI
                 return
             }
             
-            view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+            if let uiView = self.view.subviews.first, let view = PyView.values[uiView], view is PyNavigationView {
+                self.view.subviews.first?.frame = self.view.frame
+            } else {
+                self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
+            }
         }
     }
     
     /// A Navigation Controller containing PytoUI views.
     @available(iOS 13.0, *)
-    private class NavigationController: UINavigationController {
+    class NavigationController: UINavigationController {
         
         var pyViews = [PyView]() {
             didSet {
@@ -839,7 +863,6 @@ import SwiftUI
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             
-            setNavigationBarHidden(pyViews.last?.navigationBarHidden == true, animated: true)
             navigationBar.backgroundColor = UIColor.systemBackground
             view.backgroundColor = pyViews.last?.backgroundColor?.color
         }
@@ -931,6 +954,17 @@ import SwiftUI
             if vc.modalPresentationStyle == .pageSheet && size != .zero {
                 vc.modalPresentationStyle = .formSheet
             }
+            
+            if (view as? PyView)?.presentationMode == PyView.PresentationModeNewScene {
+                if UIDevice.current.isMultitaskingSupported {
+                    SceneDelegate.viewControllerToShow = vc
+                    UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil)
+                    return
+                } else {
+                    (view as? PyView)?.presentationMode = PyView.PresentationModeFullScreen
+                }
+            }
+            
             if path == nil {
                for scene in UIApplication.shared.connectedScenes {
                    let window = (scene as? UIWindowScene)?.windows.first
@@ -1006,19 +1040,13 @@ import SwiftUI
         vc.view.addSubview(view.view)
         
         #if MAIN
-        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: vc, action: #selector(ViewController.close))
-        
-        let navVC = NavigationController(rootViewController: vc)
-        navVC.pyViews = [view]
-        view.viewController = navVC
-        
         if view.presentationMode == PyView.PresentationModeFullScreen {
-            navVC.modalPresentationStyle = .overFullScreen
+            vc.modalPresentationStyle = .overFullScreen
         } else if view.presentationMode == PyView.PresentationModeWidget, let viewController = UIStoryboard(name: "Widget Simulator", bundle: Bundle.main).instantiateInitialViewController() {
             
             let widget = (viewController as? UINavigationController)?.viewControllers.first as? WidgetSimulatorViewController
             
-            viewController.modalPresentationStyle = .pageSheet
+            vc.modalPresentationStyle = .pageSheet
             widget?.pyView = view
             
             if let path = path {
@@ -1028,14 +1056,10 @@ import SwiftUI
             return viewController
         }
         
-        return navVC
+        return vc
         #else
-        let navVC = NavigationController(rootViewController: vc)
-        navVC.navigationBar.isTranslucent = false
-        navVC.modalPresentationStyle = .fullScreen
-        navVC.pyView = view
-        view.viewController = navVC
-        return navVC
+        view.viewController = vc
+        return vc
         #endif
     }
     
