@@ -15,7 +15,7 @@ fileprivate extension Array where Element: Hashable {
     }
 }
 
-public struct Definition: View, Hashable {
+public struct Definition: Hashable {
     
     public static func == (lhs: Definition, rhs: Definition) -> Bool {
         lhs.signature == rhs.signature
@@ -49,10 +49,6 @@ public struct Definition: View, Hashable {
     
     public var type: String
     
-    @State var isDocStringExpanded = false
-    
-    @State var text = ""
-    
     public init(signature: String, line: Int, docString: String, name: String, signatures: [String], definedNames: [Definition], moduleName: String, type: String) {
         self._signature = signature
         self.line = line
@@ -62,55 +58,6 @@ public struct Definition: View, Hashable {
         self.definedNames = definedNames
         self.moduleName = moduleName
         self.type = type
-    }
-    
-    public var body: some View {
-        VStack {
-            SearchBar(text: $text).padding()
-            
-            ScrollView {
-                VStack {
-                    HStack {
-                        if #available(iOS 15.0, *) {
-                            Text(signature).bold().font(.custom("Courier", size: UIFont.labelFontSize)).textSelection(.enabled)
-                        } else {
-                            Text(signature).bold().font(.custom("Courier", size: UIFont.labelFontSize))
-                        }
-                        Spacer()
-                    }.padding()
-                    
-                    if !docString.isEmpty {
-                        DisclosureGroup(isExpanded: $isDocStringExpanded) {
-                            Text(docString).font(.custom("Courier", size: UIFont.labelFontSize)).disabled(true)
-                        } label: {
-                            Text("Docstring").bold()
-                        }.padding(.horizontal)
-                    }
-                    
-                    ForEach(definedNames.uniqued().filter({ $0.type != "module" }).sorted(by: { $0.signature.lowercased() < $1.signature.lowercased() }).filter({ def in
-                        
-                        if text != "" {
-                            return def.signature.contains(text)
-                        } else {
-                            return true
-                        }
-                        
-                    }), id: \.signature) { name in
-                        NavigationLink(destination: {
-                            name.navigationTitle(name.name)
-                        }, label: {
-                            VStack {
-                                HStack {
-                                    HighlightedText(name.signature, matching: text).font(.custom("Courier", size: UIFont.labelFontSize))
-                                    Spacer()
-                                }
-                                Divider()
-                            }.foregroundColor(.primary)
-                        }).padding(.horizontal)
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -172,23 +119,20 @@ public struct DefinitionsView: View {
                 }
             }), id: \.signature) { item in
                 
-                NavigationLink {
-                    item.navigationBarItems(trailing: Button(action: {
-                        self.handler(item)
-                    }) {
-                        Text("Go")
-                    }).navigationTitle(item.name)
+                Button {
+                    self.handler(item)
                 } label: {
                     HStack {
                         HighlightedText(item.signature, matching: self.text)
-                            .font(Font.custom("Courier", size: 16)).foregroundColor(.primary)
+                            .foregroundColor(.primary)
+                            .font(.custom("Menlo", size: UIFont.systemFontSize))
                         Spacer()
                         Text("\(item.line)")
-                            .font(Font.custom("Courier", size: 16))
                             .foregroundColor(.secondary)
-                    }
+                            .font(.custom("Menlo", size: UIFont.systemFontSize))
+                    }.padding(.vertical)
                 }
-            }.navigationBarItems(trailing:
+            }.listStyle(.plain).navigationBarItems(trailing:
                 Button(action: {
                     self.dismiss?()
                 }) {
@@ -197,7 +141,7 @@ public struct DefinitionsView: View {
                     }
                 }.hover()
             )
-        }.navigationBarTitle(Text("Definitions")).navigationBarTitleDisplayMode(.large)
+        }
     }
 }
 
