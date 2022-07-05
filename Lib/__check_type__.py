@@ -1,3 +1,5 @@
+from enum import Enum, IntFlag
+
 func = None
 
 
@@ -19,7 +21,10 @@ def check(_object, name, types):
 
         if isinstance(_object, _type):
             return
-
+        
+    if "value" in dir(_object) and (isinstance(_object, Enum) or isinstance(_object, IntFlag)) and check(_object.value, name, types):
+        return
+        
     msg = f"Invalid value type. The '{name}' parameter must be an instance of one of the following types:"
     for _type in types:
         msg += f"\n{_type}"

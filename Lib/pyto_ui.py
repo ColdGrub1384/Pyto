@@ -10,6 +10,8 @@ This library may have a lot of similarities with ``UIKit``, but subclassing isn'
 """
 
 from __future__ import annotations
+from unicodedata import name
+from xmlrpc.client import Boolean
 from UIKit import UIFont as __UIFont__, UIImage, UIView, UIViewController
 from Foundation import NSThread, NSURL
 from typing import List, Callable, Tuple
@@ -34,6 +36,9 @@ import warnings
 import re
 from timeit import default_timer as timer
 from _docsupport import is_sphinx
+from dataclasses import dataclass
+from enum import Enum, IntFlag
+from collections import namedtuple
 
 try:
     from rubicon.objc import ObjCClass, CGFloat
@@ -91,8 +96,10 @@ __PyTableView__ = __Class__("PyTableView")
 __PyTableViewCell__ = __Class__("PyTableViewCell")
 __PyTableViewSection__ = __Class__("PyTableViewSection")
 __PyWebView__ = __Class__("PyWebView")
+__PyCollectionView__ = __Class__("PyCollectionView")
 __PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
 __PyUIKitView__ = __Class__("PyUIKitView")
+__PyNavigationView__ = __Class__("PyNavigationView")
 
 __PyColor__ = __Class__("PyColor")
 __PyButtonItem__ = __Class__("PyButtonItem")
@@ -109,855 +116,954 @@ except NameError:
 
 # MARK: - Gesture Recognizer Type
 
-GESTURE_TYPE = ui_constants.GESTURE_TYPE
+class GestureType(Enum):
+    """
+    Types of gestures handled by a gesture recognizer.
+    """
 
-GESTURE_TYPE_LONG_PRESS = ui_constants.GESTURE_TYPE_LONG_PRESS
-"""
-A long press gesture.
-"""
+    LONG_PRESS = ui_constants.GESTURE_TYPE_LONG_PRESS
+    """
+    A long press gesture.
+    """
 
-GESTURE_TYPE_PAN = ui_constants.GESTURE_TYPE_PAN
-"""
-A dragging gesture.
-"""
 
-GESTURE_TYPE_TAP = ui_constants.GESTURE_TYPE_TAP
-"""
-A tap gesture.
-"""
+    PAN = ui_constants.GESTURE_TYPE_PAN
+    """
+    A dragging gesture.
+    """
+
+    TAP = ui_constants.GESTURE_TYPE_TAP
+    """
+    A tap gesture.
+    """
 
 # MARK: - Keyboard Appearance
 
-KEYBOARD_APPEARANCE = ui_constants.KEYBOARD_APPEARANCE
+class KeyboardAppearance(Enum):
+    """
+    Appearances of the OS keyboard.
+    """
 
-KEYBOARD_APPEARANCE_DEFAULT = ui_constants.KEYBOARD_APPEARANCE_DEFAULT
-"""
-Specifies the default keyboard appearance for the current input method.
-"""
+    DEFAULT = ui_constants.KEYBOARD_APPEARANCE_DEFAULT
+    """
+    Specifies the default keyboard appearance for the current input method.
+    """
 
-KEYBOARD_APPEARANCE_LIGHT = ui_constants.KEYBOARD_APPEARANCE_LIGHT
-"""
-Specifies a keyboard appearance suitable for a light UI look.
-"""
+    LIGHT = ui_constants.KEYBOARD_APPEARANCE_LIGHT
+    """
+    Specifies a keyboard appearance suitable for a light UI look.
+    """
 
-KEYBOARD_APPEARANCE_DARK = ui_constants.KEYBOARD_APPEARANCE_DARK
-"""
-Specifies a keyboard appearance suitable for a dark UI look.
-"""
+    DARK = ui_constants.KEYBOARD_APPEARANCE_DARK
+    """
+    Specifies a keyboard appearance suitable for a dark UI look.
+    """
 
 # MARK: - Keyboard Type
 
-KEYBOARD_TYPE = ui_constants.KEYBOARD_TYPE
+class KeyboardType(Enum):
+    """
+    Keyboard layouts.
+    """
 
-KEYBOARD_TYPE_DEFAULT = ui_constants.KEYBOARD_TYPE_DEFAULT
-"""
-Specifies the default keyboard for the current input method.
-"""
+    DEFAULT = ui_constants.KEYBOARD_TYPE_DEFAULT
+    """
+    Specifies the default keyboard for the current input method.
+    """
 
-KEYBOARD_TYPE_ASCII_CAPABLE = ui_constants.KEYBOARD_TYPE_ASCII_CAPABLE
-"""
-Specifies a keyboard that displays standard ASCII characters.
-"""
+    ASCII_CAPABLE = ui_constants.KEYBOARD_TYPE_ASCII_CAPABLE
+    """
+    Specifies a keyboard that displays standard ASCII characters.
+    """
 
-KEYBOARD_TYPE_ASCII_CAPABLE_NUMBER_PAD = (
-    ui_constants.KEYBOARD_TYPE_ASCII_CAPABLE_NUMBER_PAD
-)
-"""
-Specifies a number pad that outputs only ASCII digits.
-"""
+    ASCII_CAPABLE_NUMBER_PAD = (
+        ui_constants.KEYBOARD_TYPE_ASCII_CAPABLE_NUMBER_PAD
+    )
+    """
+    Specifies a number pad that outputs only ASCII digits.
+    """
 
-KEYBOARD_TYPE_DECIMAL_PAD = ui_constants.KEYBOARD_TYPE_DECIMAL_PAD
-"""
-Specifies a keyboard with numbers and a decimal point.
-"""
+    DECIMAL_PAD = ui_constants.KEYBOARD_TYPE_DECIMAL_PAD
+    """
+    Specifies a keyboard with numbers and a decimal point.
+    """
 
-KEYBOARD_TYPE_EMAIL_ADDRESS = ui_constants.KEYBOARD_TYPE_EMAIL_ADDRESS
-"""
-Specifies a keyboard optimized for entering email addresses. This keyboard type prominently features the at (“@”), period (“.”) and space characters.
-"""
+    EMAIL_ADDRESS = ui_constants.KEYBOARD_TYPE_EMAIL_ADDRESS
+    """
+    Specifies a keyboard optimized for entering email addresses. This keyboard type prominently features the at (“@”), period (“.”) and space characters.
+    """
 
-KEYBOARD_TYPE_NAME_PHONE_PAD = ui_constants.KEYBOARD_TYPE_NAME_PHONE_PAD
-"""
-Specifies a keypad designed for entering a person’s name or phone number. This keyboard type does not support auto-capitalization.
-"""
+    NAME_PHONE_PAD = ui_constants.KEYBOARD_TYPE_NAME_PHONE_PAD
+    """
+    Specifies a keypad designed for entering a person’s name or phone number. This keyboard type does not support auto-capitalization.
+    """
 
-KEYBOARD_TYPE_NUMBER_PAD = ui_constants.KEYBOARD_TYPE_NUMBER_PAD
-"""
-Specifies a numeric keypad designed for PIN entry. This keyboard type prominently features the numbers 0 through 9. This keyboard type does not support auto-capitalization.
-"""
+    NUMBER_PAD = ui_constants.KEYBOARD_TYPE_NUMBER_PAD
+    """
+    Specifies a numeric keypad designed for PIN entry. This keyboard type prominently features the numbers 0 through 9. This keyboard type does not support auto-capitalization.
+    """
 
-KEYBOARD_TYPE_NUMBERS_AND_PUNCTUATION = (
-    ui_constants.KEYBOARD_TYPE_NUMBERS_AND_PUNCTUATION
-)
-"""
-Specifies the numbers and punctuation keyboard.
-"""
+    NUMBERS_AND_PUNCTUATION = ui_constants.KEYBOARD_TYPE_NUMBERS_AND_PUNCTUATION
+    """
+    Specifies the numbers and punctuation keyboard.
+    """
 
-KEYBOARD_TYPE_PHONE_PAD = ui_constants.KEYBOARD_TYPE_PHONE_PAD
-"""
-Specifies a keypad designed for entering telephone numbers. This keyboard type prominently features the numbers 0 through 9 and the “*” and “#” characters. This keyboard type does not support auto-capitalization.
-"""
+    PHONE_PAD = ui_constants.KEYBOARD_TYPE_PHONE_PAD
+    """
+    Specifies a keypad designed for entering telephone numbers. This keyboard type prominently features the numbers 0 through 9 and the “*” and “#” characters. This keyboard type does not support auto-capitalization.
+    """
 
-KEYBOARD_TYPE_TWITTER = ui_constants.KEYBOARD_TYPE_TWITTER
-"""
-Specifies a keyboard optimized for Twitter text entry, with easy access to the at (“@”) and hash (“#”) characters.
-"""
+    TWITTER = ui_constants.KEYBOARD_TYPE_TWITTER
+    """
+    Specifies a keyboard optimized for Twitter text entry, with easy access to the at (“@”) and hash (“#”) characters.
+    """
 
-KEYBOARD_TYPE_URL = ui_constants.KEYBOARD_TYPE_URL
-"""
-Specifies a keyboard optimized for URL entry. This keyboard type prominently features the period (“.”) and slash (“/”) characters and the “.com” string.
-"""
+    URL = ui_constants.KEYBOARD_TYPE_URL
+    """
+    Specifies a keyboard optimized for URL entry. This keyboard type prominently features the period (“.”) and slash (“/”) characters and the “.com” string.
+    """
 
-KEYBOARD_TYPE_WEB_SEARCH = ui_constants.KEYBOARD_TYPE_WEB_SEARCH
-"""
-Specifies a keyboard optimized for web search terms and URL entry. This keyboard type prominently features the space and period (“.”) characters.
-"""
+    WEB_SEARCH = ui_constants.KEYBOARD_TYPE_WEB_SEARCH
+    """
+    Specifies a keyboard optimized for web search terms and URL entry. This keyboard type prominently features the space and period (“.”) characters.
+    """
 
 # MARK: - Return Key Type
 
-RETURN_KEY_TYPE = ui_constants.RETURN_KEY_TYPE
+class ReturnKeyType(Enum):
+    """
+    Return key types.
+    """
 
-RETURN_KEY_TYPE_DEFAULT = ui_constants.RETURN_KEY_TYPE_DEFAULT
-"""
-Specifies that the visible title of the Return key is “return”.
-"""
+    DEFAULT = ui_constants.RETURN_KEY_TYPE_DEFAULT
+    """
+    Specifies that the visible title of the Return key is “return”.
+    """
 
-RETURN_KEY_TYPE_CONTINUE = ui_constants.RETURN_KEY_TYPE_CONTINUE
-"""
-Specifies that the visible title of the Return key is “Continue”.
-"""
+    CONTINUE = ui_constants.RETURN_KEY_TYPE_CONTINUE
+    """
+    Specifies that the visible title of the Return key is “Continue”.
+    """
 
-RETURN_KEY_TYPE_DONE = ui_constants.RETURN_KEY_TYPE_DONE
-"""
-Specifies that the visible title of the Return key is “Done”.
-"""
+    DONE = ui_constants.RETURN_KEY_TYPE_DONE
+    """
+    Specifies that the visible title of the Return key is “Done”.
+    """
 
-RETURN_KEY_TYPE_EMERGENCY_CALL = ui_constants.RETURN_KEY_TYPE_EMERGENCY_CALL
-"""
-Specifies that the visible title of the Return key is “Emergency Call”.
-"""
+    EMERGENCY_CALL = ui_constants.RETURN_KEY_TYPE_EMERGENCY_CALL
+    """
+    Specifies that the visible title of the Return key is “Emergency Call”.
+    """
 
-RETURN_KEY_TYPE_GO = ui_constants.RETURN_KEY_TYPE_GO
-"""
-Specifies that the visible title of the Return key is “Go”.
-"""
+    GO = ui_constants.RETURN_KEY_TYPE_GO
+    """
+    Specifies that the visible title of the Return key is “Go”.
+    """
 
-RETURN_KEY_TYPE_GOOGLE = ui_constants.RETURN_KEY_TYPE_GOOGLE
-"""
-Specifies that the visible title of the Return key is “Google”.
-"""
+    GOOGLE = ui_constants.RETURN_KEY_TYPE_GOOGLE
+    """
+    Specifies that the visible title of the Return key is “Google”.
+    """
 
-RETURN_KEY_TYPE_JOIN = ui_constants.RETURN_KEY_TYPE_JOIN
-"""
-Specifies that the visible title of the Return key is “Join”.
-"""
+    JOIN = ui_constants.RETURN_KEY_TYPE_JOIN
+    """
+    Specifies that the visible title of the Return key is “Join”.
+    """
 
-RETURN_KEY_TYPE_NEXT = ui_constants.RETURN_KEY_TYPE_NEXT
-"""
-Specifies that the visible title of the Return key is “Next”.
-"""
+    NEXT = ui_constants.RETURN_KEY_TYPE_NEXT
+    """
+    Specifies that the visible title of the Return key is “Next”.
+    """
 
-RETURN_KEY_TYPE_ROUTE = ui_constants.RETURN_KEY_TYPE_ROUTE
-"""
-Specifies that the visible title of the Return key is “Route”.
-"""
+    ROUTE = ui_constants.RETURN_KEY_TYPE_ROUTE
+    """
+    Specifies that the visible title of the Return key is “Route”.
+    """
 
-RETURN_KEY_TYPE_SEARCH = ui_constants.RETURN_KEY_TYPE_SEARCH
-"""
-Specifies that the visible title of the Return key is “Search”.
-"""
+    SEARCH = ui_constants.RETURN_KEY_TYPE_SEARCH
+    """
+    Specifies that the visible title of the Return key is “Search”.
+    """
 
-RETURN_KEY_TYPE_SEND = ui_constants.RETURN_KEY_TYPE_SEND
-"""
-Specifies that the visible title of the Return key is “Send”.
-"""
+    SEND = ui_constants.RETURN_KEY_TYPE_SEND
+    """
+    Specifies that the visible title of the Return key is “Send”.
+    """
 
-RETURN_KEY_TYPE_YAHOO = ui_constants.RETURN_KEY_TYPE_YAHOO
-"""
-Specifies that the visible title of the Return key is “Yahoo”.
-"""
+    YAHOO = ui_constants.RETURN_KEY_TYPE_YAHOO
+    """
+    Specifies that the visible title of the Return key is “Yahoo”.
+    """
 
 # MARK: - Autocapitalization Type
 
-AUTO_CAPITALIZE = ui_constants.AUTO_CAPITALIZE
+class AutoCapitalization(Enum):
+    """
+    Configure auto capitalization on text entries.
+    """
 
-AUTO_CAPITALIZE_NONE = ui_constants.AUTO_CAPITALIZE_NONE
-"""
-Specifies that there is no automatic text capitalization.
-"""
+    NONE = ui_constants.AUTO_CAPITALIZE_NONE
+    """
+    Specifies that there is no automatic text capitalization.
+    """
 
-AUTO_CAPITALIZE_ALL = ui_constants.AUTO_CAPITALIZE_ALL
-"""
-Specifies automatic capitalization of all characters, such as for entry of two-character state abbreviations for the United States.
-"""
+    ALL = ui_constants.AUTO_CAPITALIZE_ALL
+    """
+    Specifies automatic capitalization of all characters, such as for entry of two-character state abbreviations for the United States.
+    """
 
-AUTO_CAPITALIZE_SENTENCES = ui_constants.AUTO_CAPITALIZE_SENTENCES
-"""
-Specifies automatic capitalization of the first letter of each sentence.
-"""
+    SENTENCES = ui_constants.AUTO_CAPITALIZE_SENTENCES
+    """
+    Specifies automatic capitalization of the first letter of each sentence.
+    """
 
-AUTO_CAPITALIZE_WORDS = ui_constants.AUTO_CAPITALIZE_WORDS
-"""
-Specifies automatic capitalization of the first letter of each word.
-"""
+    WORDS = ui_constants.AUTO_CAPITALIZE_WORDS
+    """
+    Specifies automatic capitalization of the first letter of each word.
+    """
 
 # MARK: - Font Text Style
 
-FONT_TEXT_STYLE = ui_constants.FONT_TEXT_STYLE
+class FontTextStyle(Enum):
+    """
+    Pre-defined system font styles.
+    """
 
-FONT_TEXT_STYLE_BODY = ui_constants.FONT_TEXT_STYLE_BODY
-"""
-The font used for body text.
-"""
+    BODY = ui_constants.FONT_TEXT_STYLE_BODY
+    """
+    The font used for body text.
+    """
 
-FONT_TEXT_STYLE_CALLOUT = ui_constants.FONT_TEXT_STYLE_CALLOUT
-"""
-The font used for callouts.
-"""
+    CALLOUT = ui_constants.FONT_TEXT_STYLE_CALLOUT
+    """
+    The font used for callouts.
+    """
 
-FONT_TEXT_STYLE_CAPTION_1 = ui_constants.FONT_TEXT_STYLE_CAPTION_1
-"""
-The font used for standard captions.
-"""
+    CAPTION_1 = ui_constants.FONT_TEXT_STYLE_CAPTION_1
+    """
+    The font used for standard captions.
+    """
 
-FONT_TEXT_STYLE_CAPTION_2 = ui_constants.FONT_TEXT_STYLE_CAPTION_2
-"""
-The font used for alternate captions.
-"""
+    CAPTION_2 = ui_constants.FONT_TEXT_STYLE_CAPTION_2
+    """
+    The font used for alternate captions.
+    """
 
-FONT_TEXT_STYLE_FOOTNOTE = ui_constants.FONT_TEXT_STYLE_FOOTNOTE
-"""
-The font used in footnotes.
-"""
+    FOOTNOTE = ui_constants.FONT_TEXT_STYLE_FOOTNOTE
+    """
+    The font used in footnotes.
+    """
 
-FONT_TEXT_STYLE_HEADLINE = ui_constants.FONT_TEXT_STYLE_HEADLINE
-"""
-The font used for headings.
-"""
+    HEADLINE = ui_constants.FONT_TEXT_STYLE_HEADLINE
+    """
+    The font used for headings.
+    """
 
-FONT_TEXT_STYLE_SUBHEADLINE = ui_constants.FONT_TEXT_STYLE_SUBHEADLINE
-"""
-The font used for subheadings.
-"""
+    SUBHEADLINE = ui_constants.FONT_TEXT_STYLE_SUBHEADLINE
+    """
+    The font used for subheadings.
+    """
 
-FONT_TEXT_STYLE_LARGE_TITLE = ui_constants.FONT_TEXT_STYLE_LARGE_TITLE
-"""
-The font style for large titles.
-"""
+    LARGE_TITLE = ui_constants.FONT_TEXT_STYLE_LARGE_TITLE
+    """
+    The font style for large titles.
+    """
 
-FONT_TEXT_STYLE_TITLE_1 = ui_constants.FONT_TEXT_STYLE_TITLE_1
-"""
-The font used for first level hierarchical headings.
-"""
+    TITLE_1 = ui_constants.FONT_TEXT_STYLE_TITLE_1
+    """
+    The font used for first level hierarchical headings.
+    """
 
-FONT_TEXT_STYLE_TITLE_2 = ui_constants.FONT_TEXT_STYLE_TITLE_2
-"""
-The font used for second level hierarchical headings.
-"""
+    TITLE_2 = ui_constants.FONT_TEXT_STYLE_TITLE_2
+    """
+    The font used for second level hierarchical headings.
+    """
 
-FONT_TEXT_STYLE_TITLE_3 = ui_constants.FONT_TEXT_STYLE_TITLE_3
-"""
-The font used for third level hierarchical headings.
-"""
+    TITLE_3 = ui_constants.FONT_TEXT_STYLE_TITLE_3
+    """
+    The font used for third level hierarchical headings.
+    """
 
 # MARK: - Font Size
 
-FONT_SIZE = ui_constants.FONT_SIZE
+class FontSize(Enum):
+    """
+    Pre-defined system font sizes.
+    """
 
-FONT_LABEL_SIZE = ui_constants.FONT_LABEL_SIZE
-"""
-Returns the standard font size used for labels.
-"""
+    LABEL_SIZE = ui_constants.FONT_LABEL_SIZE
+    """
+    Returns the standard font size used for labels.
+    """
 
-FONT_BUTTON_SIZE = ui_constants.FONT_BUTTON_SIZE
-"""
-Returns the standard font size used for buttons.
-"""
+    BUTTON_SIZE = ui_constants.FONT_BUTTON_SIZE
+    """
+    Returns the standard font size used for buttons.
+    """
 
-FONT_SMALL_SYSTEM_SIZE = ui_constants.FONT_SMALL_SYSTEM_SIZE
-"""
-Returns the size of the standard small system font.
-"""
+    SMALL_SYSTEM_SIZE = ui_constants.FONT_SMALL_SYSTEM_SIZE
+    """
+    Returns the size of the standard small system font.
+    """
 
-FONT_SYSTEM_SIZE = ui_constants.FONT_SYSTEM_SIZE
-"""
-Returns the size of the standard system font.
-"""
+    SYSTEM_SIZE = ui_constants.FONT_SYSTEM_SIZE
+    """
+    Returns the size of the standard system font.
+    """
 
 # MARK: - Presentation Mode
 
-PRESENTATION_MODE = ui_constants.PRESENTATION_MODE
+class PresentationMode(Enum):
+    """
+    Customize the presentation of a view.
+    """
 
-PRESENTATION_MODE_SHEET = ui_constants.PRESENTATION_MODE_SHEET
-"""
-A presentation style that displays the content centered in the screen.
-"""
+    SHEET = ui_constants.PRESENTATION_MODE_SHEET
+    """
+    A presentation style that displays the content centered in the screen.
+    """
 
-PRESENTATION_MODE_FULLSCREEN = ui_constants.PRESENTATION_MODE_FULLSCREEN
-"""
-A presentation style in which the presented view covers the screen.
-"""
+    FULLSCREEN = ui_constants.PRESENTATION_MODE_FULLSCREEN
+    """
+    A presentation style in which the presented view covers the screen.
+    """
 
-PRESENTATION_MODE_WIDGET = ui_constants.PRESENTATION_MODE_WIDGET
-"""
-A presentation mode style which simulates a Today Widget. Should be used in app to preview how a widget will look.
-"""
+    NEW_SCENE = ui_constants.PRESENTATION_MODE_NEW_SCENE
+    """
+    A presentation style in which the presented view is opened on a new window scene if the script is running on an iPad.
+    On iPhone, the view presents full screen.
+    """
 
 # MARK: - Appearance
 
-APPEARANCE = ui_constants.APPEARANCE
+class Appearance(Enum):
+    """
+    UI appearance.
+    """
 
-APPEARANCE_UNSPECIFIED = ui_constants.APPEARANCE_UNSPECIFIED
-"""
-An unspecified interface style.
-"""
+    UNSPECIFIED = ui_constants.APPEARANCE_UNSPECIFIED
+    """
+    An unspecified interface style.
+    """
 
-APPEARANCE_LIGHT = ui_constants.APPEARANCE_LIGHT
-"""
-The light interface style.
-"""
+    LIGHT = ui_constants.APPEARANCE_LIGHT
+    """
+    The light interface style.
+    """
 
-APPEARANCE_DARK = ui_constants.APPEARANCE_DARK
-"""
-The dark interface style.
-"""
+    DARK = ui_constants.APPEARANCE_DARK
+    """
+    The dark interface style.
+    """
 
 # MARK: - Auto Resizing
 
-AUTO_RESIZING = ui_constants.AUTO_RESIZING
+class AutoResizing(IntFlag):
+    """
+    Configure a view for auto resizing.
+    """
 
-FLEXIBLE_WIDTH = ui_constants.FLEXIBLE_WIDTH
-"""
-Resizing performed by expanding or shrinking a view’s width.
-"""
+    FLEXIBLE_WIDTH = ui_constants.FLEXIBLE_WIDTH
+    """
+    Resizing performed by expanding or shrinking a view’s width.
+    """
 
-FLEXIBLE_HEIGHT = ui_constants.FLEXIBLE_HEIGHT
-"""
-Resizing performed by expanding or shrinking a view's height.
-"""
+    FLEXIBLE_HEIGHT = ui_constants.FLEXIBLE_HEIGHT
+    """
+    Resizing performed by expanding or shrinking a view's height.
+    """
 
-FLEXIBLE_TOP_MARGIN = ui_constants.FLEXIBLE_TOP_MARGIN
-"""
-Resizing performed by expanding or shrinking a view in the direction of the top margin.
-"""
+    FLEXIBLE_TOP_MARGIN = ui_constants.FLEXIBLE_TOP_MARGIN
+    """
+    Resizing performed by expanding or shrinking a view in the direction of the top margin.
+    """
 
-FLEXIBLE_BOTTOM_MARGIN = ui_constants.FLEXIBLE_BOTTOM_MARGIN
-"""
-Resizing performed by expanding or shrinking a view in the direction of the bottom margin.
-"""
+    FLEXIBLE_BOTTOM_MARGIN = ui_constants.FLEXIBLE_BOTTOM_MARGIN
+    """
+    Resizing performed by expanding or shrinking a view in the direction of the bottom margin.
+    """
 
-FLEXIBLE_LEFT_MARGIN = ui_constants.FLEXIBLE_LEFT_MARGIN
-"""
-Resizing performed by expanding or shrinking a view in the direction of the left margin.
-"""
+    FLEXIBLE_LEFT_MARGIN = ui_constants.FLEXIBLE_LEFT_MARGIN
+    """
+    Resizing performed by expanding or shrinking a view in the direction of the left margin.
+    """
 
-FLEXIBLE_RIGHT_MARGIN = ui_constants.FLEXIBLE_RIGHT_MARGIN
-"""
-Resizing performed by expanding or shrinking a view in the direction of the right margin.
-"""
+    FLEXIBLE_RIGHT_MARGIN = ui_constants.FLEXIBLE_RIGHT_MARGIN
+    """
+    Resizing performed by expanding or shrinking a view in the direction of the right margin.
+    """
 
 # MARK: - Content Mode
 
-CONTENT_MODE = ui_constants.CONTENT_MODE
+class ContentMode(Enum):
+    """
+    Options to specify how a view adjusts its content when its size changes.
+    """
 
-CONTENT_MODE_SCALE_TO_FILL = ui_constants.CONTENT_MODE_SCALE_TO_FILL
-"""
-The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.
-"""
+    SCALE_TO_FILL = ui_constants.CONTENT_MODE_SCALE_TO_FILL
+    """
+    The option to scale the content to fit the size of itself by changing the aspect ratio of the content if necessary.
+    """
 
-CONTENT_MODE_SCALE_ASPECT_FIT = ui_constants.CONTENT_MODE_SCALE_ASPECT_FIT
-"""
-The option to scale the content to fit the size of the view by maintaining the aspect ratio. Any remaining area of the view’s bounds is transparent.
-"""
+    SCALE_ASPECT_FIT = ui_constants.CONTENT_MODE_SCALE_ASPECT_FIT
+    """
+    The option to scale the content to fit the size of the view by maintaining the aspect ratio. Any remaining area of the view’s bounds is transparent.
+    """
 
-CONTENT_MODE_SCALE_ASPECT_FILL = ui_constants.CONTENT_MODE_SCALE_ASPECT_FILL
-"""
-The option to scale the content to fill the size of the view. Some portion of the content may be clipped to fill the view’s bounds.
-"""
+    SCALE_ASPECT_FILL = ui_constants.CONTENT_MODE_SCALE_ASPECT_FILL
+    """
+    The option to scale the content to fill the size of the view. Some portion of the content may be clipped to fill the view’s bounds.
+    """
 
-CONTENT_MODE_REDRAW = ui_constants.CONTENT_MODE_REDRAW
-"""
-The option to redisplay the view when the bounds change by invoking the ``setNeedsDisplay()`` method.
-"""
+    REDRAW = ui_constants.CONTENT_MODE_REDRAW
+    """
+    The option to redisplay the view when the bounds change by invoking the ``setNeedsDisplay()`` method.
+    """
 
-CONTENT_MODE_CENTER = ui_constants.CONTENT_MODE_CENTER
-"""
-The option to center the content in the view’s bounds, keeping the proportions the same.
-"""
+    CENTER = ui_constants.CONTENT_MODE_CENTER
+    """
+    The option to center the content in the view’s bounds, keeping the proportions the same.
+    """
 
-CONTENT_MODE_TOP = ui_constants.CONTENT_MODE_TOP
-"""
-The option to center the content aligned at the top in the view’s bounds.
-"""
+    TOP = ui_constants.CONTENT_MODE_TOP
+    """
+    The option to center the content aligned at the top in the view’s bounds.
+    """
 
-CONTENT_MODE_BOTTOM = ui_constants.CONTENT_MODE_BOTTOM
-"""
-The option to center the content aligned at the bottom in the view’s bounds.
-"""
+    BOTTOM = ui_constants.CONTENT_MODE_BOTTOM
+    """
+    The option to center the content aligned at the bottom in the view’s bounds.
+    """
 
-CONTENT_MODE_LEFT = ui_constants.CONTENT_MODE_LEFT
-"""
-The option to align the content on the left of the view.
-"""
+    LEFT = ui_constants.CONTENT_MODE_LEFT
+    """
+    The option to align the content on the left of the view.
+    """
 
-CONTENT_MODE_RIGHT = ui_constants.CONTENT_MODE_RIGHT
-"""
-The option to align the content on the right of the view.
-"""
+    RIGHT = ui_constants.CONTENT_MODE_RIGHT
+    """
+    The option to align the content on the right of the view.
+    """
 
-CONTENT_MODE_TOP_LEFT = ui_constants.CONTENT_MODE_TOP_LEFT
-"""
-The option to align the content in the top-left corner of the view.
-"""
+    TOP_LEFT = ui_constants.CONTENT_MODE_TOP_LEFT
+    """
+    The option to align the content in the top-left corner of the view.
+    """
 
-CONTENT_MODE_TOP_RIGHT = ui_constants.CONTENT_MODE_TOP_RIGHT
-"""
-The option to align the content in the top-right corner of the view.
-"""
+    TOP_RIGHT = ui_constants.CONTENT_MODE_TOP_RIGHT
+    """
+    The option to align the content in the top-right corner of the view.
+    """
 
-CONTENT_MODE_BOTTOM_LEFT = ui_constants.CONTENT_MODE_BOTTOM_LEFT
-"""
-The option to align the content in the bottom-left corner of the view.
-"""
+    BOTTOM_LEFT = ui_constants.CONTENT_MODE_BOTTOM_LEFT
+    """
+    The option to align the content in the bottom-left corner of the view.
+    """
 
-CONTENT_MODE_BOTTOM_RIGHT = ui_constants.CONTENT_MODE_BOTTOM_RIGHT
-"""
-The option to align the content in the bottom-right corner of the view.
-"""
+    BOTTOM_RIGHT = ui_constants.CONTENT_MODE_BOTTOM_RIGHT
+    """
+    The option to align the content in the bottom-right corner of the view.
+    """
 
 # MARK: - Horizontal Alignment
 
-HORIZONTAL_ALIGNMENT = ui_constants.HORIZONTAL_ALIGNMENT
+class HorizontalAlignment(Enum):
+    """
+    Horizontal alignment.
+    """
 
-HORIZONTAL_ALIGNMENT_CENTER = ui_constants.HORIZONTAL_ALIGNMENT_CENTER
-"""
-Aligns the content horizontally in the center of the control.
-"""
+    CENTER = ui_constants.HORIZONTAL_ALIGNMENT_CENTER
+    """
+    Aligns the content horizontally in the center of the control.
+    """
 
-HORIZONTAL_ALIGNMENT_FILL = ui_constants.HORIZONTAL_ALIGNMENT_FILL
-"""
-Aligns the content horizontally to fill the content rectangles; text may wrap and images may be stretched.
-"""
+    FILL = ui_constants.HORIZONTAL_ALIGNMENT_FILL
+    """
+    Aligns the content horizontally to fill the content rectangles; text may wrap and images may be stretched.
+    """
 
-HORIZONTAL_ALIGNMENT_LEADING = ui_constants.HORIZONTAL_ALIGNMENT_LEADING
-"""
-Aligns the content horizontally from the leading edge of the control.
-"""
+    LEADING = ui_constants.HORIZONTAL_ALIGNMENT_LEADING
+    """
+    Aligns the content horizontally from the leading edge of the control.
+    """
 
-HORIZONTAL_ALIGNMENT_LEFT = ui_constants.HORIZONTAL_ALIGNMENT_LEFT
-"""
-Aligns the content horizontally from the left of the control (the default).
-"""
+    LEFT = ui_constants.HORIZONTAL_ALIGNMENT_LEFT
+    """
+    Aligns the content horizontally from the left of the control (the default).
+    """
 
-HORIZONTAL_ALIGNMENT_RIGHT = ui_constants.HORIZONTAL_ALIGNMENT_RIGHT
-"""
-Aligns the content horizontally from the right of the control.
-"""
+    RIGHT = ui_constants.HORIZONTAL_ALIGNMENT_RIGHT
+    """
+    Aligns the content horizontally from the right of the control.
+    """
 
-HORIZONTAL_ALIGNMENT_TRAILING = ui_constants.HORIZONTAL_ALIGNMENT_TRAILING
-"""
-Aligns the content horizontally from the trailing edge of the control.
-"""
+    TRAILING = ui_constants.HORIZONTAL_ALIGNMENT_TRAILING
+    """
+    Aligns the content horizontally from the trailing edge of the control.
+    """
 
 # MARK: - Vertical Alignment
 
-VERTICAL_ALIGNMENT = ui_constants.VERTICAL_ALIGNMENT
+class VerticalAlignment(Enum):
+    """
+    Vertical alignment.
+    """
 
-VERTICAL_ALIGNMENT_BOTTOM = ui_constants.VERTICAL_ALIGNMENT_BOTTOM
-"""
-Aligns the content vertically at the bottom in the control.
-"""
+    BOTTOM = ui_constants.VERTICAL_ALIGNMENT_BOTTOM
+    """
+    Aligns the content vertically at the bottom in the control.
+    """
 
-VERTICAL_ALIGNMENT_CENTER = ui_constants.VERTICAL_ALIGNMENT_CENTER
-"""
-Aligns the content vertically in the center of the control.
-"""
+    CENTER = ui_constants.VERTICAL_ALIGNMENT_CENTER
+    """
+    Aligns the content vertically in the center of the control.
+    """
 
-VERTICAL_ALIGNMENT_FILL = ui_constants.VERTICAL_ALIGNMENT_FILL
-"""
-Aligns the content vertically to fill the content rectangle; images may be stretched.
-"""
+    FILL = ui_constants.VERTICAL_ALIGNMENT_FILL
+    """
+    Aligns the content vertically to fill the content rectangle; images may be stretched.
+    """
 
-VERTICAL_ALIGNMENT_TOP = ui_constants.VERTICAL_ALIGNMENT_TOP
-"""
-Aligns the content vertically at the top in the control (the default).
-"""
+    TOP = ui_constants.VERTICAL_ALIGNMENT_TOP
+    """
+    Aligns the content vertically at the top in the control (the default).
+    """
 
 # MARK: - Button Type
 
-BUTTON_TYPE = ui_constants.BUTTON_TYPE
+class ButtonType(Enum):
+    """
+    Pre-defined system buttons.
+    """
 
-BUTTON_TYPE_SYSTEM = ui_constants.BUTTON_TYPE_SYSTEM
-"""
-A system style button, such as those shown in navigation bars and toolbars.
-"""
+    SYSTEM = ui_constants.BUTTON_TYPE_SYSTEM
+    """
+    A system style button, such as those shown in navigation bars and toolbars.
+    """
 
-BUTTON_TYPE_CONTACT_ADD = ui_constants.BUTTON_TYPE_CONTACT_ADD
-"""
-A contact add button.
-"""
+    CONTACT_ADD = ui_constants.BUTTON_TYPE_CONTACT_ADD
+    """
+    A contact add button.
+    """
 
-BUTTON_TYPE_CUSTOM = ui_constants.BUTTON_TYPE_CUSTOM
-"""
-No button style.
-"""
+    CUSTOM = ui_constants.BUTTON_TYPE_CUSTOM
+    """
+    No button style.
+    """
 
-BUTTON_TYPE_DETAIL_DISCLOSURE = ui_constants.BUTTON_TYPE_DETAIL_DISCLOSURE
-"""
-A detail disclosure button.
-"""
+    DETAIL_DISCLOSURE = ui_constants.BUTTON_TYPE_DETAIL_DISCLOSURE
+    """
+    A detail disclosure button.
+    """
 
-BUTTON_TYPE_INFO_DARK = ui_constants.BUTTON_TYPE_INFO_DARK
-"""
-An information button that has a dark background.
-"""
+    INFO_DARK = ui_constants.BUTTON_TYPE_INFO_DARK
+    """
+    An information button that has a dark background.
+    """
 
-BUTTON_TYPE_INFO_LIGHT = ui_constants.BUTTON_TYPE_INFO_LIGHT
-"""
-An information button that has a light background.
-"""
+    INFO_LIGHT = ui_constants.BUTTON_TYPE_INFO_LIGHT
+    """
+    An information button that has a light background.
+    """
 
 # MARK: - Text Alignment
 
-TEXT_ALIGNMENT = ui_constants.TEXT_ALIGNMENT
+class TextAlignment(Enum):
+    """
+    Configure the text alignment of a view.
+    """
 
-TEXT_ALIGNMENT_LEFT = ui_constants.TEXT_ALIGNMENT_LEFT
-"""
-Text is visually left aligned.
-"""
+    LEFT = ui_constants.TEXT_ALIGNMENT_LEFT
+    """
+    Text is visually left aligned.
+    """
 
-TEXT_ALIGNMENT_RIGHT = ui_constants.TEXT_ALIGNMENT_RIGHT
-"""
-Text is visually right aligned.
-"""
+    RIGHT = ui_constants.TEXT_ALIGNMENT_RIGHT
+    """
+    Text is visually right aligned.
+    """
 
-TEXT_ALIGNMENT_CENTER = ui_constants.TEXT_ALIGNMENT_CENTER
-"""
-Text is visually center aligned.
-"""
+    CENTER = ui_constants.TEXT_ALIGNMENT_CENTER
+    """
+    Text is visually center aligned.
+    """
 
-TEXT_ALIGNMENT_JUSTIFIED = ui_constants.TEXT_ALIGNMENT_JUSTIFIED
-"""
-Text is justified.
-"""
+    JUSTIFIED = ui_constants.TEXT_ALIGNMENT_JUSTIFIED
+    """
+    Text is justified.
+    """
 
-TEXT_ALIGNMENT_NATURAL = ui_constants.TEXT_ALIGNMENT_NATURAL
-"""
-Use the default alignment associated with the current localization of the app. The default alignment for left-to-right scripts is left, and the default alignment for right-to-left scripts is right.
-"""
+    NATURAL = ui_constants.TEXT_ALIGNMENT_NATURAL
+    """
+    Use the default alignment associated with the current localization of the app. The default alignment for left-to-right scripts is left, and the default alignment for right-to-left scripts is right.
+    """
 
 # MARK: - Line Break Mode
 
-LINE_BREAK_MODE = ui_constants.LINE_BREAK_MODE
+class LineBreakMode(Enum):
+    """
+    Constants that specify what happens when a line is too long for a container.
+    """
 
-LINE_BREAK_MODE_BY_WORD_WRAPPING = ui_constants.LINE_BREAK_MODE_BY_WORD_WRAPPING
-"""
-Wrapping occurs at word boundaries, unless the word itself doesn’t fit on a single line.
-"""
 
-LINE_BREAK_MODE_BY_CHAR_WRAPPING = ui_constants.LINE_BREAK_MODE_BY_CHAR_WRAPPING
-"""
-Wrapping occurs before the first character that doesn’t fit.
-"""
+    BY_WORD_WRAPPING = ui_constants.LINE_BREAK_MODE_BY_WORD_WRAPPING
+    """
+    Wrapping occurs at word boundaries, unless the word itself doesn’t fit on a single line.
+    """
 
-LINE_BREAK_MODE_BY_CLIPPING = ui_constants.LINE_BREAK_MODE_BY_CLIPPING
-"""
-Lines are simply not drawn past the edge of the text container.
-"""
+    BY_CHAR_WRAPPING = ui_constants.LINE_BREAK_MODE_BY_CHAR_WRAPPING
+    """
+    Wrapping occurs before the first character that doesn’t fit.
+    """
 
-LINE_BREAK_MODE_BY_TRUNCATING_HEAD = ui_constants.LINE_BREAK_MODE_BY_TRUNCATING_HEAD
-"""
-The line is displayed so that the end fits in the container and the missing text at the beginning of the line is indicated by an ellipsis glyph. Although this mode works for multiline text, it is more often used for single line text.
-"""
+    BY_CLIPPING = ui_constants.LINE_BREAK_MODE_BY_CLIPPING
+    """
+    Lines are simply not drawn past the edge of the text container.
+    """
 
-LINE_BREAK_MODE_BY_TRUNCATING_TAIL = ui_constants.LINE_BREAK_MODE_BY_TRUNCATING_TAIL
-"""
-The line is displayed so that the beginning fits in the container and the missing text at the end of the line is indicated by an ellipsis glyph. Although this mode works for multiline text, it is more often used for single line text.
-"""
+    BY_TRUNCATING_HEAD = ui_constants.LINE_BREAK_MODE_BY_TRUNCATING_HEAD
+    """
+    The line is displayed so that the end fits in the container and the missing text at the beginning of the line is indicated by an ellipsis glyph. Although this mode works for multiline text, it is more often used for single line text.
+    """
 
-LINE_BREAK_MODE_BY_TRUNCATING_MIDDLE = ui_constants.LINE_BREAK_MODE_BY_TRUNCATING_MIDDLE
-"""
-The line is displayed so that the beginning and end fit in the container and the missing text in the middle is indicated by an ellipsis glyph. This mode is used for single-line layout; using it with multiline text truncates the text into a single line.
-"""
+    BY_TRUNCATING_TAIL = ui_constants.LINE_BREAK_MODE_BY_TRUNCATING_TAIL
+    """
+    The line is displayed so that the beginning fits in the container and the missing text at the end of the line is indicated by an ellipsis glyph. Although this mode works for multiline text, it is more often used for single line text.
+    """
+
+    BY_TRUNCATING_MIDDLE = ui_constants.LINE_BREAK_MODE_BY_TRUNCATING_MIDDLE
+    """
+    The line is displayed so that the beginning and end fit in the container and the missing text in the middle is indicated by an ellipsis glyph. This mode is used for single-line layout; using it with multiline text truncates the text into a single line.
+    """
 
 # MARK: - Touch Type
 
-TOUCH_TYPE = ui_constants.TOUCH_TYPE
+class TouchType(Enum):
+    """
+    Type of touch.
+    """
 
-TOUCH_TYPE_DIRECT = ui_constants.TOUCH_TYPE_DIRECT
-"""
-A touch resulting from direct contact with the screen.
-"""
+    DIRECT = ui_constants.TOUCH_TYPE_DIRECT
+    """
+    A touch resulting from direct contact with the screen.
+    """
 
-TOUCH_TYPE_INDIRECT = ui_constants.TOUCH_TYPE_INDIRECT
-"""
-A touch that did not result from contact with the screen.
-"""
+    INDIRECT = ui_constants.TOUCH_TYPE_INDIRECT
+    """
+    A touch that did not result from contact with the screen.
+    """
 
-TOUCH_TYPE_PENCIL = ui_constants.TOUCH_TYPE_PENCIL
-"""
-A touch from Apple Pencil.
-"""
+    PENCIL = ui_constants.TOUCH_TYPE_PENCIL
+    """
+    A touch from Apple Pencil.
+    """
+
+    INDIRECT_POINTER = ui_constants.TOUCH_TYPE_PENCIL
+    """
+    A click from a pointer.
+    """
 
 # MARK: - Gesture State
 
-GESTURE_STATE = ui_constants.GESTURE_STATE
+class GestureState(Enum):
+    """
+    The state of a gesture recognizer.
+    """
 
-GESTURE_STATE_POSSIBLE = ui_constants.GESTURE_STATE_POSSIBLE
-"""
-The gesture recognizer has not yet recognized its gesture, but may be evaluating touch events. This is the default state.
-"""
+    POSSIBLE = ui_constants.GESTURE_STATE_POSSIBLE
+    """
+    The gesture recognizer has not yet recognized its gesture, but may be evaluating touch events. This is the default state.
+    """
 
-GESTURE_STATE_BEGAN = ui_constants.GESTURE_STATE_BEGAN
-"""
-The gesture recognizer has received touch objects recognized as a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop.
-"""
+    BEGAN = ui_constants.GESTURE_STATE_BEGAN
+    """
+    The gesture recognizer has received touch objects recognized as a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop.
+    """
 
-GESTURE_STATE_CHANGED = ui_constants.GESTURE_STATE_CHANGED
-"""
-The gesture recognizer has received touches recognized as a change to a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop.
-"""
+    CHANGED = ui_constants.GESTURE_STATE_CHANGED
+    """
+    The gesture recognizer has received touches recognized as a change to a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop.
+    """
 
-GESTURE_STATE_ENDED = ui_constants.GESTURE_STATE_ENDED
-"""
-The gesture recognizer has received touches recognized as the end of a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop and resets its state to possible.
-"""
+    ENDED = ui_constants.GESTURE_STATE_ENDED
+    """
+    The gesture recognizer has received touches recognized as the end of a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop and resets its state to possible.
+    """
 
-GESTURE_STATE_CANCELLED = ui_constants.GESTURE_STATE_CANCELLED
-"""
-The gesture recognizer has received touches resulting in the cancellation of a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop and resets its state to possible.
-"""
+    CANCELLED = ui_constants.GESTURE_STATE_CANCELLED
+    """
+    The gesture recognizer has received touches resulting in the cancellation of a continuous gesture. It sends its action message (or messages) at the next cycle of the run loop and resets its state to possible.
+    """
 
-GESTURE_STATE_RECOGNIZED = ui_constants.GESTURE_STATE_RECOGNIZED
-"""
-The gesture recognizer has received a multi-touch sequence that it recognizes as its gesture. It sends its action message (or messages) at the next cycle of the run loop and resets its state to possible.
-"""
+    RECOGNIZED = ui_constants.GESTURE_STATE_RECOGNIZED
+    """
+    The gesture recognizer has received a multi-touch sequence that it recognizes as its gesture. It sends its action message (or messages) at the next cycle of the run loop and resets its state to possible.
+    """
 
 # MARK: - Table View Cell Style
 
-TABLE_VIEW_CELL_STYLE = ui_constants.TABLE_VIEW_CELL_STYLE
+class TableViewCellStyle(Enum):
+    """
+    Styles of table view cells.
+    """
 
-TABLE_VIEW_CELL_STYLE_DEFAULT = ui_constants.TABLE_VIEW_CELL_STYLE_DEFAULT
-"""
-A simple style for a cell with a text label (black and left-aligned) and an optional image view.
-"""
+    DEFAULT = ui_constants.TABLE_VIEW_CELL_STYLE_DEFAULT
+    """
+    A simple style for a cell with a text label (black and left-aligned) and an optional image view.
+    """
 
-TABLE_VIEW_CELL_STYLE_SUBTITLE = ui_constants.TABLE_VIEW_CELL_STYLE_SUBTITLE
-"""
-A style for a cell with a left-aligned label across the top and a left-aligned label below it in smaller gray text.
-"""
+    SUBTITLE = ui_constants.TABLE_VIEW_CELL_STYLE_SUBTITLE
+    """
+    A style for a cell with a left-aligned label across the top and a left-aligned label below it in smaller gray text.
+    """
 
-TABLE_VIEW_CELL_STYLE_VALUE1 = ui_constants.TABLE_VIEW_CELL_STYLE_VALUE1
-"""
-A style for a cell with a label on the left side of the cell with left-aligned and black text; on the right side is a label that has smaller blue text and is right-aligned. The Settings application uses cells in this style.
-"""
+    VALUE1 = ui_constants.TABLE_VIEW_CELL_STYLE_VALUE1
+    """
+    A style for a cell with a label on the left side of the cell with left-aligned and black text; on the right side is a label that has smaller blue text and is right-aligned. The Settings application uses cells in this style.
+    """
 
-TABLE_VIEW_CELL_STYLE_VALUE2 = ui_constants.TABLE_VIEW_CELL_STYLE_VALUE2
-"""
-A style for a cell with a label on the left side of the cell with text that is right-aligned and blue; on the right side of the cell is another label with smaller text that is left-aligned and black. The Phone/Contacts application uses cells in this style.
-"""
+    VALUE2 = ui_constants.TABLE_VIEW_CELL_STYLE_VALUE2
+    """
+    A style for a cell with a label on the left side of the cell with text that is right-aligned and blue; on the right side of the cell is another label with smaller text that is left-aligned and black. The Phone/Contacts application uses cells in this style.
+    """
 
 
 # MARK: - Table View Cell Accessory Type
 
-ACCESSORY_TYPE = ui_constants.ACCESSORY_TYPE
+class AccessoryType(Enum):
+    """
+    Table view cell accessory types.
+    """
 
-ACCESSORY_TYPE_NONE = ui_constants.ACCESSORY_TYPE_NONE
-"""
-No accessory view.
-"""
+    NONE = ui_constants.ACCESSORY_TYPE_NONE
+    """
+    No accessory view.
+    """
 
-ACCESSORY_TYPE_CHECKMARK = ui_constants.ACCESSORY_TYPE_CHECKMARK
-"""
-A checkmark image.
-"""
+    CHECKMARK = ui_constants.ACCESSORY_TYPE_CHECKMARK
+    """
+    A checkmark image.
+    """
 
-ACCESSORY_TYPE_DETAIL_BUTTON = ui_constants.ACCESSORY_TYPE_DETAIL_BUTTON
-"""
-An information button.
-"""
+    DETAIL_BUTTON = ui_constants.ACCESSORY_TYPE_DETAIL_BUTTON
+    """
+    An information button.
+    """
 
-ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON = (
-    ui_constants.ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON
-)
-"""
-An information button and a disclosure (chevron) control.
-"""
+    DETAIL_DISCLOSURE_BUTTON = ui_constants.ACCESSORY_TYPE_DETAIL_DISCLOSURE_BUTTON
+    """
+    An information button and a disclosure (chevron) control.
+    """
 
-ACCESSORY_TYPE_DISCLOSURE_INDICATOR = ui_constants.ACCESSORY_TYPE_DISCLOSURE_INDICATOR
-"""
-A chevron-shaped control for presenting new content.
-"""
+    DISCLOSURE_INDICATOR = ui_constants.ACCESSORY_TYPE_DISCLOSURE_INDICATOR
+    """
+    A chevron-shaped control for presenting new content.
+    """
 
 # MARK: - Table View Style
 
-TABLE_VIEW_STYLE = ui_constants.TABLE_VIEW_STYLE
+class TableViewStyle(Enum):
+    """
+    Styles of a table view.
+    """
 
-TABLE_VIEW_STYLE_PLAIN = ui_constants.TABLE_VIEW_STYLE_PLAIN
-"""
-A plain table view.
-"""
 
-TABLE_VIEW_STYLE_GROUPED = ui_constants.TABLE_VIEW_STYLE_GROUPED
-"""
-A table view whose sections present distinct groups of rows.
-"""
+    PLAIN = ui_constants.TABLE_VIEW_STYLE_PLAIN
+    """
+    A plain table view.
+    """
+
+    GROUPED = ui_constants.TABLE_VIEW_STYLE_GROUPED
+    """
+    A table view whose sections present distinct groups of rows.
+    """
+
+    INSET_GROUPED = ui_constants.TABLE_VIEW_STYLE_INSET_GROUPED
+    """
+    A table view where the grouped sections are inset with rounded corners.
+    """
 
 # MARK: - Text Field Border Style
 
-TEXT_FIELD_BORDER_STYLE = ui_constants.TEXT_FIELD_BORDER_STYLE
+class TextFieldBorderStyle(Enum):
+    """
+    Text field border style.
+    """
 
-TEXT_FIELD_BORDER_STYLE_NONE = ui_constants.TEXT_FIELD_BORDER_STYLE_NONE
-"""
-The text field does not display a border.
-"""
+    NONE = ui_constants.TEXT_FIELD_BORDER_STYLE_NONE
+    """
+    The text field does not display a border.
+    """
 
-TEXT_FIELD_BORDER_STYLE_BEZEL = ui_constants.TEXT_FIELD_BORDER_STYLE_BEZEL
-"""
-Displays a bezel-style border for the text field. This style is typically used for standard data-entry fields.
-"""
+    BEZEL = ui_constants.TEXT_FIELD_BORDER_STYLE_BEZEL
+    """
+    Displays a bezel-style border for the text field. This style is typically used for standard data-entry fields.
+    """
 
-TEXT_FIELD_BORDER_STYLE_LINE = ui_constants.TEXT_FIELD_BORDER_STYLE_LINE
-"""
-Displays a thin rectangle around the text field.
-"""
+    LINE = ui_constants.TEXT_FIELD_BORDER_STYLE_LINE
+    """
+    Displays a thin rectangle around the text field.
+    """
 
-TEXT_FIELD_BORDER_STYLE_ROUNDED_RECT = ui_constants.TEXT_FIELD_BORDER_STYLE_ROUNDED_RECT
-"""
-Displays a rounded-style border for the text field.
-"""
+    ROUNDED_RECT = ui_constants.TEXT_FIELD_BORDER_STYLE_ROUNDED_RECT
+    """
+    Displays a rounded-style border for the text field.
+    """
 
 # MARK: - Button Item Style
 
-BUTTON_ITEM_STYLE = ui_constants.BUTTON_ITEM_STYLE
+class ButtonItemStyle(Enum):
+    """
+    Styles of a bar button item.
+    """
 
-BUTTON_ITEM_STYLE_PLAIN = ui_constants.BUTTON_ITEM_STYLE_PLAIN
-"""
-Glows when tapped. The default item style.
-"""
+    PLAIN = ui_constants.BUTTON_ITEM_STYLE_PLAIN
+    """
+    Glows when tapped. The default item style.
+    """
 
-BUTTON_ITEM_STYLE_DONE = ui_constants.BUTTON_ITEM_STYLE_DONE
-"""
-The style for a done button—for example, a button that completes some task and returns to the previous view.
-"""
+    DONE = ui_constants.BUTTON_ITEM_STYLE_DONE
+    """
+    The style for a done button—for example, a button that completes some task and returns to the previous view.
+    """
 
 # MARK: - Button Item System Item
 
-SYSTEM_ITEM = ui_constants.SYSTEM_ITEM
+class SystemItem(Enum):
+    """
+    System bar button items.
+    """
 
-SYSTEM_ITEM_ACTION = ui_constants.SYSTEM_ITEM_ACTION
-"""
-The system action button.
-"""
+    ACTION = ui_constants.SYSTEM_ITEM_ACTION
+    """
+    The system action button.
+    """
 
-SYSTEM_ITEM_ADD = ui_constants.SYSTEM_ITEM_ADD
-"""
-The system plus button containing an icon of a plus sign.
-"""
+    ADD = ui_constants.SYSTEM_ITEM_ADD
+    """
+    The system plus button containing an icon of a plus sign.
+    """
 
-SYSTEM_ITEM_BOOKMARKS = ui_constants.SYSTEM_ITEM_BOOKMARKS
-"""
-The system bookmarks button.
-"""
+    BOOKMARKS = ui_constants.SYSTEM_ITEM_BOOKMARKS
+    """
+    The system bookmarks button.
+    """
 
-SYSTEM_ITEM_CAMERA = ui_constants.SYSTEM_ITEM_CAMERA
-"""
-The system camera button.
-"""
+    CAMERA = ui_constants.SYSTEM_ITEM_CAMERA
+    """
+    The system camera button.
+    """
 
-SYSTEM_ITEM_CANCEL = ui_constants.SYSTEM_ITEM_CANCEL
-"""
-The system Cancel button, localized.
-"""
+    CANCEL = ui_constants.SYSTEM_ITEM_CANCEL
+    """
+    The system Cancel button, localized.
+    """
 
-SYSTEM_ITEM_COMPOSE = ui_constants.SYSTEM_ITEM_COMPOSE
-"""
-The system compose button.
-"""
+    COMPOSE = ui_constants.SYSTEM_ITEM_COMPOSE
+    """
+    The system compose button.
+    """
 
-SYSTEM_ITEM_DONE = ui_constants.SYSTEM_ITEM_DONE
-"""
-The system Done button, localized.
-"""
+    DONE = ui_constants.SYSTEM_ITEM_DONE
+    """
+    The system Done button, localized.
+    """
 
-SYSTEM_ITEM_EDIT = ui_constants.SYSTEM_ITEM_EDIT
-"""
-The system Edit button, localized.
-"""
+    EDIT = ui_constants.SYSTEM_ITEM_EDIT
+    """
+    The system Edit button, localized.
+    """
 
-SYSTEM_ITEM_FAST_FORWARD = ui_constants.SYSTEM_ITEM_FAST_FORWARD
-"""
-The system fast forward button.
-"""
+    FAST_FORWARD = ui_constants.SYSTEM_ITEM_FAST_FORWARD
+    """
+    The system fast forward button.
+    """
 
-SYSTEM_ITEM_FLEXIBLE_SPACE = ui_constants.SYSTEM_ITEM_FLEXIBLE_SPACE
-"""
-Blank space to add between other items. The space is distributed equally between the other items. Other item properties are ignored when this value is set.
-"""
+    FLEXIBLE_SPACE = ui_constants.SYSTEM_ITEM_FLEXIBLE_SPACE
+    """
+    Blank space to add between other items. The space is distributed equally between the other items. Other item properties are ignored when this value is set.
+    """
 
-SYSTEM_ITEM_ORGANIZE = ui_constants.SYSTEM_ITEM_ORGANIZE
-"""
-The system organize button.
-"""
+    ORGANIZE = ui_constants.SYSTEM_ITEM_ORGANIZE
+    """
+    The system organize button.
+    """
 
-SYSTEM_ITEM_PAUSE = ui_constants.SYSTEM_ITEM_PAUSE
-"""
-The system pause button.
-"""
+    PAUSE = ui_constants.SYSTEM_ITEM_PAUSE
+    """
+    The system pause button.
+    """
 
-SYSTEM_ITEM_PLAY = ui_constants.SYSTEM_ITEM_PLAY
-"""
-The system play button.
-"""
+    PLAY = ui_constants.SYSTEM_ITEM_PLAY
+    """
+    The system play button.
+    """
 
-SYSTEM_ITEM_REDO = ui_constants.SYSTEM_ITEM_REDO
-"""
-The system redo button.
-"""
+    REDO = ui_constants.SYSTEM_ITEM_REDO
+    """
+    The system redo button.
+    """
 
-SYSTEM_ITEM_REFRESH = ui_constants.SYSTEM_ITEM_REFRESH
-"""
-The system refresh button.
-"""
+    REFRESH = ui_constants.SYSTEM_ITEM_REFRESH
+    """
+    The system refresh button.
+    """
 
-SYSTEM_ITEM_REPLY = ui_constants.SYSTEM_ITEM_REPLY
-"""
-The system reply button.
-"""
+    REPLY = ui_constants.SYSTEM_ITEM_REPLY
+    """
+    The system reply button.
+    """
 
-SYSTEM_ITEM_REWIND = ui_constants.SYSTEM_ITEM_REWIND
-"""
-The system rewind button.
-"""
+    REWIND = ui_constants.SYSTEM_ITEM_REWIND
+    """
+    The system rewind button.
+    """
 
-SYSTEM_ITEM_SAVE = ui_constants.SYSTEM_ITEM_SAVE
-"""
-The system Save button, localized.
-"""
+    SAVE = ui_constants.SYSTEM_ITEM_SAVE
+    """
+    The system Save button, localized.
+    """
 
-SYSTEM_ITEM_SEARCH = ui_constants.SYSTEM_ITEM_SEARCH
-"""
-The system search button.
-"""
+    SEARCH = ui_constants.SYSTEM_ITEM_SEARCH
+    """
+    The system search button.
+    """
 
-SYSTEM_ITEM_STOP = ui_constants.SYSTEM_ITEM_STOP
-"""
-The system stop button.
-"""
+    STOP = ui_constants.SYSTEM_ITEM_STOP
+    """
+    The system stop button.
+    """
 
-SYSTEM_ITEM_TRASH = ui_constants.SYSTEM_ITEM_TRASH
-"""
-The system trash button.
-"""
+    TRASH = ui_constants.SYSTEM_ITEM_TRASH
+    """
+    The system trash button.
+    """
 
-SYSTEM_ITEM_UNDO = ui_constants.SYSTEM_ITEM_UNDO
-"""
-The system undo button.
-"""
+    UNDO = ui_constants.SYSTEM_ITEM_UNDO
+    """
+    The system undo button.
+    """
 
 ###############
 # MARK: - Other Classes
 ###############
+
+# MARK: Rect
+
+Rect = namedtuple("Rect", ["x", "y", "width", "height"])
+"""
+A tuple that contains the location and dimensions of a rectangle.
+"""
+
+Point = namedtuple("Point", ["x", "y"])
+"""
+A tuple that contains a point in a two-dimensional coordinate system.
+"""
+
+Size = namedtuple("Size", ["width", "height"])
+"""
+A tuple that contains width and height values.
+"""
 
 # MARK: - Color
 
@@ -1004,9 +1110,7 @@ class Color:
                 color = self._hex_to_rgb(obj)
                 self.__py_color__ = cls.rgb(color[0]/255, color[1]/255, color[2]/255).__py_color__
             else:
-                name = "color_"+obj
-                name = name.upper()
-                self.__py_color__ = globals()[name].__py_color__
+                self.__py_color__ = getattr(type(self), obj).__py_color__
         elif isinstance(obj, dict):
             if "dark" in obj and "light" in obj:
                 light = cls.__new__()
@@ -1034,16 +1138,13 @@ class Color:
             }
         else:
 
-            everything = list(globals().keys()).copy()
+            for attr in dir(type(self)):
+                if attr.upper() != attr:
+                    continue
 
-            declared_colors = []
-            for key in everything:
-                if key.startswith("COLOR_") and isinstance(globals()[key], Color):
-                    declared_colors.append(key)
-
-            for color_name in declared_colors:
-                if globals()[color_name].__py_color__.isEqual(self.__py_color__):
-                    return color_name.lower().split("color_")[1]
+                value = getattr(type(self), attr)
+                if "__py_color__" in dir(value) and value.__py_color__.isEqual(self.__py_color__):
+                    return attr
 
         return {
             "red": self.red(),
@@ -1180,165 +1281,169 @@ class Color:
         except AttributeError:
             return False
 
+class SystemColors:
+    """
+    System defined colors.
+    """
 
-COLOR_LABEL = Color(ui_constants.COLOR_LABEL)
-""" The color for text labels containing primary content. """
+    LABEL = Color(ui_constants.COLOR_LABEL)
+    """ The color for text labels containing primary content. """
 
-COLOR_SECONDARY_LABEL = Color(ui_constants.COLOR_SECONDARY_LABEL)
-""" The color for text labels containing secondary content. """
+    SECONDARY_LABEL = Color(ui_constants.COLOR_SECONDARY_LABEL)
+    """ The color for text labels containing secondary content. """
 
-COLOR_TERTIARY_LABEL = Color(ui_constants.COLOR_TERTIARY_LABEL)
-""" The color for text labels containing tertiary content. """
+    TERTIARY_LABEL = Color(ui_constants.COLOR_TERTIARY_LABEL)
+    """ The color for text labels containing tertiary content. """
 
-COLOR_QUATERNARY_LABEL = Color(ui_constants.COLOR_QUATERNARY_LABEL)
-""" The color for text labels containing quaternary content. """
+    QUATERNARY_LABEL = Color(ui_constants.COLOR_QUATERNARY_LABEL)
+    """ The color for text labels containing quaternary content. """
 
-COLOR_SYSTEM_FILL = Color(ui_constants.COLOR_SYSTEM_FILL)
-""" An overlay fill color for thin and small shapes. """
+    SYSTEM_FILL = Color(ui_constants.COLOR_SYSTEM_FILL)
+    """ An overlay fill color for thin and small shapes. """
 
-COLOR_SECONDARY_SYSTEM_FILL = Color(ui_constants.COLOR_SECONDARY_SYSTEM_FILL)
-""" An overlay fill color for medium-size shapes. """
+    SECONDARY_SYSTEM_FILL = Color(ui_constants.COLOR_SECONDARY_SYSTEM_FILL)
+    """ An overlay fill color for medium-size shapes. """
 
-COLOR_TERTIARY_SYSTEM_FILL = Color(ui_constants.COLOR_TERTIARY_SYSTEM_FILL)
-""" An overlay fill color for large shapes. """
+    TERTIARY_SYSTEM_FILL = Color(ui_constants.COLOR_TERTIARY_SYSTEM_FILL)
+    """ An overlay fill color for large shapes. """
 
-COLOR_QUATERNARY_SYSTEM_FILL = Color(ui_constants.COLOR_QUATERNARY_SYSTEM_FILL)
-""" An overlay fill color for large areas containing complex content. """
+    QUATERNARY_SYSTEM_FILL = Color(ui_constants.COLOR_QUATERNARY_SYSTEM_FILL)
+    """ An overlay fill color for large areas containing complex content. """
 
-COLOR_PLACEHOLDER_TEXT = Color(ui_constants.COLOR_PLACEHOLDER_TEXT)
-""" The color for placeholder text in controls or text views. """
+    PLACEHOLDER_TEXT = Color(ui_constants.COLOR_PLACEHOLDER_TEXT)
+    """ The color for placeholder text in controls or text views. """
 
-COLOR_SYSTEM_BACKGROUND = Color(ui_constants.COLOR_SYSTEM_BACKGROUND)
-""" The color for the main background of your interface. """
+    SYSTEM_BACKGROUND = Color(ui_constants.COLOR_SYSTEM_BACKGROUND)
+    """ The color for the main background of your interface. """
 
-COLOR_SECONDARY_SYSTEM_BACKGROUND = Color(
-    ui_constants.COLOR_SECONDARY_SYSTEM_BACKGROUND
-)
-""" The color for content layered on top of the main background. """
+    SECONDARY_SYSTEM_BACKGROUND = Color(
+        ui_constants.COLOR_SECONDARY_SYSTEM_BACKGROUND
+    )
+    """ The color for content layered on top of the main background. """
 
-COLOR_TERTIARY_SYSTEM_BACKGROUND = Color(ui_constants.COLOR_TERTIARY_SYSTEM_BACKGROUND)
-""" The color for content layered on top of secondary backgrounds. """
+    TERTIARY_SYSTEM_BACKGROUND = Color(ui_constants.COLOR_TERTIARY_SYSTEM_BACKGROUND)
+    """ The color for content layered on top of secondary backgrounds. """
 
-COLOR_SYSTEM_GROUPED_BACKGROUND = Color(ui_constants.COLOR_SYSTEM_GROUPED_BACKGROUND)
-""" The color for the main background of your grouped interface. """
+    SYSTEM_GROUPED_BACKGROUND = Color(ui_constants.COLOR_SYSTEM_GROUPED_BACKGROUND)
+    """ The color for the main background of your grouped interface. """
 
-COLOR_SECONDARY_GROUPED_BACKGROUND = Color(
-    ui_constants.COLOR_SECONDARY_GROUPED_BACKGROUND
-)
-""" The color for content layered on top of the main background of your grouped interface. """
+    SECONDARY_GROUPED_BACKGROUND = Color(
+        ui_constants.COLOR_SECONDARY_GROUPED_BACKGROUND
+    )
+    """ The color for content layered on top of the main background of your grouped interface. """
 
-COLOR_TERTIARY_GROUPED_BACKGROUND = Color(
-    ui_constants.COLOR_TERTIARY_GROUPED_BACKGROUND
-)
-""" The color for content layered on top of secondary backgrounds of your grouped interface. """
+    TERTIARY_GROUPED_BACKGROUND = Color(
+        ui_constants.COLOR_TERTIARY_GROUPED_BACKGROUND
+    )
+    """ The color for content layered on top of secondary backgrounds of your grouped interface. """
 
-COLOR_SEPARATOR = Color(ui_constants.COLOR_SEPARATOR)
-""" The color for thin borders or divider lines that allows some underlying content to be visible. """
+    SEPARATOR = Color(ui_constants.COLOR_SEPARATOR)
+    """ The color for thin borders or divider lines that allows some underlying content to be visible. """
 
-COLOR_OPAQUE_SEPARATOR = Color(ui_constants.COLOR_OPAQUE_SEPARATOR)
-""" The color for borders or divider lines that hide any underlying content. """
+    OPAQUE_SEPARATOR = Color(ui_constants.COLOR_OPAQUE_SEPARATOR)
+    """ The color for borders or divider lines that hide any underlying content. """
 
-COLOR_LINK = Color(ui_constants.COLOR_LINK)
-""" The color for links. """
+    LINK = Color(ui_constants.COLOR_LINK)
+    """ The color for links. """
 
-COLOR_DARK_TEXT = Color(ui_constants.COLOR_DARK_TEXT)
-""" The nonadaptable system color for text on a light background. """
+    DARK_TEXT = Color(ui_constants.COLOR_DARK_TEXT)
+    """ The nonadaptable system color for text on a light background. """
 
-COLOR_LIGHT_TEXT = Color(ui_constants.COLOR_LIGHT_TEXT)
-""" The nonadaptable system color for text on a dark background. """
+    LIGHT_TEXT = Color(ui_constants.COLOR_LIGHT_TEXT)
+    """ The nonadaptable system color for text on a dark background. """
 
-COLOR_SYSTEM_BLUE = Color(ui_constants.COLOR_SYSTEM_BLUE)
-""" A blue color that automatically adapts to the current trait environment. """
+    SYSTEM_BLUE = Color(ui_constants.COLOR_SYSTEM_BLUE)
+    """ A blue color that automatically adapts to the current trait environment. """
 
-COLOR_SYSTEM_GREEN = Color(ui_constants.COLOR_SYSTEM_GREEN)
-""" A green color that automatically adapts to the current trait environment. """
+    SYSTEM_GREEN = Color(ui_constants.COLOR_SYSTEM_GREEN)
+    """ A green color that automatically adapts to the current trait environment. """
 
-COLOR_SYSTEM_INDIGO = Color(ui_constants.COLOR_SYSTEM_INDIGO)
-""" An indigo color that automatically adapts to the current trait environment. """
+    SYSTEM_INDIGO = Color(ui_constants.COLOR_SYSTEM_INDIGO)
+    """ An indigo color that automatically adapts to the current trait environment. """
 
-COLOR_SYSTEM_ORANGE = Color(ui_constants.COLOR_SYSTEM_ORANGE)
-""" An orange color that automatically adapts to the current trait environment. """
+    SYSTEM_ORANGE = Color(ui_constants.COLOR_SYSTEM_ORANGE)
+    """ An orange color that automatically adapts to the current trait environment. """
 
-COLOR_SYSTEM_PINK = Color(ui_constants.COLOR_SYSTEM_PINK)
-""" A pink color that automatically adapts to the current trait environment. """
+    SYSTEM_PINK = Color(ui_constants.COLOR_SYSTEM_PINK)
+    """ A pink color that automatically adapts to the current trait environment. """
 
-COLOR_SYSTEM_PURPLE = Color(ui_constants.COLOR_SYSTEM_PURPLE)
-""" A purple color that automatically adapts to the current trait environment. """
+    SYSTEM_PURPLE = Color(ui_constants.COLOR_SYSTEM_PURPLE)
+    """ A purple color that automatically adapts to the current trait environment. """
 
-COLOR_SYSTEM_RED = Color(ui_constants.COLOR_SYSTEM_RED)
-""" A red color that automatically adapts to the current trait environment. """
+    SYSTEM_RED = Color(ui_constants.COLOR_SYSTEM_RED)
+    """ A red color that automatically adapts to the current trait environment. """
 
-COLOR_SYSTEM_TEAL = Color(ui_constants.COLOR_SYSTEM_TEAL)
-""" A teal color that automatically adapts to the current trait environment. """
+    SYSTEM_TEAL = Color(ui_constants.COLOR_SYSTEM_TEAL)
+    """ A teal color that automatically adapts to the current trait environment. """
 
-COLOR_SYSTEM_YELLOW = Color(ui_constants.COLOR_SYSTEM_YELLOW)
-""" A yellow color that automatically adapts to the current trait environment. """
+    SYSTEM_YELLOW = Color(ui_constants.COLOR_SYSTEM_YELLOW)
+    """ A yellow color that automatically adapts to the current trait environment. """
 
-COLOR_SYSTEM_GRAY = Color(ui_constants.COLOR_SYSTEM_GRAY)
-""" The base gray color. """
+    SYSTEM_GRAY = Color(ui_constants.COLOR_SYSTEM_GRAY)
+    """ The base gray color. """
 
-COLOR_SYSTEM_GRAY2 = Color(ui_constants.COLOR_SYSTEM_GRAY2)
-""" A second-level shade of grey. """
+    SYSTEM_GRAY2 = Color(ui_constants.COLOR_SYSTEM_GRAY2)
+    """ A second-level shade of grey. """
 
-COLOR_SYSTEM_GRAY3 = Color(ui_constants.COLOR_SYSTEM_GRAY3)
-""" A third-level shade of grey. """
+    SYSTEM_GRAY3 = Color(ui_constants.COLOR_SYSTEM_GRAY3)
+    """ A third-level shade of grey. """
 
-COLOR_SYSTEM_GRAY4 = Color(ui_constants.COLOR_SYSTEM_GRAY4)
-""" A fourth-level shade of grey. """
+    SYSTEM_GRAY4 = Color(ui_constants.COLOR_SYSTEM_GRAY4)
+    """ A fourth-level shade of grey. """
 
-COLOR_SYSTEM_GRAY5 = Color(ui_constants.COLOR_SYSTEM_GRAY5)
-""" A fifth-level shade of grey. """
+    SYSTEM_GRAY5 = Color(ui_constants.COLOR_SYSTEM_GRAY5)
+    """ A fifth-level shade of grey. """
 
-COLOR_SYSTEM_GRAY6 = Color(ui_constants.COLOR_SYSTEM_GRAY6)
-""" A sixth-level shade of grey. """
+    SYSTEM_GRAY6 = Color(ui_constants.COLOR_SYSTEM_GRAY6)
+    """ A sixth-level shade of grey. """
 
-COLOR_CLEAR = Color(ui_constants.COLOR_CLEAR)
-""" A color object with grayscale and alpha values that are both 0.0. """
+    CLEAR = Color(ui_constants.COLOR_CLEAR)
+    """ A color object with grayscale and alpha values that are both 0.0. """
 
-COLOR_BLACK = Color(ui_constants.COLOR_BLACK)
-""" A color object in the sRGB color space with a grayscale value of 0.0 and an alpha value of 1.0. """
+    BLACK = Color(ui_constants.COLOR_BLACK)
+    """ A color object in the sRGB color space with a grayscale value of 0.0 and an alpha value of 1.0. """
 
-COLOR_BLUE = Color(ui_constants.COLOR_BLUE)
-""" A color object with RGB values of 0.0, 0.0, and 1.0 and an alpha value of 1.0. """
+    BLUE = Color(ui_constants.COLOR_BLUE)
+    """ A color object with RGB values of 0.0, 0.0, and 1.0 and an alpha value of 1.0. """
 
-COLOR_BROWN = Color(ui_constants.COLOR_BROWN)
-""" A color object with RGB values of 0.6, 0.4, and 0.2 and an alpha value of 1.0. """
+    BROWN = Color(ui_constants.COLOR_BROWN)
+    """ A color object with RGB values of 0.6, 0.4, and 0.2 and an alpha value of 1.0. """
 
-COLOR_CYAN = Color(ui_constants.COLOR_CYAN)
-""" A color object with RGB values of 0.0, 1.0, and 1.0 and an alpha value of 1.0. """
+    CYAN = Color(ui_constants.COLOR_CYAN)
+    """ A color object with RGB values of 0.0, 1.0, and 1.0 and an alpha value of 1.0. """
 
-COLOR_DARK_GRAY = Color(ui_constants.COLOR_DARK_GRAY)
-""" A color object with a grayscale value of 1/3 and an alpha value of 1.0. """
+    DARK_GRAY = Color(ui_constants.COLOR_DARK_GRAY)
+    """ A color object with a grayscale value of 1/3 and an alpha value of 1.0. """
 
-COLOR_GRAY = Color(ui_constants.COLOR_GRAY)
-""" A color object with a grayscale value of 0.5 and an alpha value of 1.0. """
+    GRAY = Color(ui_constants.COLOR_GRAY)
+    """ A color object with a grayscale value of 0.5 and an alpha value of 1.0. """
 
-COLOR_GREEN = Color(ui_constants.COLOR_GREEN)
-""" A color object with RGB values of 0.0, 1.0, and 0.0 and an alpha value of 1.0. """
+    GREEN = Color(ui_constants.COLOR_GREEN)
+    """ A color object with RGB values of 0.0, 1.0, and 0.0 and an alpha value of 1.0. """
 
-COLOR_LIGHT_GRAY = Color(ui_constants.COLOR_LIGHT_GRAY)
-""" A color object with a grayscale value of 2/3 and an alpha value of 1.0. """
+    LIGHT_GRAY = Color(ui_constants.COLOR_LIGHT_GRAY)
+    """ A color object with a grayscale value of 2/3 and an alpha value of 1.0. """
 
-COLOR_MAGENTA = Color(ui_constants.COLOR_MAGENTA)
-""" A color object with RGB values of 1.0, 0.0, and 1.0 and an alpha value of 1.0. """
+    MAGENTA = Color(ui_constants.COLOR_MAGENTA)
+    """ A color object with RGB values of 1.0, 0.0, and 1.0 and an alpha value of 1.0. """
 
-COLOR_ORANGE = Color(ui_constants.COLOR_ORANGE)
-""" A color object with RGB values of 1.0, 0.5, and 0.0 and an alpha value of 1.0. """
+    ORANGE = Color(ui_constants.COLOR_ORANGE)
+    """ A color object with RGB values of 1.0, 0.5, and 0.0 and an alpha value of 1.0. """
 
-COLOR_PURPLE = Color(ui_constants.COLOR_PURPLE)
-""" A color object with RGB values of 0.5, 0.0, and 0.5 and an alpha value of 1.0. """
+    PURPLE = Color(ui_constants.COLOR_PURPLE)
+    """ A color object with RGB values of 0.5, 0.0, and 0.5 and an alpha value of 1.0. """
 
-COLOR_RED = Color(ui_constants.COLOR_RED)
-""" A color object with RGB values of 1.0, 0.0, and 0.0 and an alpha value of 1.0. """
+    RED = Color(ui_constants.COLOR_RED)
+    """ A color object with RGB values of 1.0, 0.0, and 0.0 and an alpha value of 1.0. """
 
-COLOR_WHITE = Color(ui_constants.COLOR_WHITE)
-""" A color object with a grayscale value of 1.0 and an alpha value of 1.0. """
+    WHITE = Color(ui_constants.COLOR_WHITE)
+    """ A color object with a grayscale value of 1.0 and an alpha value of 1.0. """
 
-COLOR_YELLOW = Color(ui_constants.COLOR_YELLOW)
-""" A color object with RGB values of 1.0, 1.0, and 0.0 and an alpha value of 1.0. """
+    YELLOW = Color(ui_constants.COLOR_YELLOW)
+    """ A color object with RGB values of 1.0, 1.0, and 0.0 and an alpha value of 1.0. """
 
 try:
-    if not COLOR_CLEAR.__py_color__.objc_class.name.endswith("PyColor"): # Something went wrong, retry
+    if not SystemColors.CLEAR.__py_color__.objc_class.name.endswith("PyColor"): # Something went wrong, retry
         del sys.modules["ui_constants"]
         del sys.modules["pyto_ui"]
 
@@ -1385,7 +1490,7 @@ class Font:
                 name = "-".join(name_parts)
                 self.__init__(name, float(parts[-1]))
             except ValueError:
-                self.__init__(obj, FONT_SYSTEM_SIZE)
+                self.__init__(obj, FontSize.SYSTEM_SIZE)
 
     def dictionary_representation(self):
         return f"{str(self.__ui_font__.fontName)}-{float(self.__ui_font__.pointSize)}"
@@ -1478,7 +1583,7 @@ class Font:
         return font
 
     @classmethod
-    def font_with_style(cls, style: FONT_TEXT_STYLE) -> Font:
+    def font_with_style(cls, style: FontTextStyle) -> Font:
         """
         Returns an instance of the system font for the specified text style and scaled appropriately for the user's selected content size category.
 
@@ -1541,7 +1646,7 @@ class GestureRecognizer:
     __py_gesture__ = None
 
     def __init__(
-        self, type: GESTURE_TYPE, action: Callable[[GestureRecognizer], None] = None
+        self, type: GestureType, action: Callable[[GestureRecognizer], None] = None
     ):
 
         if type.objc_class == __PyGestureRecognizer__:
@@ -1645,7 +1750,7 @@ class GestureRecognizer:
     __state__ = None
 
     @property
-    def state(self) -> GESTURE_STATE:
+    def state(self) -> GestureState:
         """
         (Read Only) The current state of the gesture recognizer.
 
@@ -1653,9 +1758,9 @@ class GestureRecognizer:
         """
 
         if self.__state__ is not None:
-            return self.__state__
+            return GestureState(self.__state__)
         else:
-            return self.__py_gesture__.state
+            return GestureState(self.__py_gesture__.state)
 
     @property
     def requires_exclusive_touch_type(self) -> bool:
@@ -1710,17 +1815,21 @@ class GestureRecognizer:
         self.__py_gesture__.cancelsTouchesInView = new_value
 
     @property
-    def allowed_touch_types(self) -> List[TOUCH_TYPE]:
+    def allowed_touch_types(self) -> Tuple[TouchType]:
         """
         An array of touch types used to distinguish type of touches. For possible values, see ``Touch Type`` constants.
 
         :rtype: List[`Touch Type <constants.html#touch-type>`_]
         """
-        return self.__py_gesture__.allowedTouchTypes
+
+        touch_types = []
+        for touch_type in self.__py_gesture__.allowedTouchTypes:
+            touch_types.append(TouchType(touch_type))
+        return touch_types 
 
     @allowed_touch_types.setter
-    def allowedTouchTypes(self, new_value: List[TOUCH_TYPE]):
-        self.__py_gesture__.allowedTouchTypes = new_value
+    def allowedTouchTypes(self, new_value: Tuple[TouchType]):
+        self.__py_gesture__.allowedTouchTypes = list(new_value)
 
     @property
     def action(self) -> Callable[[GestureRecognizer], None]:
@@ -1860,11 +1969,12 @@ class TableViewSection:
         self.__py_section__.title = new_value
 
     @property
-    def cells(self) -> "TableViewCell":
+    def cells(self) -> Tuple["TableViewCell"]:
         """
         Cells contained in the section. After setting a value, the section will be reloaded automatically.
+        The returned value of this property will always be a tuple, so mutating a list of cells won't trigger a reload.
 
-        :rtype: TableViewCell
+        :rtype: Tuple[TableViewCell]
         """
 
         cells = self.__py_section__.cells
@@ -1873,14 +1983,14 @@ class TableViewSection:
             py_cell = TableViewCell()
             py_cell.__py_view__ = cell
             py_cells.append(py_cell)
-        return py_cells
+        return tuple(py_cells)
 
     @cells.setter
     def cells(self, new_value: "TableViewCell"):
         cells = []
         for cell in new_value:
             cells.append(cell.__py_view__)
-        self.__py_section__.cells = cells
+        self.__py_section__.cells = list(cells)
 
     @property
     def did_select_cell(self) -> Callable[[TableViewSection, int], None]:
@@ -2018,10 +2128,7 @@ class ButtonItem:
             dict["image"] = self.image.filename
         
         if self._system_item is not None:
-
-            for key in list(globals().keys()).copy():
-                if key.startswith("SYSTEM_ITEM_") and globals()[key] == self._system_item:
-                    dict["system_item"] = key.split("SYSTEM_ITEM_")[1].lower()
+            dict["system_item"] = self._system_item.name
 
         dict["enabled"] = self.enabled
 
@@ -2058,8 +2165,7 @@ class ButtonItem:
 
         system_item = get("system_item")
         if system_item is not None:
-            name = "SYSTEM_ITEM_"+(system_item.upper())
-            self._system_item = globals()[name]
+            self._system_item = getattr(SystemItem, system_item)
             self.__py_item__ = __PyButtonItem__.alloc().initWithSystemItem(self._system_item)
 
         self.title = get("title")
@@ -2078,12 +2184,12 @@ class ButtonItem:
         self,
         title: str = None,
         image: "Image" = None,
-        system_item: SYSTEM_ITEM = None,
-        style: BUTTON_ITEM_STYLE = __v__("BUTTON_ITEM_STYLE_PLAIN"),
+        system_item: SystemItem = None,
+        style: ButtonItemStyle = __v__("PLAIN"),
     ):
 
-        if style == "BUTTON_ITEM_STYLE_PLAIN":
-            style = BUTTON_ITEM_STYLE_PLAIN
+        if style == "PLAIN":
+            style = ButtonItemStyle
 
         if system_item is not None:
             self.__py_item__ = __PyButtonItem__.alloc().initWithSystemItem(system_item)
@@ -2156,16 +2262,16 @@ class ButtonItem:
         self.__py_item__.enabled = new_value
 
     @property
-    def style(self) -> BUTTON_ITEM_STYLE:
+    def style(self) -> ButtonItemStyle:
         """
         The button item style. See `Button Item Style <constants.html#button-item-style>`_ constants for possible values.
 
         :rtype: `Button Item Style <constants.html#button-item-style>`_
         """
-        return self.__py_item__.style
+        return ButtonItemStyle(self.__py_item__.style)
 
     @style.setter
-    def style(self, new_value: BUTTON_ITEM_STYLE):
+    def style(self, new_value: ButtonItemStyle):
         self.__py_item__.style = new_value
 
     @property
@@ -2395,12 +2501,10 @@ class View:
             self.border_color = border_color
         
         if get("content_mode") is not None:
-            content_mode = ("content_mode_"+get("content_mode")).upper()
-            self.content_mode = globals()[content_mode]
+            self.content_mode = getattr(ContentMode, get("content_mode"))
 
         if get("appearance") is not None:
-            appearance = ("appearance_"+get("appearance")).upper()
-            self.appearance = globals()[appearance]
+            self.appearance = getattr(Appearance, get("appearance"))
 
         button_items = []
         if get("button_items") is not None:
@@ -2468,14 +2572,11 @@ class View:
         if border_color is not None:
             border_color = border_color.dictionary_representation()
 
-        content_mode = None
-        for key in list(globals().keys()).copy():
-            if key.startswith("CONTENT_MODE_") and globals()[key] == self.content_mode:
-                content_mode = key.lower().split("content_mode_")[1]
+        content_mode = self.content_mode.name
 
-        if self.appearance == APPEARANCE_DARK and self._set_appearance:
+        if self.appearance == Appearance.DARK and self._set_appearance:
             appearance = "dark"
-        elif self.appearance == APPEARANCE_LIGHT and self._set_appearance:
+        elif self.appearance == Appearance.LIGHT and self._set_appearance:
             appearance = "light"
         else:
             appearance = None
@@ -2639,36 +2740,6 @@ class View:
 
         self.__py_view__.close()
 
-    def push(self, view: View):
-        """
-        Presents the given additional view on top of the receiver.
-
-        :param view: The view to present.
-        """
-
-        self.__py_view__.pushView(view.__py_view__)
-
-    def pop(self):
-        """
-        Pops the visible view controller from the navigation controller.
-        """
-
-        self.__py_view__.pop()
-
-    @property
-    def navigation_bar_hidden(self) -> bool:
-        """
-        A boolean indicating whether the Navigation Bar of the View should be hidden.
-
-        :rtype: bool
-        """
-
-        return self.__py_view__.navigationBarHidden
-
-    @navigation_bar_hidden.setter
-    def navigation_bar_hidden(self, new_value: bool):
-        self.__py_view__.navigationBarHidden = new_value
-
     @property
     def x(self) -> float:
         """
@@ -2753,63 +2824,63 @@ class View:
         self.__py_view__.centerY = new_value
 
     @property
-    def center(self) -> Tuple[float, float]:
+    def center(self) -> Point:
         """
         The center point of the view's frame rectangle. Setting this value updates ``frame`` property appropiately.
         This value is a tuple with X and Y coordinates.
 
-        :rtype: Tuple[float, float]
+        :rtype: Point
         """
 
-        return (self.center_x, self.center_y)
+        return Point(self.center_x, self.center_y)
 
     @center.setter
-    def center(self, new_value: Tuple[float, float]):
+    def center(self, new_value: Point):
         self.center_x, self.center_y = new_value
 
     @property
-    def size(self) -> Tuple[float, float]:
+    def size(self) -> Size:
         """
         A size that specifies the height and width of the rectangle.
         This value is a tuple with height and width values.
 
-        :rtype: Tuple[float, float]
+        :rtype: Size
         """
 
-        return (self.width, self.height)
+        return Size(self.width, self.height)
 
     @size.setter
-    def size(self, new_value: Tuple[float, float]):
+    def size(self, new_value: Size):
         self.width, self.height = new_value
 
     @property
-    def origin(self) -> Tuple[float, float]:
+    def origin(self) -> Point:
         """
         A point that specifies the coordinates of the view's rectangle’s origin.
         This value is a tuple with X and Y coordinates.
 
-        :rtype: Tuple[float, float]
+        :rtype: Point
         """
 
-        return (self.x, self.y)
+        return Point(self.x, self.y)
 
     @origin.setter
-    def origin(self, new_value: Tuple[float, float]):
+    def origin(self, new_value: Point):
         self.x, self.y = new_value
 
     @property
-    def frame(self) -> Tuple[float, float, float, float]:
+    def frame(self) -> Rect:
         """
         The frame rectangle, which describes the view’s location and size in its superview’s coordinate system.
         This value is a tuple with X, Y, Width and Height values.
 
-        :rtype: Tuple[float, float, float, float]
+        :rtype: Rect
         """
 
-        return (self.x, self.y, self.width, self.height)
+        return Rect(self.x, self.y, self.width, self.height)
 
     @frame.setter
-    def frame(self, new_value: Tuple[float, float, float, float]):
+    def frame(self, new_value: Rect):
         self.x, self.y, self.width, self.height = new_value
 
     @property
@@ -2861,37 +2932,42 @@ class View:
         self.__py_view__.flexibleBottomMargin = new_value
 
     @property
-    def flex(self) -> List[AUTO_RESIZING]:
+    def flex(self) -> AutoResizing:
         """
         A list that determines how the receiver resizes itself when its superview’s bounds change. See `Auto Resizing <constants.html#auto-resizing>`_ constants for possible values.
 
         :rtype: List[`Auto Resizing <constants.html#auto-resizing>`_]
         """
 
-        a = []
+        a = AutoResizing(0)
 
         if self.__flexible_width__:
-            a.append(FLEXIBLE_WIDTH)
+            a = a | AutoResizing.FLEXIBLE_WIDTH
 
         if self.__flexible_height__:
-            a.append(FLEXIBLE_HEIGHT)
+            a = a | AutoResizing.FLEXIBLE_HEIGHT
 
         if self.__flexible_bottom_margin__:
-            a.append(FLEXIBLE_BOTTOM_MARGIN)
+            a = a | AutoResizing.FLEXIBLE_BOTTOM_MARGIN
 
         if self.__flexible_top_margin__:
-            a.append(FLEXIBLE_TOP_MARGIN)
+            a = a | AutoResizing.FLEXIBLE_TOP_MARGIN
 
         if self.__flexible_left_margin__:
-            a.append(FLEXIBLE_LEFT_MARGIN)
+            a = a | AutoResizing.FLEXIBLE_LEFT_MARGIN
 
         if self.__flexible_right_margin__:
-            a.append(FLEXIBLE_RIGHT_MARGIN)
+            a = a | AutoResizing.FLEXIBLE_RIGHT_MARGIN
 
         return a
 
     @flex.setter
-    def flex(self, new_value: List[AUTO_RESIZING]):
+    def flex(self, new_value: AutoResizing):
+        if isinstance(new_value, list) or isinstance(new_value, tuple):
+            flags = new_value
+        else:
+            flags = [flag for flag in AutoResizing if flag in new_value]
+
         (
             self.__flexible_width__,
             self.__flexible_height__,
@@ -2900,12 +2976,12 @@ class View:
             self.__flexible_left_margin__,
             self.__flexible_right_margin__,
         ) = (
-            (FLEXIBLE_WIDTH in new_value),
-            (FLEXIBLE_HEIGHT in new_value),
-            (FLEXIBLE_TOP_MARGIN in new_value),
-            (FLEXIBLE_BOTTOM_MARGIN in new_value),
-            (FLEXIBLE_LEFT_MARGIN in new_value),
-            (FLEXIBLE_RIGHT_MARGIN in new_value),
+            (AutoResizing.FLEXIBLE_WIDTH in flags),
+            (AutoResizing.FLEXIBLE_HEIGHT in flags),
+            (AutoResizing.FLEXIBLE_TOP_MARGIN in flags),
+            (AutoResizing.FLEXIBLE_BOTTOM_MARGIN in flags),
+            (AutoResizing.FLEXIBLE_LEFT_MARGIN in flags),
+            (AutoResizing.FLEXIBLE_RIGHT_MARGIN in flags),
         )
 
     def subview_with_name(self, name) -> View:
@@ -3147,7 +3223,7 @@ class View:
             self.__py_view__.borderColor = new_value.__py_color__
 
     @property
-    def content_mode(self) -> CONTENT_MODE:
+    def content_mode(self) -> ContentMode:
         """
         A flag used to determine how a view lays out its content when its bounds change.
         See `Content Mode` <constants.html#content-mode>`_ constants for possible values.
@@ -3158,11 +3234,11 @@ class View:
         return self.__py_view__.contentMode
 
     @content_mode.setter
-    def content_mode(self, new_value: CONTENT_MODE):
+    def content_mode(self, new_value: ContentMode):
         self.__py_view__.contentMode = new_value
 
     @property
-    def appearance(self) -> APPEARANCE:
+    def appearance(self) -> Appearance:
         """
         The appearance of the view.
         See `Appearance <constants.html#appearance>`_ constants for possible values.
@@ -3170,14 +3246,14 @@ class View:
         :rtype: `Appearance <constants.html#appearance>`_
         """
 
-        return self.__py_view__.appearance
+        return Appearance(self.__py_view__.appearance)
 
     _set_appearance = False
 
     @appearance.setter
-    def appearance(self, new_value: APPEARANCE):
+    def appearance(self, new_value: Appearance):
         
-        self._set_appearance = (new_value != APPEARANCE_UNSPECIFIED)
+        self._set_appearance = (new_value != Appearance.UNSPECIFIED)
 
         self.__py_view__.appearance = new_value
 
@@ -3272,7 +3348,7 @@ class View:
         else:
             _recognizers = []
             for recognizer in recognizers:
-                _recognizer = GestureRecognizer(GESTURE_TYPE_TAP)
+                _recognizer = GestureRecognizer(GestureType.TAP)
                 _recognizer.__py_gesture__ = recognizer
                 _recognizers.append(_recognizer)
             return _recognizers
@@ -3371,31 +3447,83 @@ class View:
             self.__py_view__.disappearAction = _values.value(new_value)
 
     @property
-    def button_items(self) -> List[ButtonItem]:
+    def left_button_items(self) -> Tuple[ButtonItem]:
         """
-        A list of :class:`~pyto_ui.ButtonItem` objects to be displayed on the top bar. Works only if the view is the root view presented with :func:`~pyto_ui.show_view` or :meth:`~pyto_ui.View.push`.
+        A tuple of :class:`~pyto_ui.ButtonItem` objects to be displayed on the left of the top bar if the view is in a navigation view.
 
         :rtype: List[ButtonItem]
         """
 
-        items = self.__py_view__.buttonItems
+        items = self.__py_view__.leftBbuttonItems
         if items is None or len(items) == 0:
-            return []
+            return ()
         else:
             _items = []
             for item in items:
                 _item = ButtonItem()
                 _item.managed = item
                 _items.append(_item)
-            return _items
+            return tuple(_items)
 
-    @button_items.setter
-    def button_items(self, new_value: List[ButtonItem]):
+    @left_button_items.setter
+    def left_button_items(self, new_value: Tuple[ButtonItem]):
         items = []
         if new_value is not None and len(new_value) > 0:
             for item in new_value:
                 items.append(item.__py_item__)
-        self.__py_view__.buttonItems = items
+        self.__py_view__.leftButtonItems = item
+    
+    @property
+    def right_button_items(self) -> Tuple[ButtonItem]:
+        """
+        A tuple of :class:`~pyto_ui.ButtonItem` objects to be displayed on the right of the top bar if the view is in a navigation view.
+
+        :rtype: List[ButtonItem]
+        """
+
+        items = self.__py_view__.rightButtonItems
+        if items is None or len(items) == 0:
+            return ()
+        else:
+            _items = []
+            for item in items:
+                _item = ButtonItem()
+                _item.managed = item
+                _items.append(_item)
+            return tuple(_items)
+
+    @right_button_items.setter
+    def right_button_items(self, new_value: Tuple[ButtonItem]):
+        items = []
+        if new_value is not None and len(new_value) > 0:
+            for item in new_value:
+                items.append(item.__py_item__)
+        self.__py_view__.rightButtonItems = items
+
+    
+
+
+class NavigationView(View):
+
+    def __init__(self, root_view: View = None):
+        self.__py_view__ = __PyNavigationView__.newViewWithRootView(root_view.__py_view__)
+
+    def push(self, view: View):
+        self.__py_view__.pushView(view.__py_view__)
+    
+    def pop(self):
+        self.__py_view__.pop()
+
+    def pop_to_root(self):
+        self.__py_view__.popToRootViewController()
+    
+    @property
+    def navigation_bar_hidden(self) -> bool:
+        return self.__py_view__.navigationBarHidden
+    
+    @navigation_bar_hidden.setter
+    def navigation_bar_hidden(self, new_value: bool):
+        self.__py_view__.navigationBarHidden = new_value
 
 
 class UIKitView(View):
@@ -3821,13 +3949,11 @@ class Label(View):
         
         alignment = get("alignment")
         if alignment is not None:
-            name = "TEXT_ALIGNMENT_"+(alignment.upper())
-            self.text_alignment = globals()[name]
+            self.text_alignment = getattr(TextAlignment, alignment)
 
         line_break_mode = get("line_break_mode")
         if line_break_mode is not None:
-            name = "LINE_BREAK_MODE_"+(line_break_mode.upper())
-            self.line_break_mode = globals()[name]
+            self.line_break_mode = getattr(LineBreakMode, line_break_mode)
 
         self.number_of_lines = get("number_of_lines", default=1)
         self.adjusts_font_size_to_fit_width = get("adjusts_font_size_to_fit_width", default=False)
@@ -3847,13 +3973,8 @@ class Label(View):
         if self.font is not None:
             label["font"] = self.font.dictionary_representation()
         
-        for key in list(globals().keys()).copy():
-            if key.startswith("TEXT_ALIGNMENT_") and globals()[key] == self.text_alignment:
-                label["alignment"] = key.split("TEXT_ALIGNMENT_")[1].lower()
-        
-        for key in list(globals().keys()).copy():
-            if key.startswith("LINE_BREAK_MODE_") and globals()[key] == self.line_break_mode:
-                label["line_break_mode"] = key.split("LINE_BREAK_MODE_")[1].lower()
+        label["alignment"] = self.text_alignment.name
+        label["line_break_mode"] = self.line_break_mode.name
 
         label["adjusts_font_size_to_fit_width"] = self.adjusts_font_size_to_fit_width
         label["number_of_lines"] = self.number_of_lines
@@ -3930,31 +4051,31 @@ class Label(View):
             self.__py_view__.font = new_value.__ui_font__
 
     @property
-    def text_alignment(self) -> TEXT_ALIGNMENT:
+    def text_alignment(self) -> TextAlignment:
         """
         The text's alignment. For possible values, see `Text Alignment <constants.html#text-alignment>`_ constants.
 
         :rtype: `Text Alignment <constants.html#text-alignment>`_
         """
 
-        return self.__py_view__.textAlignment
+        return TextAlignment(self.__py_view__.textAlignment)
 
     @text_alignment.setter
-    def text_alignment(self, new_value: TEXT_ALIGNMENT):
+    def text_alignment(self, new_value: TextAlignment):
         self.__py_view__.textAlignment = new_value
 
     @property
-    def line_break_mode(self) -> LINE_BREAK_MODE:
+    def line_break_mode(self) -> LineBreakMode:
         """
         The line break mode.
 
         :rtype: `Line Break Mode <constants.html#line-break-mode>`_
         """
 
-        return self.__py_view__.lineBreakMode
+        return LineBreakMode(self.__py_view__.lineBreakMode)
 
     @line_break_mode.setter
-    def line_break_mode(self, new_value: LINE_BREAK_MODE):
+    def line_break_mode(self, new_value: LineBreakMode):
         self.__py_view__.lineBreakMode = new_value
 
     @property
@@ -4034,15 +4155,14 @@ class TableViewCell(View):
             self.text_label.configure_from_dictionary(label)
 
         if get("detail_label") is not None and self.detail_text_label is not None:
-            detail_label = get("detail_label")
+            detºail_label = get("detail_label")
             if isinstance(detail_label, View):
                 detail_label = label.dictionary_representation()
             self.detail_text_label.configure_from_dictionary(detail_label)
 
         accessory_type = get("accessory_type")
         if accessory_type is not None:
-            name = "ACCESSORY_TYPE_"+(accessory_type.upper())
-            self.accessory_type = globals()[name]
+            self.accessory_type = getattr(AccessoryType, accessory_type)
 
     def dictionary_representation(self):
         r = super().dictionary_representation()
@@ -4062,19 +4182,17 @@ class TableViewCell(View):
         if self.detail_text_label is not None:
             table_view_cell["detail_label"] = self.detail_text_label.dictionary_representation()
 
-        for key in list(globals().keys()).copy():
-            if key.startswith("ACCESSORY_TYPE_") and globals()[key] == self.accessory_type:
-                table_view_cell["accessory_type"] = key.split("ACCESSORY_TYPE_")[1].lower()
+        table_view_cell["accessory_type"] = self.accessory_type.name
 
         r["TableViewCell"] = table_view_cell
         return r
 
     def __init__(
-        self, style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_CELL_STYLE_DEFAULT")
+        self, style: TableViewCellStyle = __v__("DEFAULT")
     ):
-        if style == "TABLE_VIEW_CELL_STYLE_DEFAULT":
+        if style == "DEFAULT":
             self.__py_view__ = __PyTableViewCell__.newViewWithStyle(
-                TABLE_VIEW_CELL_STYLE_DEFAULT
+                TableViewCellStyle.DEFAULT
             )
         else:
             self.__py_view__ = __PyTableViewCell__.newViewWithStyle(style)
@@ -4201,17 +4319,17 @@ class TableViewCell(View):
             return _view
 
     @property
-    def accessory_type(self) -> ACCESSORY_TYPE:
+    def accessory_type(self) -> AccessoryType:
         """
         The type of accessory view placed to the right of the cell. See `Accessory Type <constants.html#accessory_type>`_ constants for possible values.
 
         :rtype: `Accessory Type <constants.html#accessory_type>`_.
         """
 
-        return self.__py_view__.accessoryType
+        return AccessoryType(self.__py_view__.accessoryType)
 
     @accessory_type.setter
-    def accessory_type(self, new_value: ACCESSORY_TYPE):
+    def accessory_type(self, new_value: AccessoryType):
         self.__py_view__.accessoryType = new_value
 
 
@@ -4255,11 +4373,11 @@ class TableView(View):
 
     def __init__(
         self,
-        style: TABLE_VIEW_STYLE = __v__("TABLE_VIEW_STYLE_PLAIN"),
+        style: TableViewStyle = __v__("PLAIN"),
         sections: List[TableViewSection] = [],
     ):
-        if style == "TABLE_VIEW_STYLE_PLAIN":
-            self.__py_view__ = __PyTableView__.newViewWithStyle(TABLE_VIEW_STYLE_PLAIN)
+        if style == "PLAIN":
+            self.__py_view__ = __PyTableView__.newViewWithStyle(TableViewStyle.PLAIN)
         else:
             self.__py_view__ = __PyTableView__.newViewWithStyle(style)
         self.__py_view__.managedValue = _values.value(self)
@@ -4353,7 +4471,7 @@ class TextView(View):
             return
         
         def get(key, _dict=dictionary, default=None):
-            return self._get(_dict, default)
+            return self._get(key, _dict, default)
         
         self.selected_range = tuple(get("selected_range", default=[]))
         self.text = get("text", default="")
@@ -4379,28 +4497,23 @@ class TextView(View):
 
         text_alignment = get("text_alignment")
         if text_alignment is not None:
-            name = "TEXT_ALIGNMENT_"+(text_alignment.upper())
-            self.text_alignment = globals()[name]
+            self.text_alignment = getattr(TextAlignment, text_alignment)
         
         keyboard_type = get("keyboard_type")
         if keyboard_type is not None:
-            name = "KEYBOARD_TYPE_"+(keyboard_type.upper())
-            self.keyboard_type = globals()[name]
+            self.keyboard_type = getattr(KeyboardType, keyboard_type)
         
         keyboard_appearance = get("keyboard_appearance")
         if keyboard_appearance is not None:
-            name = "KEYBOARD_APPEARANCE__"+(keyboard_appearance.upper())
-            self.keyboard_appearance = globals()[name]
+            self.keyboard_appearance = getattr(KeyboardAppearance, keyboard_appearance)
 
         autocapitalization_type = get("autocapitalization_type")
         if autocapitalization_type is not None:
-            name = "AUTO_CAPITALIZE_"+(autocapitalization_type.upper())
-            self.autocapitalization_type = globals()[name]
+            self.autocapitalization_type = getattr(AutoCapitalization, autocapitalization_type)
         
         return_key_type = get("return_key_type")
         if return_key_type is not None:
-            name = "RETURN_KEY_TYPE_"+(return_key_type.upper())
-            self.return_key_type = globals()[name]
+            self.return_key_type = getattr(ReturnKeyType, return_key_type)
 
     def dictionary_representation(self):
         r = super().dictionary_representation()
@@ -4425,25 +4538,11 @@ class TextView(View):
         if self.font is not None:
             text_view["font"] = self.font.dictionary_representation()
         
-        for key in list(globals().keys()).copy():
-            if key.startswith("TEXT_ALIGNMENT_") and globals()[key] == self.text_alignment:
-                text_view["alignment"] = key.split("TEXT_ALIGNMENT_")[1].lower()
-        
-        for key in list(globals().keys()).copy():
-            if key.startswith("KEYBOARD_TYPE_") and globals()[key] == self.keyboard_type:
-                text_view["keyboard_type"] = key.split("KEYBOARD_TYPE_")[1].lower()
-
-        for key in list(globals().keys()).copy():
-            if key.startswith("KEYBOARD_APPEARANCE__") and globals()[key] == self.keyboard_appearance:
-                text_view["keyboard_appearance"] = key.split("KEYBOARD_APPEARANCE__")[1].lower()
-
-        for key in list(globals().keys()).copy():
-            if key.startswith("AUTO_CAPITALIZE_") and globals()[key] == self.autocapitalization_type:
-                text_view["autocapitalization_type"] = key.split("AUTO_CAPITALIZE_")[1].lower()
-
-        for key in list(globals().keys()).copy():
-            if key.startswith("RETURN_KEY_TYPE_") and globals()[key] == self.return_key_type:
-                text_view["return_key_type"] = key.split("RETURN_KEY_TYPE_")[1].lower()
+        text_view["alignment"] = self.text_alignment.name        
+        text_view["keyboard_type"] = self.keyboard_type.name
+        text_view["keyboard_appearance"] = self.keyboard_appearance.name
+        text_view["autocapitalization_type"] = self.autocapitalization_type.name
+        text_view["return_key_type"] = self.return_key_type.name
 
         r["TextView"] = text_view
         return r
@@ -4620,17 +4719,17 @@ class TextView(View):
             self.__py_view__.font = new_value.__ui_font__
 
     @property
-    def text_alignment(self) -> TEXT_ALIGNMENT:
+    def text_alignment(self) -> TextAlignment:
         """
         The alignment of the text displayed on screen. See `Text Alignment <constants.html#text-alignment>`_ constants for possible values.
 
         :rtype: `Text Alignment <constants.html#text-alignment>`_
         """
 
-        return self.__py_view__.textAlignment
+        return TextAlignment(self.__py_view__.textAlignment)
 
     @text_alignment.setter
-    def text_alignment(self, new_value: TEXT_ALIGNMENT):
+    def text_alignment(self, new_value: TextAlignment):
         self.__py_view__.textAlignment = new_value
 
     @property
@@ -4662,31 +4761,31 @@ class TextView(View):
         self.__py_view__.smartQuotes = new_value
 
     @property
-    def keyboard_type(self) -> KEYBOARD_TYPE:
+    def keyboard_type(self) -> KeyboardType:
         """
         The type of keyboard to use while editing the text. See `Keyboard Type <constants.html#keyboard-type>`_ constants for possible values.
 
         :rtype: `Keyboard Type <constants.html#keyboard-type>`_
         """
 
-        return self.__py_view__.keyboardType
+        return KeyboardType(self.__py_view__.keyboardType)
 
     @keyboard_type.setter
-    def keyboard_type(self, new_value: KEYBOARD_TYPE):
+    def keyboard_type(self, new_value: KeyboardType):
         self.__py_view__.keyboardType = new_value
 
     @property
-    def autocapitalization_type(self) -> AUTO_CAPITALIZE:
+    def autocapitalization_type(self) -> AutoCapitalization:
         """
         The type of autocapitalization to use while editing th text. See `Auto Capitalization <constants.html#auto-capitalization>`_ constants for possible values.
 
         :rtype: `Auto Capitalization <constants.html#auto-capitalization>`_
         """
 
-        return self.__py_view__.autocapitalizationType
+        return AutoCapitalization(self.__py_view__.autocapitalizationType)
 
     @autocapitalization_type.setter
-    def autocapitalization_type(self, new_value: AUTO_CAPITALIZE):
+    def autocapitalization_type(self, new_value: AutoCapitalization):
         self.__py_view__.autocapitalizationType = new_value
 
     @property
@@ -4704,31 +4803,31 @@ class TextView(View):
         self.__py_view__.autocorrection = new_value
 
     @property
-    def keyboard_appearance(self) -> KEYBOARD_APPEARANCE:
+    def keyboard_appearance(self) -> KeyboardAppearance:
         """
         The appearance of the keyboard used while editing the text. See `Keyboard Appearance <constants.html#keyboard-appearance>`_ constants for possible values.
 
         :rtype: `Keyboard Appearance <constants.html#keyboard-appearance>`_
         """
 
-        return self.__py_view__.keyboardAppearance
+        return KeyboardAppearance(self.__py_view__.keyboardAppearance)
 
     @keyboard_appearance.setter
-    def keyboard_appearance(self, new_value: KEYBOARD_APPEARANCE):
+    def keyboard_appearance(self, new_value: KeyboardAppearance):
         self.__py_view__.keyboardAppearance = new_value
 
     @property
-    def return_key_type(self) -> RETURN_KEY_TYPE:
+    def return_key_type(self) -> ReturnKeyType:
         """
         The type of return key to show on the keyboard used to edit the text. See `Return Key Type <constants.html#return-key-type>`_ constants for possible values.
 
         :rtype: `Return Key Type <constants.html#return-key-type>`_
         """
 
-        return self.__py_view__.returnKeyType
+        return ReturnKeyType(self.__py_view__.returnKeyType)
 
     @return_key_type.setter
-    def return_key_type(self, new_value: RETURN_KEY_TYPE):
+    def return_key_type(self, new_value: ReturnKeyType):
         self.__py_view__.returnKeyType = new_value
 
     @property
@@ -4745,6 +4844,8 @@ class TextView(View):
     def secure(self, new_value: bool):
         self.__py_view__.isSecureTextEntry = new_value
 
+
+# MARK: - Web view
 
 if "widget" not in os.environ:
 
@@ -5110,13 +5211,11 @@ class Control(View):
         
         horizontal_alignment = get("horizontal_alignment")
         if horizontal_alignment is not None:
-            name = "HORIZONTAL_ALIGNMENT_"+(self.horizontal_alignment.upper())
-            self.horizontal_alignment = globals()[name]
+            self.horizontal_alignment = getattr(HorizontalAlignment, horizontal_alignment)
 
         vertical_alignment = get("vertical_alignment")
         if vertical_alignment is not None:
-            name = "VERTICAL_ALIGNMENT_"+(self.vertical_alignment.upper())
-            self.vertical_alignment = globals()[name]
+            self.vertical_alignment = getattr(VerticalAlignment, vertical_alignment)
 
     def dictionary_representation(self):
         r = super().dictionary_representation()
@@ -5125,14 +5224,9 @@ class Control(View):
             "enabled": self.enabled
         }
 
-        for key in list(globals().keys()).copy():
-            if key.startswith("HORIZONTAL_ALIGNMENT_") and globals()[key] == self.horizontal_alignment:
-                control["horizontal_alignment"] = key.split("HORIZONTAL_ALIGNMENT_")[1].lower()
-
-        for key in list(globals().keys()).copy():
-            if key.startswith("VERTICAL_ALIGNMENT_") and globals()[key] == self.vertical_alignment:
-                control["vertical_alignment"] = key.split("VERTICAL_ALIGNMENT_")[1].lower()
-
+        control["horizontal_alignment"] = self.horizontal_alignment.name
+        control["vertical_alignment"] = self.vertical_alignment.name
+        
         r["Control"] = control
         return r
 
@@ -5151,31 +5245,31 @@ class Control(View):
         self.__py_view__.enabled = new_value
 
     @property
-    def horizontal_alignment(self) -> HORIZONTAL_ALIGNMENT:
+    def horizontal_alignment(self) -> HorizontalAlignment:
         """
         The horizontal alignment of the view's contents. See `Horizontal Alignment <constants.html#horizontal-alignment>`_ constants for possible values.
 
         :rtype: `Horizontal Alignment <constants.html#horizontal-alignment>`_
         """
 
-        return self.__py_view__.contentHorizontalAlignment
+        return HorizontalAlignment(self.__py_view__.contentHorizontalAlignment)
 
     @horizontal_alignment.setter
-    def horizontal_alignment(self, new_value: HORIZONTAL_ALIGNMENT):
+    def horizontal_alignment(self, new_value: HorizontalAlignment):
         self.__py_view__.contentHorizontalAlignment = new_value
 
     @property
-    def vertical_alignment(self) -> VERTICAL_ALIGNMENT:
+    def vertical_alignment(self) -> VerticalAlignment:
         """
         The vertical alignment of the view's contents. See `Vertical Alignemnt <constants.html#vertical-alignment>`_ constants for possible values.
 
         :rtype: `Vertical Alignment <constants.html#vertical-alignment>`_
         """
 
-        return self.__py_view__.contentVerticalAlignment
+        return VerticalAlignment(self.__py_view__.contentVerticalAlignment)
 
     @vertical_alignment.setter
-    def vertical_alignment(self, new_value: VERTICAL_ALIGNMENT):
+    def vertical_alignment(self, new_value: VerticalAlignment):
         self.__py_view__.contentVerticalAlignment = new_value
 
     @property
@@ -5575,12 +5669,12 @@ class Button(Control):
 
     def __init__(
         self,
-        type: BUTTON_TYPE = __v__("BUTTON_TYPE_SYSTEM"),
+        type: ButtonType = __v__("SYSTEM"),
         title: str = "",
         image: "Image" = None,
     ):
-        if type == "BUTTON_TYPE_SYSTEM":
-            self.__py_view__ = __PyButton__.newButtonWithType(BUTTON_TYPE_SYSTEM)
+        if type == "SYSTEM":
+            self.__py_view__ = __PyButton__.newButtonWithType(ButtonType.SYSTEM)
             self._button_type = type
         else:
             self.__py_view__ = __PyButton__.newButtonWithType(type)
@@ -5602,8 +5696,7 @@ class Button(Control):
         
         button_type = get("type")
         if button_type is not None:
-            name = "BUTTON_TYPE_"+(button_type.upper())
-            self._button_type = globals()[name]
+            self._button_type = getattr(ButtonType, button_type)
             self.__py_view__ = __PyButton__.newButtonWithType(self._button_type)
             self._setup_subclass()
 
@@ -5641,9 +5734,7 @@ class Button(Control):
         if self.image is not None and isinstance(self.image, Image.Image):
             button["image"] = self.image.filename
 
-        for key in list(globals().keys()).copy():
-            if key.startswith("BUTTON_TYPE_") and globals()[key] == self._button_type:
-                button["type"] = key.split("BUTTON_TYPE_")[1].lower()
+        button["type"] = self._button_type.name
 
         r["Button"] = button
         return r
@@ -5767,7 +5858,7 @@ class TextField(Control):
             return
         
         def get(key, _dict=dictionary, default=None):
-            return self._get(_dict, default)
+            return self._get(key, _dict, default)
         
         self.placeholder = tuple(get("placeholder", default=""))
         self.text = get("text", default="")
@@ -5788,33 +5879,27 @@ class TextField(Control):
 
         text_alignment = get("text_alignment")
         if text_alignment is not None:
-            name = "TEXT_ALIGNMENT_"+(text_alignment.upper())
-            self.text_alignment = globals()[name]
+            self.text_alignment = getattr(TextAlignment, text_alignment)
         
         keyboard_type = get("keyboard_type")
         if keyboard_type is not None:
-            name = "KEYBOARD_TYPE_"+(keyboard_type.upper())
-            self.keyboard_type = globals()[name]
+            self.keyboard_type = getattr(KeyboardType, keyboard_type)
         
         keyboard_appearance = get("keyboard_appearance")
         if keyboard_appearance is not None:
-            name = "KEYBOARD_APPEARANCE__"+(keyboard_appearance.upper())
-            self.keyboard_appearance = globals()[name]
+            self.keyboard_appearance = getattr(KeyboardAppearance, keyboard_appearance)
 
         autocapitalization_type = get("autocapitalization_type")
         if autocapitalization_type is not None:
-            name = "AUTO_CAPITALIZE_"+(autocapitalization_type.upper())
-            self.autocapitalization_type = globals()[name]
+            self.autocapitalization_type = getattr(AutoCapitalization, autocapitalization_type)
         
         return_key_type = get("return_key_type")
         if return_key_type is not None:
-            name = "RETURN_KEY_TYPE_"+(return_key_type.upper())
-            self.return_key_type = globals()[name]
+            self.return_key_type = getattr(ReturnKeyType, return_key_type)
         
         border_style = get("border_style")
         if border_style is not None:
-            name = "TEXT_FIELD_BORDER_STYLE_"+(border_style.upper())
-            self.border_style = globals()[name]
+            self.border_style = getattr(TextFieldBorderStyle, border_style)
 
     def dictionary_representation(self):
         r = super().dictionary_representation()
@@ -5828,29 +5913,12 @@ class TextField(Control):
             "secure": self.secure
         }
 
-        for key in list(globals().keys()).copy():
-            if key.startswith("KEYBOARD_TYPE_") and globals()[key] == self.keyboard_type:
-                text_field["keyboard_type"] = key.split("KEYBOARD_TYPE_")[1].lower()
-
-        for key in list(globals().keys()).copy():
-            if key.startswith("KEYBOARD_APPEARANCE__") and globals()[key] == self.keyboard_appearance:
-                text_field["keyboard_appearance"] = key.split("KEYBOARD_APPEARANCE__")[1].lower()
-
-        for key in list(globals().keys()).copy():
-            if key.startswith("AUTO_CAPITALIZE_") and globals()[key] == self.autocapitalization_type:
-                text_field["autocapitalization_type"] = key.split("AUTO_CAPITALIZE_")[1].lower()
-
-        for key in list(globals().keys()).copy():
-            if key.startswith("RETURN_KEY_TYPE_") and globals()[key] == self.return_key_type:
-                text_field["return_key_type"] = key.split("RETURN_KEY_TYPE_")[1].lower()
-
-        for key in list(globals().keys()).copy():
-            if key.startswith("TEXT_FIELD_BORDER_STYLE_") and globals()[key] == self.border_style:
-                text_field["border_style"] = key.split("TEXT_FIELD_BORDER_STYLE_")[1].lower()
-
-        for key in list(globals().keys()).copy():
-            if key.startswith("TEXT_ALIGNMENT_") and globals()[key] == self.text_alignment:
-                text_field["alignment"] = key.split("TEXT_ALIGNMENT_")[1].lower()
+        text_field["keyboard_type"] = self.keyboard_type.name
+        text_field["keyboard_appearance"] = self.keyboard_appearance.name
+        text_field["autocapitalization_type"] = self.autocapitalization_type.name
+        text_field["return_key_type"] = self.return_key_type.name
+        text_field["border_style"] = self.border_style.name
+        text_field["alignment"] = self.text_alignment.name
 
         if self.text_color is not None:
             text_field["color"] = self.text_color.dictionary_representation()
@@ -5862,17 +5930,17 @@ class TextField(Control):
         return r
 
     @property
-    def border_style(self) -> TEXT_FIELD_BORDER_STYLE:
+    def border_style(self) -> TextFieldBorderStyle:
         """
         The border style of the Text Field.
 
         :rtype: TEXT_FIELD_BORDER_STYLE
         """
 
-        return self.__py_view__.borderStyle
+        return TextFieldBorderStyle(self.__py_view__.borderStyle)
 
     @border_style.setter
-    def border_style(self, new_value: TEXT_FIELD_BORDER_STYLE):
+    def border_style(self, new_value: TextFieldBorderStyle):
         self.__py_view__.borderStyle = new_value
 
     @property
@@ -5990,17 +6058,17 @@ class TextField(Control):
             self.__py_view__.font = new_value.__ui_font__
 
     @property
-    def text_alignment(self) -> TEXT_ALIGNMENT:
+    def text_alignment(self) -> TextAlignment:
         """
         The alignment of the text displayed on screen. See `Text Alignment <constants.html#text-alignment>`_ constants for possible values.
 
         :rtype: `Text Alignment <constants.html#text-alignment>`_
         """
 
-        return self.__py_view__.textAlignment
+        return TextAlignment(self.__py_view__.textAlignment)
 
     @text_alignment.setter
-    def text_alignment(self, new_value: TEXT_ALIGNMENT):
+    def text_alignment(self, new_value: TextAlignment):
         self.__py_view__.textAlignment = new_value
 
     @property
@@ -6032,31 +6100,31 @@ class TextField(Control):
         self.__py_view__.smartQuotes = new_value
 
     @property
-    def keyboard_type(self) -> KEYBOARD_TYPE:
+    def keyboard_type(self) -> KeyboardType:
         """
         The type of keyboard to use while editing the text. See `Keyboard Type <constants.html#keyboard-type>`_ constants for possible values.
 
         :rtype: `Keyboard Type <constants.html#keyboard-type>`_
         """
 
-        return self.__py_view__.keyboardType
+        return KeyboardType(self.__py_view__.keyboardType)
 
     @keyboard_type.setter
-    def keyboard_type(self, new_value: KEYBOARD_TYPE):
+    def keyboard_type(self, new_value: KeyboardType):
         self.__py_view__.keyboardType = new_value
 
     @property
-    def autocapitalization_type(self) -> AUTO_CAPITALIZE:
+    def autocapitalization_type(self) -> AutoCapitalization:
         """
         The type of autocapitalization to use while editing th text. See `Auto Capitalization <constants.html#auto-capitalization>`_ constants for possible values.
 
         :rtype: `Auto Capitalization <constants.html#auto-capitalization>`_
         """
 
-        return self.__py_view__.autocapitalizationType
+        return AutoCapitalization(self.__py_view__.autocapitalizationType)
 
     @autocapitalization_type.setter
-    def autocapitalization_type(self, new_value: AUTO_CAPITALIZE):
+    def autocapitalization_type(self, new_value: AutoCapitalization):
         self.__py_view__.autocapitalizationType = new_value
 
     @property
@@ -6074,31 +6142,31 @@ class TextField(Control):
         self.__py_view__.autocorrection = new_value
 
     @property
-    def keyboard_appearance(self) -> KEYBOARD_APPEARANCE:
+    def keyboard_appearance(self) -> KeyboardAppearance:
         """
         The appearance of the keyboard used while editing the text. See `Keyboard Appearance <constants.html#keyboard-appearance>`_ constants for possible values.
 
         :rtype: `Keyboard Appearance <constants.html#keyboard-appearance>`_
         """
 
-        return self.__py_view__.keyboardAppearance
+        return KeyboardAppearance(self.__py_view__.keyboardAppearance)
 
     @keyboard_appearance.setter
-    def keyboard_appearance(self, new_value: KEYBOARD_APPEARANCE):
+    def keyboard_appearance(self, new_value: KeyboardAppearance):
         self.__py_view__.keyboardAppearance = new_value
 
     @property
-    def return_key_type(self) -> RETURN_KEY_TYPE:
+    def return_key_type(self) -> ReturnKeyType:
         """
         The type of return key to show on the keyboard used to edit the text. See `Return Key Type <constants.html#return-key-type>`_ constants for possible values.
 
         :rtype: `Return Key Type <constants.html#return-key-type>`_
         """
 
-        return self.__py_view__.returnKeyType
+        return ReturnKeyType(self.__py_view__.returnKeyType)
 
     @return_key_type.setter
-    def return_key_type(self, new_value: RETURN_KEY_TYPE):
+    def return_key_type(self, new_value: ReturnKeyType):
         self.__py_view__.returnKeyType = new_value
 
     @property
@@ -6194,7 +6262,7 @@ def image_with_system_name(name: str) -> UIImage:
     return image
 
 
-def show_view_without_waiting(view: ui.View, mode: ui.PRESENTATION_MODE):
+def show_view_without_waiting(view: View, mode: PresentationMode):
     """
     Shows a PytoUI :class:`~pyto_ui.View`.
 
@@ -6211,7 +6279,7 @@ def show_view_without_waiting(view: ui.View, mode: ui.PRESENTATION_MODE):
     threading.Thread(target=showview).start()
 
 
-def show_view(view: View, mode: PRESENTATION_MODE):
+def show_view(view: View, mode: PresentationMode):
     """
     Presents the given view.
 
@@ -6224,7 +6292,7 @@ def show_view(view: View, mode: PRESENTATION_MODE):
     """
 
     check(view, "view", [View])
-    check(mode, "mode", [int])
+    check(mode, "mode", [PresentationMode])
 
     def show(view, mode):
         view.__py_view__.presentationMode = mode

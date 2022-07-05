@@ -2,6 +2,7 @@
 A module containing constants for ``pyto_ui``.
 """
 
+from zmq import PLAIN_PASSWORD
 from pyto import __Class__
 from UIKit import (
     UITapGestureRecognizer,
@@ -30,6 +31,7 @@ __PyTextField__ = __Class__("PyTextField")
 __PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
 __PyButtonItem__ = __Class__("PyButtonItem")
 __PyTextInputTraitsConstants__ = __Class__("PyTextInputTraitsConstants")
+__PyCollectionView__ = __Class__("PyCollectionView")
 
 
 class Value:
@@ -131,7 +133,6 @@ class BUTTON_ITEM_STYLE:
 
 class SYSTEM_ITEM:
     pass
-
 
 try:
 
@@ -271,6 +272,7 @@ try:
     PRESENTATION_MODE_SHEET = __PyView__.PresentationModeSheet
     PRESENTATION_MODE_FULLSCREEN = __PyView__.PresentationModeFullScreen
     PRESENTATION_MODE_WIDGET = __PyView__.PresentationModeWidget
+    PRESENTATION_MODE_NEW_SCENE = __PyView__.PresentationModeNewScene
 
     APPEARANCE_UNSPECIFIED = __PyView__.AppearanceUnspecified
     APPEARANCE_LIGHT = __PyView__.AppearanceLight
@@ -290,12 +292,12 @@ try:
     CONTENT_MODE_BOTTOM_LEFT = __PyView__.ContentModeBottomLeft
     CONTENT_MODE_BOTTOM_RIGHT = __PyView__.ContentModeBottomRight
 
-    FLEXIBLE_WIDTH = "width"
-    FLEXIBLE_HEIGHT = "height"
-    FLEXIBLE_TOP_MARGIN = "top"
-    FLEXIBLE_BOTTOM_MARGIN = "bottom"
-    FLEXIBLE_LEFT_MARGIN = "left"
-    FLEXIBLE_RIGHT_MARGIN = "right"
+    FLEXIBLE_WIDTH = 1
+    FLEXIBLE_HEIGHT = 2
+    FLEXIBLE_TOP_MARGIN = 4
+    FLEXIBLE_BOTTOM_MARGIN = 8
+    FLEXIBLE_LEFT_MARGIN = 16
+    FLEXIBLE_RIGHT_MARGIN = 32
 
     HORIZONTAL_ALIGNMENT_CENTER = __PyControl__.ContentHorizontalAlignmentCenter
     HORIZONTAL_ALIGNMENT_FILL = __PyControl__.ContentHorizontalAlignmentFill
@@ -357,6 +359,7 @@ try:
 
     TABLE_VIEW_STYLE_PLAIN = __PyTableView__.StylePlain
     TABLE_VIEW_STYLE_GROUPED = __PyTableView__.StyleGrouped
+    TABLE_VIEW_STYLE_INSET_GROUPED = __PyTableView__.StyleInsetGrouped
 
     TEXT_FIELD_BORDER_STYLE_NONE = __PyTextField__.BorderStyleNone
     TEXT_FIELD_BORDER_STYLE_BEZEL = __PyTextField__.BorderStyleBezel
@@ -502,6 +505,7 @@ except AttributeError:
     PRESENTATION_MODE_SHEET = Value()
     PRESENTATION_MODE_FULLSCREEN = Value()
     PRESENTATION_MODE_WIDGET = Value()
+    PRESENTATION_MODE_NEW_SCENE= Value()
 
     APPEARANCE_UNSPECIFIED = Value()
     APPEARANCE_LIGHT = Value()

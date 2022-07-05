@@ -263,16 +263,6 @@ def __clear_mods__():
         pass
 
     try:
-        del sys.modules["pyto_ui"]
-    except KeyError:
-        pass
-
-    try:
-        del sys.modules["ui_constants"]
-    except KeyError:
-        pass
-
-    try:
         del sys.modules["watch"]
     except KeyError:
         pass
