@@ -86,7 +86,9 @@ import UIKit
     
     @objc public func deselectRowAnimated(_ animated: Bool) {
         guard Thread.current.isMainThread else {
-            return deselectRowAnimated(animated)
+            return DispatchQueue.main.async { [weak self] in
+                self?.deselectRowAnimated(animated)
+            }
         }
         
         if let indexPath = tableView.indexPathForSelectedRow {
@@ -234,5 +236,7 @@ import UIKit
     @objc public static let StylePlain = UITableView.Style.plain
     
     @objc public static let StyleGrouped = UITableView.Style.grouped
+    
+    @objc public static let StyleInsetGrouped = UITableView.Style.insetGrouped
 
 }

@@ -111,9 +111,15 @@ import UIKit
         
         if references == 0 {
             if Thread.current.isMainThread {
-                for (key, views) in UIView.Holder.buttonItems {
+                for (key, views) in UIView.Holder.leftButtonItems {
                     if let i = views.firstIndex(of: barButtonItem) {
-                        UIView.Holder.buttonItems[key]?.remove(at: i)
+                        UIView.Holder.leftButtonItems[key]?.remove(at: i)
+                    }
+                }
+                
+                for (key, views) in UIView.Holder.rightButtonItems {
+                    if let i = views.firstIndex(of: barButtonItem) {
+                        UIView.Holder.rightButtonItems[key]?.remove(at: i)
                     }
                 }
             } else {
@@ -123,9 +129,15 @@ import UIKit
                         return
                     }
                     
-                    for (key, views) in UIView.Holder.buttonItems {
+                    for (key, views) in UIView.Holder.leftButtonItems {
                         if let i = views.firstIndex(of: barButtonItem) {
-                            UIView.Holder.buttonItems[key]?.remove(at: i)
+                            UIView.Holder.leftButtonItems[key]?.remove(at: i)
+                        }
+                    }
+                    
+                    for (key, views) in UIView.Holder.rightButtonItems {
+                        if let i = views.firstIndex(of: barButtonItem) {
+                            UIView.Holder.rightButtonItems[key]?.remove(at: i)
                         }
                     }
                 }

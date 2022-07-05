@@ -56,9 +56,15 @@ extension UITableViewCell {
         
         PyView.values[view] = nil
         
-        for key in UIView.Holder.buttonItems.keys {
+        for key in UIView.Holder.leftButtonItems.keys {
             if key == view {
-                UIView.Holder.buttonItems[key] = nil
+                UIView.Holder.leftButtonItems[key] = nil
+            }
+        }
+        
+        for key in UIView.Holder.rightButtonItems.keys {
+            if key == view {
+                UIView.Holder.rightButtonItems[key] = nil
             }
         }
         

@@ -100,7 +100,7 @@ fileprivate struct _PyStackView: View {
         }
     }
     
-    @objc public var padding: [Double] {
+    @objc override public var padding: [Double] {
         get {
             return get {
                 return [Double(self.manager.padding.top), Double(self.manager.padding.bottom), Double(self.manager.padding.leading), Double(self.manager.padding.trailing)]

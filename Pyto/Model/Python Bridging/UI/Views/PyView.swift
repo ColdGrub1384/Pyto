@@ -13,7 +13,8 @@ import WebKit
     
     struct Holder {
         static var presentationMode = [UIView:Int]()
-        static var buttonItems = [UIView:[UIBarButtonItem]]()
+        static var leftButtonItems = [UIView:[UIBarButtonItem]]()
+        static var rightButtonItems = [UIView:[UIBarButtonItem]]()
         static var viewController = [UIView:UIViewController]()
         static var name = [UIView:String]()
     }
@@ -40,14 +41,25 @@ import WebKit
         }
     }
     
-    /// Bar button items to be displayed on the navigation bar.
-    public var buttonItems: NSArray {
+    /// Bar button items to be displayed on the left of the navigation bar.
+    public var leftButtonItems: NSArray {
         get {
-            return Holder.buttonItems[self] as NSArray? ?? [] as NSArray
+            return Holder.leftButtonItems[self] as NSArray? ?? [] as NSArray
         }
         
         set {
-            Holder.buttonItems[self] = newValue as? [UIBarButtonItem]
+            Holder.leftButtonItems[self] = newValue as? [UIBarButtonItem]
+        }
+    }
+    
+    /// Bar button items to be displayed on the right of the navigation bar.
+    public var rightButtonItems: NSArray {
+        get {
+            return Holder.rightButtonItems[self] as NSArray? ?? [] as NSArray
+        }
+        
+        set {
+            Holder.rightButtonItems[self] = newValue as? [UIBarButtonItem]
         }
     }
     
@@ -125,26 +137,12 @@ import WebKit
                 
                 releaseHandler()
                 
-                if Thread.current.isMainThread {
-                    PyView.values[view] = nil
-                    UIView.Holder.buttonItems[view] = nil
-                    UIView.Holder.name[view] = nil
-                    UIView.Holder.presentationMode[view] = nil
-                    UIView.Holder.viewController[view] = nil
-                } else {
-                    DispatchQueue.main.async { [weak self] in
-                        
-                        guard let view = self?.view else {
-                            return
-                        }
-                        
-                        PyView.values[view] = nil
-                        UIView.Holder.buttonItems[view] = nil
-                        UIView.Holder.name[view] = nil
-                        UIView.Holder.presentationMode[view] = nil
-                        UIView.Holder.viewController[view] = nil
-                    }
-                }
+                PyView.values[view] = nil
+                UIView.Holder.leftButtonItems[view] = nil
+                UIView.Holder.rightButtonItems[view] = nil
+                UIView.Holder.name[view] = nil
+                UIView.Holder.presentationMode[view] = nil
+                UIView.Holder.viewController[view] = nil
                 
                 sizeObserver?.invalidate()
                 sizeObserver = nil
@@ -202,15 +200,6 @@ import WebKit
         }
     }
     
-    /// A boolean indicating whether the Navigation Bar of the View should be hidden.
-    @objc public var navigationBarHidden = false {
-        didSet {
-            set {
-                (self.viewController as? UINavigationController)?.setNavigationBarHidden(self.navigationBarHidden, animated: true)
-            }
-        }
-    }
-    
     private var _title: String? {
         didSet {
             for vc in (self.viewController as? UINavigationController)?.viewControllers ?? [] {
@@ -259,6 +248,9 @@ import WebKit
     
     /// View will be presented in a widget.
     @objc public static let PresentationModeWidget = 3
+    
+    /// View will be presented in a new window.
+    @objc public static let PresentationModeNewScene = 7
     
     private var _presentationMode: Int {
         get {
@@ -356,6 +348,24 @@ import WebKit
     }
     
     @objc var _setSize = false
+    
+    @objc var padding: [Double] {
+        get {
+            return get {
+                return [
+                    Double(self.view.layoutMargins.top),
+                    Double(self.view.layoutMargins.bottom),
+                    Double(self.view.layoutMargins.left),
+                    Double(self.view.layoutMargins.right)]
+            }
+        }
+        
+        set {
+            set {
+                self.view.layoutMargins = UIEdgeInsets(top: CGFloat(newValue[0]), left: CGFloat(newValue[2]), bottom: CGFloat(newValue[1]), right: CGFloat(newValue[3]))
+            }
+        }
+    }
     
     /// The x position.
     @objc public var x: Double {
@@ -860,6 +870,16 @@ import WebKit
         }
     }
     
+    private var _borderColor: PyColor?
+    
+    /// Updates dynamic border colors in the receiver and all its subviews.
+    func updateBorderColor() {
+        borderColor = _borderColor
+        for view in (subviews as? [PyView]) ?? [] {
+            view.updateBorderColor()
+        }
+    }
+    
     /// The border color.
     @objc public var borderColor: PyColor? {
         get {
@@ -873,6 +893,7 @@ import WebKit
         }
         
         set {
+            _borderColor = newValue
             set {
                 if let pyColor = newValue {
                     self.view.layer.borderColor = pyColor.color.cgColor
@@ -985,6 +1006,7 @@ import WebKit
         }
         
         set {
+            updateBorderColor()
             set {
                 self.view.overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: newValue) ?? .unspecified
                 self.viewController?.overrideUserInterfaceStyle = self.view.overrideUserInterfaceStyle
@@ -1085,12 +1107,12 @@ import WebKit
         }
     }
     
-    /// Button items to be displayed on the view's corresponding navigation bar.
-    @objc public var buttonItems: NSArray {
+    /// Button items to be displayed on the left of the view's corresponding navigation bar.
+    @objc public var leftButtonItems: NSArray {
         get {
             return get {
                 var items = [PyButtonItem]()
-                for item in self.view.buttonItems {
+                for item in self.view.leftButtonItems {
                     if let item = item as? NSObject {
                         items.append(PyButtonItem(managed: item))
                     }
@@ -1110,37 +1132,40 @@ import WebKit
                 for item in newValue {
                     items.append(item.barButtonItem)
                 }
-                self.view.buttonItems = NSArray(array: items)
-                ((self.viewController as? UINavigationController)?.viewControllers.first ?? self.viewController)?.navigationItem.leftBarButtonItems = items
+                self.view.leftButtonItems = NSArray(array: items)
+                self.viewController?.navigationItem.leftBarButtonItems = items
             }
         }
     }
     
-    /// Pushes the given view on the corresponding view's navigation controller.
-    ///
-    /// - Parameters:
-    ///     - view: The view to display.
-    @objc public func pushView(_ view: PyView) {
+    /// Button items to be displayed on the right of the view's corresponding navigation bar.
+    @objc public var rightButtonItems: NSArray {
+        get {
+            return get {
+                var items = [PyButtonItem]()
+                for item in self.view.rightButtonItems {
+                    if let item = item as? NSObject {
+                        items.append(PyButtonItem(managed: item))
+                    }
+                }
+                return NSArray(array: items)
+            }
+        }
+        
         set {
-            let navVC = (self.viewController as? UINavigationController) ?? self.viewController?.navigationController
-            guard let viewController = navVC?.viewControllers.first else {
+            
+            guard let newValue = newValue as? [PyButtonItem] else {
                 return
             }
             
-            let ViewController = type(of: viewController) as UIViewController.Type
-            
-            let vc = ViewController.init()
-            vc.view.addSubview(view.view)
-            vc.title = view.title
-            navVC?.pushViewController(vc, animated: true)
-        }
-        
-    }
-    
-    /// Pops the visible view controller from the navigation controller.
-    @objc public func pop() {
-        set {
-            ((self.viewController as? UINavigationController) ?? self.viewController?.navigationController)?.popViewController(animated: true)
+            set {
+                var items = [UIBarButtonItem]()
+                for item in newValue {
+                    items.append(item.barButtonItem)
+                }
+                self.view.rightButtonItems = NSArray(array: items)
+                self.viewController?.navigationItem.rightBarButtonItems = items
+            }
         }
     }
 }
