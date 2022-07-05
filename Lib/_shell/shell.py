@@ -65,7 +65,7 @@ def get_cwd_title():
 
 def input():
     print("\x1b]2;"+get_cwd_title()+"\007", end="")
-    return builtins.input("$ ")
+    return builtins.input(f"\x1b[1m\x1b[36m{get_cwd_title()}\x1b[39;49m\x1b[0m $ ")
 
 
 working_directories = {}
