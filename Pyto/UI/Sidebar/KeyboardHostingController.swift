@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-fileprivate func findFirstResponder(inView view: UIView) -> UIView? {
+func findFirstResponder(inView view: UIView) -> UIView? {
     for subView in view.subviews {
         if subView.isFirstResponder {
             return subView

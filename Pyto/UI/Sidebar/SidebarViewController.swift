@@ -884,7 +884,7 @@ import QuickLook
     }
     
     func openScript() {
-        let docPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.pythonScript, .init(filenameExtension: "html")!])
+        let docPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.pythonScript, .init(filenameExtension: "html")!, .cSource, .cPlusPlusSource, .cHeader, .cPlusPlusHeader, .objectiveCSource, .objectiveCPlusPlusSource, .plainText, .sourceCode])
         docPicker.delegate = self
         present(docPicker, animated: true, completion: nil)
     }

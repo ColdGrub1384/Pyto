@@ -139,6 +139,8 @@
 		B503479127568FC7009106A5 /* scipy-stats-biasedurn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B503471127568F43009106A5 /* scipy-stats-biasedurn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B503479227568FC7009106A5 /* scipy-stats-mvn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50346F127568F40009106A5 /* scipy-stats-mvn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B503479327568FC7009106A5 /* scipy-stats-statlib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50346FE27568F42009106A5 /* scipy-stats-statlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5040878285E7DBC008A9C13 /* SnippetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5040877285E7DBC008A9C13 /* SnippetsView.swift */; };
+		B5040879285E7DBC008A9C13 /* SnippetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5040877285E7DBC008A9C13 /* SnippetsView.swift */; };
 		B50E6AB12809FED500D15A68 /* ios_system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50E6AAA2809FEC400D15A68 /* ios_system.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B50E6AB32809FEEB00D15A68 /* files.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50E6AA52809FEC400D15A68 /* files.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B50E6AB42809FEEB00D15A68 /* curl_ios.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B50E6AA62809FEC400D15A68 /* curl_ios.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -336,6 +338,9 @@
 		B5A71D99284A38B5005B4ADC /* freetype2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A71D93284A38B5005B4ADC /* freetype2.framework */; };
 		B5A71D9A284A38B5005B4ADC /* freetype2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5A71D93284A38B5005B4ADC /* freetype2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5A71DA4284A38CF005B4ADC /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B55C2D01284A29DE00F2FA4D /* libfreetype.a */; };
+		B5A7EFD6285DD4E500D43042 /* PyNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A7EFD5285DD4E500D43042 /* PyNavigationView.swift */; };
+		B5A7EFD7285DD4E500D43042 /* PyNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A7EFD5285DD4E500D43042 /* PyNavigationView.swift */; };
+		B5A7EFD8285DD4E500D43042 /* PyNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A7EFD5285DD4E500D43042 /* PyNavigationView.swift */; };
 		B5AB6C212768F343001C5472 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */; };
 		B5AB6C222768F343001C5472 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */; };
 		B5AB6C232768F343001C5472 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */; };
@@ -442,6 +447,8 @@
 		B5F8006D27FD9A9200CA6725 /* runPip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F8006C27FD9A9200CA6725 /* runPip.swift */; };
 		B5F8006E27FD9A9200CA6725 /* runPip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F8006C27FD9A9200CA6725 /* runPip.swift */; };
 		B5FB97252815BA5D00A0DF7C /* previewConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FB97242815BA5C00A0DF7C /* previewConsole.swift */; };
+		B5FBCC7F2853973E00A5255D /* DefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961D24AD9185003ACF02 /* DefinitionsView.swift */; };
+		B5FBCC802853973E00A5255D /* DefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961D24AD9185003ACF02 /* DefinitionsView.swift */; };
 		B5FE708C282D13D50041E697 /* libclang.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5FE7086282D13CC0041E697 /* libclang.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B5FEA8F42770E3B800859F78 /* Breakpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEA8F32770E3B800859F78 /* Breakpoint.swift */; };
 		B5FEA8F52770E3B800859F78 /* Breakpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEA8F32770E3B800859F78 /* Breakpoint.swift */; };
@@ -533,8 +540,6 @@
 		C91F962C24AD9185003ACF02 /* SamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961C24AD9185003ACF02 /* SamplesView.swift */; };
 		C91F962D24AD9185003ACF02 /* SamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961C24AD9185003ACF02 /* SamplesView.swift */; };
 		C91F962E24AD9185003ACF02 /* DefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961D24AD9185003ACF02 /* DefinitionsView.swift */; };
-		C91F962F24AD9185003ACF02 /* DefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961D24AD9185003ACF02 /* DefinitionsView.swift */; };
-		C91F963024AD9185003ACF02 /* DefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961D24AD9185003ACF02 /* DefinitionsView.swift */; };
 		C91F963124AD9185003ACF02 /* JSONBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961E24AD9185003ACF02 /* JSONBrowserView.swift */; };
 		C91F963224AD9185003ACF02 /* JSONBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961E24AD9185003ACF02 /* JSONBrowserView.swift */; };
 		C91F963324AD9185003ACF02 /* JSONBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F961E24AD9185003ACF02 /* JSONBrowserView.swift */; };
@@ -1516,13 +1521,6 @@
 			remoteGlobalIDString = B50E6B00280A0A8A00D15A68;
 			remoteInfo = openssl;
 		};
-		B573CD5127E48478009100DD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9AC411F249811C500847A13 /* InputAssistant.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 3C2E4346201E7E6C00E4254A;
-			remoteInfo = InputAssistant;
-		};
 		B5963210282EC5B40079C9FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9FCFD4D214428AE00A07974 /* Project object */;
@@ -1571,6 +1569,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = FDDB2F621F5D846400EF414E;
 			remoteInfo = "libffi-static-Mac";
+		};
+		B5B3A682284EABC500856D82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9AC411F249811C500847A13 /* InputAssistant.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C2E4346201E7E6C00E4254A;
+			remoteInfo = InputAssistant;
 		};
 		C91D078725B62E3A0050FD86 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2401,6 +2406,7 @@
 		B503472C27568F46009106A5 /* scipy-io-matlab-mio_utils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "scipy-io-matlab-mio_utils.framework"; sourceTree = "<group>"; };
 		B503472D27568F46009106A5 /* scipy-linalg-_matfuncs_sqrtm_triu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "scipy-linalg-_matfuncs_sqrtm_triu.framework"; sourceTree = "<group>"; };
 		B503472E27568F46009106A5 /* scipy-cluster-_vq.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "scipy-cluster-_vq.framework"; sourceTree = "<group>"; };
+		B5040877285E7DBC008A9C13 /* SnippetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetsView.swift; sourceTree = "<group>"; };
 		B507C1DA276B09FE0079A44C /* Highlightr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Highlightr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50E6AA42809FEC400D15A68 /* commandDictionary.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = commandDictionary.plist; sourceTree = "<group>"; };
 		B50E6AA52809FEC400D15A68 /* files.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = files.xcframework; sourceTree = "<group>"; };
@@ -4970,6 +4976,7 @@
 		B5A4D6A327EDD22E00BE502F /* pvectorc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = pvectorc.framework; sourceTree = "<group>"; };
 		B5A71D93284A38B5005B4ADC /* freetype2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = freetype2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A71D95284A38B5005B4ADC /* freetype2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = freetype2.h; sourceTree = "<group>"; };
+		B5A7EFD5285DD4E500D43042 /* PyNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyNavigationView.swift; sourceTree = "<group>"; };
 		B5AB6C202768F343001C5472 /* ThreadSafeDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeDictionary.swift; sourceTree = "<group>"; };
 		B5AB6C27276943EB001C5472 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B5AB6C282769779B001C5472 /* libffi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libffi.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -6212,6 +6219,7 @@
 				C91F961D24AD9185003ACF02 /* DefinitionsView.swift */,
 				B5591AE6280F4953008BD1D8 /* CodeCompletionView.swift */,
 				B53E9543282D513100CEF81A /* CCodeCompletion.swift */,
+				B5040877285E7DBC008A9C13 /* SnippetsView.swift */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -10578,6 +10586,7 @@
 				C943E7F922E2BA0500B8027C /* PyTextField.swift */,
 				C9C7AC6D22F5EE9F00659685 /* PyWebView.swift */,
 				C9040DBD2502A2BB002B6C7F /* UIKitView.swift */,
+				B5A7EFD5285DD4E500D43042 /* PyNavigationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -11850,9 +11859,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				B5B3A683284EABC500856D82 /* PBXTargetDependency */,
 				B50E6B13280A0AC900D15A68 /* PBXTargetDependency */,
 				B50E6AD9280A088700D15A68 /* PBXTargetDependency */,
-				B573CD5227E48478009100DD /* PBXTargetDependency */,
 				B5AB6C2E276977A4001C5472 /* PBXTargetDependency */,
 				C91D078825B62E3A0050FD86 /* PBXTargetDependency */,
 				C98169B8235E61360062A91F /* PBXTargetDependency */,
@@ -12767,7 +12776,6 @@
 			files = (
 				B526B597274C60D40094FCBB /* ConsolePipView.swift in Sources */,
 				B52E3BDF282F2EBF006B1066 /* Linter.swift in Sources */,
-				C91F962F24AD9185003ACF02 /* DefinitionsView.swift in Sources */,
 				C91F963824AD9185003ACF02 /* ValueView.swift in Sources */,
 				C946493A255731F700F2845B /* GalleryView.swift in Sources */,
 				C9424768248456F000C9FF02 /* UIImage+color.swift in Sources */,
@@ -12779,6 +12787,7 @@
 				C91F962324AD9185003ACF02 /* ShortcutsView.swift in Sources */,
 				C91F963224AD9185003ACF02 /* JSONBrowserView.swift in Sources */,
 				B5594D75276A819F00E274FF /* TemplateChooser.swift in Sources */,
+				B5FBCC7F2853973E00A5255D /* DefinitionsView.swift in Sources */,
 				C9E4DC6B2551DC7A0064772D /* View+hover.swift in Sources */,
 				C9516336253C792300E5E641 /* String.swift in Sources */,
 				C91F962924AD9185003ACF02 /* SearchBar.swift in Sources */,
@@ -12855,6 +12864,7 @@
 				C940FBE6250825A800EB74EB /* PyPhotosHelper.swift in Sources */,
 				C940FBE8250825A800EB74EB /* RMStoreAppReceiptVerifier.m in Sources */,
 				B5591AE8280F4953008BD1D8 /* CodeCompletionView.swift in Sources */,
+				B5040879285E7DBC008A9C13 /* SnippetsView.swift in Sources */,
 				B5EFAAEC2775260300D54E8F /* ObjectView.swift in Sources */,
 				C940FBE9250825A800EB74EB /* FileManager.swift in Sources */,
 				C940FBEA250825A800EB74EB /* In App Purchases.swift in Sources */,
@@ -12912,6 +12922,7 @@
 				C940FC21250825A800EB74EB /* PySelector.swift in Sources */,
 				C940FC22250825A800EB74EB /* Dusk.swift in Sources */,
 				C940FC24250825A800EB74EB /* ReplaceView.swift in Sources */,
+				B5A7EFD8285DD4E500D43042 /* PyNavigationView.swift in Sources */,
 				C972EEAE25D835A800DFB26C /* PytoUIPreviewViewController.swift in Sources */,
 				C940FC25250825A800EB74EB /* ScriptEntry.swift in Sources */,
 				B5DD2DCA27E618CB0066DC76 /* DocumentationsDownloadScreen.swift in Sources */,
@@ -13343,6 +13354,7 @@
 				C9CEE20321EB95BA00316D3C /* ReviewHelper.swift in Sources */,
 				C95A9DBD22542C4400B90E42 /* MovableTextField.swift in Sources */,
 				C9B0E56223B5002A00A4B4A7 /* ANSITextState.swift in Sources */,
+				B5A7EFD7285DD4E500D43042 /* PyNavigationView.swift in Sources */,
 				C9CEE1FD21EB8FF300316D3C /* PySharingHelper.swift in Sources */,
 				C9C3308923C297C8003B5971 /* PyLocationHelper.swift in Sources */,
 				C9F4623522ECB417007DC3B8 /* PyColor.swift in Sources */,
@@ -13393,9 +13405,9 @@
 				B5594D76276A819F00E274FF /* TemplateChooser.swift in Sources */,
 				C91F963C24AD9185003ACF02 /* OnboardingView.swift in Sources */,
 				B5FFA762276B01030057C99C /* ExceptionView.swift in Sources */,
+				B5FBCC802853973E00A5255D /* DefinitionsView.swift in Sources */,
 				C942476124844DD400C9FF02 /* SwiftUIBundle.swift in Sources */,
 				C91F963924AD9185003ACF02 /* ValueView.swift in Sources */,
-				C91F963024AD9185003ACF02 /* DefinitionsView.swift in Sources */,
 				C9F1E4AF2473721A00A28F2A /* AppDelegate.swift in Sources */,
 				C91F963324AD9185003ACF02 /* JSONBrowserView.swift in Sources */,
 				C91F962424AD9185003ACF02 /* ShortcutsView.swift in Sources */,
@@ -13468,6 +13480,7 @@
 				C91376B6245E365E00AA0935 /* RemoteNotifications.swift in Sources */,
 				C904EB7321445D5800585C28 /* Python.swift in Sources */,
 				C927187B22C99CEA0025341B /* PyControl.swift in Sources */,
+				B5A7EFD6285DD4E500D43042 /* PyNavigationView.swift in Sources */,
 				C91F962B24AD9185003ACF02 /* SamplesView.swift in Sources */,
 				C958F8F222EC250E00481712 /* URL.swift in Sources */,
 				C9CED5352353A214000BB464 /* ThemeMakerTableViewController.swift in Sources */,
@@ -13565,6 +13578,7 @@
 				C909A19C2267E6E30058C145 /* UIViewController.swift in Sources */,
 				C946497725573AC800F2845B /* GalleryScript.swift in Sources */,
 				C94129D324C3670B0030F76E /* PyWidget.swift in Sources */,
+				B5040878285E7DBC008A9C13 /* SnippetsView.swift in Sources */,
 				B534CE6927D674E30003500A /* RunCommandIntentHandler.swift in Sources */,
 				C916FD04248B36DC000AAE76 /* InternetConnection.swift in Sources */,
 				C94B7BFA24AE2D19002934C5 /* SceneDelegate+State Restoration.swift in Sources */,
@@ -13654,11 +13668,6 @@
 			name = openssl;
 			targetProxy = B50E6B12280A0AC900D15A68 /* PBXContainerItemProxy */;
 		};
-		B573CD5227E48478009100DD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = InputAssistant;
-			targetProxy = B573CD5127E48478009100DD /* PBXContainerItemProxy */;
-		};
 		B5963211282EC5B40079C9FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B596320B282EC5B30079C9FF /* clang_codecompletion */;
@@ -13673,6 +13682,11 @@
 			isa = PBXTargetDependency;
 			name = "libffi-iOS";
 			targetProxy = B5AB6C2D276977A4001C5472 /* PBXContainerItemProxy */;
+		};
+		B5B3A683284EABC500856D82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = InputAssistant;
+			targetProxy = B5B3A682284EABC500856D82 /* PBXContainerItemProxy */;
 		};
 		C91D078825B62E3A0050FD86 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -15098,7 +15112,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 418;
+				BUILD_NUMBER = 424;
 				BUNDLE_ID = ch.ada.PytoVPP;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -16249,7 +16263,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 418;
+				BUILD_NUMBER = 424;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -16314,7 +16328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_NUMBER = 418;
+				BUILD_NUMBER = 424;
 				BUNDLE_ID = ch.marcela.ada.Pyto;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
