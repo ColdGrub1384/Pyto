@@ -61,6 +61,64 @@ fileprivate extension URL {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// The button for showing the menu.
+    let menuButton = UIButton()
+    
+    /// Configures `menuButton`.
+    func configureMenu() {
+        
+        var setupPyMenuItems = [UIMenuElement]()
+        
+        if FileManager.default.fileExists(atPath: directory.appendingPathComponent("setup.py").path) {
+            
+            let canBuildDocs: Bool
+            if let str = try? String(contentsOf: directory.appendingPathComponent("setup.py")), str.contains("BuildDocsCommand"), str.contains("build_docs") {
+                canBuildDocs = true
+            } else {
+                canBuildDocs = false
+            }
+            
+            setupPyMenuItems = [
+                
+                UIAction(title: NSLocalizedString("pypi.install", comment: "install"), image: UIImage(systemName: "square.and.arrow.down"), identifier: nil, discoverabilityTitle: "Install", attributes: [], state: .off, handler: { [weak self] _ in
+                    
+                    self?.run(cmd: "pip install .")
+                }),
+                
+                UIAction(title: NSLocalizedString("menuItems.build", comment: "The menu item to build a project"), image: UIImage(systemName: "gearshape.2"), identifier: nil, discoverabilityTitle: "Build", attributes: [], state: .off, handler: { [weak self] _ in
+                    
+                    self?.run(cmd: "python setup.py bdist_wheel")
+                }),
+                
+            ]+(!canBuildDocs ? [] : [
+            
+                UIAction(title: NSLocalizedString("menuItems.buildDocs", comment: "The menu item to build a project's documentation"), image: UIImage(systemName: "books.vertical"), identifier: nil, discoverabilityTitle: "Build documentation", attributes: [], state: .off, handler: { [weak self] _ in
+                    
+                    self?.run(cmd: "python setup.py build_docs")
+                }),
+                
+            ])+[
+                UIAction(title: NSLocalizedString("menuItems.clean", comment: "The menu item to clean a project"), image: UIImage(systemName: "trash"), identifier: nil, discoverabilityTitle: "Clean", attributes: [], state: .off, handler: { [weak self] _ in
+                    
+                    self?.run(cmd: "python setup.py clean")
+                }),
+            ]
+        }
+        
+        menuButton.menu = UIMenu(title: directory.lastPathComponent, image: nil, identifier: nil, options: [], children: [
+            
+            UIMenu(title: "", options: .displayInline, children: [
+                UIAction(title: NSLocalizedString("creation.createFolderTitle", comment: "The title of the button shown for creating a folder"), image: UIImage(systemName: "folder.badge.plus"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
+                    
+                    self?.createFile(type: .folder)
+                }),
+                
+                makeCreateMenu(includeFolder: false, directory: directory)
+            ])
+            
+        ]+setupPyMenuItems)
+    }
+    
     /// The directory opened at launch.
     static var defaultDirectory: URL {
         get {
@@ -176,6 +234,8 @@ fileprivate extension URL {
                 observe(directory: directory)
             }
             
+            configureMenu()
+            
             lint()
         }
     }
@@ -275,48 +335,6 @@ fileprivate extension URL {
             }
         }
         dataSource.apply(snapshot, to: .main)
-        
-        if FileManager.default.fileExists(atPath: directory.appendingPathComponent("setup.py").path) {
-            
-            let canBuildDocs: Bool
-            if let str = try? String(contentsOf: directory.appendingPathComponent("setup.py")), str.contains("BuildDocsCommand"), str.contains("build_docs") {
-                canBuildDocs = true
-            } else {
-                canBuildDocs = false
-            }
-            
-            if navigationItem.rightBarButtonItems?.count == 2 {
-                navigationItem.rightBarButtonItems?.insert(UIBarButtonItem(title: nil, image: UIImage(systemName: "hammer.fill"), primaryAction: nil, menu: UIMenu(title: "setup.py", image: nil, identifier: nil, options: [], children: [
-                    
-                    UIAction(title: NSLocalizedString("pypi.install", comment: "install"), image: UIImage(systemName: "square.and.arrow.down"), identifier: nil, discoverabilityTitle: "Install", attributes: [], state: .off, handler: { [weak self] _ in
-                        
-                        self?.run(cmd: "pip install .")
-                    }),
-                    
-                    UIAction(title: NSLocalizedString("menuItems.build", comment: "The menu item to build a project"), image: UIImage(systemName: "gearshape.2"), identifier: nil, discoverabilityTitle: "Build", attributes: [], state: .off, handler: { [weak self] _ in
-                        
-                        self?.run(cmd: "python setup.py bdist_wheel")
-                    }),
-                    
-                ]+(!canBuildDocs ? [] : [
-                
-                    UIAction(title: NSLocalizedString("menuItems.buildDocs", comment: "The menu item to build a project's documentation"), image: UIImage(systemName: "books.vertical"), identifier: nil, discoverabilityTitle: "Build documentation", attributes: [], state: .off, handler: { [weak self] _ in
-                        
-                        self?.run(cmd: "python setup.py build_docs")
-                    }),
-                    
-                ])+[
-                    UIAction(title: NSLocalizedString("menuItems.clean", comment: "The menu item to clean a project"), image: UIImage(systemName: "trash"), identifier: nil, discoverabilityTitle: "Clean", attributes: [], state: .off, handler: { [weak self] _ in
-                        
-                        self?.run(cmd: "python setup.py clean")
-                    }),
-                ])), at: 0)
-            }
-        } else {
-            if navigationItem.rightBarButtonItems?.count == 3 {
-                navigationItem.rightBarButtonItems?.remove(at: 0)
-            }
-        }
     }
     
     private class DocumentPickerViewController: UIDocumentPickerViewController {
@@ -330,7 +348,7 @@ fileprivate extension URL {
     ///     - includeFolder. If `true`, includes a menu item to create a folder.
     ///     - directory: The directory where the file will be created. If `nil`, the file will be created in the receiver's directory.
     func makeCreateMenu(includeFolder: Bool = false, directory: URL? = nil) -> UIMenu {
-        UIMenu(title: NSLocalizedString("create", comment: "'Create' button"), image: nil, identifier: nil, options: [], children: (includeFolder ? [
+        UIMenu(title: NSLocalizedString("creation.createFileTitle", comment: "The title of the button shown for creating a file"), image: UIImage(systemName: "plus"), identifier: nil, options: [], children: (includeFolder ? [
         
                 UIAction(title: NSLocalizedString("creation.folder", comment: "A folder"), image: UIImage(systemName: "folder"), identifier: nil, discoverabilityTitle: NSLocalizedString("creation.folder", comment: "A folder"), attributes: [], state: .off, handler: { _ in
                     self.createFile(type: .folder, in: directory)
@@ -609,10 +627,6 @@ fileprivate extension URL {
     
     private var alreadyShown = false
     
-    public override var keyCommands: [UIKeyCommand]? {
-        return [UIKeyCommand.command(input: "f", modifierFlags: .command, action: #selector(search), discoverabilityTitle: NSLocalizedString("find", comment: "'Find'"))]
-    }
-    
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -623,7 +637,7 @@ fileprivate extension URL {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+                
         Self.visibles.add(self)
         
         load()
@@ -648,11 +662,12 @@ fileprivate extension URL {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
         edgesForExtendedLayout = []
         
         clearsSelectionOnViewWillAppear = true
         
+        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundView = UIView()
         collectionView.dragDelegate = self
         collectionView.dropDelegate = self
         
@@ -777,12 +792,11 @@ fileprivate extension URL {
         searchController.searchBar.placeholder = NSLocalizedString("Search", bundle: Bundle(for: UIApplication.self), comment: "")
         navigationItem.searchController = searchController
         definesPresentationContext = true
-                
-        let createButton = UIBarButtonItem(systemItem: .add, primaryAction: nil, menu: makeCreateMenu())
         
+        menuButton.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
+        menuButton.showsMenuAsPrimaryAction = true
         navigationItem.rightBarButtonItems = [
-            createButton,
-            UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(createFolder(_:)))
+            UIBarButtonItem(customView: menuButton)
         ]
     }
     
