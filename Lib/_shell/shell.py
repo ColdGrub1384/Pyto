@@ -57,7 +57,7 @@ class Path:
 
 def get_cwd_title():
     cwd = os.path.abspath(".")
-    if str(FileBrowserViewController.iCloudContainerURL.path) == cwd:
+    if str(getattr(FileBrowserViewController.iCloudContainerURL, "path", None)) == cwd:
         title = "iCloud Drive"
     else:
         title = str(NSFileManager.defaultManager.displayNameAtPath(cwd))
