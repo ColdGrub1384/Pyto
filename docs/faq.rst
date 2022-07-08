@@ -1,6 +1,11 @@
 Frequently asked
 ================
 
+*Is there a Pyto users community that I could join?*
+****************************************************
+
+The `r/PytoIDE <https://www.reddit.com/r/PytoIDE>`__ subreddit.
+
 *How to use external files in a script?*
 ****************************************
 

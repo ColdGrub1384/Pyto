@@ -26,6 +26,7 @@ fileprivate extension IndexPath {
     static let inputSugestions = IndexPath(row: 1, section: 1)
     
     static let contact = IndexPath(row: 0, section: 3)
+    static let reddit = IndexPath(row: 1, section: 3)
     
     static let acknowledgments = IndexPath(row: 0, section: 4)
     static let sourceCode = IndexPath(row: 1, section: 4)
@@ -246,6 +247,8 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
             controller.setToRecipients(["support@pyto.app"])
             controller.mailComposeDelegate = self
             viewControllerToPresent = controller
+        case .reddit:
+            viewControllerToPresent = SFSafariViewController(url: URL(string: "https://reddit.com/r/PytoIDE")!)
         case .acknowledgments:
             viewControllerToPresent = ThemableNavigationController(rootViewController: AcknowledgmentsViewController())
         case .sourceCode:

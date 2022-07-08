@@ -9,11 +9,13 @@ Pyto documentation
 
 Welcome to the Pyto's documentation!
 
-Pyto version: 18.0 (407)
+Pyto version: 19.0 (424)
 Python version: 3.10.0+
 
 Pyto is an open source app to code and run Python code locally on an iPad or iPhone.
 The app uses the Python C API to run Python code in the same process of the app, due to iOS restrictions. Third party pure Python modules can be installed from PyPI and some libraries with C extensions are bundled in the app. For a list of included libraries, see `Third Party <third_party.html>`__.
+
+For questions or sharing anything about Pyto, you can join the `r/PytoIDE <https://www.reddit.com/r/PytoIDE>`__ subreddit.
 
 The Python 3.10 binary that comes with the app is from the `Python-Apple-support <https://github.com/beeware/Python-Apple-support/tree/3.10>`__ project by beeware. `Toga <https://toga.readthedocs.io/en/latest/>`__, a cross platform UI library is also included.
 
