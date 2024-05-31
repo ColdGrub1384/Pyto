@@ -9,9 +9,7 @@
 #include <Python.h>
 #include <dlfcn.h>
 #import <Foundation/Foundation.h>
-#if MAIN
 #import "ios_system.h"
-#endif
 #include <stdlib.h>
 
 #define SET_FILE() PyObject_SetAttrString(module, "__file__", PyUnicode_FromString(binaryURL.path.UTF8String));

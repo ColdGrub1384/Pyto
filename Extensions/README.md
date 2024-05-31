@@ -20,4 +20,4 @@ Some libraries like `lxml` have dependencies. The `lxml-deps` framework contains
 
 C Extensions can also be loaded from LLVM IR code. They are interpreted with the 'lli' interpreter. They can be placed in a package like any OS, but a main() function must be injected.
 
-The app cannot call functions from the interpreter without crashing, so the interpreter waits for the app to send a pointer of a function and its arguments and run it itself. The arguments and the return value are send through global variables.
+The app cannot call functions from the interpreter without crashing, so the interpreter waits for the app to send a pointer of a function and its arguments and run it itself. The arguments and the return value are sent through global variables.
