@@ -1,5 +1,5 @@
 #page title
-page_title                                :                                           # Automatically populates with app name if not set and if iOS app ID is set. Otherwise enter manually.
+page_title                                : Pyto IDE
 
 # App Info
 ios_app_id                                : 1436650069                                # Required. Enter iOS app ID to automatically populate name, price and icons (e.g. 718043190).
@@ -12,7 +12,7 @@ presskit_download_link                    :                                     
 app_icon                                  : # assets/appicon.png                      # Automatically populates if not set and if iOS app ID is set.  Otherwise enter path to icon file manually.
 app_name                                  :                                           # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
 app_price                                 : $7.99 / $14.99 / 3-day Trial               # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
-app_description                           : Code Python on iOS
+app_description                           : Python 3.10 and C/C++ on iOS
 
 enable_smart_app_banner                   : true                                      # Set to true to show a smart app banner at top of page on mobile devices.
 
@@ -23,7 +23,7 @@ your_name                                 : Emma Labbé
 
 your_link                                 : https://labbe.me
 
-your_city                                 : Renens VD
+your_city                                 : Viña Del Mar
 email_address                             : support@pyto.app
 facebook_username                         :                                           
 instagram_username                        : 
@@ -36,8 +36,8 @@ youtube_username                          :
 # Feature List                            Edit, add or remove features to be presented.
 features                                  :
     
-  - title                                 : Python locally
-    description                           : Run Python 3.10 code locally on your iPad or iPhone.
+  - title                                 : Desktop class IDE
+    description                           : With Python 3.10, clang compiler and LLVM bitcode interpreter locally on your iPhone or iPad.
     fontawesome_icon_name                 : mobile
 
   - title                                 : Code Editor
@@ -61,7 +61,7 @@ features                                  :
     fontawesome_icon_name                 : exclamation-triangle
     
   - title                                 : Projects
-    description                           : Build projects with the integrated file browser and setuptools
+    description                           : Build projects with the integrated file browser and setuptools or build_cproj, a project structure for C/C++ programs.
     fontawesome_icon_name                 : folder
 
   - title                                 : Shortcuts
@@ -69,11 +69,11 @@ features                                  :
     fontawesome_icon_name                 : cubes
   
   - title                                 : Home Screen Widgets
-    description                           : Create home screen widgets for iOS 14.
+    description                           : Create home screen widgets.
     fontawesome_icon_name                 : calendar-alt
   
   - title                                 : PyPI
-    description                           : Install pure Python modules from PyPI.
+    description                           : Install Python modules from PyPI.
     fontawesome_icon_name                 : box-open
 
 
