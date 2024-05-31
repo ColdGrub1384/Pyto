@@ -1,0 +1,183 @@
+// -*- C++ -*-
+//===----------------------------------------------------------------------===//
+//
+// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+// See https://llvm.org/LICENSE.txt for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+//===----------------------------------------------------------------------===//
+
+#ifndef _LIBCPP_IOSTREAM
+#define _LIBCPP_IOSTREAM
+
+/*
+    iostream synopsis
+
+#include <ios>
+#include <istream>
+#include <ostream>
+#include <streambuf>
+
+namespace std {
+
+extern istream cin;
+extern ostream cout;
+extern ostream cerr;
+extern ostream clog;
+extern wistream wcin;
+extern wostream wcout;
+extern wostream wcerr;
+extern wostream wclog;
+
+}  // std
+
+*/
+
+#include <__config>
+#include <ios>
+#include <istream>
+#include <ostream>
+#include <streambuf>
+#include <version>
+
+#include <stdio.h>
+
+#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+#pragma GCC system_header
+#endif
+
+class _pytostream {
+    public:
+        _pytostream operator<<(const char * __s) {
+            printf("%s", __s);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(bool __n) {
+            printf("%d", __n);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(short __n) {
+            printf("%hu", __n);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(unsigned short __n) {
+            printf("%hu", __n);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(int __n) {
+            printf("%i", __n);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(unsigned int __n) {
+            printf("%u", __n);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(long __n) {
+            printf("%lu", __n);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(unsigned long __n) {
+            printf("%lu", __n);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(long long __n) {
+            printf("%lld", __n);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(unsigned long long __n) {
+            printf("%lld", __n);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(float __f) {
+            printf("%f", __f);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(double __f) {
+            printf("%f", __f);
+            _pytostream s;
+            return s;
+        }
+        _pytostream operator<<(long double __f) {
+            printf("%Lf", __f);
+            _pytostream s;
+            return s;
+        }
+
+        _pytostream operator<<(const void* __p) {
+            printf("%p", __p);
+            _pytostream s;
+            return s;
+        }
+        
+        _pytostream operator<<( std::basic_ostream<char,std::char_traits<char>>& (*pf)(std::basic_ostream<char,std::char_traits<char>>&) ) {
+            std::basic_ostream<char,std::char_traits<char>>& (*endl)(std::basic_ostream<char,std::char_traits<char>>&);
+            endl = std::endl;
+            
+            std::basic_ostream<char,std::char_traits<char>>& (*ends)(std::basic_ostream<char,std::char_traits<char>>&);
+            ends = std::ends;
+            
+            std::basic_ostream<char,std::char_traits<char>>& (*flush)(std::basic_ostream<char,std::char_traits<char>>&);
+            flush = std::flush;
+            
+            if (pf == endl) {
+                printf("\n");
+                fflush(stdout);
+            } else if (pf == ends) {
+                printf("%s","\0");
+            } else if (pf == flush) {
+                fflush(stdout);
+            }
+            
+            _pytostream s;
+            return s;
+        }
+};
+
+class _pytowstream: _pytostream {
+    public:
+        _pytowstream operator<<(const wchar_t * __s) {
+            wprintf(__s);
+            _pytowstream s;
+            return s;
+        }
+};
+
+_LIBCPP_BEGIN_NAMESPACE_STD
+
+extern _LIBCPP_FUNC_VIS istream cin;
+_pytostream cout;
+_pytostream cerr;
+_pytostream clog;
+
+#ifndef _LIBCPP_HAS_NO_WIDE_CHARACTERS
+extern _LIBCPP_FUNC_VIS wistream wcin;
+_pytowstream wcout;
+_pytowstream wcerr;
+_pytowstream wclog;
+#endif
+
+_LIBCPP_END_NAMESPACE_STD
+
+#endif // _LIBCPP_IOSTREAM

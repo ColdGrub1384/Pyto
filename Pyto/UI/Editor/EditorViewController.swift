@@ -752,8 +752,20 @@ func directory(for scriptURL: URL) -> URL {
             let editorGroup = UIBarButtonItemGroup(barButtonItems: [linterItem, snippetsItem], representativeItem: nil)
             let runGroup = UIBarButtonItemGroup(barButtonItems: [runItem, debuggerItem], representativeItem: nil)
             
-            parentNavigationItem?.leadingItemGroups = [UIBarButtonItemGroup(barButtonItems: [definitionsItem], representativeItem: nil)]
-            parentNavigationItem?.centerItemGroups = [runGroup, editorGroup]
+            parentNavigationItem?.customizationIdentifier = "editorToolbar"
+            parentNavigationItem?.leadingItemGroups = [UIBarButtonItemGroup(barButtonItems: [], representativeItem: nil)]
+            parentNavigationItem?.trailingItemGroups = [
+                runItem.creatingOptionalGroup(customizationIdentifier: "run"),
+                debuggerItem.creatingOptionalGroup(customizationIdentifier: "debugger"),
+                terminalItem!.creatingOptionalGroup(customizationIdentifier: "terminal"),
+                linterItem.creatingOptionalGroup(customizationIdentifier: "linter"),
+                snippetsItem.creatingOptionalGroup(customizationIdentifier: "snippets"),
+                runtimeItem.creatingOptionalGroup(customizationIdentifier: "runtime"),
+                searchItem.creatingOptionalGroup(customizationIdentifier: "search"),
+                docsItem.creatingOptionalGroup(customizationIdentifier: "docs"),
+                definitionsItem.creatingOptionalGroup(customizationIdentifier: "definitions"),
+                pipItem.creatingOptionalGroup(customizationIdentifier: "pip")
+            ]
         }
         
         if #available(iOS 16.0, *), traitCollection.horizontalSizeClass == .regular {

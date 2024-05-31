@@ -1,6 +1,0 @@
-framework module Twitter [extern_c] {
-  umbrella header "Twitter.h"
-  requires !swift
-  export *
-  module * { export * }
-}

@@ -1,0 +1,28 @@
+#include <Python.h>
+
+static PyObject* main(PyObject* self, PyObject* args) {
+    printf("Hello World!\n");
+    return Py_None;
+}
+
+// Our Module's Function Definition struct
+// We require this `NULL` to signal the end of our method
+// definition
+static PyMethodDef <name>Methods[] = {
+    { "main", main, METH_NOARGS, "docstring here" },
+    { NULL, NULL, 0, NULL }
+};
+
+// Our Module Definition struct
+static struct PyModuleDef <name>Module = {
+    PyModuleDef_HEAD_INIT,
+    "<name>",
+    "docstring here",
+    -1,
+    <name>Methods
+};
+
+// Initializes our module using our above struct
+PyMODINIT_FUNC PyInit_<name>(void) {
+    return PyModule_Create(&<name>Module);
+}
