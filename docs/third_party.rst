@@ -41,6 +41,7 @@ Other dependencies
 - `appdirs <http://github.com/ActiveState/appdirs>`_ 1.4.4
 - `asn1crypto <https://github.com/wbond/asn1crypto>`_ 1.4.0
 - `asn1crypto <https://github.com/wbond/asn1crypto>`_ 1.5.1
+- `astroid <>`_ 2.12.10
 - `beautifulsoup4 <http://www.crummy.com/software/BeautifulSoup/bs4/>`_ 4.10.0
 - `beautifulsoup4 <https://www.crummy.com/software/BeautifulSoup/bs4/>`_ 4.11.1
 - `black <https://github.com/psf/black>`_ 21.9b1.dev24+g14d16c8
@@ -62,6 +63,7 @@ Other dependencies
 - `dask <https://github.com/dask/dask/>`_ 2021.12.0
 - `dask <https://github.com/dask/dask/>`_ 2022.4.1
 - `decorator <https://github.com/micheles/decorator>`_ 5.1.1
+- `dill <https://github.com/uqfoundation/dill>`_ 0.3.4
 - `distlib <https://bitbucket.org/pypa/distlib>`_ 0.3.4
 - `docutils <http://docutils.sourceforge.net/>`_ 0.18.1
 - `entrypoints <https://github.com/takluyver/entrypoints>`_ 0.3
@@ -70,15 +72,19 @@ Other dependencies
 - `filelock <https://github.com/tox-dev/py-filelock>`_ 3.6.0
 - `fsspec <http://github.com/fsspec/filesystem_spec>`_ 2022.2.0
 - `fsspec <http://github.com/fsspec/filesystem_spec>`_ 2022.3.0
+- `future <https://python-future.org>`_ 0.18.2
 - `html5lib <https://github.com/html5lib/html5lib-python>`_ 1.1
 - `idna <https://github.com/kjd/idna>`_ 3.3
 - `imageio <https://github.com/imageio/imageio>`_ 2.13.5
 - `imageio <https://github.com/imageio/imageio>`_ 2.16.2
 - `imagesize <https://github.com/shibukawa/imagesize_py>`_ 1.3.0
 - `ipaddress <https://github.com/phihag/ipaddress>`_ 1.0.23
+- `isort <https://pycqa.github.io/isort/>`_ 5.10.1
 - `jedi <https://github.com/davidhalter/jedi>`_ 0.17.2
 - `joblib <https://joblib.readthedocs.io>`_ 1.1.0
+- `lazy-object-proxy <https://github.com/ionelmc/python-lazy-object-proxy>`_ 1.7.1
 - `locket <http://github.com/mwilliamson/locket.py>`_ 0.2.1
+- `mccabe <https://github.com/pycqa/mccabe>`_ 0.7.0
 - `mypy-extensions <https://github.com/python/mypy_extensions>`_ 0.4.3
 - `networkx <https://networkx.org/>`_ 2.6.3
 - `networkx <https://networkx.org/>`_ 2.8
@@ -94,6 +100,8 @@ Other dependencies
 - `progress <http://github.com/verigak/progress/>`_ 1.6
 - `py-make <https://github.com/tqdm/pymake>`_ 0.1.1
 - `pycparser <https://github.com/eliben/pycparser>`_ 2.21
+- `pyflakes <https://github.com/PyCQA/pyflakes>`_ 2.5.0
+- `pylint <>`_ 2.15.3
 - `pyparsing <https://github.com/pyparsing/pyparsing/>`_ 3.0.6
 - `pyparsing <https://github.com/pyparsing/pyparsing/>`_ 3.0.7
 - `pyparsing <>`_ 3.0.8
@@ -109,7 +117,6 @@ Other dependencies
 - `snowballstemmer <https://github.com/snowballstem/snowball>`_ 2.2.0
 - `soupsieve <https://github.com/facelessuser/soupsieve>`_ 2.3.1
 - `soupsieve <>`_ 2.3.2.post1
-- `sphinx-rtd-theme <https://github.com/readthedocs/sphinx_rtd_theme>`_ 1.0.0
 - `sphinxcontrib-applehelp <http://sphinx-doc.org/>`_ 1.0.2
 - `sphinxcontrib-devhelp <http://sphinx-doc.org/>`_ 1.0.2
 - `sphinxcontrib-htmlhelp <http://sphinx-doc.org/>`_ 2.0.0
@@ -126,15 +133,19 @@ Other dependencies
 - `toml <https://github.com/uiri/toml>`_ 0.10.2
 - `tomli <>`_ 2.0.0
 - `tomli <>`_ 2.0.1
+- `tomlkit <https://github.com/sdispater/tomlkit>`_ 0.10.2
 - `toolz <https://github.com/pytoolz/toolz/>`_ 0.11.2
 - `tornado <http://www.tornadoweb.org/>`_ 6.1
 - `travertino <UNKNOWN>`_ 0.1.3
 - `typing_extensions <>`_ 4.0.1
 - `typing_extensions <>`_ 4.1.1
+- `typing_extensions <>`_ 4.2.0
 - `urllib3 <https://urllib3.readthedocs.io/>`_ 1.26.8
 - `urllib3 <https://urllib3.readthedocs.io/>`_ 1.26.9
 - `webencodings <https://github.com/SimonSapin/python-webencodings>`_ 0.5.1
+- `wheel <>`_ 0.43.0
 - `wincertstore <https://bitbucket.org/tiran/wincertstore>`_ 0.2
+- `wrapt <https://github.com/GrahamDumpleton/wrapt>`_ 1.14.1
 - `xlrd2 <UNKNOWN>`_ 1.3.4
 
 

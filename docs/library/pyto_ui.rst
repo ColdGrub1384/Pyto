@@ -116,6 +116,78 @@ So we have this code:
 When the button is clicked, the UI will be closed and "Hello World!" will be printed.
 UIs can be presented on the Today widget if you set the widget script.
 
+
+Interface Builder
+-----------------
+
+The easiest way to make user interfaces is with Pyto's interface builder. ``.pytoui`` files can be created from the file browser's templates or from the project creator as a part of a package.
+
+Layout works with horizontal and vertical stacks, like SwiftUI. One ``.pytoui`` file is one view, which can be read with the :func:`~pyto_ui.read` function, which takes the path of the UI file and optionally, a dictionary set by default to the caller's locals. This dictionary is used to search for connections like class and function names referenced by the UI file.
+
+.. highlight:: python
+.. code-block:: python
+    
+    import pyto_ui as ui
+    
+    class MainView(ui.View):
+        pass
+    
+    ui.show_view("view.pytoui")
+    
+This code is equivalent to:
+
+.. highlight:: python
+.. code-block:: python
+    
+    import pyto_ui as ui
+    import main_view
+    
+    ui.read("view.pytoui", vars(main_view))
+    
+Or just:
+
+.. highlight:: python
+.. code-block:: python
+    
+    import pyto_ui as ui
+    from main_view import MainView
+    
+    ui.read("view.pytoui")
+    
+Actions can reference instance methods of a view or any function on the namespace given to :func:`~pyto_ui.read`.
+
+.. highlight:: python
+.. code-block:: python
+
+    import pyto_ui as ui
+
+    class MainView(ui.View):
+
+        @ui.ib_action
+        def button_pressed(self, sender: ui.Button):
+            pass
+    
+    @ui.ib_action
+    def other_button_pressed(sender: ui.Button):
+        pass
+    
+    ui.read("view.pytoui")
+
+Subviews can be accessed by name with :class:`~pyto_ui.View`'s subscript, but also with variables:
+
+.. highlight:: python
+.. code-block:: python
+
+    import pyto_ui as ui
+
+    class MainView(ui.View):
+
+        my_button: Button # Will be retrieved from getattr
+
+    my_other_button: Button # Will be set on read
+    
+    ui.read("view.pytoui")
+
 UIKit bridge
 ------------
 

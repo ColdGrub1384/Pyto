@@ -9,7 +9,7 @@ Pyto documentation
 
 Welcome to the Pyto's documentation!
 
-Pyto version: 19.0 (424)
+Pyto version: 19.0 (425)
 Python version: 3.10.0+
 
 Pyto is an open source app to code and run Python code locally on an iPad or iPhone.
@@ -32,6 +32,7 @@ Documents
    :maxdepth: 2
    
    terminal
+   llvm
    automation
    projects
    external

@@ -61,3 +61,17 @@ Pass output from a command to another command as input.
     $ echo 'print("Hello World!")' | python
     Hello World!
 
+
+Environment
+-----------
+
+Environment variables can bet set with ``export``, and read like any other shell.
+
+.. code-block::
+
+    $ export FOO=BAR
+    $ echo $FOO
+    BAR
+
+
+You can read all the current environment by running ``export`` or ``env`` without arguments.

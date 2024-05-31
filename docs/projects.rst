@@ -21,7 +21,10 @@ After installing your package:
     $ pip install .
 
 You can import it and run its console script from the terminal.
-The file browser will have a hammer icon where you can build your package without typing a command.
+
+C Extensions are supported and taken care of by ``setuptools``. For more information, see `LLVM Environment <llvm.html>`__.
+
+The `build_cproj <library/build_cproj.html>`__ provides a project structure for C and C++ command line tools.
 
 Documentation
 -------------
@@ -75,3 +78,5 @@ If you have a ``setup.py`` file, you can add :py:class:`make_sphinx_documentatio
         },
     )
 
+
+If a project has C Extensions, they must be compiled in place with ``setup.py build_ext`` so sphinx can import them.

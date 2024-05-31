@@ -11,6 +11,13 @@ Pyto is built with the following modules built specifically for iOS.
 
 .. toctree::
    :maxdepth: 2
+   :caption: C/C++
+
+   build_cproj
+   extensionsimporter
+
+.. toctree::
+   :maxdepth: 2
    :caption: User Interface
 
    pyto_ui

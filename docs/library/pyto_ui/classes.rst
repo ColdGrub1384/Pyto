@@ -21,6 +21,9 @@ A list of UI elements to be displayed on screen.
 .. autoclass:: View
    :members:
 
+.. autoclass:: NavigationView
+   :members:
+
 .. autoclass:: UIKitView
    :members:
 
@@ -72,10 +75,19 @@ Controls
 .. autoclass:: TextField
    :members:
 
+Context Menu
+************
+
+.. autoclass:: Menu
+   :members:
+
+.. autoclass:: MenuElement
+   :members:
+
 Other classes
 *************
 
-A list of classes that don't represent views.
+Classes that don't represent views.
 
 .. autoclass:: Color
    :members:

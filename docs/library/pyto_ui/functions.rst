@@ -16,6 +16,8 @@ Showing views
 
 .. autofunction:: show_view_controller
 
+.. autofunction:: read
+
 System pickers
 --------------
 
