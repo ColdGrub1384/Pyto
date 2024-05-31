@@ -39,99 +39,130 @@ extern wostream wclog;
 #include <ostream>
 #include <streambuf>
 #include <version>
+#include <sstream>
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include <unistd.h>
 
 #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
 #pragma GCC system_header
 #endif
 
-class _pytostream {
+void *__dso_handle = 0;
+
+char* __readinput() {
+    #define CHUNK 200
+   char* input = NULL;
+   char tempbuf[CHUNK];
+   size_t inputlen = 0, templen = 0;
+   do {
+       fgets(tempbuf, CHUNK, stdin);
+       templen = strlen(tempbuf);
+       input = (char *)realloc(input, inputlen+templen+1);
+       strcpy(input+inputlen, tempbuf);
+       inputlen += templen;
+    } while (templen==CHUNK-1 && tempbuf[CHUNK-2]!='\n');
+    
+    input[strcspn(input, "\n")] = 0;
+    
+    return input;
+}
+
+class _pytostream: public std::ostream {
     public:
-        _pytostream operator<<(const char * __s) {
+        _pytostream& operator<<(std::string __s) {
+            printf("%s", __s.c_str());
+            usleep(1000000/40);
+            return *this;
+        }
+    
+        _pytostream& operator<<(const char * __s) {
             printf("%s", __s);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(bool __n) {
+        _pytostream& operator<<(bool __n) {
             printf("%d", __n);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(short __n) {
+        _pytostream& operator<<(short __n) {
             printf("%hu", __n);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(unsigned short __n) {
+        _pytostream& operator<<(unsigned short __n) {
             printf("%hu", __n);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(int __n) {
+        _pytostream& operator<<(int __n) {
             printf("%i", __n);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(unsigned int __n) {
+        _pytostream& operator<<(unsigned int __n) {
             printf("%u", __n);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(long __n) {
+        _pytostream& operator<<(long __n) {
             printf("%lu", __n);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(unsigned long __n) {
+        _pytostream& operator<<(unsigned long __n) {
             printf("%lu", __n);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(long long __n) {
+        _pytostream& operator<<(long long __n) {
             printf("%lld", __n);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(unsigned long long __n) {
+        _pytostream& operator<<(unsigned long long __n) {
             printf("%lld", __n);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(float __f) {
+        _pytostream& operator<<(float __f) {
             printf("%f", __f);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(double __f) {
-            printf("%f", __f);
-            _pytostream s;
-            return s;
+        _pytostream& operator<<(double __f) {
+            printf("%lf", __f);
+            usleep(1000000/40);
+            return *this;
         }
-        _pytostream operator<<(long double __f) {
+        _pytostream& operator<<(long double __f) {
             printf("%Lf", __f);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
 
-        _pytostream operator<<(const void* __p) {
+        _pytostream& operator<<(const void* __p) {
             printf("%p", __p);
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            return *this;
         }
         
-        _pytostream operator<<( std::basic_ostream<char,std::char_traits<char>>& (*pf)(std::basic_ostream<char,std::char_traits<char>>&) ) {
+        _pytostream& operator<<( std::basic_ostream<char,std::char_traits<char>>& (*pf)(std::basic_ostream<char,std::char_traits<char>>&) ) {
             std::basic_ostream<char,std::char_traits<char>>& (*endl)(std::basic_ostream<char,std::char_traits<char>>&);
             endl = std::endl;
             
@@ -143,36 +174,173 @@ class _pytostream {
             
             if (pf == endl) {
                 printf("\n");
-                fflush(stdout);
             } else if (pf == ends) {
                 printf("%s","\0");
             } else if (pf == flush) {
                 fflush(stdout);
+                fflush(stderr);
             }
             
-            _pytostream s;
-            return s;
+            usleep(1000000/40);
+            
+            return *this;
+        }
+    
+        _pytostream& put(char c) {
+            printf("%c", c);
+            usleep(1000000/40);
+            return *this;
+        }
+    
+        _pytostream& write(const char* _s, std::streamsize n) {
+            printf("%s", _s);
+            usleep(1000000/40);
+            return *this;
+        }
+    
+        _pytostream& flush() {
+            fflush(stdout);
+            fflush(stderr);
         }
 };
 
 class _pytowstream: _pytostream {
     public:
-        _pytowstream operator<<(const wchar_t * __s) {
+        _pytowstream & operator<<(const wchar_t * __s) {
             wprintf(__s);
-            _pytowstream s;
-            return s;
+            return *this;
+        }
+};
+
+class _pytoistream: public std::ostream {
+    public:
+        _pytoistream& operator>>(std::string &__s) {
+            
+            char* result = __readinput();
+            __s = std::string(result);
+            
+            return *this;
+        }
+    
+        _pytoistream& operator>>(const char * &__s) {
+            __s = (const char *)__readinput();
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(bool& __n) {
+            
+            char* result = __readinput();
+            sscanf(result, "%i", &__n);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(short& __n) {
+            char* result = __readinput();
+            sscanf(result, "%hu", &__n);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(unsigned short& __n) {
+            char* result = __readinput();
+            sscanf(result, "%hu", &__n);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(int& __n) {
+            char* result = __readinput();
+            sscanf(result, "%i", &__n);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(unsigned int& __n) {
+            char* result = __readinput();
+            sscanf(result, "%u", &__n);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(long& __n) {
+            char* result = __readinput();
+            sscanf(result, "%lu", &__n);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(unsigned long& __n) {
+            char* result = __readinput();
+            sscanf(result, "%lu", &__n);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(long long& __n) {
+            char* result = __readinput();
+            sscanf(result, "%lld", &__n);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(unsigned long long& __n) {
+            char* result = __readinput();
+            sscanf(result, "%lld", &__n);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(float& __f) {
+            char* result = __readinput();
+            sscanf(result, "%f", &__f);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(double& __f) {
+            char* result = __readinput();
+            sscanf(result, "%lf", &__f);
+            
+            return *this;
+        }
+        _pytoistream& operator>>(long double& __f) {
+            char* result = __readinput();
+            sscanf(result, "%Lf", &__f);
+            
+            return *this;
+        }
+
+        _pytoistream& operator>>(const void* __p) {
+            char* result = __readinput();
+            sscanf(result, "%p", &__p);
+            return *this;
+        }
+};
+
+class _pytowistream: _pytoistream {
+    public:
+        _pytowistream & operator>>(const wchar_t * __s) {
+            char* result = __readinput();
+            
+            const size_t cSize = strlen(result)+1;
+            wchar_t* wc = new wchar_t[cSize];
+            mbstowcs (wc, result, cSize);
+            swscanf(wc, L"%ls", &__s);
+            return *this;
         }
 };
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-extern _LIBCPP_FUNC_VIS istream cin;
+_pytoistream cin;
 _pytostream cout;
 _pytostream cerr;
 _pytostream clog;
 
 #ifndef _LIBCPP_HAS_NO_WIDE_CHARACTERS
-extern _LIBCPP_FUNC_VIS wistream wcin;
+_pytowistream wcin;
 _pytowstream wcout;
 _pytowstream wcerr;
 _pytowstream wclog;

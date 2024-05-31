@@ -58,8 +58,6 @@ void llvm_set_thread_id_for_module(pthread_t thread, PyObject *module);
 // Crashes with 2+ parameters
 PyObject *cython_print_result(PyObject *self, PyObject *args, PyObject *kw);
 
-PyObject *__pyx_pw_4cext_6primes_1primes(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds);
-
 static PyObject *llvm_CyFunction_CallMethod(PyObject *func, PyObject *self, PyObject *arg, PyObject *kw) {
     PyCFunctionObject* f = (PyCFunctionObject*)func;
     Py_ssize_t size;
