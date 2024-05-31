@@ -100,6 +100,11 @@ import UniformTypeIdentifiers
     
     var window: UIWindow?
     
+    func windowScene(_ windowScene: UIWindowScene, didUpdate previousCoordinateSpace: UICoordinateSpace, interfaceOrientation previousInterfaceOrientation: UIInterfaceOrientation, traitCollection previousTraitCollection: UITraitCollection) {
+        
+        NotificationCenter.default.post(name: .init("GlobalTraitCollectionDidChange"), object: windowScene)
+    }
+    
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
