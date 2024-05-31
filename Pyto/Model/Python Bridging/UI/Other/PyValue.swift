@@ -38,8 +38,9 @@ import Foundation
     ///
     /// - Parameters:
     ///     - parameter: The parameter to pass.
-    ///     - onMainThread: If set to `true`, will execute the function on the main thread.
-    @objc func call(parameter: PyValue?, onMainThread: Bool = false) {
+    ///     - sync: If set to `true`, will execute the function synchronously.
+    ///     - delete: If set to `true`, the parameter will be deleted from the register after running.
+    @objc func call(parameter: PyValue?, sync: Bool = false, delete: Bool = false) {
         
         var code = "import threading\n"
         
@@ -55,6 +56,8 @@ import Foundation
             script_path = None
             """
         }
+        
+        let deleter = parameter != nil ? "\nimport _values; del _values.\(parameter!.identifier)" : ""
         
         if let param = parameter {
             code += """
@@ -83,13 +86,16 @@ import Foundation
 
             """
         }
-        if onMainThread {
+        
+        if sync {
             
             code += "\nexec(code)"
             
-            DispatchQueue.main.async {
-                Python.pythonShared?.performSelector(inBackground: #selector(PythonRuntime.runCode(_:)), with: code)
+            if delete {
+                code += deleter
             }
+            
+            Python.pythonShared?.perform( #selector(PythonRuntime.runCode(_:)), with: code)
         } else {
 
             code += """
@@ -98,6 +104,10 @@ import Foundation
                 thread.script_path = script_path
             thread.start()
             """
+            
+            if delete {
+                code += deleter
+            }
 
             Python.shared.run(code: code)
         }

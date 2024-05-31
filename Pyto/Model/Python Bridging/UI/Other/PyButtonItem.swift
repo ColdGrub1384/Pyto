@@ -22,16 +22,48 @@ import UIKit
         action?.call(parameter: managedValue)
     }
     
+    var __customView: PyView?
+    
+    @objc public var _customView: PyView? {
+        return get {
+            if self.__customView != nil {
+                return self.__customView
+            } else if let view = self.barButtonItem.customView {
+                self.__customView = PyView.values[view] ?? PyButton(managed: view)
+                return self.__customView
+            } else {
+                return nil
+            }
+        }
+    }
+    
     @objc public var title: String? {
         get {
             return get {
-                return self.barButtonItem.title
+                if let button = self.barButtonItem.customView as? UIButton {
+                    if #available(iOS 15.0, *) {
+                        return button.configuration?.title
+                    } else {
+                        return nil
+                    }
+                } else {
+                    return self.barButtonItem.title
+                }
             }
         }
         
         set {
             set {
-                self.barButtonItem.title = newValue
+                if let button = self.barButtonItem.customView as? UIButton {
+                    if #available(iOS 15.0, *) {
+                        let attrString = NSMutableAttributedString(string: newValue ?? "")
+                        let attrs = button.attributedTitle(for: .normal)?.attributes(at: 0, effectiveRange: nil)
+                        attrString.addAttributes(attrs ?? [:], range: NSRange(location: 0, length: (newValue as? NSString)?.length ?? 0))
+                        button.setAttributedTitle(attrString, for: .normal)
+                    }
+                } else {
+                    self.barButtonItem.title = newValue
+                }
             }
         }
     }
@@ -39,13 +71,27 @@ import UIKit
     @objc public var image: UIImage? {
         get {
             return get {
-                return self.barButtonItem.image
+                if let button = self.barButtonItem.customView as? UIButton {
+                    if #available(iOS 15.0, *) {
+                        return button.configuration?.image
+                    } else {
+                        return nil
+                    }
+                } else {
+                    return self.barButtonItem.image
+                }
             }
         }
         
         set {
             set {
-                self.barButtonItem.image = newValue
+                if let button = self.barButtonItem.customView as? UIButton {
+                    if #available(iOS 15.0, *) {
+                        button.configuration?.image = newValue
+                    }
+                } else {
+                    self.barButtonItem.image = newValue
+                }
             }
         }
     }

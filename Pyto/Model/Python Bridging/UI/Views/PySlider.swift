@@ -123,6 +123,16 @@ import UIKit
         }
     }
     
+    public override var action: PyValue? {
+        didSet {
+            set {
+                if !self.slider.allTargets.contains(self) {
+                    self.slider.addTarget(self, action: #selector(PyControl.callAction), for: .valueChanged)
+                }
+            }
+        }
+    }
+    
     @objc override class func newView() -> PyView {
         let pySlider = PySlider()
         pySlider.managed = get {

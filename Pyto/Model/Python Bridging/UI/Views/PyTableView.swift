@@ -96,13 +96,31 @@ import UIKit
         }
     }
     
+    @objc public var didSelectCell: PyValue?
+    
+    @objc public var accessoryButtonTapped: PyValue?
+    
+    @objc public var didDeleteCell: PyValue?
+    
+    @objc public var didMoveCell: PyValue?
+    
+    public func call(action: PyValue, section: PyTableViewSection, cellAt index: Int, to destination: Int? = nil) {
+        
+        guard let identifier = section.managedValue?.identifier else {
+            return
+        }
+        
+        Python.shared.run(code: "import _values; param = _values.\(identifier); _values.\(action.identifier)(param, \(index)"+(destination != nil ? ", \(destination!))" : ")"))
+    }
+    
     public func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         
         let section = swiftySections[indexPath.section]
-        guard let action = section.accessoryButtonTapped else {
-            return
+        if let action = section.accessoryButtonTapped {
+            section.call(action: action, for: indexPath.row)
+        } else if let action = accessoryButtonTapped {
+            call(action: action, section: section, cellAt: indexPath.row)
         }
-        section.call(action: action, for: indexPath.row)
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -123,9 +141,6 @@ import UIKit
     
     public func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let section = swiftySections[sourceIndexPath.section]
-        guard let action = section.didMoveCell else {
-            return
-        }
         section.reload = false
         let cells = NSMutableArray(array: section.cells)
         let obj = cells[sourceIndexPath.row]
@@ -133,7 +148,12 @@ import UIKit
         cells.insert(obj, at: destinationIndexPath.row)
         section.cells = cells
         section.reload = true
-        section.call(action: action, for: sourceIndexPath.row, to: destinationIndexPath.row)
+        
+        if let action = section.didMoveCell {
+            section.call(action: action, for: sourceIndexPath.row, to: destinationIndexPath.row)
+        } else if let action = didMoveCell {
+            call(action: action, section: section, cellAt: sourceIndexPath.row, to: destinationIndexPath.row)
+        }
     }
     
     public func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -162,15 +182,18 @@ import UIKit
         
         if let action = section.didDeleteCell {
             section.call(action: action, for: indexPath.row)
+        } else if let action = didDeleteCell {
+            call(action: action, section: section, cellAt: indexPath.row)
         }
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = swiftySections[indexPath.section]
-        guard let action = section.didSelectCell else {
-            return
+        if let action = section.didSelectCell {
+            section.call(action: action, for: indexPath.row)
+        } else if let action = didSelectCell {
+            call(action: action, section: section, cellAt: indexPath.row)
         }
-        section.call(action: action, for: indexPath.row)
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -183,6 +206,25 @@ import UIKit
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return swiftySections[section].cells.count
+    }
+    
+    private var hasLargeTitle = false
+    
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let navBar = (self.navigationView?.viewController as? UINavigationController)?.navigationBar
+        
+        if navBar?.prefersLargeTitles == true {
+            hasLargeTitle = true
+        }
+        
+        guard hasLargeTitle else {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            navBar?.prefersLargeTitles = (velocity.y < 0)
+        })
     }
     
     @objc public var reloadAction: PyValue?

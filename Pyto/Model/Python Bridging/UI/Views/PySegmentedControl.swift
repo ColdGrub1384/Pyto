@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import InterfaceBuilder
 
 @available(iOS 13.0, *) @objc public class PySegmentedControl: PyControl {
     
     /// The segmented control associated with this object.
     @objc public var segmentedControl: UISegmentedControl {
         return get {
-            return self.managed as! UISegmentedControl
+            return ((self.managed as? UIView)?.subviews.first(where: { $0 is UISegmentedControl }) as? UISegmentedControl) ?? self.managed as! UISegmentedControl
         }
     }
     
@@ -55,6 +56,28 @@ import UIKit
                 self.segmentedControl.selectedSegmentIndex = newValue
             }
         }
+    }
+    
+    public override var action: PyValue? {
+        didSet {
+            set {
+                if !self.segmentedControl.allTargets.contains(self) {
+                    self.segmentedControl.addTarget(self, action: #selector(PyControl.callAction), for: .valueChanged)
+                }
+            }
+        }
+    }
+    
+    public required init(managed: NSObject!) {
+        super.init(managed: managed)
+        
+        if !self.segmentedControl.allTargets.contains(self) {
+            self.segmentedControl.addTarget(self, action: #selector(PyControl.callAction), for: .valueChanged)
+        }
+    }
+    
+    init() {
+        super.init()
     }
     
     @objc override class func newView() -> PyView {

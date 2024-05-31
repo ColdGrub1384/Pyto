@@ -21,6 +21,16 @@ import UIKit
         return "Switch"
     }
     
+    public override var action: PyValue? {
+        didSet {
+            set {
+                if !self._switch.allTargets.contains(self) {
+                    self._switch.addTarget(self, action: #selector(PyControl.callAction), for: .valueChanged)
+                }
+            }
+        }
+    }
+    
     @objc public var isOn: Bool {
         get {
             return get {

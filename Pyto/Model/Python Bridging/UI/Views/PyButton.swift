@@ -21,6 +21,39 @@ import UIKit
         return "Button"
     }
     
+    public override var action: PyValue? {
+        didSet {
+            set {
+                if !self.button.allTargets.contains(self) {
+                    self.button.addTarget(self, action: #selector(PyControl.callAction), for: .touchUpInside)
+                }
+            }
+        }
+    }
+    
+    #if MAIN
+    @available(iOS 15.0, *)
+    @objc public override func setMenu(_ menu: PyMenuElement?) {
+        set {
+            self.button.menu = menu?.makeMenu()
+        }
+    }
+    #endif
+    
+    @objc public var showsMenuAsPrimaryAction: Bool {
+        get {
+            get {
+                self.button.showsMenuAsPrimaryAction
+            }
+        }
+        
+        set {
+            set {
+                self.button.showsMenuAsPrimaryAction = newValue
+            }
+        }
+    }
+    
     @objc override public var title: String? {
         get {
             return get {
@@ -30,7 +63,27 @@ import UIKit
         
         set {
             set {
-                self.button.setTitle(newValue, for: .normal)
+                self.button.setAttributedTitle(NSAttributedString(string: newValue ?? "", attributes: [.font: self.button.titleLabel?.font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)]), for: .normal)
+            }
+        }
+    }
+    
+    @objc public var subtitle: String? {
+        get {
+            return get {
+                if #available(iOS 15.0, *) {
+                    return self.button.configuration?.subtitle
+                } else {
+                    return nil
+                }
+            }
+        }
+        
+        set {
+            set {
+                if #available(iOS 15.0, *) {
+                    self.button.configuration?.subtitle = newValue
+                }
             }
         }
     }

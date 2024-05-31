@@ -8,6 +8,11 @@
 
 import UIKit
 import WebKit
+#if MAIN
+import InterfaceBuilder
+#else
+let DidChangeViewPaddingOrFrameNotificationName = Notification.Name(rawValue: "DidChangeViewPaddingOrFrameNotification")
+#endif
 
 @available(iOS 13.0, *) extension UIView {
     
@@ -16,7 +21,9 @@ import WebKit
         static var leftButtonItems = [UIView:[UIBarButtonItem]]()
         static var rightButtonItems = [UIView:[UIBarButtonItem]]()
         static var viewController = [UIView:UIViewController]()
+        static var title = [UIView:String]()
         static var name = [UIView:String]()
+        static var customClassName = [UIView:String]()
     }
     
     /// A name to identify the view.
@@ -38,6 +45,17 @@ import WebKit
         
         set {
             Holder.presentationMode[self] = newValue
+        }
+    }
+    
+    /// The title of the view.
+    public var _title: String? {
+        get {
+            return Holder.title[self]
+        }
+        
+        set {
+            Holder.title[self] = newValue
         }
     }
     
@@ -74,10 +92,177 @@ import WebKit
         }
     }
 
+    /// The Python class name.
+    public var customClassName: String? {
+        get {
+            return Holder.customClassName[self]
+        }
+        
+        set {
+            Holder.customClassName[self] = newValue
+        }
+    }
+    
+    #if MAIN
+    @objc public func containsOrIs(_ view: UIView) -> Bool {
+        
+        guard #available(iOS 16.0, *) else {
+            return false
+        }
+        
+        if self == view {
+            return true
+        }
+        
+        let items = ((leftButtonItems as? [UIBarButtonItem]) ?? []) + ((rightButtonItems as? [UIBarButtonItem]) ?? [])
+        for item in items {
+            var containsItem = false
+            
+            PyWrapper.set {
+                containsItem = item.customView == view
+            }
+            
+            if containsItem {
+                return true
+            }
+        }
+        
+        for subview in ((self is StackViewContainer) ? (self as! StackViewContainer).manager.views : subviews) {
+            if subview.containsOrIs(view) {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    @objc public func getUIKitSubviews() -> [UIView] {
+        PyWrapper.get {
+            self.subviews
+        }
+    }
+    #endif
 }
 
 /// A Python wrapper for `UIView`.
-@available(iOS 13.0, *) @objc public class PyView: PyWrapper {
+@available(iOS 13.0, *) @objc public class PyView: PyWrapper, UIContextMenuInteractionDelegate {
+    
+    @objc static var lastError: String?
+    
+    @objc static var lastErrorType: String?
+    
+    #if MAIN
+    @objc static func copyAttributes(sourceNavVC: UINavigationController, destNavVC: PyNavigationView) -> UINavigationController {
+        set {
+            destNavVC.navigationController.navigationBar.titleTextAttributes = sourceNavVC.navigationBar.titleTextAttributes
+            destNavVC.navigationController.navigationBar.largeTitleTextAttributes = sourceNavVC.navigationBar.titleTextAttributes
+            destNavVC.navigationBarHidden = sourceNavVC.isNavigationBarHidden
+        }
+        return sourceNavVC
+    }
+    
+    @objc static func view(_ view: UIView) -> PyView? {
+        PyView.values[view]
+    }
+        
+    @available(iOS 16.0, *)
+    private static func setModel(_ model: InterfaceModel, view: UIView) {
+        if let stackView = view as? StackViewContainer {
+            for view in stackView.manager.views {
+                setModel(model, view: view)
+            }
+        }
+        
+        view.model = model
+    }
+    
+    @available(iOS 16.0, *)
+    @objc static func readFromPath(_ path: String) -> NSArray? {
+        get {
+                        
+            guard FileManager.default.fileExists(atPath: path) else {
+                lastError = "No such file or directory: '\(URL(fileURLWithPath: path).lastPathComponent)'"
+                lastErrorType = "fileNotFound"
+                return nil
+            }
+            
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path))
+                
+                let model = try JSONDecoder().decode(InterfaceModel.self, from: data)
+                
+                let vc = model.navigationController.viewControllers.first
+                
+                let barItems = ((vc?.navigationItem.leftBarButtonItems ?? []) + (vc?.navigationItem.rightBarButtonItems ?? []).compactMap({
+                    $0.customView
+                }) as? [UIView]) ?? []
+                
+                for name in model.names.names {
+                    vc?.view.viewWithTag(name.key)?.name = name.value
+                    
+                    if let item = barItems.first(where: { $0.tag == name.key }) {
+                        item.name = name.value
+                    }
+                }
+                
+                for className in model.names.customClassNames {
+                    
+                    if className.key == 0 {
+                        vc?.view.customClassName = className.value
+                        continue
+                    }
+                    
+                    vc?.view.viewWithTag(className.key)?.customClassName = className.value
+                    
+                    if let item = barItems.first(where: { $0.tag == className.key }) {
+                        item.customClassName = className.value
+                    }
+                }
+                
+                model.navigationController.viewControllers = []
+                
+                let connections = NSMutableArray()
+                for view in model.connections {
+                    let array = NSMutableArray()
+                    for connection in view.value {
+                        array.add(NSArray(array: [connection.attributeName, connection.functionName]))
+                    }
+                    
+                    guard let viewObject = vc?.view.viewWithTag(view.key) ?? barItems.first(where: { $0.tag == view.key }) else {
+                        continue
+                    }
+                    
+                    connections.add(NSArray(array: [viewObject, array]))
+                }
+                
+                if let view = vc?.view {
+                    setModel(model, view: view)
+                }
+                                
+                return NSArray(array: [vc!, model.navigationController!, connections, barItems])
+            } catch {
+                lastError = error.localizedDescription
+                lastErrorType = "decodingError"
+                return nil
+            }
+        }
+    }
+    #endif
+    
+    /// The Python custom class name.
+    @objc var customClassName: String? {
+        get {
+            get {
+                self.view.customClassName
+            }
+        }
+        
+        set {
+            set {
+                self.view.customClassName = newValue
+            }
+        }
+    }
     
     override required init(managed: NSObject! = NSObject()) {
         super.init(managed: managed)
@@ -98,10 +283,6 @@ import WebKit
                 PyView.values[self.view] = self
             }
         }
-    }
-    
-    deinit {
-        
     }
     
     let id = UUID()
@@ -137,12 +318,17 @@ import WebKit
                 
                 releaseHandler()
                 
+                #if MAIN
+                NotificationCenter.default.post(Notification(name: WillReleaseViewNotificationName, object: view))
+                #endif
+                
                 PyView.values[view] = nil
                 UIView.Holder.leftButtonItems[view] = nil
                 UIView.Holder.rightButtonItems[view] = nil
                 UIView.Holder.name[view] = nil
                 UIView.Holder.presentationMode[view] = nil
                 UIView.Holder.viewController[view] = nil
+                UIView.Holder.customClassName[view] = nil
                 
                 sizeObserver?.invalidate()
                 sizeObserver = nil
@@ -185,6 +371,26 @@ import WebKit
         }
     }
     
+    @objc var navigationView: PyView? {
+        get {
+            get { () -> PyView? in
+                var next = self.view.next
+                while !(next is UIViewController) {
+                    next = next?.next
+                    if next == nil {
+                        break
+                    }
+                }
+                
+                guard let navigationController = (next as? UIViewController)?.navigationController else {
+                    return nil
+                }
+                
+                return PyView.values[navigationController.view]
+            }
+        }
+    }
+    
     /// The name identifying the view.
     @objc public var name: String? {
         set {
@@ -201,7 +407,13 @@ import WebKit
     }
     
     private var _title: String? {
-        didSet {
+        get {
+            self.view._title
+        }
+        
+        set {
+            self.view._title = newValue
+            
             for vc in (self.viewController as? UINavigationController)?.viewControllers ?? [] {
                 if vc.view.subviews.first == view {
                     vc.title = _title
@@ -215,6 +427,7 @@ import WebKit
     @objc public var title: String? {
         set {
             set {
+                self.viewController?.navigationItem.title = newValue
                 self._title = newValue
             }
         }
@@ -325,7 +538,24 @@ import WebKit
                 return
             }
             
-            self.viewController?.dismiss(animated: true, completion: {
+            var vc = self.viewController
+            if vc is UINavigationController, let _vc = vc?.next?.next as? UIViewController {
+                vc = _vc
+            }
+            
+            #if MAIN
+            let isScene = vc?.presentingViewController is SceneDelegate.ViewController
+            
+            if isScene, let session = vc?.view.window?.windowScene?.session {
+                let options = UIWindowSceneDestructionRequestOptions()
+                options.windowDismissalAnimation = .commit
+                UIApplication.shared.requestSceneSessionDestruction(session, options: options)
+            }
+            #else
+            let isScene = false
+            #endif
+                        
+            vc?.dismiss(animated: !isScene, completion: {
                 semaphore.signal()
             })
             #endif
@@ -341,7 +571,6 @@ import WebKit
         return get {
             return (self.managed as? UIView) ?? {
                 let view = UIView()
-                view.backgroundColor = .red
                 return view
             }()
         }
@@ -646,8 +875,6 @@ import WebKit
         }
     }
     
-    private var _subviews = [PyView]()
-    
     /// The parent of the view.
     @objc public var superView: PyView? {
         self.get {
@@ -661,26 +888,9 @@ import WebKit
     
     /// The subviews of the view.
     @objc public var subviews: NSArray {
-        return get {
-            var subviews = [PyView]()
-            
-            for view in self.view.subviews {
-                
-                for pyView in subviews {
-                    if pyView.view == view {
-                        break
-                    }
-                }
-                
-                if let v = PyView.values[view] {
-                    subviews.append(v)
-                }
-            }
-            
-            self._subviews = subviews
-            
-            return NSArray(array: subviews)
-        }
+        NSArray(array: get {
+            self.view.subviews
+        }.compactMap({ PyView.values[$0] }))
     }
     
     /// Adds the given view as subview.
@@ -756,7 +966,9 @@ import WebKit
         set {
             set {
                 self.view.backgroundColor = newValue?.managed as? UIColor
-                ((self.viewController as? UINavigationController)?.viewControllers.first ?? self.viewController)?.view.backgroundColor = newValue?.managed as? UIColor
+                #if MAIN
+                (self.viewController as? ConsoleViewController.NavigationController)?.setBarColor()
+                #endif
             }
         }
     }
@@ -772,6 +984,7 @@ import WebKit
         set {
             set {
                 self.view.isHidden = newValue
+                NotificationCenter.default.post(name: DidChangeViewPaddingOrFrameNotificationName, object: self.view)
             }
         }
     }
@@ -997,6 +1210,8 @@ import WebKit
     /// Dark user interface style.
     @objc public static let AppearanceDark = UIUserInterfaceStyle.dark
     
+    @objc var customAppearance = 0
+    
     /// The view user interface style.
     @objc public var appearance: Int {
         get {
@@ -1006,11 +1221,12 @@ import WebKit
         }
         
         set {
-            updateBorderColor()
+            customAppearance = newValue
             set {
                 self.view.overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: newValue) ?? .unspecified
                 self.viewController?.overrideUserInterfaceStyle = self.view.overrideUserInterfaceStyle
             }
+            updateBorderColor()
         }
     }
     
@@ -1026,7 +1242,23 @@ import WebKit
     /// - Returns: A boolean indicating if the action was successfull.
     @objc public func becomeFirstResponder() -> Bool {
         return get {
-            return self.view.becomeFirstResponder()
+            if !self.view.becomeFirstResponder() {
+                var vc: UIResponder? = self.viewController
+                #if MAIN
+                if vc == nil {
+                    vc = self.view
+                    while !(vc is ConsoleViewController.ViewController) {
+                        vc = vc?.next
+                        if vc == nil {
+                            break
+                        }
+                    }
+                }
+                #endif
+                return vc?.becomeFirstResponder() ?? false
+            } else {
+                return true
+            }
         }
     }
     
@@ -1035,7 +1267,23 @@ import WebKit
     /// - Returns: A boolean indicating if the action was successfull.
     @objc public func resignFirstResponder() -> Bool {
         return get {
-            return self.view.resignFirstResponder()
+            if !self.view.resignFirstResponder() {
+                var vc: UIResponder? = self.viewController
+                #if MAIN
+                if vc == nil {
+                    vc = self.view
+                    while !(vc is ConsoleViewController.ViewController) {
+                        vc = vc?.next
+                        if vc == nil {
+                            break
+                        }
+                    }
+                }
+                #endif
+                return vc?.resignFirstResponder() ?? false
+            } else {
+                return true
+            }
         }
     }
     
@@ -1107,6 +1355,27 @@ import WebKit
         }
     }
     
+    #if MAIN
+    var menu: UIMenu?
+    
+    @objc var menuValue: PyValue?
+    
+    @available(iOS 15.0, *)
+    @objc public func setMenu(_ menu: PyMenuElement?) {
+        set {
+            
+            self.menu = menu?.makeMenu()
+            
+            if menu != nil {
+                let interaction = UIContextMenuInteraction(delegate: self)
+                self.view.addInteraction(interaction)
+            } else if self.view.interactions.contains(where: { $0 is UIContextMenuInteraction }) {
+                self.view.interactions.removeAll(where: { $0 is UIContextMenuInteraction })
+            }
+        }
+    }
+    #endif
+    
     /// Button items to be displayed on the left of the view's corresponding navigation bar.
     @objc public var leftButtonItems: NSArray {
         get {
@@ -1166,6 +1435,81 @@ import WebKit
                 self.view.rightButtonItems = NSArray(array: items)
                 self.viewController?.navigationItem.rightBarButtonItems = items
             }
+        }
+    }
+    
+    @objc var keyPressBegan: PyValue?
+    
+    @objc var keyPressEnded: PyValue?
+    
+    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
+                #if MAIN
+                return self?.menu
+                #else
+                return nil
+                #endif
+            }
+        }
+}
+
+extension UIResponder {
+    
+    private func randomAlphaNumericString(length: Int) -> String {
+        let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        let allowedCharsCount = UInt32(allowedChars.count)
+        var randomString = ""
+
+        for _ in 0 ..< length {
+            let randomNum = Int(arc4random_uniform(allowedCharsCount))
+            let randomIndex = allowedChars.index(allowedChars.startIndex, offsetBy: randomNum)
+            let newCharacter = allowedChars[randomIndex]
+            randomString += String(newCharacter)
+        }
+
+        return randomString
+    }
+    
+    private func sendKey(_ key: UIKey?, function: PyValue?) {
+        
+        guard let key = key else {
+            return
+        }
+        
+        let id = randomAlphaNumericString(length: 12)
+        
+        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: """
+        import _values
+        import pyto_ui as ui
+        import base64
+        
+        chars = base64.b64decode("\(key.characters.data(using: .utf8)?.base64EncodedString() ?? "")".encode("utf-8")).decode("utf-8")
+        
+        key = ui.Key(ui.KeyCode(\(key.keyCode.rawValue)), ui.KeyModifier(\(key.modifierFlags.rawValue)), chars)
+        
+        _values.value(key, "\(id)")
+        """)
+        
+        function?.call(parameter: PyValue(identifier: id), delete: false)
+    }
+    
+    @objc func keyPressBegan(_ press: UIPress) {
+        guard let view = self as? UIView else {
+            return
+        }
+        
+        if let pyView = PyView.values[view] {
+            sendKey(press.key, function: pyView.keyPressBegan)
+        }
+    }
+    
+    @objc func keyPressEnded(_ press: UIPress) {
+        guard let view = self as? UIView else {
+            return
+        }
+        
+        if let pyView = PyView.values[view] {
+            sendKey(press.key, function: pyView.keyPressEnded)
         }
     }
 }

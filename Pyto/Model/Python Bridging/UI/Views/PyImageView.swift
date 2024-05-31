@@ -38,7 +38,7 @@ extension UIImage {
     /// The Image view associated with this object.
     @objc public var imageView: UIImageView {
         return get {
-            return self.managed as! UIImageView
+            return ((self.managed as? UIView)?.subviews.first(where: { $0 is UIImageView }) as? UIImageView) ?? self.managed as! UIImageView
         }
     }
     

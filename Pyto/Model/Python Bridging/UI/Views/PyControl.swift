@@ -17,7 +17,7 @@ import UIKit
     @objc public var action: PyValue?
     
     @objc public var managedValue: PyValue?
-    
+        
     @objc public func callAction() {
         action?.call(parameter: managedValue)
     }
@@ -87,7 +87,7 @@ import UIKit
     /// The control associated with this object.
     @objc public var control: UIControl {
         return get {
-            return self.managed as! UIControl
+            return ((self.managed as? UIView)?.subviews.first(where: { $0 is UISegmentedControl }) as? UISegmentedControl) ?? self.managed as! UIControl
         }
     }
     

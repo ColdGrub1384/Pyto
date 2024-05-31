@@ -11,12 +11,15 @@ This library may have a lot of similarities with ``UIKit``, but subclassing isn'
 
 from __future__ import annotations
 from unicodedata import name
+from xml.dom.minidom import Attr
 from xmlrpc.client import Boolean
-from UIKit import UIFont as __UIFont__, UIImage, UIView, UIViewController
+from UIKit import UIFont as __UIFont__, UIImage, UIView, UIViewController, UIMenuElement
 from Foundation import NSThread, NSURL
-from typing import List, Callable, Tuple
+from typing import List, Callable, Tuple, Type, TypeVar
+from types import ModuleType
 from pyto import __Class__, ConsoleViewController, PyAlert as __PyAlert__
 from __check_type__ import check
+from timeit import default_timer as timer
 from __image__ import __ui_image_from_pil_image__, __pil_image_from_ui_image__
 from time import sleep
 from io import BytesIO
@@ -39,6 +42,10 @@ from _docsupport import is_sphinx
 from dataclasses import dataclass
 from enum import Enum, IntFlag
 from collections import namedtuple
+import inspect
+import dis
+import weakref
+import functools
 
 try:
     from rubicon.objc import ObjCClass, CGFloat
@@ -85,11 +92,12 @@ __PyControl__ = __Class__("PyControl")
 __PyStackView__ = __Class__("PyStackView")
 __PyStackSpacerView__ = __Class__("PyStackSpacerView")
 __PySlider__ = __Class__("PySlider")
+__PyStepper__ = __Class__("PyStepper")
 __PySegmentedControl__ = __Class__("PySegmentedControl")
 __PySwitch__ = __Class__("PySwitch")
 __PyButton__ = __Class__("PyButton")
 __PyLabel__ = __Class__("PyLabel")
-__UIImageView__ = __Class__("PyImageView")
+__PyImageView__ = __Class__("PyImageView")
 __PyTextView__ = __Class__("PyTextView")
 __PyTextField__ = __Class__("PyTextField")
 __PyTableView__ = __Class__("PyTableView")
@@ -100,7 +108,9 @@ __PyCollectionView__ = __Class__("PyCollectionView")
 __PyGestureRecognizer__ = __Class__("PyGestureRecognizer")
 __PyUIKitView__ = __Class__("PyUIKitView")
 __PyNavigationView__ = __Class__("PyNavigationView")
+__PyIBStackView__ = __Class__("PyIBStackView")
 
+__PyMenuElement__ = __Class__("PyMenuElement")
 __PyColor__ = __Class__("PyColor")
 __PyButtonItem__ = __Class__("PyButtonItem")
 __PyTextInputTraitsConstants__ = __Class__("PyTextInputTraitsConstants")
@@ -113,6 +123,512 @@ except NameError:
 ###################
 # MARK: - Constants
 ###################
+
+# MARK: - Sheet size
+
+class SheetSize:
+
+    IPHONE_SMALL = (320, 568)
+
+    IPHONE_MEDIUM = (375, 667)
+
+    IPHONE_LARGE = (428, 926)
+
+    IPAD_SMALL = (744, 1133)
+
+    FORM = (1, 1)
+
+    PAGE = (2, 2)
+
+# MARK: - Key
+
+class KeyCode(Enum):
+
+    A = 0x04
+    """ The raw HID hexadecimal usage code 04. """
+
+    B = 0x05
+    """ The raw HID hexadecimal usage code 05. """
+
+    C = 0x06
+    """ The raw HID hexadecimal usage code 06. """
+
+    D = 0x07
+    """ The raw HID hexadecimal usage code 07. """
+
+    E = 0x08
+    """ The raw HID hexadecimal usage code 08. """
+
+    F = 0x09
+    """ The raw HID hexadecimal usage code 09. """
+
+    G = 0x0A
+    """ The raw HID hexadecimal usage code 0A. """
+
+    H = 0x0B
+    """ The raw HID hexadecimal usage code 0B. """
+
+    I = 0x0C
+    """ The raw HID hexadecimal usage code 0C. """
+
+    J = 0x0D
+    """ The raw HID hexadecimal usage code 0D. """
+
+    K = 0x0E
+    """ The raw HID hexadecimal usage code 0E. """
+
+    L = 0x0F
+    """ The raw HID hexadecimal usage code 0F. """
+
+    M = 0x10
+    """ The raw HID hexadecimal usage code 10. """
+
+    N = 0x11
+    """ The raw HID hexadecimal usage code 11. """
+
+    O = 0x12
+    """ The raw HID hexadecimal usage code 12. """
+
+    P = 0x13
+    """ The raw HID hexadecimal usage code 13. """
+
+    Q = 0x14
+    """ The raw HID hexadecimal usage code 14. """
+
+    R = 0x15
+    """ The raw HID hexadecimal usage code 15. """
+
+    S = 0x16
+    """ The raw HID hexadecimal usage code 16. """
+
+    T = 0x17
+    """ The raw HID hexadecimal usage code 17. """
+
+    U = 0x18
+    """ The raw HID hexadecimal usage code 18. """
+
+    V = 0x19
+    """ The raw HID hexadecimal usage code 19. """
+
+    W = 0x1A
+    """ The raw HID hexadecimal usage code 1A. """
+
+    X = 0x1B
+    """ The raw HID hexadecimal usage code 1B. """
+
+    Y = 0x1C
+    """ The raw HID hexadecimal usage code 1C. """
+
+    Z = 0x1D
+    """ The raw HID hexadecimal usage code 1D. """
+
+    _0 = 0x27
+    """ The raw HID hexadecimal usage code 27. """
+
+    _1 = 0x1E
+    """ The raw HID hexadecimal usage code 1E. """
+
+    _2 = 0x1F
+    """ The raw HID hexadecimal usage code 1F. """
+
+    _3 = 0x20
+    """ The raw HID hexadecimal usage code 20. """
+
+    _4 = 0x21
+    """ The raw HID hexadecimal usage code 21. """
+
+    _5 = 0x22
+    """ The raw HID hexadecimal usage code 22. """
+
+    _6 = 0x23
+    """ The raw HID hexadecimal usage code 23. """
+
+    _7 = 0x24
+    """ The raw HID hexadecimal usage code 24. """
+
+    _8 = 0x25
+    """ The raw HID hexadecimal usage code 25. """
+
+    _9 = 0x26
+    """ The raw HID hexadecimal usage code 26. """
+
+    BACKSLASH = 0x31
+    """ The raw HID hexadecimal usage code 31. """
+
+    CLOSE_BRACKET = 0x30
+    """ The raw HID hexadecimal usage code 30. """
+
+    COMMA = 0x36
+    """ The raw HID hexadecimal usage code 36. """
+
+    EQUAL_SIGN = 0x2E
+    """ The raw HID hexadecimal usage code 2E. """
+
+    HYPHEN = 0x2D
+    """ The raw HID hexadecimal usage code 2D. """
+
+    NON_U_S_BACKSLASH = 0x64
+    """ The raw HID hexadecimal usage code 64. """
+
+    NON_U_S_POUND = 0x32
+    """ The raw HID hexadecimal usage code 32. """
+
+    OPEN_BRACKET = 0x2F
+    """ The raw HID hexadecimal usage code 2F. """
+
+    PERIOD = 0x37
+    """ The raw HID hexadecimal usage code 37. """
+
+    QUOTE = 0x34
+    """ The raw HID hexadecimal usage code 34. """
+
+    SEMICOLON = 0x33
+    """ The raw HID hexadecimal usage code 33. """
+
+    SEPARATOR = 0x9F
+    """ The raw HID hexadecimal usage code 9F. """
+
+    SLASH = 0x38
+    """ The raw HID hexadecimal usage code 38. """
+
+    SPACEBAR = 0x2C
+    """ The raw HID hexadecimal usage code 2C. """
+
+    CAPS_LOCK = 0x39
+    """ The raw HID hexadecimal usage code 39. """
+
+    LEFT_ALT = 0xE2
+    """ The raw HID hexadecimal usage code E2. """
+
+    LEFT_CONTROL = 0xE0
+    """ The raw HID hexadecimal usage code E0. """
+
+    LEFT_SHIFT = 0xE1
+    """ The raw HID hexadecimal usage code E1. """
+
+    LOCKING_CAPS_LOCK = 0x82
+    """ The raw HID hexadecimal usage code 82. """
+
+    LOCKING_NUM_LOCK = 0x83
+    """ The raw HID hexadecimal usage code 83. """
+
+    LOCKING_SCROLL_LOCK = 0x84
+    """ The raw HID hexadecimal usage code 84. """
+
+    RIGHT_ALT = 0xE6
+    """ The raw HID hexadecimal usage code E6. """
+
+    RIGHT_CONTROL = 0xE4
+    """ The raw HID hexadecimal usage code E4. """
+
+    RIGHT_SHIFT = 0xE5
+    """ The raw HID hexadecimal usage code E5. """
+
+    SCROLL_LOCK = 0x47
+    """ The raw HID hexadecimal usage code 47. """
+
+    LEFT_ARROW = 0x50
+    """ The raw HID hexadecimal usage code 50. """
+
+    RIGHT_ARROW = 0x4F
+    """ The raw HID hexadecimal usage code 4F. """
+
+    UP_ARROW = 0x52
+    """ The raw HID hexadecimal usage code 52. """
+
+    DOWN_ARROW = 0x51
+    """ The raw HID hexadecimal usage code 51. """
+
+    PAGE_UP = 0x4B
+    """ The raw HID hexadecimal usage code 4B. """
+
+    PAGE_DOWN = 0x4E
+    """ The raw HID hexadecimal usage code 4E. """
+
+    HOME = 0x4A
+    """ The raw HID hexadecimal usage code 4A. """
+
+    END = 0x4D
+    """ The raw HID hexadecimal usage code 4D. """
+
+    DELETE_FORWARD = 0x4C
+    """ The raw HID hexadecimal usage code 4C. """
+
+    DELETE_OR_BACKSPACE = 0x2A
+    """ The raw HID hexadecimal usage code 2A. """
+
+    ESCAPE = 0x29
+    """ The raw HID hexadecimal usage code 29. """
+
+    INSERT = 0x49
+    """ The raw HID hexadecimal usage code 49. """
+
+    RETURN = 0x9E
+    """ The raw HID hexadecimal usage code 9E. """
+
+    TAB = 0x2B
+    """ The raw HID hexadecimal usage code 2B. """
+
+    F_1 = 0x3A
+    """ The raw HID hexadecimal usage code 3A. """
+
+    F_2 = 0x3B
+    """ The raw HID hexadecimal usage code 3B. """
+
+    F_3 = 0x3C
+    """ The raw HID hexadecimal usage code 3C. """
+
+    F_4 = 0x3D
+    """ The raw HID hexadecimal usage code 3D. """
+
+    F_5 = 0x3E
+    """ The raw HID hexadecimal usage code 3E. """
+
+    F_6 = 0x3F
+    """ The raw HID hexadecimal usage code 3F. """
+
+    F_7 = 0x40
+    """ The raw HID hexadecimal usage code 40. """
+
+    F_8 = 0x41
+    """ The raw HID hexadecimal usage code 41. """
+
+    F_9 = 0x42
+    """ The raw HID hexadecimal usage code 42. """
+
+    F_1_0 = 0x43
+    """ The raw HID hexadecimal usage code 43. """
+
+    F_1_1 = 0x44
+    """ The raw HID hexadecimal usage code 44. """
+
+    F_1_2 = 0x45
+    """ The raw HID hexadecimal usage code 45. """
+
+    F_1_3 = 0x68
+    """ The raw HID hexadecimal usage code 68. """
+
+    F_1_4 = 0x69
+    """ The raw HID hexadecimal usage code 69. """
+
+    F_1_5 = 0x6A
+    """ The raw HID hexadecimal usage code 6A. """
+
+    F_1_6 = 0x6B
+    """ The raw HID hexadecimal usage code 6B. """
+
+    F_1_7 = 0x6C
+    """ The raw HID hexadecimal usage code 6C. """
+
+    F_1_8 = 0x6D
+    """ The raw HID hexadecimal usage code 6D. """
+
+    F_1_9 = 0x6E
+    """ The raw HID hexadecimal usage code 6E. """
+
+    F_2_0 = 0x6F
+    """ The raw HID hexadecimal usage code 6F. """
+
+    F_2_1 = 0x70
+    """ The raw HID hexadecimal usage code 70. """
+
+    F_2_2 = 0x71
+    """ The raw HID hexadecimal usage code 71. """
+
+    F_2_3 = 0x72
+    """ The raw HID hexadecimal usage code 72. """
+
+    F_2_4 = 0x73
+    """ The raw HID hexadecimal usage code 73. """
+
+    PAUSE = 0x48
+    """ The raw HID hexadecimal usage code 48. """
+
+    STOP = 0x78
+    """ The raw HID hexadecimal usage code 78. """
+
+    MUTE = 0x7F
+    """ The raw HID hexadecimal usage code 7F. """
+
+    VOLUME_UP = 0x80
+    """ The raw HID hexadecimal usage code 80. """
+
+    VOLUME_DOWN = 0x81
+    """ The raw HID hexadecimal usage code 81. """
+
+    L_A_N_G_1 = 0x90
+    """ The raw HID hexadecimal usage code 90. """
+
+    L_A_N_G_2 = 0x91
+    """ The raw HID hexadecimal usage code 91. """
+
+    L_A_N_G_3 = 0x92
+    """ The raw HID hexadecimal usage code 92. """
+
+    L_A_N_G_4 = 0x93
+    """ The raw HID hexadecimal usage code 93. """
+
+    L_A_N_G_5 = 0x94
+    """ The raw HID hexadecimal usage code 94. """
+
+    L_A_N_G_6 = 0x95
+    """ The raw HID hexadecimal usage code 95. """
+
+    L_A_N_G_7 = 0x96
+    """ The raw HID hexadecimal usage code 96. """
+
+    L_A_N_G_8 = 0x97
+    """ The raw HID hexadecimal usage code 97. """
+
+    L_A_N_G_9 = 0x98
+    """ The raw HID hexadecimal usage code 98. """
+
+    INTERNATIONAL_1 = 0x87
+    """ The raw HID hexadecimal usage code 87. """
+
+    INTERNATIONAL_2 = 0x88
+    """ The raw HID hexadecimal usage code 88. """
+
+    INTERNATIONAL_3 = 0x89
+    """ The raw HID hexadecimal usage code 89. """
+
+    INTERNATIONAL_4 = 0x8A
+    """ The raw HID hexadecimal usage code 8A. """
+
+    INTERNATIONAL_5 = 0x8B
+    """ The raw HID hexadecimal usage code 8B. """
+
+    INTERNATIONAL_6 = 0x8C
+    """ The raw HID hexadecimal usage code 8C. """
+
+    INTERNATIONAL_7 = 0x8D
+    """ The raw HID hexadecimal usage code 8D. """
+
+    INTERNATIONAL_8 = 0x8E
+    """ The raw HID hexadecimal usage code 8E. """
+
+    INTERNATIONAL_9 = 0x8F
+    """ The raw HID hexadecimal usage code 8F. """
+
+    ERROR_ROLL_OVER = 0x01
+    """ The raw HID hexadecimal usage code 01. """
+
+    ERROR_UNDEFINED = 0x03
+    """ The raw HID hexadecimal usage code 03. """
+
+    AGAIN = 0x79
+    """ The raw HID hexadecimal usage code 79. """
+
+    ALTERNATE_ERASE = 0x99
+    """ The raw HID hexadecimal usage code 99. """
+
+    APPLICATION = 0x65
+    """ The raw HID hexadecimal usage code 65. """
+
+    CANCEL = 0x9B
+    """ The raw HID hexadecimal usage code 9B. """
+
+    CLEAR = 0x9C
+    """ The raw HID hexadecimal usage code 9C. """
+
+    CLEAR_OR_AGAIN = 0xA2
+    """ The raw HID hexadecimal usage code A2. """
+
+    COPY = 0x7C
+    """ The raw HID hexadecimal usage code 7C. """
+
+    CR_SEL_OR_PROPS = 0xA3
+    """ The raw HID hexadecimal usage code A3. """
+
+    CUT = 0x7B
+    """ The raw HID hexadecimal usage code 7B. """
+
+    EX_SEL = 0xA4
+    """ The raw HID hexadecimal usage code A4. """
+
+    EXECUTE = 0x74
+    """ The raw HID hexadecimal usage code 74. """
+
+    FIND = 0x7E
+    """ The raw HID hexadecimal usage code 7E. """
+
+    GRAVE_ACCENT_AND_TILDE = 0x35
+    """ The raw HID hexadecimal usage code 35. """
+
+    HELP = 0x75
+    """ The raw HID hexadecimal usage code 75. """
+
+    LEFT_G_U_I = 0xE3
+    """ The raw HID hexadecimal usage code E3. """
+
+    MENU = 0x76
+    """ The raw HID hexadecimal usage code 76. """
+
+    OPER = 0xA1
+    """ The raw HID hexadecimal usage code A1. """
+
+    OUT = 0xA0
+    """ The raw HID hexadecimal usage code A0. """
+
+    P_O_S_T_FAIL = 0x02
+    """ The raw HID hexadecimal usage code 02. """
+
+    PASTE = 0x7D
+    """ The raw HID hexadecimal usage code 7D. """
+
+    POWER = 0x66
+    """ The raw HID hexadecimal usage code 66. """
+
+    PRINT_SCREEN = 0x46
+    """ The raw HID hexadecimal usage code 46. """
+
+    PRIOR = 0x9D
+    """ The raw HID hexadecimal usage code 9D. """
+
+    RETURN_OR_ENTER = 0x28
+    """ The raw HID hexadecimal usage code 28. """
+
+    RIGHT_G_U_I = 0xE7
+    """ The raw HID hexadecimal usage code E7. """
+
+    SELECT = 0x77
+    """ The raw HID hexadecimal usage code 77. """
+
+    SYS_REQ_OR_ATTENTION = 0x9A
+    """ The raw HID hexadecimal usage code 9A. """
+
+    UNDO = 0x7A
+    """ The raw HID hexadecimal usage code 7A. """
+
+    _RESERVED = 0xFFFF
+    """ The raw HID hexadecimal usage code FFFF. """
+
+class KeyModifier(IntFlag):
+
+    ALPHA_SHIFT = 65536
+    """ A modifier flag that indicates the user pressed the Caps Lock key. """
+
+    SHIFT = 131072
+    """ A modifier flag that indicates the user pressed the Shift key. """
+
+    CONTROL = 262144
+    """ A modifier flag that indicates the user pressed the Control key. """    
+    
+    ALTERNATE = 524288
+    """ A modifier flag that indicates the user pressed the Option key. """
+
+    COMMAND = 1048576
+    """ A modifier flag that indicates the user pressed the Command key. """
+
+    NUMERIC_PAD = 2097152
+    """ A modifier flag that indicates the user pressed a key located on the numeric keypad. """
+
+class Key:
+
+    def __init__(self, key_code: KeyCode, modifier_flags: KeyModifier, characters: str):
+        self.key_code = key_code
+        self.modifier_flags = modifier_flags
+        self.characters = characters
 
 # MARK: - Gesture Recognizer Type
 
@@ -433,6 +949,8 @@ class PresentationMode(Enum):
     A presentation style in which the presented view is opened on a new window scene if the script is running on an iPad.
     On iPhone, the view presents full screen.
     """
+
+    WIDGET = ui_constants.PRESENTATION_MODE_WIDGET
 
 # MARK: - Appearance
 
@@ -1048,6 +1566,391 @@ class SystemItem(Enum):
 # MARK: - Other Classes
 ###############
 
+
+# MARK: - Menu
+
+
+class MenuElementState(Enum):
+    """
+    The state of a menu element.
+    """
+
+    OFF = 0
+    """
+    Off.
+    """
+
+    ON = 1
+    """
+    On.
+    """
+
+    MIXED = 2
+    """
+    Mixed.
+    """
+
+
+class MenuElementAttributes(IntFlag):
+    """
+    Attributes of a menu element.
+    """
+
+    DESTRUCTIVE = 2
+    """
+    Destructive.
+    """
+
+    DISABLED = 1
+    """
+    Selection disabled.
+    """
+
+    HIDDEN = 4
+    """
+    Hidden.
+    """
+
+    KEEPS_MENU_PRESENTED = 8
+    """
+    Keep menu presented after selecting an element.
+    """
+
+
+class MenuOptions(IntFlag):
+    """
+    Menu options.
+    """
+
+    DISPLAY_INLINE = 1
+    """
+    Display the children elements inline without the need to expand the menu.
+    """
+
+    DESTRUCTIVE = 2
+    """
+    Destructive.
+    """
+
+    SINGLE_SELECTION = 32
+    """
+    Only allow the selection of one element.
+    """
+
+
+class MenuElementSize(Enum):
+    """
+    The size of the children elements of a menu.
+    """
+
+    SMALL = 0
+    """
+    Small.
+    """
+
+    MEDIUM = 1
+    """
+    Medium.
+    """
+
+    LARGE = 2
+    """
+    Large.
+    """
+
+
+class MenuElement:
+    """
+    A menu element. 
+    Do not initialize. Use either :class:`~pyto_ui.MenuAction` or :class:`~pyto_ui.Menu`."
+    """
+    
+    def __init__(self):
+        try:
+            self.__py_element__.value = _values.value(self)
+            self.__py_element__.update = _values.value(self.update)
+        except AttributeError:
+            msg = "Cannot initialize 'MenuElement' directly. Use either 'MenuAction' or 'Menu'."
+            raise NotImplementedError(msg)
+
+    @property
+    def symbol_name(self) -> str:
+        """
+        An image representation of the menu element.
+        See `sf_symbols <sf_symbols.html>` for possible values.
+        """
+
+        name = self.__py_element__.symbolName
+        if name is not None:
+            return str(name)
+
+
+    @symbol_name.setter
+    def symbol_name(self, new_value: str):
+        self.__py_element__.symbolName = new_value
+
+
+    @property
+    def title(self) -> str:
+        """
+        The title of the menu element.
+        """
+
+        return str(self.__py_element__.title)
+
+    @title.setter
+    def title(self, new_value: str):
+        self.__py_element__.title = new_value
+
+
+    @property
+    def subtitle(self) -> str:
+        """
+        The subtitle of the menu element.
+        """
+        
+        subtitle = self.__py_element__.subtitle
+        if subtitle is not None:
+            return str(subtitle)
+
+    @subtitle.setter
+    def subtitle(self, new_value: str):
+        self.__py_element__.subtitle = new_value
+
+
+    def update(self):
+        if callable(self.symbol_name):
+            self.__py_element__.symbolName = self.symbol_name()
+        
+        if callable(self.title):
+            self.__py_element__.title = self.title()
+
+        if callable(self.subtitle):
+            self.__py_element__.subtitle = self.subtitle()
+
+    def make_element(self) -> UIMenuElement:
+        raise NotImplementedError()
+
+
+class MenuAction(MenuElement):
+    """
+    A tappable element in a menu.
+
+    :param title: The title.
+    :param subtitle: The subtitle.
+    :param symbol_name: An image representation of the menu element. See `sf_symbols <sf_symbols.html>`_.
+    :attributes: Attributes of the menu element. See :class:`~pyto_ui.MenuElementAttributes`_.
+    :state: The state of the menu element. See :class:`~pyto_ui.MenuElementState`_.
+    :action: A function that takes the instance of the caller menu element when tapped.
+    """
+
+    def __init__(
+                    self,
+                    title: str = "",
+                    subtitle: str = None,
+                    symbol_name: str = None,
+                    attributes: MenuElementAttributes = MenuElementAttributes(0),
+                    state: MenuElementState = MenuElementState.OFF,
+                    action: Callable[[MenuAction], None] = None
+                ):
+        
+        self.__py_element__ = __PyMenuElement__.alloc().init()
+
+        
+        if not callable(self.title):
+            self.title = title
+
+        if not callable(self.subtitle):
+            self.subtitle = subtitle
+        
+        if not callable(self.symbol_name):
+            self.symbol_name = symbol_name
+
+        if not callable(self.attributes):
+            self.attributes = attributes
+
+        if not callable(self.state):
+            self.state = state
+        
+        if not callable(self.action):
+            self.action = action
+
+        super().__init__()
+        
+
+    @property
+    def action(self) -> Callable[[MenuAction], None]:
+        """
+        A function that takes the instance of the caller menu element when tapped.
+        """
+
+        action = self.__py_element__.action
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @action.setter
+    def action(self, new_value: Callable[[MenuAction], None]):
+        if new_value is None:
+            self.__py_element__.action = None
+        else:
+            self.__py_element__.action = _values.value(new_value)
+
+
+    @property
+    def state(self) -> MenuElementState:
+        """
+        The state of the menu element. See :class:`~pyto_ui.MenuElementState`_.
+        """
+
+        return MenuElementState(self.__py_element__.state)
+
+    @state.setter
+    def state(self, new_value: MenuElementState):
+        self.__py_element__.state = new_value
+
+    
+    @property
+    def attributes(self) -> MenuElementAttributes:
+        """
+        Attributes of the menu element. See :class:`~pyto_ui.MenuElementAttributes`_.
+        """
+
+        return MenuElementState(self.__py_element__.attributes)
+
+    @attributes.setter
+    def attributes(self, new_value: MenuElementAttributes):
+        self.__py_element__.attributes = new_value
+
+
+    def update(self):
+        super().update()
+
+        if callable(self.state):
+            self.__py_element__.state = self.state()
+
+        if callable(self.attributes):
+            self.__py_element__.attributes = self.attributes()
+
+        if callable(self.action):
+            self.__py_element__.action = _values.value(self.action)
+            
+    def make_element(self):
+        return self.__py_element__.makeAction()
+
+
+class Menu(MenuElement):
+    """
+    A whole menu. Can be assigned to a button: see :meth:`~pyto_ui.Button.menu`_.
+
+    :param title: The title.
+    :param subtitle: The subtitle.
+    :param symbol_name: An image representation of the menu. See `sf_symbols <sf_symbols.html>`_.
+    :options: Additional options. See :class:`~pyto_ui.MenuOptions`_.
+    :preferred_element_size: The size of the children elements. See :class:`~pyto_ui.MenuElementSize`_.
+    :children: A tuple of children menu elements.
+    """
+
+    def __init__(
+                    self, 
+                    title: str = "",
+                    subtitle: str = None,
+                    symbol_name: str = None,
+                    options: MenuOptions = MenuOptions(0),
+                    preferred_element_size: MenuElementSize = MenuElementSize.LARGE,
+                    children: Tuple[MenuElement] = ()
+                ):
+
+        self.__py_element__ = __PyMenuElement__.alloc().init()
+        self.__py_element__.isMenu = True
+        
+        self._children = ()
+
+        if not callable(self.title):
+            self.title = title
+
+        if not callable(self.subtitle):
+            self.subtitle = subtitle
+        
+        if not callable(self.symbol_name):
+            self.symbol_name = symbol_name
+        
+        if not callable(self.options):
+            self.options = options
+
+        if not callable(self.preferred_element_size):
+            self.preferred_element_size = preferred_element_size
+
+        if not callable(self.children):
+            self.children = children
+    
+        super().__init__()
+
+
+    @property
+    def preferred_element_size(self) -> MenuElementSize:
+        """
+        The size of the children elements. See :class:`~pyto_ui.MenuElementSize`_.
+        """
+
+        return MenuElementSize(self.__py_element__.preferredElementSize)
+    
+    @preferred_element_size.setter
+    def preferred_element_size(self, new_value: MenuElementSize):
+        self.__py_element__.preferredElementSize = new_value
+
+
+    @property
+    def options(self) -> MenuOptions:
+        """
+        Additional options. See :class:`~pyto_ui.MenuOptions`_.
+        """
+
+        return MenuOptions(self.__py_element__.options)
+    
+    @options.setter
+    def options(self, new_value: MenuOptions):
+        self.__py_element__.options = new_value
+
+
+    @property
+    def children(self) -> Tuple[MenuElement]:
+        """
+        A tuple of children menu elements.
+        """
+
+        return self._children
+
+    @children.setter
+    def children(self, new_value: Tuple[MenuElement]):
+        self._children = new_value
+
+
+    def update(self):
+        super().update()
+
+        if callable(self.options):
+            self.__py_element__.options = self.options()
+
+        if callable(self.preferred_element_size):
+            self.__py_element__.preferredElementSize = self.preferred_element_size()
+
+        if callable(self.children):
+            children = self.children()
+        else:
+            children = self.children
+        
+        objc_children = []
+        for child in children:
+            objc_children.append(child.__py_element__)
+        
+        self.__py_element__.children = objc_children
+
+    def make_element(self):
+        return self.__py_element__.makeMenu()
+
+
 # MARK: Rect
 
 Rect = namedtuple("Rect", ["x", "y", "width", "height"])
@@ -1088,7 +1991,7 @@ class Color:
         # Dynamic
         background = ui.Color.dynamic(light=white, dark=black)
 
-    For pre-defined colors, see `Color <constants.html#ui-elements-colors>`_ constants.
+    For pre-defined colors, see :class:`~pyto_ui.SystemColors`.
     """
 
     __py_color__ = None
@@ -1113,10 +2016,10 @@ class Color:
                 self.__py_color__ = getattr(type(self), obj).__py_color__
         elif isinstance(obj, dict):
             if "dark" in obj and "light" in obj:
-                light = cls.__new__()
+                light = cls.__new__(cls)
                 light.configure_from_dictionary(obj["light"])
 
-                dark = cls.__new__()
+                dark = cls.__new__(cls)
                 dark.configure_from_dictionary(obj["dark"])
 
                 self.__py_color__ = cls.dynamic(light, dark).__py_color__
@@ -1649,7 +2552,7 @@ class GestureRecognizer:
         self, type: GestureType, action: Callable[[GestureRecognizer], None] = None
     ):
 
-        if type.objc_class == __PyGestureRecognizer__:
+        if "objc_class" in dir(type) and type.objc_class == __PyGestureRecognizer__:
             self.__py_gesture__ = type
         else:
             self.__py_gesture__ = __PyGestureRecognizer__.newRecognizerWithType(type)
@@ -1714,8 +2617,7 @@ class GestureRecognizer:
         if view is None:
             return None
         else:
-            _view = View()
-            _view.__py_view__ = view
+            _view = _wrap_view(view)
             return _view
 
     @property
@@ -1950,8 +2852,7 @@ class TableViewSection:
         if table_view is None:
             return None
         else:
-            py_table_view = TableView()
-            py_table_view.__py_view__ = table_view
+            py_table_view = _wrap_view(table_view)
             return py_table_view
 
     @property
@@ -1980,8 +2881,7 @@ class TableViewSection:
         cells = self.__py_section__.cells
         py_cells = []
         for cell in cells:
-            py_cell = TableViewCell()
-            py_cell.__py_view__ = cell
+            py_cell = _wrap_view(cell)
             py_cells.append(py_cell)
         return tuple(py_cells)
 
@@ -2180,6 +3080,13 @@ class ButtonItem:
         
         View._decode_functions(self)
 
+    def _get_custom_view(self) -> View:
+        view = self.__py_item__._customView
+        if view is None:
+            return
+        
+        return _wrap_view(view)
+
     def __init__(
         self,
         title: str = None,
@@ -2189,7 +3096,7 @@ class ButtonItem:
     ):
 
         if style == "PLAIN":
-            style = ButtonItemStyle
+            style = ButtonItemStyle.PLAIN
 
         if system_item is not None:
             self.__py_item__ = __PyButtonItem__.alloc().initWithSystemItem(system_item)
@@ -2412,6 +3319,8 @@ if "widget" not in os.environ:
 # MARK: - View Classes
 ######################
 
+_views = {}
+_cls = {}
 
 class View:
     """
@@ -2639,6 +3548,8 @@ class View:
         return d
 
     def _setup_subclass(self):
+        _views[self.__py_view__] = weakref.ref(self)
+
         if callable(self.layout):
             self.__py_view__.layoutAction = _values.value(self.layout)
         
@@ -2648,20 +3559,73 @@ class View:
         if callable(self.did_disappear):
             self.__py_view__.disappearAction = _values.value(self.did_disappear)
 
+        if callable(self.key_press_began):
+            self.__py_view__.keyPressBegan = _values.value(self.key_press_began)
+
+        if callable(self.key_press_ended):
+            self.__py_view__.keyPressEnded = _values.value(self.key_press_ended)
+
     def __init__(self):
         self.__py_view__ = __PyView__.newView()
         self._setup_subclass()
 
+    def ib_init(self):
+        """
+        This method is called when the view was initialized from the interface builder.
+        PytoUI doesn't call '__init__' when a view is created from the interface builder.
+        """
+        
+        pass
+
+    def _setup_connections(self, connections):
+        for connection in connections:
+            connection = list(connection)
+            
+            for view_connection in list(connection[1]):
+                attr_name = str(list(view_connection)[0])
+                view = __PyView__.view(connection[0])
+                if view is None:
+                    continue
+
+                if self.__py_view__.managed.containsOrIs(view.managed):
+                    func_name = str(list(view_connection)[1])
+                    try:
+                        func = getattr(self, func_name)
+                        if isinstance(func, _IBAction):
+                            _view = _wrap_view(view)
+                            func._self = self
+                            setattr(_view, attr_name, func)
+                    except AttributeError:
+                        continue
+                    
     def __repr__(self):
         return "<"+self.__class__.__module__+"."+self.__class__.__name__+" "+str(self.__py_view__.managed.description)+">"
 
     def __getitem__(self, item):
         return self.subview_with_name(item)
 
+    def __getattr__(self, name):
+        if NSThread.isMainThread:
+            return self.__getattribute__(name)
+
+        try:
+            return self[name]
+        except NameError:
+            return self.__getattribute__(name)
+
     def __del__(self):
+        if self.__py_view__ in _views:
+            del _views[self.__py_view__]
+
         try:
             if self.__py_view__.references == 1:
+                value = self.__py_view__.managedValue
+                identifier = str(value.identifier)
+                if identifier in dir(_values):
+                    delattr(_values, identifier)
+                
                 _gc.collected.append(self.__py_view__)
+                del self.__py_view__
             elif self.__py_view__ not in _gc.collected:
                 self.__py_view__.releaseReference()
                 self.__py_view__.release()
@@ -2684,6 +3648,20 @@ class View:
                     value.retain()
 
         super().__setattr__(name, value)
+
+    @property
+    def navigation_view(self) -> NavigationView:
+        """
+        Returns the :class:`~pyto_ui.NavigationView` containing the receiver view if it exists.
+
+        :rtype: NavigationView
+        """
+        
+        view = self.__py_view__.navigationView
+        if view is None:
+            return None
+        else:
+            return _wrap_view(view)
 
     @property
     def title(self) -> str:
@@ -2739,6 +3717,8 @@ class View:
         """
 
         self.__py_view__.close()
+        if self.navigation_view:
+            self.navigation_view.close()
 
     @property
     def x(self) -> float:
@@ -2984,6 +3964,8 @@ class View:
             (AutoResizing.FLEXIBLE_RIGHT_MARGIN in flags),
         )
 
+    _subviews = None
+
     def subview_with_name(self, name) -> View:
         """
         Returns the subview with the given name. This function search through all of the subviews recursively.
@@ -2993,47 +3975,64 @@ class View:
         :rtype: View
         """
 
-        def search_in_view(subview):
-            for view in subview.subviews:
+        if name == "left_button_items" or name == "right_button_items":
+            raise NameError
+
+        if self._subviews is None:
+            self._subviews = {}
+
+        try:
+            view = self._subviews[name]
+            return view
+        except KeyError:
+            pass
+
+        def search_in_view(subview: View):
+
+            items = subview.left_button_items + subview.right_button_items
+            for item in items:
+                view = item._get_custom_view()
+                if view is None:
+                    continue
                 if view.name == name:
                     return view
 
             for view in subview.subviews:
-                return search_in_view(view)
+                if str(view.name) == name:
+                    return view
+
+            for view in subview.subviews:
+                result = search_in_view(view)
+                if result is not None:
+                    return result
         
         view = search_in_view(self)
 
         if view is not None:
+            self._subviews[name] = view
             return view
 
         raise NameError(f"No subview named '{name}'")
 
     @property
-    def subviews(self) -> List[View]:
+    def subviews(self) -> Tuple[View]:
         """
-        (Read Only) A list of the view's children.
+        (Read Only) A tuple of the view's children.
 
         See also :func:`~pyto_ui.View.add_subview`.
 
-        :rtype: List[View]
+        :rtype: Tuple[View]
         """
 
         views = self.__py_view__.subviews
         if views is None or len(views) == 0:
-            return []
+            return ()
         else:
             _views = []
             for view in views:
-                try:
-                    ui = sys.modules["pyto_ui"]
-                except KeyError:
-                    import pyto_ui as ui
-
-                _class = getattr(ui, str(view.objc_class.pythonName))
-                _view = _class()
-                _view.__py_view__ = view
+                _view = _wrap_view(view)
                 _views.append(_view)
-            return _views
+            return tuple(_views)
 
     @property
     def superview(self) -> View:
@@ -3047,14 +4046,7 @@ class View:
         if superview is None:
             return None
         else:
-            try:
-                    ui = sys.modules["pyto_ui"]
-            except KeyError:
-                import pyto_ui as ui
-
-            _class = getattr(ui, str(superview.objc_class.pythonName))
-            view = _class()
-            view.__py_view__ = superview
+            view = _wrap_view(superview)
             return view
 
     @property
@@ -3403,6 +4395,54 @@ class View:
             self.__py_view__.layoutAction = _values.value(new_value)
 
     @property
+    def key_press_began(self) -> Callable[[View, Key], None]:
+        """
+        Called when a physical keyboard key is pressed.
+        The view needs to be the first responder to listen to this event.
+        Call :meth:`~pyto_ui.View.become_first_responder` if needed.
+
+        :rtype: Callable[[View, Key], None]
+        """
+
+        action = self.__py_view__.keyPressBegan
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @key_press_began.setter
+    def key_press_began(self, new_value: Callable[[View, Key], None]):
+        self.__py_view__.keyPressBegan = _values.value(self)
+        if new_value is None:
+            self.__py_view__.keyPressBegan = None
+        else:
+            self.__py_view__.keyPressBegan = _values.value(new_value)
+
+    @property
+    def key_press_ended(self) -> Callable[[View, Key], None]:
+        """
+        Called after a physical keyboard key is pressed.
+        The view needs to be the first responder to listen to this event.
+        Call :meth:`~pyto_ui.View.become_first_responder` if needed.
+        
+        :rtype: Callable[[View, Key], None]
+        """
+
+        action = self.__py_view__.keyPressBegan
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @key_press_ended.setter
+    def key_press_ended(self, new_value: Callable[[View, Key], None]):
+        self.__py_view__.keyPressEnded = _values.value(self)
+        if new_value is None:
+            self.__py_view__.keyPressEnded = None
+        else:
+            self.__py_view__.keyPressEnded = _values.value(new_value)
+
+    @property
     def did_appear(self) -> Callable[[View], None]:
         """
         A function called when the view appears on screen. This function is called only if for the presented view and not its subviews.
@@ -3454,14 +4494,14 @@ class View:
         :rtype: List[ButtonItem]
         """
 
-        items = self.__py_view__.leftBbuttonItems
+        items = self.__py_view__.leftButtonItems
         if items is None or len(items) == 0:
             return ()
         else:
             _items = []
             for item in items:
                 _item = ButtonItem()
-                _item.managed = item
+                _item.__py_item__ = item
                 _items.append(_item)
             return tuple(_items)
 
@@ -3488,7 +4528,7 @@ class View:
             _items = []
             for item in items:
                 _item = ButtonItem()
-                _item.managed = item
+                _item.__py_item__ = item
                 _items.append(_item)
             return tuple(_items)
 
@@ -3499,31 +4539,131 @@ class View:
             for item in new_value:
                 items.append(item.__py_item__)
         self.__py_view__.rightButtonItems = items
-
     
+
+    @property
+    def menu(self) -> Menu:
+        """
+        A context menu to be displayed when long pressing the view.
+
+        :rtype: Menu
+        """
+
+        menu = self.__py_view__.menuValue
+        if menu is None:
+            return None
+        else:
+            return getattr(_values, str(menu.identifier))
+    
+    @menu.setter
+    def menu(self, new_value: Menu):
+        if new_value is None:
+            self.__py_view__.menuValue = None
+            self.__py_view__.setMenu(None)
+        else:
+            self.__py_view__.menuValue = _values.value(new_value)
+            self.__py_view__.setMenu(new_value.__py_element__)
 
 
 class NavigationView(View):
+    """
+    A container view that defines a stack-based scheme for navigating hierarchical content.
+    """
 
     def __init__(self, root_view: View = None):
-        self.__py_view__ = __PyNavigationView__.newViewWithRootView(root_view.__py_view__)
+        if root_view is None:
+            view = None
+        else:
+            view = root_view.__py_view__
+        
+        self.__py_view__ = __PyNavigationView__.newViewWithRootView(view)
 
     def push(self, view: View):
+        """
+        Adds a view to the stack.
+        """
+        
+        if isinstance(view, _InterfaceBuilderNavigationView) and view.root_view is not None:
+            if view.root_view.title is None or view.root_view.title == "":
+                view.root_view.title = view.title
+            view = view.root_view
+
         self.__py_view__.pushView(view.__py_view__)
     
     def pop(self):
+        """
+        Removes the last view from the stack.
+        """
+        
         self.__py_view__.pop()
 
     def pop_to_root(self):
+        """
+        Removes all views from the stack after the first one.
+        """
+
         self.__py_view__.popToRootViewController()
     
     @property
+    def views(self) -> Tuple[View]:
+        """
+        Returns the view currently in the stack by order.
+
+        :rtype: Tuple[View]
+        """
+        
+        _views = []
+        for view in list(self.__py_view__.views):
+            _view = _wrap_view(view)
+            _views.append(_view)
+
+        return tuple(_views)
+
+    
+    @property
+    def root_view(self) -> View:
+        """
+        Returns the first view or None.
+
+        :rtype: Tuple[View]
+        """
+        
+        try:
+            return self.views[0]
+        except IndexError:
+            return None
+
+    @property
     def navigation_bar_hidden(self) -> bool:
+        """
+        Property indicating wether the navigation bar is hidden.
+
+        :rtype: bool
+        """
+        
         return self.__py_view__.navigationBarHidden
     
     @navigation_bar_hidden.setter
     def navigation_bar_hidden(self, new_value: bool):
         self.__py_view__.navigationBarHidden = new_value
+
+
+class _InterfaceBuilderNavigationView(NavigationView):
+
+    @mainthread
+    def _save_root_view(self, vc):
+        self._root_view = vc.view
+
+    def __init__(self, root_view_controller: "UIViewController"):
+        self.__py_view__ = __PyNavigationView__.newViewWithRootViewController(root_view_controller)
+        self._save_root_view(root_view_controller)
+        self._setup_subclass()
+
+    def subview_with_name(self, name) -> View:
+        try:
+            return super().subview_with_name(name)
+        except NameError:
+            return self.views[-1].subview_with_name(name)
 
 
 class UIKitView(View):
@@ -3686,8 +4826,9 @@ class ScrollView(View):
         if self._content_view is not None:
             return self._content_view
         else:
-            view = View()
+            view = View.__new__(View)
             view.__py_view__ = self.__py_view__.content
+            view._setup_subclass()
             self._content_view = view
             return view
 
@@ -3709,6 +4850,14 @@ class _StackSpacerView(View):
         self._setup_subclass()
 
 
+class _StackIBSpacerView(View):
+    pass
+
+
+class _StackIBDividerView(View):
+    pass
+
+
 class StackView(View):
     """
     A view that arranges its children in a horizontal or vertical line.
@@ -3718,11 +4867,6 @@ class StackView(View):
 
     def __init__(self):
         raise NotImplementedError("Cannot initialize a 'StackView'. Use 'HorizontalStackView' or 'VerticalStackView'.")
-
-    #def __del__(self):
-    #    for view in self.subviews:
-    #        view.remove_from_superview()
-    #    super().__del__()
 
     def configure_from_dictionary(self, dictionary):
         super().configure_from_dictionary(dictionary)
@@ -3780,22 +4924,6 @@ class StackView(View):
 
         self.insert_subview_below(_StackSpacerView(), after_view)
 
-    @property
-    def padding(self) -> Padding:
-        """
-        The padding of the view.
-        The default value is (0, 0, 0, 0).
-
-        :rtype: Padding
-        """
-
-        padding = self.__py_view__.padding
-        return Padding(padding[0], padding[1], padding[2], padding[3])
-
-    @padding.setter
-    def padding(self, new_value: Padding):
-        self.__py_view__.padding = [new_value.top, new_value.bottom, new_value.left, new_value.right]
-
 
 class HorizontalStackView(StackView):
     """
@@ -3827,7 +4955,7 @@ class ImageView(View):
     """
 
     def __init__(self, image: "Image" = None, symbol_name: str = None, url: str = None):
-        self.__py_view__ = __UIImageView__.newView()
+        self.__py_view__ = __PyImageView__.newView()
         self._setup_subclass()
         self.image = image
         self._symbol_name = None
@@ -4188,16 +5316,20 @@ class TableViewCell(View):
         return r
 
     def __init__(
-        self, style: TableViewCellStyle = __v__("DEFAULT")
+        self, style: TableViewCellStyle = TableViewCellStyle.SUBTITLE, text: str = None, detail: str = None, image: "Image" = None
     ):
-        if style == "DEFAULT":
-            self.__py_view__ = __PyTableViewCell__.newViewWithStyle(
-                TableViewCellStyle.DEFAULT
-            )
-        else:
-            self.__py_view__ = __PyTableViewCell__.newViewWithStyle(style)
+        self.__py_view__ = __PyTableViewCell__.newViewWithStyle(style)
         self.__py_view__.managedValue = _values.value(self)
         self._setup_subclass()
+
+        if text is not None:
+            self.text_label.text = text
+        
+        if detail is not None:
+            self.detail_text_label.text = detail
+
+        if image is not None:
+            self.image_view.image = image
 
     @property
     def movable(self) -> bool:
@@ -4264,8 +5396,7 @@ class TableViewCell(View):
         if view is None:
             return None
         else:
-            _view = ImageView()
-            _view.__py_view__ = view
+            _view = _wrap_view(view)
             self._image_view = _view
             view.retainReference()
             return _view
@@ -4287,8 +5418,7 @@ class TableViewCell(View):
         if view is None:
             return None
         else:
-            _view = Label()
-            _view.__py_view__ = view
+            _view = _wrap_view(view)
             self._text_label = _view
             view.retainReference()
             view.retain()
@@ -4311,8 +5441,7 @@ class TableViewCell(View):
         if view is None:
             return None
         else:
-            _view = Label()
-            _view.__py_view__ = view
+            _view = _wrap_view(view)
             self._detail_text_label = _view
             view.retainReference()
             view.retain()
@@ -4371,18 +5500,42 @@ class TableView(View):
 
             self.sections = sections
 
+    def _setup_subclass(self):
+        super()._setup_subclass()
+
+        if callable(self.did_select_cell):
+            self.__py_view__.didSelectCell = _values.value(self.layout)
+        
+        if callable(self.did_tap_cell_accessory_button):
+            self.__py_view__.accessoryButtonTapped = _values.value(self.did_tap_cell_accessory_button)
+        
+        if callable(self.did_delete_cell):
+            self.__py_view__.didDeleteCell = _values.value(self.did_delete_cell)
+
+        if callable(self.did_move_cell):
+            self.__py_view__.didMoveCell = _values.value(self.did_move_cell)
+
     def __init__(
         self,
-        style: TableViewStyle = __v__("PLAIN"),
+        style: TableViewStyle = TableViewStyle.INSET_GROUPED,
         sections: List[TableViewSection] = [],
     ):
-        if style == "PLAIN":
-            self.__py_view__ = __PyTableView__.newViewWithStyle(TableViewStyle.PLAIN)
-        else:
-            self.__py_view__ = __PyTableView__.newViewWithStyle(style)
+        self.__py_view__ = __PyTableView__.newViewWithStyle(style)
         self.__py_view__.managedValue = _values.value(self)
         self.sections = sections
         self._setup_subclass()
+
+    def set_cells(self, cells: List[TableViewCell] | Tuple[TableViewCell] | TableViewCell):
+        """
+        Fills the Table View with the given cells.
+
+        :param cells: The cells to display.
+        """
+        
+        if isinstance(cells, TableViewCell):
+            cells = (cells,)
+        
+        self.sections = [TableViewSection(cells=cells)]
 
     @property
     def reload_action(self) -> Callable[[TableView], None]:
@@ -4449,6 +5602,94 @@ class TableView(View):
         """
 
         self.__py_view__.deselectRowAnimated(True)
+
+    @property
+    def did_select_cell(self) -> Callable[[TableViewSection, int], None]:
+        """
+        A function called when a cell contained in the table view is selected. Takes the section and the selected cell's index as parameters.
+
+        :rtype: Callable[[TableViewSection, int], None]
+        """
+
+        action = self.__py_view__.didSelectCell
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @did_select_cell.setter
+    def did_select_cell(self, new_value: Callable[[TableViewSection, int], None]):
+        if new_value is None:
+            self.__py_view__.didSelectCell = None
+        else:
+            self.__py_view__.didSelectCell = _values.value(new_value)
+
+    @property
+    def did_tap_cell_accessory_button(self) -> Callable[[TableViewSection, int], None]:
+        """
+        A function called when the accessory button of a cell contained in the table view is pressed. Takes the section and the cell's index as parameters.
+
+        :rtype: Callable[[TableViewSection, int], None]
+        """
+
+        action = self.__py_view__.accessoryButtonTapped
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @did_tap_cell_accessory_button.setter
+    def did_tap_cell_accessory_button(
+        self, new_value: Callable[[TableViewSection, int], None]
+    ):
+        if new_value is None:
+            self.__py_view__.accessoryButtonTapped = None
+        else:
+            self.__py_view__.accessoryButtonTapped = _values.value(new_value)
+
+    @property
+    def did_delete_cell(self) -> Callable[[TableViewSection, int], None]:
+        """
+        A function called when a cell contained in the table view is deleted. Takes the section and the selected deleted cell's index as parameters.
+        This function should be used to remove the data corresponding to the cell from the database.
+
+        :rtype: Callable[[TableViewSection, int], None]
+        """
+
+        action = self.__py_view__.didDeleteCell
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @did_delete_cell.setter
+    def did_delete_cell(self, new_value: Callable[[TableViewSection, int], None]):
+        if new_value is None:
+            self.__py_view__.didDeleteCell = None
+        else:
+            self.__py_view__.didDeleteCell = _values.value(new_value)
+
+    @property
+    def did_move_cell(self) -> Callable[[TableViewSection, int, int], None]:
+        """
+        A function called when a cell contained in the table view is moved. Takes the section, the moved deleted cell's index and the destination index as parameters.
+        This function should be used to move the data corresponding to the cell from the database.
+
+        :rtype: Callable[[TableViewSection, int, int], None]
+        """
+
+        action = self.__py_view__.didMoveCell
+        if action is None:
+            return None
+        else:
+            return getattr(_values, str(action.identifier))
+
+    @did_move_cell.setter
+    def did_move_cell(self, new_value: Callable[[TableViewSection, int, int], None]):
+        if new_value is None:
+            self.__py_view__.didMoveCell = None
+        else:
+            self.__py_view__.didMoveCell = _values.value(new_value)
 
 
 class TextView(View):
@@ -4898,7 +6139,13 @@ if "widget" not in os.environ:
             self.__py_view__ = __PyWebView__.newView()
             self._setup_subclass()
             self.__py_view__.managedValue = _values.value(self)
-            
+
+            if url is not None:
+                self.load_url(url)
+
+        def _setup_subclass(self):
+            super()._setup_subclass()
+
             if callable(self.did_finish_loading):
                 self.__py_view__.didFinishLoading = _values.value(self.did_finish_loading)
         
@@ -4910,9 +6157,6 @@ if "widget" not in os.environ:
 
             if callable(self.did_receive_message):
                 self.__py_view__.didReceiveMessage = _values.value(self.did_receive_message)
-
-            if url is not None:
-                self.load_url(url)
 
         def evaluate_js(self, code) -> str:
             """
@@ -5191,9 +6435,6 @@ class Control(View):
         self.__py_view__ = __PyControl__.newView()
         self._setup_subclass()
         self.__py_view__.managedValue = _values.value(self)
-        
-        if callable(self.action):
-            self.__py_view__.action = _values.value(self.action)
 
     def configure_from_dictionary(self, dictionary):
         super().configure_from_dictionary(dictionary)
@@ -5541,6 +6782,110 @@ class Slider(Control):
             self.__py_view__.thumbColor = new_value.__py_color__
 
 
+class Stepper(Control):
+    """
+    A control for incrementing or decrementing a value.
+    The function passed to :data:`~pyto_ui.Control.action` will be called when the switch changes its value.
+    """
+
+    def __init__(self, minimum_value: float = 0, maximum_value: float = 100):
+        self.__py_view__ = __PyStepper__.newView()
+        self._setup_subclass()
+        self.__py_view__.managedValue = _values.value(self)
+        self.minimum_value = minimum_value
+        self.maximum_value = maximum_value
+    
+    def configure_from_dictionary(self, dictionary):
+        super().configure_from_dictionary(dictionary)
+
+        try:
+            dictionary = dictionary["Stepper"]
+        except KeyError:
+            return
+        
+        if "minimum_value" in dictionary and dictionary["minimum_value"] is not None:
+            self.minimum_value = dictionary["minimum_value"]
+
+        if "maximum_value" in dictionary and dictionary["maximum_value"] is not None:
+            self.maximum_value = dictionary["maximum_value"]
+
+        if "step_value" in dictionary and dictionary["step_value"] is not None:
+            self.step_value = dictionary["step_value"]
+
+        if "value" in dictionary and dictionary["value"] is not None:
+            self.value = dictionary["value"]
+
+    def dictionary_representation(self):
+        r = super().dictionary_representation()
+
+        stepper = {}
+
+        stepper["minimum_value"] = self.minimum_value
+        stepper["maximum_value"] = self.maximum_value
+        stepper["step_value"] = self.step_value
+        stepper["value"] = self.value
+
+        r["Stepper"] = stepper
+
+        return r
+
+    @property
+    def value(self) -> float:
+        """
+        The numeric value of the stepper.
+
+        :rtype: float
+        """
+
+        return float(self.__py_view__.value)
+
+    @value.setter
+    def value(self, new_value: float):
+        self.__py_view__.value = new_value
+
+    @property
+    def minimum_value(self) -> float:
+        """
+        The lowest possible numeric value for the stepper.
+
+        :rtype: float
+        """
+
+        return float(self.__py_view__.minimumValue)
+
+    @minimum_value.setter
+    def minimum_value(self, new_value: float):
+        self.__py_view__.minimumValue = new_value
+
+    @property
+    def maximum_value(self) -> float:
+        """
+        The highest possible numeric value for the stepper.
+
+        :rtype: float
+        """
+
+        return float(self.__py_view__.maximumValue)
+
+    @maximum_value.setter
+    def maximum_value(self, new_value: float):
+        self.__py_view__.maximumValue = new_value
+
+    @property
+    def step_value(self) -> float:
+        """
+        The step, or increment, value for the stepper.
+
+        :rtype: float
+        """
+
+        return float(self.__py_view__.stepValue)
+
+    @step_value.setter
+    def step_value(self, new_value: float):
+        self.__py_view__.stepValue = new_value
+
+
 class Switch(Control):
     """
     A control that offers a binary choice, such as On/Off.
@@ -5739,10 +7084,16 @@ class Button(Control):
         r["Button"] = button
         return r
 
+    def _setup_subclass(self):
+        super()._setup_subclass()
+
+        if callable(self.action):
+            self.__py_view__.action = _values.value(self.action)
+
     @property
     def title(self) -> str:
         """
-        The title of the button
+        The title of the button.
 
         :rtype: str
         """
@@ -5756,6 +7107,24 @@ class Button(Control):
     @title.setter
     def title(self, new_value: str):
         self.__py_view__.title = new_value
+
+    @property
+    def subtitle(self) -> str:
+        """
+        The subtitle of the button.
+
+        :rtype: str
+        """
+
+        subtitle = self.__py_view__.subtitle
+        if subtitle is not None:
+            return str(subtitle)
+        else:
+            return None
+
+    @title.setter
+    def subtitle(self, new_value: str):
+        self.__py_view__.subtitle = new_value
 
     @property
     def title_color(self) -> Color:
@@ -5829,6 +7198,20 @@ class Button(Control):
         else:
             self.__py_view__.font = new_value.__ui_font__
 
+    @property
+    def menu_primary_action(self) -> bool:
+        """
+        Show the context menu attached to the button as the primary action.
+        Default is False. See :meth:`~pyto_ui.View.menu`.
+
+        :rtype: bool
+        """
+        return self.__py_view__.showsMenuAsPrimaryAction
+    
+    @menu_primary_action.setter
+    def menu_primary_action(self, new_value: bool):
+        self.__py_view__.showsMenuAsPrimaryAction = new_value
+
 
 class TextField(Control):
     """
@@ -5843,6 +7226,9 @@ class TextField(Control):
         self.text = text
         self.placeholder = placeholder
         
+    def _setup_subclass(self):
+        super()._setup_subclass()
+
         if callable(self.did_begin_editing):
             self.__py_view__.didBeginEditing = _values.value(self.did_begin_editing)
             
@@ -6262,6 +7648,295 @@ def image_with_system_name(name: str) -> UIImage:
     return image
 
 
+def _wrap_view(view: __PyView__) -> View:
+
+    if view in _views:
+        _view = _views[view]()
+        if _view is not None:
+            return _view
+    
+    view.retain()
+    view.retainReference()
+
+    if view in _cls:
+        instance = _cls[view].__new__(_cls[view])
+        instance.__py_view__ = view
+        instance._setup_subclass()
+        return instance
+
+    try:
+        ui = sys.modules["pyto_ui"]
+    except KeyError:
+        import pyto_ui as ui
+
+    try:
+        _class = getattr(ui, str(view.objc_class.pythonName))
+    except AttributeError:
+        _class = View
+                
+    _view = _class.__new__(_class)
+    _view.__py_view__ = view
+
+    return _view
+
+
+_ib_types_map = {
+    "UIView": (View, __PyView__),
+    "InterfaceBuilderButton": (Button, __PyButton__),
+    "UILabel": (Label, __PyLabel__),
+    "UISlider": (Slider, __PySlider__),
+    "UISwitch": (Switch, __PySwitch__),
+    "UIStepper": (Stepper, __PyStepper__),
+    "UITextField": (TextField, __PyTextField__),
+    "StackViewContainer": (StackView, __PyIBStackView__),
+    "StackViewSpacer": (_StackIBSpacerView, __PyView__),
+    "StackViewDivider": (_StackIBDividerView, __PyView__),
+    "InterfaceBuilderImageView": (ImageView, __PyImageView__),
+    "InterfaceBuilderSegmentedControl": (SegmentedControl, __PySegmentedControl__),
+    "UITextView": (TextView, __PyTextView__),
+    "UITableView": (TableView, __PyTableView__),
+    "UILayoutContainerView": (NavigationView, _InterfaceBuilderNavigationView),
+}
+
+def _create_subviews(view, _globals):
+
+    cls_name = view.objc_class.name.split(".")[-1]
+    try:
+        cls = _ib_types_map[cls_name]
+        py_cls = cls[0]
+        objc_cls = cls[1]
+
+        objc_view = objc_cls.alloc().initWithManaged(view)
+        objc_view.retain()
+        objc_view.retainReference()
+
+        if objc_view.customClassName is not None:
+            cls_name = str(objc_view.customClassName)
+
+            err_msg = f"No class named '{cls_name}'. Use either just the name of the class if it's in the global namespace, or '<module name>.<class name>' (the module has to be imported and in sys.modules)."
+
+            try:
+                py_cls = eval(cls_name, _globals)
+            except (NameError, AttributeError):
+                comp = cls_name.split(".")
+                if len(comp) < 2:
+                    raise NameError(err_msg)
+
+                cls_name = comp.pop(-1)
+                mod_name = ".".join(comp)
+
+                try:
+                    mod = __import__(mod_name, _globals).__dict__
+                except ModuleNotFoundError:
+                    raise NameError(err_msg)
+
+                py_cls = eval(cls_name, mod)
+
+        py_view = py_cls.__new__(py_cls)
+        py_view.__py_view__ = objc_view
+        py_view._setup_subclass()
+    except KeyError:
+        py_view = View.__new__(View)
+        py_view.__py_view__ = __PyView__.alloc().initWithManaged(view)
+        py_view._setup_subclass()
+    
+    try:
+        py_view.__py_view__.managedValue
+        py_view.__py_view__.managedValue = _values.value(py_view)
+    except AttributeError:
+        pass
+
+    _cls[py_view.__py_view__] = type(py_view)
+
+    if view.objc_class.name.split(".")[-1] == "StackViewContainer":
+        objc_subviews = view.getSubviews()
+    else:
+        objc_subviews = view.subviews()
+    
+    for subview in list(objc_subviews):
+        _create_subviews(subview, _globals)
+
+    py_view._setup_connections(_globals["_pytoui_interfacebuilder_connections"])
+    threading.Thread(target=py_view.ib_init, args=()).start()
+    
+
+def _get_uikit_view(view):
+    if isinstance(view, _InterfaceBuilderNavigationView):
+        view = getattr(view, "_root_view")
+    else:
+        view = view.__py_view_.managed
+    
+    return view
+
+
+class ib_ref(View):
+    """
+    A reference to a view from the interface builder. When :func:`~pyto_ui.read` is called, every instance of this class found in globals will be replaced by the view named like the variable referencing the instance.
+
+    For example:
+
+    .. highlight:: python
+    .. code-block:: python
+    
+       continue_btn = ui.ib_ref()
+       view = ui.read("my_view.pytoui", globals())
+       
+       (continue_btn is view["continue_btn"]) == True
+    """
+    
+    def __new__(cls):
+        _locals = inspect.stack()[1][0].f_locals
+        try:
+            root = _locals["_pytoui_interfacebuilder_view"]
+            frame = inspect.stack()[1][0]
+            code = frame.f_code
+            offset = 0
+            for (_offset, lineno) in dis.findlinestarts(code):
+                if lineno == frame.f_lineno:
+                    offset = _offset
+                    break
+            
+            bytecode = dis.Bytecode(code)
+            view = None
+            for instr in bytecode:
+                if instr.opname == "STORE_NAME" and instr.offset >= offset:
+                    view = root[instr.argval]
+                    break
+
+            if view is None:
+                raise NameError("No view was found")
+            return view
+        except KeyError:
+            return super().__new__(cls)
+
+
+class _IBAction:
+
+    def __init__(self, action, _self=None):
+        self.action = action
+        self._self = _self
+
+    def __getattr__(self, name):
+        return getattr(self.action, name)
+
+    def __call__(self, *args, **kwargs):
+        if self._self is not None:
+            return self.action(self._self, *args, **kwargs)
+        else:
+            return self.action(*args, **kwargs)
+    
+    def __get__(self, instance, instancetype):
+        return _IBAction(self.action, instance)
+   
+
+def ib_action(action):
+    _locals = inspect.stack()[1][0].f_locals
+    try:
+        connections = _locals["_pytoui_interfacebuilder_connections"]
+
+        frame = inspect.stack()[1][0]
+        code = frame.f_code
+        offset = 0
+        for (_offset, lineno) in dis.findlinestarts(code):
+            if lineno == frame.f_lineno:
+                offset = _offset
+                break
+            
+        bytecode = dis.Bytecode(code)
+        connection_name = None
+        found_code = False
+        for instr in bytecode:
+
+            if instr.offset < offset:
+                continue
+
+            if not found_code: # The first argvals are the arguments, after that there's the code, and then the function's name
+                if isinstance(instr.argval, type(ib_action.__code__)):
+                    found_code = True
+                continue
+
+            if instr.opname == "LOAD_CONST" and isinstance(instr.argval, str):
+                connection_name = instr.argval
+                break
+
+        for connection in connections:
+            connection = list(connection)
+            
+            for view_connection in list(connection[1]):
+                attr_name = str(list(view_connection)[0])
+                if str(list(view_connection)[1]) == connection_name:
+
+                    view = __PyView__.view(connection[0])
+                    _view = _wrap_view(view)
+
+                    setattr(_view, attr_name, action)
+
+        return action
+    except KeyError:
+        return _IBAction(action)
+
+
+def read(path: str, _globals: dict = None) -> NavigationView:
+    """
+    Creates a view from the given ".pytoui" file path.
+
+    :param path: The path of the file.
+    :_globals: A globals object to resolve the Interface Builder connections. If no value is provided, the locals from the caller will be used.
+
+    :rtype: View
+    """
+
+    if _globals is None:
+        _globals = inspect.stack()[1][0].f_globals
+
+    ret = __PyView__.readFromPath(os.path.abspath(path))
+    if ret is None:
+
+        errorType = str(__PyView__.lastErrorType)
+        msg = str(__PyView__.lastError)
+        
+        if errorType == "fileNotFound":
+            raise FileNotFoundError(msg)
+        else:
+            raise IOError(msg)
+    
+    vc = list(ret)[0]
+    original_nav_vc = list(ret)[1]
+    connections = list(ret)[2]
+    button_items = list(list(ret)[3])
+
+    nav_vc = _InterfaceBuilderNavigationView(vc)
+    __PyView__.copyAttributesWithSourceNavVC(original_nav_vc, destNavVC=nav_vc.__py_view__)
+
+    _globals["_pytoui_interfacebuilder_view"] = nav_vc
+    _globals["_pytoui_interfacebuilder_connections"] = connections
+
+    for item in button_items:
+        mainthread(_create_subviews)(item, _globals)
+    
+    mainthread(_create_subviews)(_get_uikit_view(nav_vc), _globals)
+
+    for var in dict(_globals):
+        if var == "":
+            continue
+
+        if isinstance(_globals[var], ib_ref):
+            _globals[var] = nav_vc[var]
+
+    for connection in connections:
+        connection = list(connection)
+        view = __PyView__.view(connection[0])
+        _view = _wrap_view(view)
+
+        for view_connection in list(connection[1]):
+            try:
+                setattr(_view, str(list(view_connection)[0]), _globals[str(list(view_connection)[1])])
+            except KeyError:
+                pass
+
+    return nav_vc
+
+
 def show_view_without_waiting(view: View, mode: PresentationMode):
     """
     Shows a PytoUI :class:`~pyto_ui.View`.
@@ -6279,7 +7954,40 @@ def show_view_without_waiting(view: View, mode: PresentationMode):
     threading.Thread(target=showview).start()
 
 
-def show_view(view: View, mode: PresentationMode):
+def cast(view: View, cls: Type[TypeVar("View", bound=View)]) -> View:
+    """
+    Returns a view casted to the given type. It is unsafe to use the return value unless you are sure about the casted view type.
+
+    Using this should genreally not be necessary, as PytoUI casts views automatically.
+    But sometimes, PytoUI may fail to automatically cast UIKit views to their corresponding Python class. If that's the case, you should use this function to cast it yourself.
+    
+    A cast to a type that doesn't correspond to the view's type won't result in an exception or a crash unless you use properties or functions exclusive to that type.
+    For example, you may write a function that can take both Labels and TextViews. They both have similar properties, like 'text´ or 'text_color'.
+    Sure it would be simplier to just use 'setattr' or 'getattr' to use these properties, but you could also technically cast a TextView into a Label and successfully access its 'text' attribute.
+    That works because Python is a weak typed language so it will just look for the 'text' `property of the Objective-C object.
+
+    :param view: The PytoUI view to cast.
+    :param cls: The new class.
+
+    :rtype: View
+    """
+    
+    new_view = cls.__new__(cls)
+    pyto_ui_view_type = __PyView__
+
+    for obj in globals().items():
+        if hasattr(obj, "pythonName"):
+            name = str(obj.pythonName)
+            if name == cls.name:
+                pyto_ui_view_type = obj
+                break
+    
+    new_view.__py_view__ = pyto_ui_view_type.alloc().initWithManaged(view.__py_view__.managed)
+    return new_view
+    
+
+
+def show_view(view: View, mode: PresentationMode = None):
     """
     Presents the given view.
 
@@ -6288,8 +7996,11 @@ def show_view(view: View, mode: PresentationMode):
     On iPad, if the view has a custom size, it will be used for the presentation.
 
     :param view: The :class:`~pyto_ui.View` object to present.
-    :param mode: The presentation mode to use. The value will be ignored on a widget. See `Presentation Mode <constants.html#presentation-mode>`_ constants for possible values.
+    :param mode: The presentation mode to use. The default value is 'SHEET'. See `Presentation Mode <constants.html#presentation-mode>`_ constants for possible values.
     """
+
+    if mode is None:
+        mode = PresentationMode.SHEET
 
     check(view, "view", [View])
     check(mode, "mode", [PresentationMode])
@@ -6413,6 +8124,7 @@ if is_sphinx:
         class Box:
             pass
 
+
 class _PytoBox(iOSBox):
     
     def __init__(self, view, interface):
@@ -6441,3 +8153,34 @@ class TogaWidget(toga.Box):
 
         # Create a platform specific implementation of a Box
         self._impl = _PytoBox(view=view, interface=self)
+
+
+# MARK: - Deprecated constants
+
+_deprecated_constants_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "pyto_ui_deprecated_constants.json")
+
+with open(_deprecated_constants_path) as f:
+    _deprecated_constants = json.load(f)
+
+_pyto_ui = sys.modules[__name__]
+
+class PytoUI(ModuleType):
+
+    def __getattribute__(self, name):
+
+        if name in _deprecated_constants:
+            msg = f"'{name}' was renamed to '{_deprecated_constants[name]}'."
+            warnings.warn(
+                msg, DeprecationWarning
+            )
+            return eval(_deprecated_constants[name], _pyto_ui.__dict__)
+
+        try:
+            return getattr(_pyto_ui, name)
+        except (KeyError, AttributeError):
+            return super().__getattribute__(name)
+    
+    def __setattr__(self, name, value):
+        setattr(_pyto_ui, name, value)
+
+sys.modules[__name__] = PytoUI(__name__)
