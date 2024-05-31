@@ -1,21 +1,21 @@
 //
-//  Divider.swift
-//  InterfaceBuilder
+//  Spacer.swift
+//  PytoUI Interface Builder
 //
-//  Created by Emma on 16-09-22.
+//  Created by Emma on 02-07-22.
 //
 
 import UIKit
 
-class StackViewDivider: UIView {}
+class StackViewSpacer: UIView {}
 
 /// A spacer in a Stack view.
-public struct Divider: InterfaceBuilderView {
+public struct Spacer: InterfaceBuilderView {
     
     public init() {}
     
     public var type: UIView.Type {
-        return StackViewDivider.self
+        return StackViewSpacer.self
     }
     
     public func preview(view: UIView) {}
@@ -28,10 +28,10 @@ public struct Divider: InterfaceBuilderView {
     }
     
     public var image: UIImage? {
-        UIImage(systemName: "minus")
+        UIImage(systemName: "arrow.up.left.and.arrow.down.right")
     }
     
     public func makeView() -> UIView {
-        StackViewDivider(frame: CGRect(origin: .zero, size: CGSize(width: 50, height: 50)))
+        StackViewSpacer(frame: CGRect(origin: .zero, size: CGSize(width: 50, height: 50)))
     }
 }
