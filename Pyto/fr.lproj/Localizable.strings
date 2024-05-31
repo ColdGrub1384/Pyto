@@ -82,8 +82,8 @@
 /* Import from Files */
 "creation.importFromFiles" = "Importer depuis Fichiers";
 
-/* A Python script */
-"creation.pythonScript" = "Script Python";
+/* Templates menu */
+"creation.templates" = "Modèles";
 
 /* The message of the alert shown for creating a file */
 "creation.typeFileName" = "Entrez le nom du fichier";
@@ -161,10 +161,10 @@
 "errors.noWatchScript" = "Sélectionnez un script dans les réglages de Pyto pour l'exécuter ici.";
 
 /* 'Find' */
-"find" = "Chercher";
+"find" = "Rechercher";
 
 /* No comment provided by engineer. */
-"Find" = "Chercher";
+"Find" = "Rechercher";
 
 /* No comment provided by engineer. */
 "First" = "Premier";
@@ -183,6 +183,12 @@
 
 /* No comment provided by engineer. */
 "Go" = "Aller";
+
+/* Go Back */
+"goBack" = "Onglet Précédent";
+
+/* Go Forward */
+"goForward" = "Onglet Suivant";
 
 /* 'Documentation' button */
 "help.documentation" = "Documentation";
@@ -238,14 +244,32 @@
 /* The menu item to clean a project */
 "menuItems.clean" = "Clean";
 
+/* Close terminal tab */
+"menuItems.closeTab" = "Fermer l'onglet";
+
 /* The 'Copy' menu item */
 "menuItems.copy" = "Copier";
+
+/* Menu item for hiding completions */
+"menuItems.hideCompletions" = "Cacher les Suggestions";
+
+/* The 'Hide suggestions' menu item */
+"menuItems.hideSuggestions" = "Cacher les Suggestions";
+
+/* Menu item for hiding the terminal */
+"menuItems.hideTerminal" = "Masquer la Console";
 
 /* The 'Move' menu item */
 "menuItems.move" = "Déplacer";
 
+/* New terminal tab */
+"menuItems.newTab" = "Nouvel onglet";
+
 /* The 'Open' menu item */
 "menuItems.open" = "Ouvrir";
+
+/* The 'Open in new Window' menu item */
+"menuItems.openInNewWindow" = "Ouvrir nouvelle fenêtre";
 
 /* The 'Redo' menu item */
 "menuItems.redo" = "Refaire";
@@ -264,6 +288,12 @@
 
 /* The menu item to share a file */
 "menuItems.share" = "Partager";
+
+/* Menu item for showing completions */
+"menuItems.showCompletions" = "Montrer les suggestions";
+
+/* Menu item for showing the terminal */
+"menuItems.showTerminal" = "Afficher la Console";
 
 /* The 'Toggle Comment' menu item */
 "menuItems.toggleComment" = "Basculer Commentaire";
@@ -316,6 +346,12 @@
 /* The fifth featured feature */
 "onboarding.features.5" = "Bibliothèques Python Pure de PyPI";
 
+/* The sixth featured feature */
+"onboarding.features.6" = "Compilateur et Interpréteur C/C++";
+
+/* The seventh featured feature */
+"onboarding.features.7" = "Extensions en Bitcode C/C++";
+
 /* 'Full' */
 "onboarding.full" = "Complet";
 
@@ -353,7 +389,7 @@
 "onboarding.shortcuts" = "Exécutez des scripts ou du code personnalisé avec les raccourcis Siri";
 
 /* The text below the title */
-"onboarding.subtitle" = "Vous pouvez essayer Pyto gratuitement pendant 3 jours. Une fois votre essai gratuit expiré, vous devrez acheter l'une des deux options ci-dessous pour continuer à utiliser l'application.";
+"onboarding.subtitle" = "Vous pouvez essayer Pyto gratuitement pendant 3 jours. Une fois votre essai gratuit expiré, vous devrez acheter l'une des deux options ci-dessous pour continuer à utiliser l'application. Ce n'est pas un abonnement, il n’est donc pas nécessaire de résilier l'essai.";
 
 /* The title of the onboarding view */
 "onboarding.title" = "Bienvenue";
@@ -403,8 +439,17 @@
 /* The author of the project */
 "projectCreator.author" = "Auteurice";
 
+/* Include C Extension */
+"projectCreator.cext" = "Inclure une Extension C";
+
+/* Include UI */
+"projectCreator.ui" = "Inclure une UI";
+
 /* The description of the project */
 "projectCreator.description" = "Description";
+
+/* The language pf the project */
+"projectCreator.language" = "Langage";
 
 /* The name of the project */
 "projectCreator.name" = "Nom";
@@ -413,7 +458,7 @@
 "projectCreator.sphinxDocumentation" = "Documentation Sphinx";
 
 /* The title of the project creator */
-"projectCreator.title" = "Nouveau projet";
+"projectCreator.title" = "Nouveau Projet";
 
 /* The URL of the project */
 "projectCreator.url" = "URL";
@@ -637,14 +682,10 @@
 /* The title of the template chooser */
 "importTemplate" = "Importer un modèle";
 
-"templates.blank" = "Vide";
+"templates.blank" = "Script Vide";
 
-"templates.togaUI" = "Interface Utilisateur Toga";
+"templates.cli" = "Ligne de Commande";
 
-"templates.pytoUI" = "Interface Utilisateur PytoUI";
+"templates.pytoui" = "Interface PytoUI";
 
-"templates.timelineWidget" = "Widget Chronologique";
-
-"templates.inAppWidget" = "Widget In App";
-
-"templates.htmlAndPython" = "HTML + Python";
+"templates.cext" = "Extension C";

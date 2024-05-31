@@ -85,8 +85,8 @@
 /* Import from Files */
 "creation.importFromFiles" = "Importar desde Archivos";
 
-/* A Python script */
-"creation.pythonScript" = "Script Python";
+/* Templates menu */
+"creation.templates" = "Plantillas";
 
 /* The message of the alert shown for creating a file */
 "creation.typeFileName" = "Escribe el nombre del archivo";
@@ -184,6 +184,12 @@
 /* The text describing the full version. */
 "fullversion.promotion" = "La versión completa le da acceso a Numpy, Pandas, Matplotlib y más bibliotecas con extensiones C. Para ver una lista, presione cancelar.";
 
+/* Go Back */
+"goBack" = "Pestaña Anterior";
+
+/* Go Forward */
+"goForward" = "Pestaña Siguiente";
+
 /* No comment provided by engineer. */
 "GET" = "";
 
@@ -244,14 +250,32 @@
 /* The menu item to clean a project */
 "menuItems.clean" = "Clean";
 
+/* Close terminal tab */
+"menuItems.closeTab" = "Cerrar Pestaña";
+
 /* The 'Copy' menu item */
 "menuItems.copy" = "Copiar";
+
+/* Menu item for hiding completions */
+"menuItems.hideCompletions" = "Esconder las Sugerencias";
+
+/* The 'Hide suggestions' menu item */
+"menuItems.hideSuggestions" = "Esconder las Sugerencias";
+
+/* Menu item for hiding the terminal */
+"menuItems.hideTerminal" = "Esconder la Consola";
+
+/* New terminal tab */
+"menuItems.newTab" = "Nueva Pestaña";
 
 /* The 'Move' menu item */
 "menuItems.move" = "Mover";
 
 /* The 'Open' menu item */
 "menuItems.open" = "Abrir";
+
+/* The 'Open in new Window' menu item */
+"menuItems.openInNewWindow" = "Abrir en nueva ventana";
 
 /* The 'Redo' menu item */
 "menuItems.redo" = "Rehacer";
@@ -271,8 +295,14 @@
 /* The menu item to share a file */
 "menuItems.share" = "Compartir";
 
+/* Menu item for showing completions */
+"menuItems.showCompletions" = "Mostrar las sugerencias";
+
+/* Menu item for showing the terminal */
+"menuItems.showTerminal" = "Mostrar la Consola";
+
 /* The 'Toggle Comment' menu item */
-"menuItems.toggleComment" = "Alterna Comentario";
+"menuItems.toggleComment" = "Alternar Comentario";
 
 /* The 'Undo' menu item */
 "menuItems.undo" = "Deshacer";
@@ -287,7 +317,7 @@
 "moveHere" = "Mover aquí";
 
 /* A menu bar item to open a new window */
-"New window" = " Nueva Ventana";
+"New window" = "Nueva ventana";
 
 /* Title for command for selecting next suggestion */
 "nextSuggestion" = "Próxima sugerencia";
@@ -321,6 +351,12 @@
 
 /* The fifth featured feature */
 "onboarding.features.5" = "Librerías puras de Python de PyPI";
+
+/* The sixth featured feature */
+"onboarding.features.6" = "Compilador e Intérprete C/C++";
+
+/* The seventh featured feature */
+"onboarding.features.7" = "Extensiones Bitcode C/C++";
 
 /* 'Full' */
 "onboarding.full" = "Completa";
@@ -359,7 +395,7 @@
 "onboarding.shortcuts" = "Ejecute scripts o código personalizado con atajos de Siri";
 
 /* The text below the title */
-"onboarding.subtitle" = "Puedes probar Pyto gratis durante 3 días. Después de que caduque su versión de prueba gratuita, deberá comprar una de las dos opciones a continuación para continuar usando la aplicación.";
+"onboarding.subtitle" = "Puedes probar Pyto gratis durante 3 días. Después de que caduque su versión de prueba gratuita, deberá comprar una de las dos opciones a continuación para continuar usando la aplicación. Esto no es una suscripción, por lo que no es necesario cancelar la prueba.";
 
 /* The title of the onboarding view */
 "onboarding.title" = "Te damos la bienvenida";
@@ -409,8 +445,17 @@
 /* The author of the project */
 "projectCreator.author" = "Autore";
 
+/* Include C Extension */
+"projectCreator.cext" = "Incluir Extensión C";
+
+/* Include UI */
+"projectCreator.ui" = "Incluir UI";
+
 /* The description of the project */
 "projectCreator.description" = "Descripción";
+
+/* The language pf the project */
+"projectCreator.language" = "Lenguaje";
 
 /* The name of the project */
 "projectCreator.name" = "Nombre";
@@ -419,7 +464,7 @@
 "projectCreator.sphinxDocumentation" = "Documentación Sphinx";
 
 /* The title of the project creator */
-"projectCreator.title" = "Nuevo proyecto";
+"projectCreator.title" = "Nuevo Proyecto";
 
 /* The URL of the project */
 "projectCreator.url" = "URL";
@@ -643,14 +688,10 @@
 /* The title of the template chooser */
 "importTemplate" = "Importar un modelo";
 
-"templates.blank" = "Vacío";
+"templates.blank" = "Script en Blanco";
 
-"templates.togaUI" = "Interfaz de Usuario Toga";
+"templates.cli" = "Línea de Comando";
 
-"templates.pytoUI" = "Interfaz de Usuario PytoUI";
+"templates.pytoui" = "Interfaz PytoUI";
 
-"templates.timelineWidget" = "Widget Cronológico";
-
-"templates.inAppWidget" = "Widget In App";
-
-"templates.htmlAndPython" = "HTML + Python";
+"templates.cext" = "Extensión C";

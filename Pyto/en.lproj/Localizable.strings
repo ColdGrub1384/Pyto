@@ -76,8 +76,8 @@
 /* Import from Files */
 "creation.importFromFiles" = "Import from Files";
 
-/* A Python script */
-"creation.pythonScript" = "Python Script";
+/* Templates menu */
+"creation.templates" = "Templates";
 
 /* The message of the alert shown for creating a file */
 "creation.typeFileName" = "Type the file's name";
@@ -90,6 +90,8 @@
 
 /* Something is decompressing */
 "decompressing" = "Decompressing...";
+
+"Definitions" = "Definitions";
 
 /* Done button */
 "done" = "Done";
@@ -163,6 +165,12 @@
 /* The text describing the full version. */
 "fullversion.promotion" = "The full version gives you access to Numpy, Pandas, Matplotlib and more libraries with C extensions. To see a list, press cancel.";
 
+/* Go Back */
+"goBack" = "Previous Tab";
+
+/* Go Forward */
+"goForward" = "Next Tab";
+
 /* 'Documentation' button */
 "help.documentation" = "Documentation";
 
@@ -217,14 +225,32 @@
 /* The menu item to clean a project */
 "menuItems.clean" = "Clean";
 
+/* Close terminal tab */
+"menuItems.closeTab" = "Close Tab";
+
 /* The 'Copy' menu item */
 "menuItems.copy" = "Copy";
+
+/* Menu item for hiding completions */
+"menuItems.hideCompletions" = "Hide Suggestions";
+
+/* The 'Hide suggestions' menu item */
+"menuItems.hideSuggestions" = "Hide Suggestions";
+
+/* Menu item for hiding the terminal */
+"menuItems.hideTerminal" = "Hide Console";
 
 /* The 'Move' menu item */
 "menuItems.move" = "Move";
 
+/* New terminal tab */
+"menuItems.newTab" = "New Tab";
+
 /* The 'Open' menu item */
 "menuItems.open" = "Open";
+
+/* The 'Open in new Window' menu item */
+"menuItems.openInNewWindow" = "Open in new Window";
 
 /* The 'Redo' menu item */
 "menuItems.redo" = "Redo";
@@ -243,6 +269,12 @@
 
 /* The menu item to share a file */
 "menuItems.share" = "Share";
+
+/* Menu item for showing completions */
+"menuItems.showCompletions" = "Show Suggestions";
+
+/* Menu item for showing the terminal */
+"menuItems.showTerminal" = "Show Console";
 
 /* The 'Toggle Comment' menu item */
 "menuItems.toggleComment" = "Toggle Comment";
@@ -295,6 +327,12 @@
 /* The fifth featured feature */
 "onboarding.features.5" = "Pure Python libraries from PyPI";
 
+/* The sixth featured feature */
+"onboarding.features.6" = "C/C++ Compiler & Interpreter";
+
+/* The seventh featured feature */
+"onboarding.features.7" = "C/C++ Bitcode Extensions";
+
 /* 'Full' */
 "onboarding.full" = "Full";
 
@@ -332,7 +370,7 @@
 "onboarding.shortcuts" = "Run scripts or custom code with Siri Shortcuts.";
 
 /* The text below the title */
-"onboarding.subtitle" = "You can try Pyto for free during 3 days. Once your free trial expired, you'll need to purchase one of the two options below to continue using the app.";
+"onboarding.subtitle" = "You can try Pyto for free during 3 days. Once your free trial expired, you'll need to purchase one of the two options below to continue using the app. This is not a subscription so there is no need to cancel the trial.";
 
 /* The title of the onboarding view */
 "onboarding.title" = "Welcome";
@@ -376,8 +414,17 @@
 /* The author of the project */
 "projectCreator.author" = "Author";
 
+/* Include C Extension */
+"projectCreator.cext" = "Include C Extension";
+
+/* Include UI */
+"projectCreator.ui" = "Include UI";
+
 /* The description of the project */
 "projectCreator.description" = "Description";
+
+/* The language pf the project */
+"projectCreator.language" = "Language";
 
 /* The name of the project */
 "projectCreator.name" = "Name";
@@ -386,7 +433,7 @@
 "projectCreator.sphinxDocumentation" = "Sphinx Documentation";
 
 /* The title of the project creator */
-"projectCreator.title" = "New project";
+"projectCreator.title" = "New Project";
 
 /* The URL of the project */
 "projectCreator.url" = "URL";
@@ -589,14 +636,10 @@
 /* The title of the template chooser */
 "importTemplate" = "Import template";
 
-"templates.blank" = "Blank";
+"templates.blank" = "Blank Script";
 
-"templates.togaUI" = "Toga User Interface";
+"templates.cli" = "Command Line";
 
-"templates.pytoUI" = "PytoUI User Interface";
+"templates.pytoui" = "PytoUI View";
 
-"templates.timelineWidget" = "Timeline Widget";
-
-"templates.inAppWidget" = "In App Widget";
-
-"templates.htmlAndPython" = "HTML + Python";
+"templates.cext" = "C Extension";

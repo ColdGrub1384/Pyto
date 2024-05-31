@@ -82,8 +82,8 @@
 /* Import from Files */
 "creation.importFromFiles" = "Aus Dateien importieren";
 
-/* A Python script */
-"creation.pythonScript" = "Python Skript";
+/* Templates menu */
+"creation.templates" = "Vorlagen";
 
 /* The message of the alert shown for creating a file */
 "creation.typeFileName" = "Geben Sie den Namen der Datei ein";
@@ -181,6 +181,12 @@
 /* The text describing the full version. */
 "fullversion.promotion" = "Mit der Vollversion haben Sie Zugriff auf Numpy, Pandas, Matplotlib und weitere Bibliotheken mit C-Erweiterungen. Um eine Liste anzuzeigen, drücken Sie Abbrechen.";
 
+/* Go Back */
+"goBack" = "Vorheriger Tab";
+
+/* Go Forward */
+"goForward" = "Nächste Tab";
+
 /* No comment provided by engineer. */
 "Go" = "Gehen";
 
@@ -238,14 +244,29 @@
 /* The menu item to clean a project */
 "menuItems.clean" = "Clean";
 
+/* Close terminal tab */
+"menuItems.closeTab" = "Tab schließen";
+
 /* The 'Copy' menu item */
 "menuItems.copy" = "Ausschneiden";
+
+/* Menu item for hiding completions */
+"menuItems.hideCompletions" = "Vorschläge ausblenden";
+
+/* Menu item for hiding the terminal */
+"menuItems.hideTerminal" = "Konsole ausblenden";
 
 /* The 'Move' menu item */
 "menuItems.move" = "Bewegung";
 
 /* The 'Open' menu item */
 "menuItems.open" = "Öffnen";
+
+/* New terminal tab */
+"menuItems.newTab" = "Neue Tab";
+
+/* The 'Open in new Window' menu item */
+"menuItems.openInNewWindow" = "Neues Fenster öffnen";
 
 /* The 'Redo' menu item */
 "menuItems.redo" = "Wiederholen";
@@ -264,6 +285,12 @@
 
 /* The menu item to share a file */
 "menuItems.share" = "Teilen";
+
+/* Menu item for showing completions */
+"menuItems.showCompletions" = "Zeige Vorschläge";
+
+/* Menu item for showing the terminal */
+"menuItems.showTerminal" = "Konsole zeigen";
 
 /* The 'Toggle Comment' menu item */
 "menuItems.toggleComment" = "Kommentar umschalten";
@@ -316,6 +343,12 @@
 /* The fifth featured feature */
 "onboarding.features.5" = "Reine Python-Bibliotheken von PyPI";
 
+/* The sixth featured feature */
+"onboarding.features.6" = "C/C++ Compiler und Interpreter";
+
+/* The seventh featured feature */
+"onboarding.features.7" = "C/C++ Bitcode-Erweiterungen";
+
 /* 'Full' */
 "onboarding.full" = "Voll";
 
@@ -353,7 +386,7 @@
 "onboarding.shortcuts" = "Führen Sie Skripte oder benutzerdefinierten Code mit Siri Shortcuts aus.";
 
 /* The text below the title */
-"onboarding.subtitle" = "Sie können Pyto 3 Tage lang kostenlos testen. Nach Ablauf Ihrer kostenlosen Testversion müssen Sie eine der beiden folgenden Optionen erwerben, um die App weiterhin nutzen zu können.";
+"onboarding.subtitle" = "Sie können Pyto 3 Tage lang kostenlos testen. Nach Ablauf Ihrer kostenlosen Testversion müssen Sie eine der beiden folgenden Optionen erwerben, um die App weiterhin nutzen zu können. Dies ist kein Abonnement. Die Testversion muss daher nicht gekündigt werden.";
 
 /* The title of the onboarding view */
 "onboarding.title" = "Wilkommen";
@@ -403,8 +436,17 @@
 /* The author of the project */
 "projectCreator.author" = "Autor_in";
 
+/* Include C Extension */
+"projectCreator.cext" = "C-Erweiterung einschließen";
+
+/* Include UI */
+"projectCreator.ui" = "UI einschließen";
+
 /* The description of the project */
 "projectCreator.description" = "Beschreibung";
+
+/* The language pf the project */
+"projectCreator.language" = "Sprache";
 
 /* The name of the project */
 "projectCreator.name" = "Name";
@@ -637,12 +679,10 @@
 /* The title of the template chooser */
 "importTemplate" = "Vorlage importieren";
 
-"templates.togaUI" = "Benutzeroberfläche Toga";
+"templates.blank" = "Leer";
 
-"templates.pytoUI" = "Benutzeroberfläche PytoUI";
+"templates.cli" = "Befehlszeile";
 
-"templates.timelineWidget" = "Chronologisches Widget";
+"templates.pytoui" = "PytoUI-Schnittstelle";
 
-"templates.inAppWidget" = "In App Widget";
-
-"templates.htmlAndPython" = "HTML + Python";
+"templates.cext" = "C-Erweiterung";
