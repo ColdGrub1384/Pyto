@@ -138,12 +138,36 @@ func setupMenu(builder: UIMenuBuilder) {
     
     let redo = UIKeyCommand.command(input: "z", modifierFlags: [.command, .shift], action: #selector(EditorTextView.redo), discoverabilityTitle: NSLocalizedString("menuItems.redo", comment: "The 'Redo' menu item"))
     
-    var fileMenuTopItems = [new, openScript]
-    if isiOSAppOnMac {
-        fileMenuTopItems.insert(newWindow, at: 0)
+    let snippets: UIKeyCommand?
+    if #available(iOS 15.0, *) {
+        snippets = UIKeyCommand.command(input: "s", modifierFlags: [.command, .shift], action: #selector(EditorViewController.showSnippets), discoverabilityTitle: "Snippets")
+    } else {
+        snippets = nil
     }
+    
+    let linter: UIKeyCommand?
+    if #available(iOS 15.0, *) {
+        linter = UIKeyCommand.command(input: "l", modifierFlags: [.command, .shift], action: #selector(EditorViewController.showLinter), discoverabilityTitle: "Linter")
+    } else {
+        linter = nil
+    }
+    
+    let debugger: UIKeyCommand?
+    if #available(iOS 15.0, *) {
+        debugger = UIKeyCommand.command(input: "b", modifierFlags: [.command, .shift], action: #selector(EditorViewController.debug), discoverabilityTitle: NSLocalizedString("debugger", comment: "'Debugger'"))
+    } else {
+        debugger = nil
+    }
+    
+    let newTab = UIKeyCommand.command(input: "t", modifierFlags: [.command ], action: #selector(RunModuleViewController.createTab), discoverabilityTitle: NSLocalizedString("menuItems.newTab", comment: "New terminal tab"))
+    let closeTab = UIKeyCommand.command(input: "w", modifierFlags: [.command], action: #selector(RunModuleViewController.closeTab), discoverabilityTitle: NSLocalizedString("menuItems.closeTab", comment: "Close terminal tab"))
+    let goBack = UIKeyCommand.command(input: UIKeyCommand.inputLeftArrow, modifierFlags: [.command], action: #selector(RunModuleViewController.back), discoverabilityTitle: NSLocalizedString("goBack", comment: "Go Back"))
+    let goForward = UIKeyCommand.command(input: UIKeyCommand.inputRightArrow, modifierFlags: [.command], action: #selector(RunModuleViewController.forward), discoverabilityTitle: NSLocalizedString("goForward", comment: "Go Forward"))
+    
+    var fileMenuTopItems = [new, openScript]
+    fileMenuTopItems.insert(newWindow, at: 0)
     let fileMenuTop = UIMenu(title: "", options: .displayInline, children: fileMenuTopItems)
-    let fileMenu = UIMenu(title: "", options: .displayInline, children: [save, stop, run, runWithArguments])
+    let fileMenu = UIMenu(title: "", options: .displayInline, children: [save, stop, run, runWithArguments]+((snippets != nil && linter != nil && debugger != nil ? [snippets!, linter!, debugger!] : [])))
     let editMenu = UIMenu(title: "", options: .displayInline, children: [redo, undo, find, toggleComment, unindent])
     
     let windowMenu = UIMenu(title: "", options: .displayInline, children: [repl, docs, pyPI])
@@ -154,11 +178,15 @@ func setupMenu(builder: UIMenuBuilder) {
     }
     let pytoMenu = UIMenu(title: "", options: .displayInline, children: pytoMenuItems)
     
+    
+    let terminalMenu = UIMenu(title: "", options: .displayInline, children: [newTab, closeTab, goBack, goForward])
+    
     builder.remove(menu: .newScene)
     builder.remove(menu: .preferences)
     
     builder.insertSibling(pytoMenu, afterMenu: .about)
     builder.insertChild(windowMenu, atEndOfMenu: .window)
+    builder.insertChild(terminalMenu, atEndOfMenu: .view)
     
     builder.insertChild(fileMenu, atEndOfMenu: .file)
     builder.insertChild(fileMenuTop, atStartOfMenu: .file)

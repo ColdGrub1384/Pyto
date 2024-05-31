@@ -45,7 +45,7 @@ class Turtle(object):
 
         _view = ui.View()
         _view.title = view.title
-        _view.background_color = ui.COLOR_SYSTEM_FILL
+        _view.background_color = ui.SystemColors.SYSTEM_FILL
         _view.add_subview(view)
         view.center = _view.center
         _view.layout = self.layout
@@ -61,7 +61,7 @@ class Turtle(object):
         self.__class__.__showing__ = True
 
         def _show():
-            ui.show_view(self.__view__, ui.PRESENTATION_MODE_SHEET)
+            ui.show_view(self.__view__, ui.PresentationMode.SHEET)
             self.__class__.__showing__ = False
 
         thread = threading.current_thread().__class__(target=_show)

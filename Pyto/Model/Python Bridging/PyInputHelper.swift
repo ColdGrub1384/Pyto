@@ -24,6 +24,16 @@ import WatchConnectivity
         }
     }
     
+    @objc static func removeScriptFromIgnoreInputPipes(_ scriptPath: String) {
+        if let i = ignoreInputPipes.firstIndex(of: scriptPath) {
+            ignoreInputPipes.remove(at: i)
+        }
+    }
+        
+    @objc static var inputPipes = [String:Pipe]()
+    
+    @objc static var ignoreInputPipes = [String]()
+    
     static var scriptsWaitingForGetch = [String]()
     
     @objc static func addGetchScript(_ scriptPath: String) {
@@ -47,6 +57,11 @@ import WatchConnectivity
     ///
     /// - Returns: The input result.
     @objc static func waitForInput(_ path: String) -> String? {
+        
+        if !ignoreInputPipes.contains(path) {
+            ignoreInputPipes.append(path)
+        }
+        
         userInput[path] = nil
         let semaphore = DispatchSemaphore(value: 0)
         semaphores[path] = semaphore
@@ -64,6 +79,10 @@ import WatchConnectivity
             sys.path.append(path)
             """)
             REPLViewController.pickedDirectory[path] = nil
+        }
+        
+        if let i = ignoreInputPipes.firstIndex(of: path) {
+            ignoreInputPipes.remove(at: i)
         }
         
         return input
@@ -85,7 +104,7 @@ import WatchConnectivity
     ///     - prompt: The prompt sent by Python function.
     ///     - script: The script that asked for input. Set to `nil` to request input on every console.
     ///     - highlight: A boolean idicating whether the line should be syntax colored.
-    @objc static func showAlert(prompt: String?, script: String?, highlight: Bool) {
+    @objc static func showAlert(prompt: String?, script: String?, highlight: Bool, shell: Bool) {
         let prompt_ = prompt
         DispatchQueue.main.sync {
             
@@ -111,7 +130,7 @@ import WatchConnectivity
                     }
                 }
                 
-                console.input(prompt: prompt_ ?? "", highlight:highlight)
+                console.input(prompt: prompt_ ?? "", highlight: highlight, shell: shell)
             }
             #endif
         }

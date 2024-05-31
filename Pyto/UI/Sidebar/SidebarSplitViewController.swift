@@ -16,6 +16,7 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
     
     init() {
         super.init(style: .tripleColumn)
+        delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -155,8 +156,6 @@ class SidebarSplitViewController: UISplitViewController, UISplitViewControllerDe
         primaryBackgroundStyle = .sidebar
         
         showsSecondaryOnlyButton = true
-        
-        delegate = self
         
         NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { [weak self] _ in
             self?.previousDisplayMode = self?.displayMode

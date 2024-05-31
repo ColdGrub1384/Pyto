@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		B50E6B05280A0A8A00D15A68 /* openssl_stub.h in Headers */ = {isa = PBXBuildFile; fileRef = B50E6B04280A0A8A00D15A68 /* openssl_stub.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B5A54E852C0A33E30022523A /* libOpenSSL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A54E842C0A33E30022523A /* libOpenSSL.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B50E6B01280A0A8A00D15A68 /* openssl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = openssl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50E6B04280A0A8A00D15A68 /* openssl_stub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openssl_stub.h; sourceTree = "<group>"; };
+		B5A54E842C0A33E30022523A /* libOpenSSL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOpenSSL.a; path = ../../python3_ios/Python3_ios/libOpenSSL.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -20,6 +22,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5A54E852C0A33E30022523A /* libOpenSSL.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -31,6 +34,7 @@
 			children = (
 				B50E6B03280A0A8A00D15A68 /* openssl-stub */,
 				B50E6B02280A0A8A00D15A68 /* Products */,
+				B5A54E832C0A33E30022523A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -48,6 +52,14 @@
 				B50E6B04280A0A8A00D15A68 /* openssl_stub.h */,
 			);
 			path = "openssl-stub";
+			sourceTree = "<group>";
+		};
+		B5A54E832C0A33E30022523A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B5A54E842C0A33E30022523A /* libOpenSSL.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,7 +284,9 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../python3_ios/Python3_ios\"";
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.openssl-stub";
 				PRODUCT_NAME = openssl;
 				SKIP_INSTALL = YES;
@@ -299,7 +313,9 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../python3_ios/Python3_ios\"";
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "ch.ada.openssl-stub";
 				PRODUCT_NAME = openssl;
 				SKIP_INSTALL = YES;

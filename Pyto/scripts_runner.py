@@ -16,6 +16,8 @@ import __pyto_ui_garbage_collector__ as _gc
 import extensionsimporter
 import jedi
 
+threads_running_code = []
+
 def complete_modules(): # Fixes a lag
     source = '''
 import s'''
@@ -51,7 +53,7 @@ class Thread(threading.Thread):
         super().start()
 
     def run(self):
-        pool = NSAutoreleasePool.alloc().init()
+        #pool = NSAutoreleasePool.alloc().init()
         Python.shared.handleCrashesForCurrentThread()
         
         try:
@@ -60,8 +62,8 @@ class Thread(threading.Thread):
             pass
         
         super().run()
-        pool.release()
-        del pool
+        #pool.release()
+        #del pool
 
 def release_views(views):
     for view in views:
@@ -103,8 +105,13 @@ def run(script, input=None, is_shortcut=False):
         input = sys.stdin
     else:
         input = io.StringIO(input)
-    
-    thread = Thread(target=run_script, args=(str(script.path), False, script.debug,str(script.breakpoints), script.runREPL, args, cwd, input, is_shortcut))
+
+    if script.shellID is not None:
+        shell_id = str(script.shellID)
+    else:
+        shell_id = None
+
+    thread = Thread(target=run_script, args=(str(script.path), False, script.debug,str(script.breakpoints), script.runREPL, args, cwd, input, is_shortcut, script.onlyShell, shell_id))
     try:
         thread.script_path = str(script.pagePath)
     except AttributeError:
@@ -126,8 +133,11 @@ class PythonImplementation(NSObject):
     def runCode_(self, code):
         Python.shared.handleCrashesForCurrentThread()
         try:
+            threads_running_code.append((threading.current_thread(), str(code)))
             exec(str(code))
+            threads_running_code.remove((threading.current_thread(), str(code)))
         except:
+            print(code)
             error = traceback.format_exc()
             PyOutputHelper.printError(error, script=None)
             Python.shared.codeToRun = None

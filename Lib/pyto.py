@@ -79,6 +79,7 @@ if __isMainApp__():
     PyCallbackHelper = __Class__("PyCallbackHelper")
     PytoUIPreviewViewController = __Class__("PytoUIPreviewViewController")
     FileBrowserViewController = __Class__("FileBrowserViewController")
+    PyEventHelper = __Class__("PyEventHelper")
 else:
     QuickLookHelper = None
     PySelector = None
@@ -92,6 +93,7 @@ else:
     PyCallbackHelper = None
     PytoUIPreviewViewController = None
     FileBrowserViewController = None
+    PyEventHelper = None
 
 all = [
     "PyMainThread",

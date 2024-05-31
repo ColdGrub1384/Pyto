@@ -51,6 +51,7 @@ class ScriptRunnerViewController: REPLViewController {
         if editor?.pipItem == nil {
             editor?.loadViewIfNeeded()
             editor?.pipItem = UIBarButtonItem(image: UIImage(systemName: "pip.enter"), style: .plain, target: editor, action: #selector(editor?.togglePIP))
+            editor?.pipItem.title = NSLocalizedString("pip.enter", comment: "'Enter PIP'")
         }
         
         if editor != nil && AVPictureInPictureController.isPictureInPictureSupported() && !isiOSAppOnMac {

@@ -1,1 +1,14 @@
 # Created with Pyto
+
+import argparse
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    args = parser.parse_args()
+
+    print("Hello World!")
+
+
+if __name__ == "__main__":
+    main()

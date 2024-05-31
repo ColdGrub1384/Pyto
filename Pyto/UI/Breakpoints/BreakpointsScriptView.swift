@@ -180,7 +180,7 @@ struct BreakpointsScriptView: View {
     
     var body: some View {
         DisclosureGroup(isExpanded: $isExpanded) {
-            ForEach(breakpoints) { breakpoint in
+            ForEach(breakpoints.sorted(by: { $0.lineno < $1.lineno })) { breakpoint in
                 ZStack {
                     
                     if isRunning(breakpoint: breakpoint) {

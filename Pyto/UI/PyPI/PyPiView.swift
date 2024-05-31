@@ -15,7 +15,7 @@ let DidRunPipNotificationName = Notification.Name("DidRunPipNotification")
 let DidPressInstallWheelButtonNotificationName = Notification.Name(rawValue: "DidPressInstallWheelButtonNotification")
 
 func search(for package: String) -> [String] {
-    let index = Bundle.main.url(forResource: "pypi_index", withExtension: "html") ?? FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("pypi_index.html")
+    let index = Bundle.main.url(forResource: "pypi_index", withExtension: "html") ?? FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent("pypi_index.html")
     
     guard FileManager.default.fileExists(atPath: index.path) else {
         #if MAIN

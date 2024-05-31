@@ -52,7 +52,8 @@ class Popen(_Popen):
 
         _args = args
 
-        if (len(args) > 0 and (args[0] == sys.executable or args[0] == "Pyto")) or (executable == sys.executable or executable == "Pyto"):
+        if (len(args) > 0 and (args[0] == sys.executable or args[0] == "Pyto" or args[0] == "python")) or (executable == sys.executable or executable == "Pyto" or executable == "python"):
+
             if executable == sys.executable and args[0] != sys.executable:
                 args.insert(0, sys.executable)
             
@@ -107,10 +108,7 @@ class Popen(_Popen):
             self._waitpid_lock = threading.Lock()
             self._input = None
 
-            if bool(text) or bool(universal_newlines):
-                self.text = True
-            else:
-                self.text = False
+            self.text = encoding or errors or text or universal_newlines
 
             try:
                 from _shell.bin import python
@@ -132,6 +130,15 @@ class Popen(_Popen):
                 os.chdir(_cwd)
 
                 self.stdout, self.stderr = self.communicate()
+                if isinstance(self.stdout, str):
+                    self.stdout = io.StringIO(self.stdout)
+                elif isinstance(self.stdout, bytes):
+                    self.stdout = io.BytesIO(self.stdout)
+                
+                if isinstance(self.stderr, str):
+                    self.stderr = io.StringIO(self.stderr)
+                elif isinstance(self.stderr, bytes):
+                    self.stderr = io.BytesIO(self.stderr)
         elif len(args) > 0 and args[0] == "uname":
             new_args = list(args)
             new_args.insert(0, sys.executable)
@@ -168,23 +175,41 @@ class Popen(_Popen):
         return self.returncode
 
     def communicate(self, input=None, timeout=None):
-
         if isinstance(self.stdout, OutputReader):
             if self.text:
                 stdout = self.stdout.output
             else:
-                stdout = io.StringIO(self.stdout.output)
+                stdout = self.stdout.output.encode("utf-8")
+        elif isinstance(self.stdout, str):
+            if self.text:
+                stdout = self.stdout
+            else:
+                stdout = self.stdout.encode("utf-8")
         else:
-            stdout = self.stdout
-
+            self.stdout.seek(0)
+            try:
+                stdout = self.stdout.read()
+            except io.UnsupportedOperation:
+                stdout = ""
+            self.stdout.seek(0)
 
         if isinstance(self.stderr, OutputReader):
             if self.text:
                 stderr = self.stderr.output
             else:
-                stderr = io.StringIO(self.stderr.output)
+                stderr = self.stderr.output.encode("utf-8")
+        elif isinstance(self.stderr, str):
+            if self.text:
+                stderr = self.stderr
+            else:
+                stderr = self.stderr.encode("utf-8")
         else:
-            stderr = self.stderr
+            self.stderr.seek(0)
+            try:
+                stderr = self.stderr.read()
+            except io.UnsupportedOperation:
+                stderr = ""
+            self.stderr.seek(0)
 
         return (stdout, stderr)
 

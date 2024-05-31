@@ -75,6 +75,9 @@ class Reader:
 
     def detach(self):
         return self
+        
+    def seek(self, a=None, b=None):
+        pass
 
 class InputReader:
     """

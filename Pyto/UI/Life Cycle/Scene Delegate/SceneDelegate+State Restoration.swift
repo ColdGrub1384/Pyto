@@ -127,10 +127,7 @@ extension SceneDelegate {
             
             case is ModulesTableViewController:
                 section = .loadedModules
-            
-            case is UIHostingController<SamplesNavigationView>:
-                section = .examples
-            
+
             case is DocumentationViewController:
                 section = .documentation
             

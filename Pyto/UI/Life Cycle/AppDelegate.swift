@@ -19,6 +19,8 @@ import SwiftyStoreKit
 import TrueTime
 import AVFoundation
 import Zip
+import InterfaceBuilder
+import SwiftUI
 #endif
 
 /// The application's delegate.
@@ -239,15 +241,24 @@ import Zip
         
     @objc public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        #if !SCREENSHOTS
         thread_stdout = stdout
         thread_stderr = stderr
         thread_stdin = stdin
+        #endif
+        
+        let llvmStub = Bundle.main.privateFrameworksURL!.appendingPathComponent("llvm_stub.framework/llvm_stub")
+        dlopen("\(llvmStub.path)", RTLD_GLOBAL)
         
         let llvm = Bundle.main.privateFrameworksURL!.appendingPathComponent("libLLVM.framework/libLLVM")
         dlopen("\(llvm.path)", RTLD_GLOBAL)
         
-        let cppStub = Bundle.main.privateFrameworksURL!.appendingPathComponent("libcpp-stub.framework/libcpp-stub")
-        dlopen("\(cppStub.path)", RTLD_GLOBAL)
+        let clang = Bundle.main.privateFrameworksURL!.appendingPathComponent("clang.framework/clang")
+        dlopen("\(clang.path)", RTLD_GLOBAL)
+        let error = dlerror()
+        if error != nil {
+            print(String(cString: error!))
+        }
                 
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -258,36 +269,59 @@ import Zip
         
         FocusSystemObserver.startObserving()
         
+        let site = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/python3.10/site-packages")
+        
+        let oldSite = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/python3.1/site-packages")
+        
+        if FileManager.default.fileExists(atPath: oldSite.path) && !FileManager.default.fileExists(atPath: site.path) {
+            try? FileManager.default.moveItem(at: oldSite, to: site)
+        }
+        
+        #if !SCREENSHOTS
         DispatchQueue.global().async {
+            
             let newInclude = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("include")
-            let newSDK = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("iPhoneOS.sdk")
-            let newClang = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/clang")
-            let newStdlib = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/stdlib")
+            let newStdlib = newInclude.appendingPathComponent("std")
+            let newPython = newInclude.appendingPathComponent("python3.10")
+            let oldSDK = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("iPhoneOS.sdk")
+            let oldClang = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/clang")
+            let newClang = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("include/clang")
+            let oldStlib = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/stdlib")
             let newCextGlue = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/cext_glue.c")
+            let newIOStream = newStdlib.appendingPathComponent("c++/v1/iostream")
             let bundleHeaders = Bundle.main.url(forResource: "clib", withExtension: "zip")!
             
-            if FileManager.default.fileExists(atPath: newInclude.path) {
-                try? FileManager.default.removeItem(at: newInclude)
+            if FileManager.default.fileExists(atPath: newStdlib.path) {
+                try? FileManager.default.removeItem(at: newStdlib)
             }
             
-            if FileManager.default.fileExists(atPath: newSDK.path) {
-                try? FileManager.default.removeItem(at: newSDK)
+            if FileManager.default.fileExists(atPath: newPython.path) {
+                try? FileManager.default.removeItem(at: newPython)
+            }
+            
+            if FileManager.default.fileExists(atPath: oldSDK.path) {
+                try? FileManager.default.removeItem(at: oldSDK)
+            }
+            
+            if FileManager.default.fileExists(atPath: oldClang.path) {
+                try? FileManager.default.removeItem(at: oldClang)
             }
             
             if FileManager.default.fileExists(atPath: newClang.path) {
                 try? FileManager.default.removeItem(at: newClang)
             }
             
-            if FileManager.default.fileExists(atPath: newStdlib.path) {
-                try? FileManager.default.removeItem(at: newStdlib)
+            if FileManager.default.fileExists(atPath: oldStlib.path) {
+                try? FileManager.default.removeItem(at: oldStlib)
             }
             
             if FileManager.default.fileExists(atPath: newCextGlue.path) {
                 try? FileManager.default.removeItem(at: newCextGlue)
             }
             
-            putenv("C_INCLUDE_PATH=\(newClang.appendingPathComponent("13.0.0/include").path):\(newInclude.path):\(newStdlib.path)".cValue)
-            putenv("CPLUS_INCLUDE_PATH=\(newClang.appendingPathComponent("13.0.0/include").path):\(newStdlib.appendingPathComponent("c++/v1").path):\(newStdlib.path):\(newInclude.path)".cValue)
+            putenv("C_INCLUDE_PATH=\(newClang.appendingPathComponent("13.0.0/include").path):\(newInclude.path):\(newStdlib.path):\(newPython.path)".cValue)
+            putenv("CPLUS_INCLUDE_PATH=\(newClang.appendingPathComponent("13.0.0/include").path):\(newStdlib.appendingPathComponent("c++/v1").path):\(newStdlib.path):\(newPython.path):\(newInclude.path)".cValue)
+            putenv("IPHONEOS_DEPLOYMENT_TARGET=13.0".cValue)
             
             let clib = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("clib")
             
@@ -295,25 +329,34 @@ import Zip
                 try? FileManager.default.removeItem(at: clib)
             }
             
+            let newClib = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("include/std")
+            
+            if FileManager.default.fileExists(atPath: newClib.path) {
+                try? FileManager.default.removeItem(at: newClib)
+            }
+            
             do {
                 let url = try Zip.quickUnzipFile(bundleHeaders)
-                try FileManager.default.moveItem(at: url.appendingPathComponent("include"), to: newInclude)
-                try FileManager.default.moveItem(at: url.appendingPathComponent("iPhoneOS.sdk"), to: newSDK)
                 
                 let libURL = url.deletingLastPathComponent().appendingPathComponent("lib")
                 if !FileManager.default.fileExists(atPath: libURL.path) {
                     try FileManager.default.createDirectory(at: libURL, withIntermediateDirectories: false, attributes: nil)
                 }
                 
-                try FileManager.default.moveItem(at: url.appendingPathComponent("lib/clang"), to: libURL.appendingPathComponent("clang"))
-                try FileManager.default.moveItem(at: url.appendingPathComponent("lib/stdlib"), to: newStdlib)
+                try FileManager.default.moveItem(at: url.appendingPathComponent("include/python3.10"), to: newPython)
+                try FileManager.default.moveItem(at: url.appendingPathComponent("include/std"), to: newStdlib)
+                try FileManager.default.moveItem(at: url.appendingPathComponent("include/clang"), to: newClang)
                 try FileManager.default.moveItem(at: url.appendingPathComponent("lib/cext_glue.c"), to: newCextGlue)
                 
+                try? FileManager.default.removeItem(at: newIOStream)
+                try FileManager.default.copyItem(at: url.appendingPathComponent("iostream"), to: newIOStream)
+                                
                 try FileManager.default.removeItem(at: url)
             } catch {
                 print(error.localizedDescription)
             }
         }
+        #endif
         
         setenv("PWD", FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].path, 1)
         setenv("SSL_CERT_FILE", Bundle.main.path(forResource: "cacert", ofType: "pem"), 1)
@@ -336,10 +379,8 @@ import Zip
             try? FileManager.default.moveItem(at: oldModulesURL, to: modulesURL)
         }
         
-        UserDefaults.standard.set(true, forKey: "movedSitePackages")
-        
-        let site = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("lib/python3.1/site-packages")
         FoldersBrowserViewController.sitePackages = site
+        UserDefaults.standard.set(true, forKey: "movedSitePackages")
         
         if let iCloudURL = iCloudDriveContainer {
             if !FileManager.default.fileExists(atPath: iCloudURL.path) {
@@ -380,6 +421,10 @@ import Zip
                 }
             }
             mem.startListening()
+        }
+        
+        HighlightedCode = {
+            CodeView(code: $0, fontSize: UIFont.systemFontSize)
         }
         
         // Listen to the pasteboard
@@ -550,6 +595,13 @@ import Zip
         }
         
         shareBundleBookmarkData()
+        
+        let docsManager = DocumentationManager()
+        if docsManager.availableUpdates.count > 0 {
+            Task {
+                try await docsManager.download(documentations: docsManager.availableUpdates, progress: nil)
+            }
+        }
         #endif
         
         #else

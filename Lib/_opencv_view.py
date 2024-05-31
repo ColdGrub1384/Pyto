@@ -12,8 +12,8 @@ class OpenCVView(ui.ImageView):
         super().__init__()
 
         self.title = "OpenCV"
-        self.background_color = ui.COLOR_SYSTEM_BACKGROUND
-        self.content_mode = ui.CONTENT_MODE_CENTER
+        self.background_color = ui.SystemColors.SYSTEM_BACKGROUND
+        self.content_mode = ui.ContentMode.CENTER
 
     def did_disappear(self):
         self._presented = False

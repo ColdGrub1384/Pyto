@@ -10,6 +10,28 @@ import WidgetKit
 import SwiftUI
 import Intents
 
+fileprivate extension View {
+    func widgetBackground(_ backgroundView: some View) -> some View {
+        if #available(iOS 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
+    }
+}
+
+fileprivate extension WidgetConfiguration {
+    func marginsDisabled() -> some WidgetConfiguration {
+        if #available(iOS 17.0, *) {
+            return self.contentMarginsDisabled()
+        } else {
+            return self
+        }
+    }
+}
+
 #if WIDGET
 
 let scriptsQueue = DispatchQueue.global()
@@ -314,7 +336,7 @@ struct WidgetEntryView : View {
     var body: some View {
         
         if entry.isPlaceholder {
-            return AnyView(PlaceholderView(inApp: entry.inApp))
+            return AnyView(PlaceholderView(inApp: entry.inApp).widgetBackground(Color.clear))
         } else {
             let family = customFamily ?? self.family
             
@@ -337,18 +359,18 @@ struct WidgetEntryView : View {
                     return AnyView(ZStack {
                         background
                         widgetView
-                    }.widgetURL(url))
+                    }.widgetURL(url).widgetBackground(Color.clear))
                     #else
                     return AnyView(ZStack {
                         background
                         widgetView/*.padding(.vertical)*/
-                    }.widgetURL(url))
+                    }.widgetURL(url).widgetBackground(Color.clear))
                     #endif
                 } else {
                     return AnyView(ZStack {
                         background
                         widgetView/*.padding()*/
-                    }.widgetURL(url))
+                    }.widgetURL(url).widgetBackground(Color.clear))
                 }
             } else {
                 
@@ -380,7 +402,7 @@ struct WidgetEntryView : View {
                         }
                         Spacer()
                     }
-                }))
+                }).widgetBackground(Color.clear))
             }
         }
     }
@@ -398,7 +420,7 @@ struct PlaceholderView: View {
             Image(systemName: inApp ? "app.badge.fill" : "play.fill")
                 .font(.system(size: 80))
                 .foregroundColor(.black)
-        }
+        }.widgetBackground(Color.clear)
     }
 }
 
@@ -411,6 +433,7 @@ struct RunScriptWidget: Widget {
         IntentConfiguration(kind: kind, intent: ScriptIntent.self, provider: Provider(), content: { entry in
             WidgetEntryView(entry: entry)
         })
+        .marginsDisabled()
         .configurationDisplayName("runScript")
         .description("widgetDescriptionRunScript")
     }
@@ -423,6 +446,7 @@ struct SetContentInAppWidget: Widget {
         IntentConfiguration(kind: kind, intent: SetContentInAppIntent.self, provider: InAppProvider(), content: { entry in
             WidgetEntryView(entry: entry)
         })
+        .marginsDisabled()
         .configurationDisplayName("In App")
         .description("widgetDescriptionInApp")
     }
@@ -433,8 +457,8 @@ struct PytoWidgets: WidgetBundle {
     
     @WidgetBundleBuilder
     var body: some Widget {
-        RunScriptWidget()
         SetContentInAppWidget()
+        RunScriptWidget()
     }
 }
 #endif

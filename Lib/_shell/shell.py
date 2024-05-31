@@ -1,15 +1,19 @@
 import builtins
+from inspect import trace
 import shlex
 import runpy
 import sys
 import os
 import glob
 import io
+import threading
 from .bin import which
 from subprocess import Popen
-from console import __clear_mods__
+from console import __clear_mods__, input as shell_input
 from pyto import FileBrowserViewController
 from Foundation import NSFileManager
+from UIKit import UIDevice
+
 
 def get_scripts():
     scripts = {}
@@ -63,9 +67,13 @@ def get_cwd_title():
         title = str(NSFileManager.defaultManager.displayNameAtPath(cwd))
     return title
 
-def input():
+def input(print_prompt=True):
     print("\x1b]2;"+get_cwd_title()+"\007", end="")
-    return builtins.input(f"\x1b[1m\x1b[36m{get_cwd_title()}\x1b[39;49m\x1b[0m $ ")
+    if print_prompt:
+        prompt = f"{str(UIDevice.currentDevice.name)} [\x1b[1m{get_cwd_title()}\x1b[0m] $ "
+    else:
+        prompt = ""
+    return shell_input(prompt, shell=True)
 
 
 working_directories = {}
@@ -227,10 +235,13 @@ def parse_args(comp: list[str], name: str, _stdout = None, _stdin = None):
     def run_binary(path):
         with open(path, "r") as f:
             _dict = { "__name__": name, "__file__": path }
+
             if name == "__main__":
                 try:
                     code = f.read()
                     exec(code, _dict, {})
+                except Exception as e:
+                    print(e)
                 finally:
                     return _dict
             else:
@@ -259,6 +270,9 @@ def parse_args(comp: list[str], name: str, _stdout = None, _stdin = None):
             script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bin", prog+".py")
             documents_bin_script_path = os.path.join(os.path.expanduser("~/Documents/bin"), prog+".py")
             binary_path = os.path.join(os.path.expanduser("~/Documents/bin"), prog)
+            ll_path = os.path.join(os.path.expanduser("~/Documents/bin"), prog+".ll")
+            bc_path = os.path.join(os.path.expanduser("~/Documents/bin"), prog+".bc")
+
             if os.path.isfile(script_path):
                 with Path(sys.path+[os.path.dirname(script_path)]) as _:
                     _dict = runpy.run_path(script_path, run_name=name)
@@ -271,6 +285,14 @@ def parse_args(comp: list[str], name: str, _stdout = None, _stdin = None):
                 _dict = run_binary(scripts[prog])
             elif os.path.isfile(binary_path):
                 _dict = run_binary(binary_path)
+            elif os.path.isfile(bc_path) or os.path.isfile(ll_path):
+                if os.path.isfile(bc_path):
+                    path = bc_path
+                elif os.apth.isfile(ll_path):
+                    path = ll_path
+
+                comp.pop(0)
+                return Popen(["lli", path]+comp)
             elif prog in which.commands:
                 return Popen(comp)
             else:

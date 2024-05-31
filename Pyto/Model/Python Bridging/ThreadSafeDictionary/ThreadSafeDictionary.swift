@@ -12,7 +12,7 @@ class ThreadSafeDictionary<V: Hashable,T>: Collection {
     private let concurrentQueue = DispatchQueue(label: "Dictionary Barrier Queue",
                                                 attributes: .concurrent)
     var startIndex: Dictionary<V, T>.Index {
-        self.concurrentQueue.sync {
+        self.concurrentQueue.sync { 
             return self.dictionary.startIndex
         }
     }

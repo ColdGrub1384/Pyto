@@ -166,18 +166,19 @@ fileprivate extension ConsoleViewController {
         #else
         let visibles = ConsoleViewController.visibles
         
+        var printed = [ConsoleViewController]()
         for console in visibles {
             
             #if MAIN
             if script != nil {
-                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
+                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script || console.editorSplitViewController?.editor?.runFile?.path == script else {
                     continue
                 }
             }
             #endif
             
             console.print(text_)
-            
+            printed.append(console)
         }
         #endif
     }
@@ -227,7 +228,7 @@ fileprivate extension ConsoleViewController {
             
             #if MAIN
             if script != nil {
-                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script else {
+                guard console.editorSplitViewController?.editor?.document?.fileURL.path == script || console.editorSplitViewController?.editor?.runFile?.path == script else {
                     continue
                 }
             }

@@ -42,7 +42,16 @@ struct DocumentationSidebar: View {
                     DocumentationsDownloadScreen(documentationManager: documentationManager, documentationSidebarViewController: documentationSidebarViewController)
                 } label: {
                     Label {
-                        Text(NSLocalizedString("downloads", comment: "The title of the downloadable documentations view"))
+                        HStack {
+                            Text(NSLocalizedString("downloads", comment: "The title of the downloadable documentations view"))
+                            Spacer()
+                            if documentationManager.availableUpdates.count > 0 {
+                                ZStack {
+                                    Circle().fill(.red).frame(width: 25, height: 25)
+                                    Text("\(documentationManager.availableUpdates.count)").foregroundColor(.white).font(.system(size: 15))
+                                }
+                            }
+                        }
                     } icon: {
                         Image(systemName: "ellipsis.circle.fill")
                     }

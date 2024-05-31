@@ -20,7 +20,7 @@ def random_string(string_length=10):
     return "".join(random.choice(letters) for i in range(string_length))
 
 
-def value(object):
+def value(object, id=None):
 
     # Release unused values from memory
 
@@ -47,9 +47,11 @@ def value(object):
                     pass
                 return _value
 
-    id = random_string()
-    while id in locals():
+    if id is None:
         id = random_string()
+    
+        while id in locals():
+            id = random_string()
 
     globals()[id] = object
 

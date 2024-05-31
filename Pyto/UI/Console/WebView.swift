@@ -39,6 +39,11 @@ public class WebView: KBWebViewBase {
         evaluateJavaScript(code, completionHandler: nil)
     }
     
+    @objc func didTap(_ gesture: UIPanGestureRecognizer) {
+        _ = becomeFirstResponder()
+        console?.setup(theme: ConsoleViewController.choosenTheme)
+    }
+    
     public override var canBecomeFirstResponder: Bool {
         false
     }
@@ -56,37 +61,78 @@ public class WebView: KBWebViewBase {
         areCompletionsShown = false
         completionsIndex = -1
         
-        if console.highlightInput {
-            ConsoleViewController.codeToHighlight = ShortenFilePaths(in: console.input)
+        getCursorPosition { (row: Int, column: Int) in
             
-            let sourceCodeTheme = ConsoleViewController.choosenTheme.sourceCodeTheme
+            var line = ""
+            var colorInput: String?
             
-            let theme = (try? JSONSerialization.data(withJSONObject: [
-                "comment": sourceCodeTheme.color(for: .comment).hexString,
-                "keyword": sourceCodeTheme.color(for: .keyword).hexString,
-                "name": sourceCodeTheme.color(for: .identifier).hexString,
-                "function": sourceCodeTheme.color(for: .identifier).hexString,
-                "class": sourceCodeTheme.color(for: .identifier).hexString,
-                "string": sourceCodeTheme.color(for: .string).hexString,
-                "number": sourceCodeTheme.color(for: .number).hexString,
-            ], options: []))?.base64EncodedString() ?? "{}".data(using: .utf8)!.base64EncodedString()
-                        
-            let returnValue = Python.pythonShared?.perform(#selector(PythonRuntime.getString(_:)), with: """
-            import _codecompletion
-            import pyto
-            import base64
-                        
-            s = _codecompletion.highlightedCode(str(pyto.ConsoleViewController.codeToHighlight), base64.b64decode('\(theme)').decode('utf-8'))
-            """)
-            
-            if let str = returnValue?.takeUnretainedValue() as? String {
-                // Save cursor position, erase line, print input, restore cursor position and move cursor 1 char forward
-                console.print("\u{001b}7\u{001b}[2K\r\(console.prompt ?? "")\(str.replacingOccurrences(of: "\n", with: ""))\u{001b}8\u{001b}[\(operation == .insert ? "C" : "D")")
+            if console.highlightInput {
+                if operation == .delete && console.inputIndex != console.input.count {
+                    ConsoleViewController.codeToHighlight = console.input.substring(from: .init(utf16Offset: console.inputIndex, in: console.input))
+                } else {
+                    ConsoleViewController.codeToHighlight = console.input
+                }
+                
+                let sourceCodeTheme = ConsoleViewController.choosenTheme.sourceCodeTheme
+                
+                let theme = (try? JSONSerialization.data(withJSONObject: [
+                    "comment": sourceCodeTheme.color(for: .comment).hexString,
+                    "keyword": sourceCodeTheme.color(for: .keyword).hexString,
+                    "name": sourceCodeTheme.color(for: .identifier).hexString,
+                    "function": sourceCodeTheme.color(for: .identifier).hexString,
+                    "class": sourceCodeTheme.color(for: .identifier).hexString,
+                    "string": sourceCodeTheme.color(for: .string).hexString,
+                    "number": sourceCodeTheme.color(for: .number).hexString,
+                ], options: []))?.base64EncodedString() ?? "{}".data(using: .utf8)!.base64EncodedString()
+                            
+                let returnValue = Python.pythonShared?.perform(#selector(PythonRuntime.getString(_:)), with: """
+                import _codecompletion
+                import pyto
+                import base64
+                            
+                s = _codecompletion.highlightedCode(str(pyto.ConsoleViewController.codeToHighlight), base64.b64decode('\(theme)').decode('utf-8'))
+                """)
+                
+                colorInput = (returnValue?.takeUnretainedValue() as? String)?.replacingOccurrences(of: "\n", with: "")
             }
-        } else {
             
-            // Save cursor position, erase line, print input, restore cursor position and move cursor 1 char forward
-            console.print("\u{001b}7\u{001b}[2K\r\(console.prompt ?? "")\(!console.secureTextEntry ? console.input : console.input.map({ _ in "*" }).joined(separator: ""))\u{001b}8\u{001b}[\(operation == .insert ? "C" : "D")")
+            if operation == .insert {
+                line += String(repeating: "\u{8}", count: console.inputIndex-1)
+                
+                if console.secureTextEntry {
+                    line += String(repeating: "*", count: console.input.count)
+                } else {
+                    line += colorInput ?? console.input
+                }
+                
+                line += String(repeating: "\u{8}", count: console.input.count-console.inputIndex)
+                
+                if column == (self.console?.terminalSize.columns ?? 0)-1 {
+                    line += "\n\r"
+                }
+            } else {
+                if console.inputIndex == console.input.count {
+                    
+                    line += String(repeating: "\u{8}", count: console.input.count+1)
+                    
+                    if console.secureTextEntry {
+                        line += String(repeating: "*", count: console.input.count)
+                    } else {
+                        line += colorInput ?? console.input
+                    }
+                    
+                    line += " \u{8}"
+                    
+                    line += String(repeating: "\u{8}", count: console.input.count-console.inputIndex)
+                } else {
+                    line += "\u{8} \u{8}"
+                    line += colorInput ?? console.input.substring(from: .init(utf16Offset: console.inputIndex, in: console.input))
+                    line += " "
+                    line += String(repeating: "\u{8}", count: (console.input.count-console.inputIndex)+1)
+                }
+            }
+            
+            console.print(line)
         }
     }
     
@@ -113,7 +159,24 @@ public class WebView: KBWebViewBase {
     
     let inputAssistant = InputAssistantView()
     
+    private var fileURL: URL? {
+        return console?.editorSplitViewController?.editor?.document?.fileURL.pathExtension.lowercased() == "py" ? console?.editorSplitViewController?.editor?.document?.fileURL : console?.editorSplitViewController?.editor?.runFile
+    }
+    
     // MARK: - Keyboard
+    
+    func clearInput() {
+        guard let input = console?.input else {
+            return
+        }
+        var line = String(repeating: "\u{8}", count: input.count)
+        line += String(repeating: " ", count: input.count)
+        line += String(repeating: "\u{8}", count: input.count)
+        console?.print(line)
+        
+        console?.input = ""
+        console?.inputIndex = 0
+    }
     
     @objc func down() {
         guard let console = console else {
@@ -149,6 +212,14 @@ public class WebView: KBWebViewBase {
         }
     }
     
+    @objc func previousTab() {
+        (console?.editorSplitViewController as? RunModuleViewController)?.back()
+    }
+    
+    @objc func nextTab() {
+        (console?.editorSplitViewController as? RunModuleViewController)?.forward()
+    }
+    
     @objc func back() {
         guard let console = console else {
             return
@@ -165,10 +236,20 @@ public class WebView: KBWebViewBase {
             return
         }
         
-        if console.inputIndex < console.input.count {
-            console.inputIndex += 1
-            console.print("\u{001b}[C")
+        guard console.inputIndex < console.input.count else {
+            return
         }
+        
+        getCursorPosition { pos in
+            if pos.column == (self.console?.terminalSize.columns ?? 0)-1 {
+                console.inputIndex += 1
+                console.print("\n\r")
+            } else {
+                console.inputIndex += 1
+                console.print("\u{001b}[C")
+            }
+        }
+        
     }
     
     func backspace() {
@@ -185,10 +266,11 @@ public class WebView: KBWebViewBase {
         if console.input.count != 0 {
             let input = NSMutableString(string: console.input)
             let range = NSRange(location: console.inputIndex-1, length: 1)
-            if NSMaxRange(range) <= input.length {
-                input.deleteCharacters(in: NSRange(location: console.inputIndex-1, length: 1))
+            if NSMaxRange(range) <= input.length && range != NSRange(location: -1, length: 1) {
+                input.deleteCharacters(in: range)
                 console.input = input as String
                 console.inputIndex -= 1
+                
                 printInput(operation: .delete)
             }
         }
@@ -202,25 +284,29 @@ public class WebView: KBWebViewBase {
         }
         
         guard !areCompletionsShown else {
-            clearSuggestions()
-            
+            sleep(UInt32(0.2))
             let completion = console.completions[completionsIndex]
             isEntering = true
-            for char in completion+((console.highlightInput || console.input.components(separatedBy: " ").count > 1) ? "" : " ") /* Insert a space when writting the first argument of a command */ {
-                insert(char: String(char))
-            }
+            
+            let str = completion+((console.highlightInput || console.input.components(separatedBy: " ").count > 1) ? "" : " ")
+            console.print(str+"\u{8}")
+            console.print(String(repeating: " ", count: 100))
+            console.print(String(repeating: "\u{8}", count: 100))
+            insert(chars: str)
+            console.completeCode()
+            
             isEntering = false
-            let upperBound = completion.count-(console.highlightInput ? 1 : 0)
-            guard upperBound >= 0 else {
-                return
-            }
-            for _ in 0..<upperBound {
-                forward()
-            }
             return
         }
         
-        console.handleInput(console.input)
+        let path = fileURL?.path ?? ""
+        if let data = (console.input+"\n").data(using: .utf8), let pipe = PyInputHelper.inputPipes[path], !PyInputHelper.ignoreInputPipes.contains(path) {
+            console.print("\n")
+            pipe.fileHandleForWriting.write(data)
+        } else {
+            console.handleInput(console.input)
+        }
+        
         console.input = ""
         console.inputIndex = 0
         console.currentInput = nil
@@ -390,20 +476,21 @@ public class WebView: KBWebViewBase {
         }
     }
     
-    func insert(char: String) {
+    func insert(chars: String) {
+        
         guard let console = console else {
             return
         }
         
-        guard !char.isEmpty else {
+        guard !chars.isEmpty else {
             return
         }
         
-        if char == "\t" && console.suggestions.count > 0 && !isEntering {
+        if chars == "\t" && console.suggestions.count > 0 && !isEntering {
             return navigateCompletions()
         }
         
-        if char == " " && console.suggestions.count > 0 && areCompletionsShown && !isEntering {
+        if chars == " " && console.suggestions.count > 0 && areCompletionsShown && !isEntering {
             return enter()
         }
         
@@ -413,22 +500,31 @@ public class WebView: KBWebViewBase {
             completionsIndex = -1
         }
         
+        if chars == "\t" {
+            return
+        }
+        
         let input = NSMutableString(string: console.input)
         
-        input.insert(char, at: console.inputIndex)
+        input.insert(chars, at: console.inputIndex)
         console.input = input as String
         
         if console.historyIndex == -1 {
             console.currentInput = console.input
         }
         
-        console.inputIndex += 1
+        console.inputIndex += (chars.count == 1) ? 1 : chars.count
         
-        printInput(operation: .insert)
+        let path = fileURL?.path ?? ""
+        if PyInputHelper.inputPipes[path] == nil || PyInputHelper.ignoreInputPipes.contains(path) {
+            printInput(operation: .insert)
+        } else {
+            console.print(chars)
+        }
     }
     
     @objc func insertTab(_ sender: Any) {
-        insert(char: "\t")
+        insert(chars: "\t")
     }
     
     @objc func clear() {
@@ -510,17 +606,12 @@ public class WebView: KBWebViewBase {
         
         pasting = true
         
-        guard console?.prompt != nil else {
-            return
-        }
-        
         guard let str = UIPasteboard.general.string else {
             return
         }
         
-        for char in str {
-            insert(char: String(char))
-        }
+        console?.print(str+"\u{8}")
+        insert(chars: str)
         
         DispatchQueue.main.async {
             self.pasting = false // Fixes double pasting on macOS
@@ -553,7 +644,7 @@ public class WebView: KBWebViewBase {
         
         scrollView.isScrollEnabled = false
         
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(becomeFirstResponder)))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap(_:))))
         
         swizzleCaretRectIfNeeded()
         
@@ -636,6 +727,10 @@ public class WebView: KBWebViewBase {
                 return
             }
             
+            if GCKeyboard.coalesced != nil && self?.window?.bounds.size != self?.window?.screen.bounds.size {
+                return // For some reason UIKeyboardBoundsUserInfoKey gives a height greater than 0 when State Manager is enabled
+            }
+            
             guard let height = (notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect)?.height, height > 100 else { // Only software keyboard
                 return
             }
@@ -660,7 +755,7 @@ public class WebView: KBWebViewBase {
         
         inputAssistant.frame.size.height = 44
     }
-    
+        
     public override var inputAccessoryView: UIView? {
         #if SCREENSHOTS
         UIDevice.current.userInterfaceIdiom == .pad ? nil : inputAssistant
@@ -672,6 +767,10 @@ public class WebView: KBWebViewBase {
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
                 
+        if #available(iOS 16.4, *) {
+            isInspectable = true
+        }
+        
         inputAssistant.leadingActions = [
             InputAssistantAction(image: UIImage()),
             InputAssistantAction(image: UIImage(systemName: "arrow.forward.to.line")?.withConfiguration(UIImage.SymbolConfiguration(scale: .medium)) ?? UIImage(), target: self, action: #selector(insertTab(_:))),

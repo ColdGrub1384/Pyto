@@ -41,7 +41,7 @@ protocol Theme {
 extension Theme {
     
     var tintColor: UIColor? {
-        return .systemGreen
+        return UIColor(named: "TintColor")
     }
     
     var name: String? {
@@ -66,7 +66,7 @@ extension Theme {
             str += "default\n"
         }
         
-        str += "\((tintColor ?? .systemGreen).encode().base64EncodedString())\n"
+        str += "\((tintColor ?? UIColor(named: "TintColor") ?? .systemGreen).encode().base64EncodedString())\n"
         
         let tokens: [SourceCodeTokenType] = [.comment, .editorPlaceholder, .identifier, .keyword, .number, .plain, .string]
         

@@ -258,6 +258,7 @@ class CodeCompletionManager: ObservableObject {
 }
 
 struct CompletionsView: View {
+    
     @ObservedObject var manager: CodeCompletionManager
     
     @State var docstring: String?
@@ -350,6 +351,11 @@ struct CompletionsView: View {
                                 .lineLimit(3)
                                 .fixedSize(horizontal: false, vertical: true)
                             Spacer()
+                            Button {
+                                manager.editor?.completionsHostingController.view.isHidden = true
+                            } label: {
+                                Image(systemName: "xmark")
+                            }
                             if manager.completions != [""] {
                                 Button {
                                     withAnimation {
@@ -391,12 +397,6 @@ struct CompletionsView: View {
                                                         }
                                                         
                                                         if let lineRange = lineRange, let textView = editor?.textView {
-                                                            let rect = textView.layoutManager.boundingRect(forGlyphRange: lineRange, in: textView.textContainer)
-                                                            let topTextInset = textView.textContainerInset.top
-                                                            let contentOffset = CGPoint(x: 0, y: topTextInset + rect.origin.y)
-
-                                                            textView.setContentOffset(contentOffset, animated: true)
-                                                            
                                                             textView.selectedRange = lineRange
                                                         }
                                                     }

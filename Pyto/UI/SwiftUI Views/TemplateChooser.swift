@@ -168,7 +168,7 @@ struct TemplateChooser: View {
                             Label {
                                 Text(NSLocalizedString(template.localized_name, comment: "")).foregroundColor(.primary)
                             } icon: {
-                                Image(systemName: "doc.fill")
+                                Image(systemName: "doc")
                             }
                         }
                     }
@@ -196,7 +196,7 @@ struct TemplateChooser: View {
                             Label {
                                 Text(template.lastPathComponent).foregroundColor(.primary)
                             } icon: {
-                                Image(systemName: "doc.fill")
+                                Image(systemName: "doc")
                             }
                         }.contextMenu {
                             if #available(iOS 15.0, *) {

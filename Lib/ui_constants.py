@@ -2,7 +2,6 @@
 A module containing constants for ``pyto_ui``.
 """
 
-from zmq import PLAIN_PASSWORD
 from pyto import __Class__
 from UIKit import (
     UITapGestureRecognizer,
@@ -34,7 +33,7 @@ __PyTextInputTraitsConstants__ = __Class__("PyTextInputTraitsConstants")
 __PyCollectionView__ = __Class__("PyCollectionView")
 
 
-class Value:
+class Value(int):
     def __repr__(self):
         return None
 
@@ -588,6 +587,8 @@ except AttributeError:
 
     TABLE_VIEW_STYLE_PLAIN = Value()
     TABLE_VIEW_STYLE_GROUPED = Value()
+    TABLE_VIEW_STYLE_INSET_GROUPED = Value()
+
     TEXT_FIELD_BORDER_STYLE_NONE = Value()
     TEXT_FIELD_BORDER_STYLE_BEZEL = Value()
     TEXT_FIELD_BORDER_STYLE_LINE = Value()

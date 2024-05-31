@@ -19,7 +19,7 @@ import SwiftUI
 #endif
 
 /// A View controller containing Python script output.
-@objc open class ConsoleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, PictureInPictureDelegate, ParserDelegate, QLPreviewControllerDataSource, QLPreviewControllerDelegate {
+@objc open class ConsoleViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, PictureInPictureDelegate, ParserDelegate, QLPreviewControllerDataSource, QLPreviewControllerDelegate, UIDropInteractionDelegate {
             
     #if MAIN
     static func set(theme: Theme, for userInterfaceStyle: UIUserInterfaceStyle) {
@@ -259,7 +259,7 @@ import SwiftUI
             semaphore = nil
         }
         
-        PyWrapper.set { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             self?.webView.evaluateJavaScript("print('\(text.replacingOccurrences(of: "\n", with: "\n\r").data(using: .utf8)?.base64EncodedString() ?? "")')", completionHandler: { _, _ in
                 if #available(iOS 15.0, *) {
                     self?.updatePIP()
@@ -371,13 +371,13 @@ import SwiftUI
             return
         }
         
-        guard inputIndex == input.count-1 else {
+        guard inputIndex >= input.count-1 else {
             suggestions = []
             completions = []
             return
         }
-                    
-        guard self.highlightInput || self.editorSplitViewController is RunModuleViewController else {
+        
+        guard self.highlightInput || isShellInput else {
             suggestions = []
             completions = []
             return
@@ -386,9 +386,9 @@ import SwiftUI
         let url = (self.parent as? LocalsAndGlobalsREPLViewController)?.url ?? (self.parent as! EditorSplitViewController).editor?.document!.fileURL
         
         let completeCode: String
-        if #available(iOS 15.0, *), self.editorSplitViewController is RunModuleViewController, !self.highlightInput {
+        if #available(iOS 15.0, *), isShellInput {
             completeCode = """
-            completion = complete_shell_command(command)
+            completion = complete_shell_command(command\(editorSplitViewController?.editor?.shellID == nil ? "" : ", '\(editorSplitViewController!.editor!.shellID!)'"))
                 suggestions = completion[0]
                 completions = completion[1]
             """
@@ -462,14 +462,17 @@ import SwiftUI
     
     var secureTextEntry = false
     
+    var isShellInput = false
+    
     /// Requests the user for input.
     ///
     /// - Parameters:
     ///     - prompt: The prompt from the Python function.
     ///     - highlight: A boolean indicating whether the line should be syntax colored.
-    func input(prompt: String, highlight: Bool) {
+    func input(prompt: String, highlight: Bool, shell: Bool) {
         highlightInput = highlight
         secureTextEntry = false
+        isShellInput = shell
         self.prompt = text.components(separatedBy: "\n").last ?? prompt
     }
     
@@ -584,7 +587,7 @@ import SwiftUI
             
             func get() {
                 for visible in objcVisibles {
-                    if let console = visible as? ConsoleViewController, (console.view.window != nil || console.editorSplitViewController?.editor?.shouldRun == true) {
+                    if let console = visible as? ConsoleViewController, (console.view.window != nil || console.editorSplitViewController?.editor?.shouldRun == true) || console.editorSplitViewController is RunModuleViewController {
                         visibles.append(console)
                     }
                 }
@@ -606,7 +609,7 @@ import SwiftUI
             objcVisibles.removeAllObjects()
             
             for element in newValue {
-                if element.view.window != nil || element.editorSplitViewController?.editor?.shouldRun == true {
+                if element.view.window != nil || element.editorSplitViewController?.editor?.shouldRun == true || element.editorSplitViewController is RunModuleViewController {
                     objcVisibles.add(element)
                 }
             }
@@ -701,6 +704,39 @@ import SwiftUI
     
     @available(iOS 13.0, *)
     class ViewController: UIViewController {
+    
+        func forAllSubviews(_ parent: UIView? = nil, execute: (UIView, inout Bool) -> ()) {
+            guard let _parent = parent ?? view.subviews.first else {
+                return
+            }
+            
+            var stop = false
+            execute(_parent, &stop)
+            if stop {
+                return
+            }
+            
+            for view in _parent.subviews {
+                forAllSubviews(view, execute: execute)
+            }
+        }
+        
+        var hasFirstResponder: Bool {
+            var isFirstResponder = false
+            
+            forAllSubviews { view, stop in
+                if view.isFirstResponder {
+                    isFirstResponder = true
+                    stop = true
+                }
+            }
+            
+            return isFirstResponder
+        }
+        
+        override var canBecomeFirstResponder: Bool {
+            true
+        }
         
         @objc func close() {
             dismiss(animated: true, completion: nil)
@@ -715,6 +751,44 @@ import SwiftUI
         func disappear() {
             if let view = self.view.subviews.first {
                 PyView.values[view]?.disappearAction?.call(parameter: PyView.values[view]?.pyValue)
+            }
+        }
+        
+        override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+            super.pressesBegan(presses, with: event)
+            
+            guard let first = presses.first, first.key != nil else {
+                return
+            }
+            
+            forAllSubviews { view, stop in
+                guard let pyView = PyView.values[view] else {
+                    return
+                }
+                
+                if pyView.keyPressBegan != nil {
+                    view.keyPressBegan(first)
+                    stop = true
+                }
+            }
+        }
+        
+        override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+            super.pressesEnded(presses, with: event)
+            
+            guard let first = presses.first, first.key != nil else {
+                return
+            }
+            
+            forAllSubviews { view, stop in
+                guard let pyView = PyView.values[view] else {
+                    return
+                }
+                
+                if pyView.keyPressEnded != nil {
+                    view.keyPressEnded(first)
+                    stop = true
+                }
             }
         }
         
@@ -752,19 +826,10 @@ import SwiftUI
             navigationItem.leftItemsSupplementBackButton = true
             navigationItem.leftBarButtonItems = view.subviews.first?.leftButtonItems as? [UIBarButtonItem]
             navigationItem.rightBarButtonItems = view.subviews.first?.rightButtonItems as? [UIBarButtonItem]
-            
-            if let uiView = view.subviews.first, let view = PyView.values[uiView] {
-                let navVC = navigationController as? NavigationController
-                if navVC?.pyViews.contains(view) == false {
-                    navVC?.pyViews.append(view)
-                }
-            }
         }
         
-        override func viewDidDisappear(_ animated: Bool) {
-            super.viewDidDisappear(animated)
-            
-            disappear()
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
             
             let navVC = navigationController as? NavigationController
             if let uiView = view.subviews.first, let view = PyView.values[uiView], let i = navVC?.pyViews.firstIndex(of: view) {
@@ -776,16 +841,33 @@ import SwiftUI
             }
         }
         
+        override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+            
+            disappear()
+        }
+        
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             
-            if let uiView = view.subviews.first, let view = PyView.values[uiView], view is PyNavigationView {
-                self.view.subviews.first?.frame = self.view.frame
-            } else {
-                view.subviews.first?.frame = view.safeAreaLayoutGuide.layoutFrame
+            view.subviews.first?.frame = view.bounds
+            
+            if let uiView = view.subviews.first, let view = PyView.values[uiView] {
+                let navVC = navigationController as? NavigationController
+                if navVC?.pyViews.contains(view) == false {
+                    navVC?.pyViews.append(view)
+                }
+                
+                if let childNavView = view as? PyNavigationView, childNavView.view.backgroundColor == nil {
+                    childNavView.view.backgroundColor = .systemBackground
+                }
             }
             
             appear()
+            
+            if !hasFirstResponder {
+                becomeFirstResponder()
+            }
         }
         
         override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -795,11 +877,7 @@ import SwiftUI
             }) { (_) in
                 if self.view.window?.windowScene?.activationState == .foregroundActive || self.view.window?.windowScene?.activationState == .foregroundInactive {
                     
-                    if let uiView = self.view.subviews.first, let view = PyView.values[uiView], view is PyNavigationView {
-                        self.view.subviews.first?.frame = self.view.frame
-                    } else {
-                        self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
-                    }                    
+                    self.view.subviews.first?.frame = self.view.bounds
                 }
             }
         }
@@ -807,9 +885,9 @@ import SwiftUI
         override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
             super.traitCollectionDidChange(previousTraitCollection)
             
-            if let view = self.view.subviews.first {
+            /*if let view = self.view.subviews.first {
                 PyView.values[view]?.updateBorderColor()
-            }
+            }*/
         }
         
         @objc func keyboardDidShow(notification: NSNotification) {
@@ -823,11 +901,7 @@ import SwiftUI
             guard let r = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
             
             guard r.origin.y > 0 else {
-                if let uiView = self.view.subviews.first, let view = PyView.values[uiView], view is PyNavigationView {
-                    self.view.subviews.first?.frame = self.view.frame
-                } else {
-                    self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
-                }
+                self.view.subviews.first?.frame = self.view.bounds
                 return
             }
             
@@ -842,11 +916,7 @@ import SwiftUI
                 return
             }
             
-            if let uiView = self.view.subviews.first, let view = PyView.values[uiView], view is PyNavigationView {
-                self.view.subviews.first?.frame = self.view.frame
-            } else {
-                self.view.subviews.first?.frame = self.view.safeAreaLayoutGuide.layoutFrame
-            }
+            self.view.subviews.first?.frame = self.view.bounds
         }
     }
     
@@ -856,15 +926,26 @@ import SwiftUI
         
         var pyViews = [PyView]() {
             didSet {
+                let duplicates = pyViews.filter({ $0.view == pyViews.last?.view })
+                if duplicates.count > 1, let i = pyViews.firstIndex(of: duplicates[0]) {
+                    let original = pyViews.remove(at: i)
+                    duplicates.last?.title = original.title
+                    return
+                }
+                
                 viewControllers.last?.title = pyViews.last?.title
             }
+        }
+        
+        func setBarColor() {
+            navigationBar.backgroundColor = pyViews.last?.backgroundColor?.color
+            view.backgroundColor = pyViews.last?.backgroundColor?.color
         }
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             
-            navigationBar.backgroundColor = UIColor.systemBackground
-            view.backgroundColor = pyViews.last?.backgroundColor?.color
+            setBarColor()
         }
     }
     
@@ -948,25 +1029,46 @@ import SwiftUI
         (view as? PyView)?.isPresented = true
         
         DispatchQueue.main.async {
-            let size = CGSize(width: ((view as? PyView)?.width) ?? Double((view as! UIView).frame.width), height: ((view as? PyView)?.height) ?? Double((view as! UIView).frame.height))
-            let vc = self.viewController((view as? PyView) ?? PyView(managed: view as! UIView), forConsoleWithPath: path)
-            vc.preferredContentSize = size
-            if vc.modalPresentationStyle == .pageSheet && size != .zero {
-                vc.modalPresentationStyle = .formSheet
+            
+            if let navView = view as? PyNavigationView, navView.view.backgroundColor == nil {
+                navView.view.backgroundColor = .systemBackground
             }
             
-            if (view as? PyView)?.presentationMode == PyView.PresentationModeNewScene {
-                if UIDevice.current.isMultitaskingSupported {
+            let size = CGSize(width: ((view as? PyView)?.width) ?? Double((view as! UIView).frame.width), height: ((view as? PyView)?.height) ?? Double((view as! UIView).frame.height))
+            let vc = self.viewController((view as? PyView) ?? PyView(managed: view as! UIView), forConsoleWithPath: path)
+            
+            if vc.modalPresentationStyle == .pageSheet {
+                if size == CGSize(width: 1, height: 1) {
+                    vc.modalPresentationStyle = .formSheet
+                } else if size == CGSize(width: 2, height: 2) {
+                    vc.modalPresentationStyle = .pageSheet
+                } else {
+                    vc.preferredContentSize = size
+                    vc.modalPresentationStyle = .formSheet
+                }
+            }
+            
+            let newScene = ((view as? PyView)?.presentationMode == PyView.PresentationModeNewScene)
+            
+            if newScene {
+                if UIApplication.shared.supportsMultipleScenes {
                     SceneDelegate.viewControllerToShow = vc
-                    UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil)
+                    let userActivity = NSUserActivity(activityType: "pytoui")
+                    userActivity.addUserInfoEntries(from: ["scriptPath" : path ?? ""])
+                    UIApplication.shared.requestSceneSessionActivation(nil, userActivity: userActivity, options: nil)
                     return
                 } else {
                     (view as? PyView)?.presentationMode = PyView.PresentationModeFullScreen
                 }
             }
             
-            if path == nil {
+            if path == nil || (newScene && UIApplication.shared.supportsMultipleScenes) {
                for scene in UIApplication.shared.connectedScenes {
+                   
+                   if newScene || (scene.userActivity?.userInfo!["scriptPath"] as? String) != path {
+                       continue
+                   }
+                   
                    let window = (scene as? UIWindowScene)?.windows.first
                    if window?.isKeyWindow == true {
                        window?.topViewController?.present(vc, animated: true, completion: nil)
@@ -1312,6 +1414,9 @@ import SwiftUI
     
     var addToHistory = true
     
+    private var dropInteractionContainingView: UIView? = nil
+    private var defaultDropInteractionToRemove: UIDropInteraction? = nil
+    
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
                 
@@ -1347,6 +1452,24 @@ import SwiftUI
         #if MAIN
         setup(theme: ConsoleViewController.choosenTheme)
         #endif
+
+        if dropInteractionContainingView == nil {
+            for subview in webView.scrollView.subviews {
+                for interaction in subview.interactions {
+                    if let dropInteraction = interaction as? UIDropInteraction {
+                        dropInteractionContainingView = subview
+                        defaultDropInteractionToRemove = dropInteraction
+                        break
+                    }
+                }
+            }
+            
+            if let dropInteractionContainingView = dropInteractionContainingView, let defaultDropInteractionToRemove = defaultDropInteractionToRemove {
+                let customDropInteraction = UIDropInteraction(delegate: self)
+                dropInteractionContainingView.removeInteraction(defaultDropInteractionToRemove)
+                dropInteractionContainingView.addInteraction(customDropInteraction)
+            }
+        }
     }
     
     override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -1370,12 +1493,15 @@ import SwiftUI
         
         webView.frame.size = view.frame.size
         webView.frame.origin.y = 0
+        webView.frame.origin.x = 0
         webView.subviews.first?.bounds.origin = .zero
         
         movableTextField?.toolbar.isHidden = (view.frame.size.height == 0)
         #if MAIN
         movableTextField?.applyTheme()
         #endif
+        
+        editorSplitViewController?.editor?.setToggleTerminalItemTitle()
     }
     
     // MARK: - Keyboard
@@ -1526,8 +1652,12 @@ import SwiftUI
             } else if msg.hasPrefix("openlink:"), let link = msg.components(separatedBy: "openlink:").last, let url = URL(string: link) {
                 
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else if msg == "\u{001b}[1;9D" {
+                webView.previousTab()
+            } else if msg == "\u{001b}[1;9C" {
+                webView.nextTab()
             } else {
-                webView.insert(char: msg.replacingOccurrences(of: "\u{001b}", with: ""))
+                webView.insert(chars: msg.replacingOccurrences(of: "\u{001b}", with: ""))
             }
         }        
     }
@@ -1790,12 +1920,14 @@ import SwiftUI
     
     public func didEnterPictureInPicture() {
         editorSplitViewController?.editor?.pipItem?.image = UIImage(systemName: "pip.exit")
+        editorSplitViewController?.editor?.pipItem.title = NSLocalizedString("pip.exit", comment: "'Exit PIP'")
         editorSplitViewController?.editor?.setBarItems()
         pipVC.view.isHidden = false
     }
     
     public func didExitPictureInPicture() {
         editorSplitViewController?.editor?.pipItem?.image = UIImage(systemName: "pip.enter")
+        editorSplitViewController?.editor?.pipItem.title = NSLocalizedString("pip.enter", comment: "'Enter PIP'")
         editorSplitViewController?.editor?.setBarItems()
         pipVC.view.isHidden = true
     }
@@ -1822,6 +1954,70 @@ import SwiftUI
         }
         
         return Python.shared.isScriptRunning(path)
+    }
+    
+    // MARK: - Drop interaction delegate
+    
+    public func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        #if MAIN
+        session.items.first?.localObject is FileBrowserViewController.LocalFile || session.hasItemsConforming(toTypeIdentifiers: [UTType.text.identifier]) || session.hasItemsConforming(toTypeIdentifiers: [UTType.fileURL.identifier])
+        #else
+        false
+        #endif
+    }
+    
+    public func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        UIDropProposal(operation: .copy)
+    }
+        
+    public func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        
+        #if MAIN
+        if let file = session.items.first?.localObject as? FileBrowserViewController.LocalFile {
+            
+            guard self.prompt != nil else {
+                return
+            }
+            
+            for char in "'\(file.url.path)'" {
+                self.webView.insert(chars: String(char))
+            }
+            
+            return
+        }
+        #endif
+        
+        if session.hasItemsConforming(toTypeIdentifiers: [UTType.fileURL.identifier]) {
+            _ = session.loadObjects(ofClass: URL.self) { [weak self] urls in
+                
+                guard let self = self, let url = urls.first else {
+                    return
+                }
+                
+                guard self.prompt != nil else {
+                    return
+                }
+                
+                for char in url.path {
+                    self.webView.insert(chars: String(char))
+                }
+            }
+        } else if session.hasItemsConforming(toTypeIdentifiers: [UTType.plainText.identifier]) {
+            _ = session.loadObjects(ofClass: String.self) { [weak self] strings in
+                
+                guard let self = self, let str = strings.first else {
+                    return
+                }
+                
+                guard self.prompt != nil else {
+                    return
+                }
+                
+                for char in str {
+                    self.webView.insert(chars: String(char))
+                }
+            }
+        }
     }
 }
 

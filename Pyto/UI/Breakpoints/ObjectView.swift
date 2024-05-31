@@ -24,6 +24,8 @@ struct ObjectView: View {
     
     @State var objects = [String:String]()
     
+    @State var isReprExpanded = false
+    
     func object(for key: String) -> Object {
         switch object {
         case .namespace(let id, let namespace):
@@ -119,16 +121,30 @@ struct ObjectView: View {
                 }
             }), id: \.self) { key in
                 NavigationLink {
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Text(ShortenFilePaths(in: objects[key] ?? "")).lineLimit(1)
-                            Spacer()
-                        }.padding()
-                        List {
+                    List {
+                        Section {
                             ObjectView(object: object(for: key))
+                        } header: {
+                            HStack {
+                                Button {
+                                    isReprExpanded.toggle()
+                                } label: {
+                                    HStack {
+                                        Text(ShortenFilePaths(in: objects[key] ?? "")).font(.custom("Menlo", size: UIFont.systemFontSize)).textCase(nil).multilineTextAlignment(.leading)
+                                            .lineLimit(isReprExpanded ? nil : 1)
+                                        Spacer()
+                                    }.foregroundColor(.secondary)
+                                }
+                                Spacer()
+                                Image(systemName: isReprExpanded ? "chevron.down" : "chevron.right")
+                            }
+                                .padding()
+                                .background(Color(.secondarySystemBackground))
+                                .cornerRadius(6)
+                                .padding(.bottom)
                         }
-                    }.navigationBarTitle(key)
+                    }
+                        .navigationBarTitle(key)
                 } label: {
                     HStack {
                         Text(ShortenFilePaths(in: key)).lineLimit(1)

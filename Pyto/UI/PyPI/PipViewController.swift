@@ -61,6 +61,8 @@ class PipViewController: UIHostingController<AnyView> {
     /// - Parameters:
     ///     - module_: The module to add.
     @objc static func addBundledModule(_ module: String) {
-        bundled.append(module)
+        if module.lowercased().replacingOccurrences(of: "_", with: "-") != "sphinx-rtd-theme" {
+            bundled.append(module)
+        }
     }
 }

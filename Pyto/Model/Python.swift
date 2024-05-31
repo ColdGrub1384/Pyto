@@ -71,7 +71,7 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         }
         return ret
     }
-    
+        
     private func crashHandler(_ signal: Int32) {
         
         guard !Thread.current.isMainThread else {
@@ -106,12 +106,13 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         
         captureSessionsPerThreads[Thread.current]?.stopRunning()
         captureSessionsPerThreads[Thread.current] = nil
-                
+        
         #if MAIN
         
         let code = """
         import traceback
         import threading
+        from scripts_runner import threads_running_code
         from pyto import PyOutputHelper, Python, ignored_threads_on_crash
 
         stack = traceback.format_stack()
@@ -119,27 +120,37 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         stack = "".join(stack)
         stack = "Traceback (most recent call last):\\n"+stack
         stack += f"\\n\\n{threading.current_thread().name}\(" crashed with signal: \(signalString)")\\n"
+        
+        ignore = (threading.current_thread() in ignored_threads_on_crash)
+                
+        for thread in threads_running_code:
+            if thread[0] == threading.current_thread():
+                stack += f"\\ncode causing the crash:\\n{thread[1]}\\n"
+                if not ignore:
+                    ignore = ("<Python.crashHandler(_:) code>" in thread[1])
 
         try:
             Python.shared.removeScriptFromList(threading.current_thread().script_path)
         except AttributeError:
             pass
         
-        if threading.current_thread() not in ignored_threads_on_crash:
-
+        if not ignore:
             try:
-
                 if Python.shared.shouldPrintCrashTraceback(threading.current_thread().script_path):
                     PyOutputHelper.printError(stack, script=None)
 
                 Python.shared.removeScriptFromList(threading.current_thread().script_path)
             except AttributeError:
                 PyOutputHelper.printError(stack, script=None)
-
-        threading.Event().wait()
         """
         
-        Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
+        let stack = Thread.callStackSymbols.joined(separator: "\n")
+        if !stack.contains("-[__NSArrayI dealloc]") && !stack.contains("objc_autoreleasePoolPop") { // PytoUI crash
+            Python.pythonShared?.perform(#selector(PythonRuntime.runCode(_:)), with: code)
+        }
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        semaphore.wait()
         #endif
     }
     
@@ -253,6 +264,12 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         /// The working directory of the thread running the script.
         @objc public var workingDirectory: String
         
+        /// Only run a shell.
+        @objc public var onlyShell: Bool
+        
+        /// A unique identifier associated with the editor or terminal running the script.
+        @objc public var shellID: String?
+        
         /// Initializes the script.
         ///
         /// - Parameters:
@@ -262,12 +279,14 @@ func Py_DecodeLocale(_: UnsafePointer<Int8>!, _: UnsafeMutablePointer<Int>!) -> 
         ///     - debug: Set to `true` if the script should  be debugged with `pdb`.
         ///     - runREPL: If set to `true`, the REPL will run after executing the script.
         ///     - breakpoints: A list of breakpoints
-        init(path: String, args: NSArray, workingDirectory: String, debug: Bool, runREPL: Bool, breakpoints: [Breakpoint] = []) {
+        init(path: String, args: NSArray, workingDirectory: String, debug: Bool, runREPL: Bool, breakpoints: [Breakpoint] = [], onlyShell: Bool = false, shellID: String? = nil) {
             self.path = path
             self.args = args
             self.workingDirectory = workingDirectory
             self.debug = debug
             self.runREPL = runREPL
+            self.onlyShell = onlyShell
+            self.shellID = shellID
             do {
                 self.breakpoints = String(data: (try JSONEncoder().encode(breakpoints.filter({ $0.isEnabled }).map({ $0.pythonBreakpoint }))), encoding: .utf8) ?? "[]"
             } catch {

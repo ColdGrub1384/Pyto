@@ -19,8 +19,9 @@ fileprivate extension IndexPath {
     static let fontSize = IndexPath(row: 2, section: 0)
     static let font = IndexPath(row: 3, section: 0)
     static let showConsoleAtBottom = IndexPath(row: 4, section: 0)
-    static let showSeparator = IndexPath(row: 5, section: 0)
-    static let defaultDirectory = IndexPath(row: 6, section: 0)
+    static let showSuggestons = IndexPath(row: 5, section: 0)
+    static let showSeparator = IndexPath(row: 6, section: 0)
+    static let defaultDirectory = IndexPath(row: 7, section: 0)
     
     static let watchScript = IndexPath(row: 0, section: 1)
     static let inputSugestions = IndexPath(row: 1, section: 1)
@@ -124,6 +125,16 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         reloadEditors()
     }
     
+    // MARK: - Show suggestions
+    
+    /// Switch for toggling suggestions visibility.
+    @IBOutlet weak var showSuggestions: UISwitch!
+    
+    /// Toggles suggestions visibilty
+    @IBAction func toggleShowSuggestions(_ sender: UISwitch) {
+        EditorSplitViewController.shouldShowSuggestions = sender.isOn
+    }
+    
     // MARK: - Show separator
     
     /// Switch for toggling the separator between editor and console.
@@ -163,6 +174,7 @@ class AboutTableViewController: UITableViewController, UIDocumentPickerDelegate,
         fontSizeLabel.font = EditorViewController.font.withSize(CGFloat(ThemeFontSize))
         showConsoleAtBottom.isOn = EditorSplitViewController.shouldShowConsoleAtBottom
         showSeparator.isOn = EditorSplitViewController.shouldShowSeparator
+        showSuggestions.isOn = EditorSplitViewController.shouldShowSuggestions
         
         tableView.backgroundColor = .systemGroupedBackground
     }

@@ -24,9 +24,22 @@ fileprivate var clangURL: URL {
     Bundle.main.privateFrameworksURL!.appendingPathComponent("clang.framework/clang")
 }
 
+fileprivate var clang_codecompletion: UnsafeMutableRawPointer?
 
-fileprivate var libClangURL: URL {
-    Bundle.main.privateFrameworksURL!.appendingPathComponent("libclang.framework/libclang")
+fileprivate func openClang() -> UnsafeMutableRawPointer? {
+    
+    guard clang_codecompletion == nil else {
+        return clang_codecompletion
+    }
+    
+    clang_codecompletion = dlopen("\(dylibURL.path)", RTLD_NOW)
+    let error = dlerror()
+    guard error == nil else {
+        print(String(utf8String: error!) ?? "")
+        return nil
+    }
+        
+    return clang_codecompletion
 }
 
 fileprivate var queue = [(url: URL, range: NSRange?, textView: UITextView, completionHandler: Any)]()
@@ -58,26 +71,20 @@ fileprivate func next() {
 func completeCSource(url: URL, range: NSRange, textView: UITextView, completionHandler: @escaping ([CCompletion]) -> ()) {
         
     guard !isWorking else {
-        queue.append((url: url, range: range, textView: textView, completionHandler: completionHandler))
+        let cur = (url: url, range: range, textView: textView, completionHandler: completionHandler)
+        queue = [cur]
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            if queue.count == 1 && queue[0].range == cur.range && queue[0].url == cur.url {
+                queue = []
+                isWorking = false
+            }
+        }
         return
     }
     
     isWorking = true
-    
-    dlopen("\(libClangURL.path)", RTLD_NOW)
-    
-    let _error = dlerror()
-    guard _error == nil else {
-        print(String(utf8String: _error!) ?? "")
-        return next()
-    }
-    
-    dlopen("\(clangURL.path)", RTLD_NOW)
-    
-    let clang_codecompletion = dlopen("\(dylibURL.path)", RTLD_NOW)
-    let error = dlerror()
-    guard error == nil else {
-        print(String(utf8String: error!) ?? "")
+        
+    guard let clang_codecompletion = openClang() else {
         return next()
     }
     
@@ -105,9 +112,7 @@ func completeCSource(url: URL, range: NSRange, textView: UITextView, completionH
         DispatchQueue.global().async {
             let isCPP = url.pathExtension == "cpp" || url.pathExtension == "cxx" || url.pathExtension == "hpp"
             
-            let sdk = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("iPhoneOS.sdk")
-            var includes = ["-isysroot", sdk.path, "-F"+sdk.appendingPathComponent("System/Library/Frameworks").path]
-            
+            var includes = []
             
             let additional = [FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("include/python3.10").path, url.deletingLastPathComponent().path]
             for path in (ProcessInfo.processInfo.environment["C\(isCPP ? "PLUS" : "")_INCLUDE_PATH"]?.components(separatedBy: ":") ?? [])+additional {
@@ -133,7 +138,7 @@ func completeCSource(url: URL, range: NSRange, textView: UITextView, completionH
                 }
             }
             
-            var additionalFlags = [String]()
+            var additionalFlags = ["-fsyntax-only"]
             
             if url.pathExtension == "m" || url.pathExtension == "mm" {
                 additionalFlags.append("-mios-version-min=13.0")
@@ -183,14 +188,8 @@ func lintCSource(url: URL, textView: UITextView, completionHandler: @escaping ([
     }
     
     isWorking = true
-    
-    dlopen("\(libClangURL.path)", RTLD_NOW)
-    dlopen("\(clangURL.path)", RTLD_NOW)
-    
-    let clang_codecompletion = dlopen("\(dylibURL.path)", RTLD_NOW)
-    let error = dlerror()
-    guard error == nil else {
-        print(String(utf8String: error!) ?? "")
+        
+    guard let clang_codecompletion = openClang() else {
         return next()
     }
     
@@ -207,8 +206,7 @@ func lintCSource(url: URL, textView: UITextView, completionHandler: @escaping ([
         DispatchQueue.global().async {
             let isCPP = url.pathExtension == "cpp" || url.pathExtension == "cxx" || url.pathExtension == "hpp"
             
-            let sdk = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("iPhoneOS.sdk")
-            var includes = ["-isysroot", sdk.path, "-F"+sdk.appendingPathComponent("System/Library/Frameworks").path]
+            var includes = []
             
             let additional = [FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0].appendingPathComponent("include/python3.10").path, url.deletingLastPathComponent().path]
             for path in (ProcessInfo.processInfo.environment["C\(isCPP ? "PLUS" : "")_INCLUDE_PATH"]?.components(separatedBy: ":") ?? [])+additional {
@@ -218,6 +216,10 @@ func lintCSource(url: URL, textView: UITextView, completionHandler: @escaping ([
             var line = 1
             var column = 0
 
+            guard range.location > -1 else {
+                return
+            }
+            
             for i in 0..<range.location {
                 let char = NSString(string: code).substring(with: NSRange(location: i, length: 1))
                 if char == "\n" {
@@ -229,7 +231,7 @@ func lintCSource(url: URL, textView: UITextView, completionHandler: @escaping ([
             }
             
             // NSArray* complete(const char *path, const char *code, int line, int column, NSArray *argv)
-            let results = complete("\(url.path)", NSString(string: code).utf8String, Int32(line), Int32(column), includes)?.last as? [String]
+            let results = complete("\(url.path)", NSString(string: code).utf8String, Int32(line), Int32(column), []+includes)?.last as? [String]
             
             var diagnostics = [Linter.Warning]()
             for diagnostic in results ?? [] {

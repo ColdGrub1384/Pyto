@@ -156,14 +156,12 @@ public struct OnboardingView: View {
                     featureView(name: NSLocalizedString("onboarding.features.3", comment: "Feature 3"), lite: true)
                     featureView(name: NSLocalizedString("onboarding.features.4", comment: "Feature 4"), lite: true)
                     featureView(name: NSLocalizedString("onboarding.features.5", comment: "Feature 5"), lite: true)
+                    featureView(name: NSLocalizedString("onboarding.features.6", comment: "Feature 6"), lite: true)
+                    featureView(name: NSLocalizedString("onboarding.features.7", comment: "Feature 7"), lite: false)
                     
                     ForEach(fullVersionLibraries.sorted(), id: \.self) { lib in
                         featureView(name: lib.capitalized, lite: false)
                     }
-                    
-                    Text("onboarding.purchaseWarning", comment: "A warning so people don't email me about how to install Tensorflow")
-                        .foregroundColor(.orange)
-                        .padding()
                 }
             }
             

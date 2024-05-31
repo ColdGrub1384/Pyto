@@ -23,6 +23,11 @@ import Foundation
     
     /// Starts listening for memory.
     func startListening() {
+        
+        guard !isiOSAppOnMac else {
+            return
+        }
+        
         // Yes, a timer. But it does not seem to slow down the app.
         _ = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { (_) in
             

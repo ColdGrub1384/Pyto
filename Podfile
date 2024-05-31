@@ -1,4 +1,6 @@
-project 'Pyto.xcodeproj'
+workspace 'Pyto'
+
+project 'Pyto'
 
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
@@ -17,7 +19,6 @@ target 'Pyto' do
   pod 'Zip'
   pod 'Down', :git => 'https://github.com/ColdGrub1384/Down.git'
   pod 'FileBrowser', :git => 'https://github.com/ColdGrub1384/FileBrowser.git'
-  pod "Color-Picker-for-iOS", :git => 'https://github.com/ColdGrub1384/Color-Picker-for-iOS.git'
   pod 'MultiPeer'
   pod 'SwiftyStoreKit'
   pod 'ObjectUserDefaults'
@@ -27,21 +28,22 @@ target 'Pyto' do
   pod 'freetype2'
   pod 'SwiftSoup'
 end
+
 target 'SwiftUI Preview' do
 
 use_frameworks!
-inhibit_all_warnings!
+  inhibit_all_warnings!
 
-pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
+  pod 'Highlightr', :git => 'https://github.com/brunophilipe/Highlightr.git'
 
-end
+  end
 
-target 'WidgetExtension' do
+  target 'WidgetExtension' do
 
-use_frameworks!
-inhibit_all_warnings!
+  use_frameworks!
+  inhibit_all_warnings!
 
-pod 'freetype2'
+  pod 'freetype2'
 
 end
 
@@ -58,7 +60,6 @@ target 'Pyto Screenshots' do
   pod 'Zip'
   pod 'Down', :git => 'https://github.com/ColdGrub1384/Down.git'
   pod 'FileBrowser', :git => 'https://github.com/ColdGrub1384/FileBrowser.git'
-  pod "Color-Picker-for-iOS", :git => 'https://github.com/ColdGrub1384/Color-Picker-for-iOS.git'
   pod 'MultiPeer'
   pod 'SwiftyStoreKit'
   pod 'ObjectUserDefaults'
@@ -78,6 +79,7 @@ post_install do |installer|
                 puts "Set Swift version"
                 config.build_settings['SWIFT_VERSION'] = '4.0'
             end
+            config.build_settings["IPHONEOS_DEPLOYMENT_TARGET"] = "11.0"
         end
     end
 end

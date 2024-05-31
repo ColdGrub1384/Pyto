@@ -20,6 +20,8 @@ struct BreakpointsView: View {
     
     @State var id: String?
     
+    var replID: String?
+    
     var files: [URL] {
         var all = [URL]()
         for breakpoint in breakpoints {
@@ -34,9 +36,11 @@ struct BreakpointsView: View {
             all.append(url)
         }
         
-        if all.count == 0 {
-            return [fileURL]
+        if let i = all.firstIndex(of: fileURL) {
+            all.remove(at: i)
         }
+        
+        all.insert(fileURL, at: 0)
         
         return all
     }
@@ -59,6 +63,15 @@ struct BreakpointsView: View {
     func remove(breakpoint: Breakpoint) {
         if let i = breakpoints.firstIndex(where: { $0.id == breakpoint.id }) {
             breakpoints.remove(at: i)
+            let diskBreakpoints = BreakpointsStore.allBreakpoints()
+            
+            guard let url = breakpoint.url else {
+                return
+            }
+            
+            if diskBreakpoints[url] == [breakpoint] {
+                BreakpointsStore.set(breakpoints: [], for: url)
+            }
         }
     }
     
@@ -80,25 +93,49 @@ struct BreakpointsView: View {
     
     var run: () -> ()
     
-    init(fileURL: URL, id: String?, run: @escaping () -> (), runningBreakpoint: Breakpoint?, tracebackJSON: String?) {
+    init(fileURL: URL, id: String?, replID: String?, run: @escaping () -> (), runningBreakpoint: Breakpoint?, tracebackJSON: String?) {
         self.fileURL = fileURL
         self._id = .init(initialValue: id)
+        self.replID = replID
         self.run = run
         self._tracebackJSON = .init(initialValue: tracebackJSON)
         self._runningBreakpoint = .init(initialValue: runningBreakpoint)
     }
     
+    func readBreakpoints() {
+        var breakpoints = [Breakpoint]()
+        for script in BreakpointsStore.allBreakpoints() {
+            breakpoints.append(contentsOf: script.value)
+        }
+        
+        self.breakpoints = breakpoints.sorted(by: { a, _ in a.url == self.fileURL })
+    }
+    
     var body: some View {
         NavigationView {
             List {
-                ForEach(files, id: \.path) { script in
-                    BreakpointsScriptView(runningBreakpoint: $runningBreakpoint, script: script, breakpoints: breakpoints(script: script), tracebackJSON: tracebackJSON, id: $id, update: update, removeFile: {
-                        remove(file: $0)
-                    }, removeBreakpoint: {
-                        remove(breakpoint: $0)
-                    })
+                if let id = replID {
+                    DisclosureGroup {
+                        ObjectView(object: .namespace(id, .globals))
+                    } label: {
+                        Label {
+                            Text("REPL")
+                        } icon: {
+                            Image(systemName: "terminal")
+                        }
+                    }
                 }
-            }.navigationTitle("Breakpoints").toolbar {
+                
+                Section("Breakpoints") {
+                    ForEach(files, id: \.path) { script in
+                        BreakpointsScriptView(runningBreakpoint: $runningBreakpoint, script: script, breakpoints: breakpoints(script: script), tracebackJSON: tracebackJSON, id: $id, update: update, removeFile: {
+                            remove(file: $0)
+                        }, removeBreakpoint: {
+                            remove(breakpoint: $0)
+                        })
+                    }
+                }
+            }.navigationTitle("debugger").toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button {
                         dismiss()
@@ -140,13 +177,31 @@ struct BreakpointsView: View {
                 }
             }
         }.navigationViewStyle(.stack).onAppear { 
-            breakpoints = BreakpointsStore.breakpoints(for: fileURL)
+            readBreakpoints()
         }.onChange(of: breakpoints) { _ in
-            BreakpointsStore.set(breakpoints: breakpoints, for: fileURL)
+            
+            var breakpoints = [URL:[Breakpoint]]()
+            
+            for breakpoint in self.breakpoints {
+                guard let url = breakpoint.url else {
+                    return
+                }
+                
+                if breakpoints[url] == nil {
+                    breakpoints[url] = [breakpoint]
+                } else {
+                    breakpoints[url]?.append(breakpoint)
+                }
+            }
+            
+            for script in breakpoints {
+                BreakpointsStore.set(breakpoints: script.value, for: script.key)
+            }
         }.sheet(isPresented: $isPresentingAddSheet) { 
             BreakpointCreator(fileURL: fileURL, files: files)
         }.onReceive(NotificationCenter.Publisher(center: .default, name: breakpointStoreDidChangeNotification, object: nil)) { notif in
-            breakpoints = BreakpointsStore.breakpoints(for: fileURL)
+            
+            readBreakpoints()
         }.onAppear {
             isRunning = Python.shared.isScriptRunning(fileURL.path)
         }.onReceive(NotificationCenter.Publisher(center: .default, name: EditorViewController.didUpdateBarItemsNotificationName, object: nil)) { notif in

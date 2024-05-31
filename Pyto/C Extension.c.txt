@@ -1,6 +1,8 @@
+// Created with Pyto
+
 #include <Python.h>
 
-static PyObject* main(PyObject* self, PyObject* args) {
+static PyObject* _main(PyObject* self, PyObject* args) {
     printf("Hello World!\n");
     return Py_None;
 }
@@ -9,7 +11,7 @@ static PyObject* main(PyObject* self, PyObject* args) {
 // We require this `NULL` to signal the end of our method
 // definition
 static PyMethodDef <name>Methods[] = {
-    { "main", main, METH_NOARGS, "docstring here" },
+    { "main", _main, METH_NOARGS, "docstring here" },
     { NULL, NULL, 0, NULL }
 };
 

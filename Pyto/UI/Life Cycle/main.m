@@ -26,6 +26,10 @@ void logToNSLog(const char* text) {
     NSLog(@"Log from Python: %s", text);
 }
 
+void llvm_breakpoint(void *p, void *p2, void *p3) {
+    //fprintf(stderr, "llvm_breakpoint(%p, %p, %p)\n", p, p2, p3);
+}
+
 /// Returns the main bundle.
 NSBundle* mainBundle(void) {
     #if MAIN
@@ -82,7 +86,12 @@ int initialize_python(int argc, char *argv[]) {
     putenv("PYTHONIOENCODING=utf-8");
     #if !WIDGET
     putenv("PYTHONDONTWRITEBYTECODE=1");
+    NSURL *iCloud = FileBrowserViewController.iCloudContainerURL;
+    if (iCloud) {
+        putenv((char *)[NSString stringWithFormat:@"ICLOUD=%@", iCloud.path].UTF8String);
+    }
     #endif
+    putenv((char *)[NSString stringWithFormat:@"APP=%@", mainBundle().bundlePath].UTF8String);
     NSString *site_packages = [mainBundle() pathForResource:@"site-packages" ofType:NULL];
     NSString *stdlib = [site_packages stringByAppendingPathComponent: @"python3.10"];
     NSString *docs = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject].path;
@@ -113,7 +122,7 @@ int initialize_python(int argc, char *argv[]) {
     putenv((char *)[[NSString stringWithFormat:@"JUPYTER_CONFIG_DIR=%@", [docs stringByAppendingPathComponent: @"jupyter"]] UTF8String]);
     
     // Astropy
-    NSString *caches = [NSFileManager.defaultManager URLsForDirectory:NSCachesDirectory inDomains:NSAllDomainsMask].firstObject.path;
+    NSString *caches = [NSFileManager.defaultManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].firstObject.path;
     NSString *astropyCaches = [caches stringByAppendingPathComponent:@"astropy"];
     if ([NSFileManager.defaultManager fileExistsAtPath:astropyCaches]) {
         [NSFileManager.defaultManager removeItemAtPath:astropyCaches error:NULL];
@@ -124,12 +133,17 @@ int initialize_python(int argc, char *argv[]) {
     putenv((char *)[NSString stringWithFormat:@"XDG_CONFIG_HOME=%@", caches].UTF8String);
     
     // SKLearn data
-    putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject.path].UTF8String);
+    putenv((char *)[NSString stringWithFormat:@"SCIKIT_LEARN_DATA=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject.path].UTF8String);
+    
+    // PyLint
+    
+    putenv((char *)[NSString stringWithFormat:@"PYLINTHOME=%@", [NSFileManager.defaultManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask].firstObject.path].UTF8String);
     
     // Clang
     putenv("TERM=xterm-color");
-    putenv((char *)[NSString stringWithFormat:@"SYSROOT=%@", [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent: @"iPhoneOS.sdk"].path].UTF8String);
+    putenv((char *)[NSString stringWithFormat:@"SYSROOT=%@", [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject.path].UTF8String);
     putenv("CC=Pyto -m _clang");
+    putenv("CXX=Pyto -m _clang");
     putenv("CFLAGS=-S -emit-llvm");
     putenv("LDSHARED=Pyto -m _link_modules");
     
@@ -139,7 +153,7 @@ int initialize_python(int argc, char *argv[]) {
     putenv("LC_ALL=en_US.UTF-8");
     
     // Terminal
-    putenv("LSCOLORS=GxFxCxDxBxegedabagaced");
+    putenv("LSCOLORS=ExFxCxDxbxegedabagacad");
     
     // MARK: - Init Python
     
@@ -152,8 +166,8 @@ int initialize_python(int argc, char *argv[]) {
     #endif
         #if MAIN
         // Matplotlib
-        NSURL *mpl_data = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"mpl-data"];
-        NSURL *mpl_config = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask].firstObject URLByAppendingPathComponent:@"matplotlib-config"];
+        NSURL *mpl_data = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject URLByAppendingPathComponent:@"mpl-data"];
+        NSURL *mpl_config = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject URLByAppendingPathComponent:@"matplotlib-config"];
         
         if (![NSFileManager.defaultManager fileExistsAtPath:mpl_data.path]) {
             [NSFileManager.defaultManager createDirectoryAtPath:mpl_data.path withIntermediateDirectories:NO attributes:NULL error:NULL];

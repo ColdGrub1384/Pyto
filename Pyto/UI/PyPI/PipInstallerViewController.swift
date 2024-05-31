@@ -102,6 +102,8 @@ import WebKit
         
         executed = true
         
+        editor?.parentPipInstaller = self
+        
         if let path = editor?.document?.fileURL.path, Python.shared.isScriptRunning(path) {
             editor?.stop()
             DispatchQueue.main.asyncAfter(deadline: .now()+2) { [weak self] in

@@ -5,7 +5,9 @@ import os
 import random
 import console
 import weakref
-from extensionsimporter import BitcodeValue
+import inspect
+import threading
+from pyto import EditorViewController
 
 offer_suggestion_prototype = ctypes.PYFUNCTYPE(    
     ctypes.c_char_p,                
@@ -94,7 +96,6 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0, _globals=None):
 
         while len(stack) > 0 and (get_filename().endswith("/Lib/console.py") or get_filename().startswith("<frozen importlib")):
             del stack[0]
-            del frame_stack[0]
     except IndexError:
         pass
         
@@ -161,3 +162,18 @@ def get_json(tb, exc, text, remove, offset=0, end_offset=0, _globals=None):
     
     data = json.dumps(traceback_json, indent=True)
     return data
+
+def set_repl_id(_globals):
+        
+    try:
+        script_path = threading.current_thread().script_path
+    except AttributeError:
+        script_path = None
+
+    _id = ''.join(random.choice([chr(i) for i in range(ord('a'),ord('z'))]) for _ in range(10))
+    
+    holder = NamespaceHolder({}, _globals)
+    _globals["__namespace__"] = holder
+    console.namespaces[_id] = weakref.ref(holder)
+    
+    EditorViewController.setCurrentBreakpoint([script_path, -1], tracebackJSON="", id=_id, scriptPath=script_path)

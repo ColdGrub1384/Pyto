@@ -35,8 +35,12 @@ def main():
         return print(scripts[sys.argv[1]])
     if sys.argv[1]+".py" in scripts:
         return print(scripts[sys.argv[1]+".py"])
-
-    print(_shell.shell.process_command(sys.argv[1], sys.argv[1]))
+    if sys.argv[1]+".py" in os.listdir(os.path.abspath(os.path.dirname(__file__))):
+        return print(os.path.join(os.path.abspath(os.path.dirname(__file__)), sys.argv[1]+".py"))
+    if sys.argv[1]+".ll" in scripts:
+        return print(scripts[sys.argv[1]+".ll"])
+    if sys.argv[1]+".bc" in scripts:
+        return print(scripts[sys.argv[1]+".bc"])
 
 if __name__ == "__main__":
     main()

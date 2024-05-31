@@ -27,8 +27,12 @@ class BuildDocsCommand(distutils.cmd.Command):
           '%s does not exist.' % self.sourcedir)
 
   def run(self):
+    cwd = os.getcwd()
     os.chdir(self.sourcedir)
-    run_sphinx(["html"])
+    try:
+        run_sphinx(["html"])
+    finally:
+        os.chdir(cwd)
 
 
 def getenv(key, default):

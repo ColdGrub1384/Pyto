@@ -148,7 +148,7 @@ struct Traceback: Codable {
                                         Menu {
                                             menu
                                         } label: {
-                                            Image(systemName: "ellipsis")
+                                            Image(systemName: "ellipsis.circle").padding()
                                         }
                                     }
                                 }
@@ -460,10 +460,23 @@ struct ExceptionView: View {
                                         text.enumerateSubstrings(in: range, options: .byLines) { _, range, _, `continue` in
                                             
                                             if i == frame.lineno {
-                                                let endRange = NSRange(location: range.location+range.length, length: 0)
+                                                let endRange: NSRange
+                                                if editor.textView.isEditable {
+                                                    endRange = NSRange(location: range.location+range.length, length: 0)
+                                                } else {
+                                                    endRange = NSRange(location: range.location, length: range.length)
+                                                }
                                                 
                                                 editor.textView.selectedRange = endRange
+                                                
                                                 editor.textView.becomeFirstResponder()
+                                                
+                                                if !editor.textView.isEditable, let textRange = endRange.toTextRange(textInput: editor.textView) {
+                                                                                
+                                                    editor.textView.scrollRangeToVisible(endRange)
+                                                    editor.textView.selectedTextRange = textRange
+                                                }
+                                                
                                                 `continue`.pointee = true
                                             }
                                             

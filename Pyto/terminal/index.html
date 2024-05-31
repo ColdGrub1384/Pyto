@@ -4,7 +4,7 @@
     <meta charset='utf-8'/>
     <meta name="viewport" content="viewport-fit=cover, width=device-width,  height=device-height, initial-scale=1, user-scalable=no">
   </head>
-  <body style="background-color: transparent">
+  <body style="background-color: transparent" autocorrect="off">
     <div id="terminal"
          style="width:100%; height:100%; background-color: transparent"></div>
   </body>
@@ -136,6 +136,7 @@
         
         t.document_.body.style.caretColor = "transparent";
         t.document_.querySelector("x-screen").setAttribute("autocomplete", "off");
+        t.document_.querySelector("textarea").setAttribute("autocomplete", "off");
         
         t.document_.addEventListener("click", function (event) {
           if (event.target.tagName == "IMG") {

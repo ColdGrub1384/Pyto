@@ -8,15 +8,23 @@ import pyto
 import sys
 from types import ModuleType
 from collections import namedtuple
+from typing import NamedTuple
 from UIKit import UIApplication
 from __check_type__ import check
 
 __PyLocationHelper__ = pyto.PyLocationHelper
 
-Location = namedtuple("Location", "longitude latitude altitude")
-"""
-A tuple containing data about longitude, latitude and altitude.
-"""
+
+class Location(NamedTuple):
+    """
+    A tuple containing data about longitude, latitude and altitude (optional).
+    """
+
+    latitude: float
+
+    longitude: float
+
+    altitude: float = None
 
 
 class __Location__(ModuleType):
@@ -56,8 +64,8 @@ def get_location() -> Location:
     """
 
     return Location(
-        float(__PyLocationHelper__.longitude),
         float(__PyLocationHelper__.latitude),
+        float(__PyLocationHelper__.longitude),
         float(__PyLocationHelper__.altitude),
     )
 
@@ -107,5 +115,6 @@ if UIApplication is not None:
     location.LOCATION_ACCURACY_HUNDRED_METERS = LOCATION_ACCURACY_HUNDRED_METERS
     location.LOCATION_ACCURACY_KILOMETER = LOCATION_ACCURACY_KILOMETER
     location.LOCATION_ACCURACY_THREE_KILOMETERS = LOCATION_ACCURACY_THREE_KILOMETERS
+    location.Location = Location
 
     sys.modules[__name__] = location

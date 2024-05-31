@@ -1,5 +1,4 @@
 PODS:
-  - Color-Picker-for-iOS (2.0.3)
   - Down (0.8.6)
   - FileBrowser (1.0.0)
   - freetype2 (2.10.1.16):
@@ -23,7 +22,6 @@ PODS:
   - Zip (1.1.0)
 
 DEPENDENCIES:
-  - Color-Picker-for-iOS (from `https://github.com/ColdGrub1384/Color-Picker-for-iOS.git`)
   - Down (from `https://github.com/ColdGrub1384/Down.git`)
   - FileBrowser (from `https://github.com/ColdGrub1384/FileBrowser.git`)
   - freetype2
@@ -51,8 +49,6 @@ SPEC REPOS:
     - Zip
 
 EXTERNAL SOURCES:
-  Color-Picker-for-iOS:
-    :git: https://github.com/ColdGrub1384/Color-Picker-for-iOS.git
   Down:
     :git: https://github.com/ColdGrub1384/Down.git
   FileBrowser:
@@ -65,9 +61,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/ColdGrub1384/SplitKit.git
 
 CHECKOUT OPTIONS:
-  Color-Picker-for-iOS:
-    :commit: 5b044d4f567356762de02384354705a48c272aba
-    :git: https://github.com/ColdGrub1384/Color-Picker-for-iOS.git
   Down:
     :commit: f4d8d3b87e8115fc1b5e6ad1152383ab31c4438a
     :git: https://github.com/ColdGrub1384/Down.git
@@ -85,7 +78,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ColdGrub1384/SplitKit.git
 
 SPEC CHECKSUMS:
-  Color-Picker-for-iOS: aaf433e40b18e83f248b4d89e7cb8f436e3d1db0
   Down: 065ea594046e99ea02a0990a53ebf585e9a50a7b
   FileBrowser: 42fe0e5dbb9602f13c6f7f742f4a4193b018eafd
   freetype2: 638066e0b9baa2387a4ba577644cd07eeda67347
@@ -101,6 +93,6 @@ SPEC CHECKSUMS:
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: fa4ec7925c76deb39ef95874ee283e032055d38c
+PODFILE CHECKSUM: dabd1abc5a61b0454762b65436edabf79d23891b
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.15.2

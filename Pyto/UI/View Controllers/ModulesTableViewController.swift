@@ -138,7 +138,7 @@ import UIKit
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let url = URL(fileURLWithPath: ModulesTableViewController.paths[indexPath.row])
+        let url = URL(fileURLWithPath: (filtredPaths ?? ModulesTableViewController.paths)[indexPath.row])
         if FileManager.default.fileExists(atPath: url.path) {
             
             if UIDevice.current.userInterfaceIdiom == .pad {

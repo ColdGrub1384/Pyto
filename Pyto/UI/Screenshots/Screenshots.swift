@@ -11,7 +11,7 @@ import SwiftUI
 
 // MARK: - Screenshot 1
 
-/// Opens the `ClipboardManager` project and the `__init__.py` file. Simulates running the script and code completion.
+/// Opens the calculator project.
 func openProject(sceneDelegate: SceneDelegate) {
     let semaphore = DispatchSemaphore(value: 0)
     DispatchQueue.main.async {
@@ -76,12 +76,12 @@ func openProject(sceneDelegate: SceneDelegate) {
 
 // MARK: - Screenshot 2
 
-/// Opens the terminal
+/// Opens the clipboard manager.
 func openREPL(sceneDelegate: SceneDelegate) {
     let semaphore = DispatchSemaphore(value: 0)
     DispatchQueue.main.async {
         
-        let url = Bundle.main.url(forResource: "Clipboard Manager", withExtension: nil)!
+        let url = Bundle.main.url(forResource: "Samples/Examples/clip", withExtension: nil)!
         sceneDelegate.sidebarSplitViewController?.sidebar?.documentPicker(UIDocumentPickerViewController(forOpeningContentTypes: [.folder]), didPickDocumentsAt: [url])
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
@@ -159,7 +159,7 @@ func openDebuggerExample(sceneDelegate: SceneDelegate) {
                                         
                     
                     DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        editor?.showDebugger(filePath: mainURL.path, lineno: 3, tracebackJSON: "{}", id: "r4iue")
+                        editor?.showDebugger(filePath: mainURL.path, lineno: 3, tracebackJSON: "{}", id: "r4iue", replID: nil)
                         
                         DispatchQueue.main.asyncAfter(deadline: .now()+5) {
                             semaphore.signal()
@@ -232,7 +232,7 @@ func openSciPyExample(sceneDelegate: SceneDelegate) {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
-            let exampleURL = Bundle.main.url(forResource: "Samples/Matplotlib/surface3d", withExtension: "py")!
+            let exampleURL = Bundle.main.url(forResource: "Samples/Examples/Matplotlib/surface3d", withExtension: "py")!
             sceneDelegate.sidebarSplitViewController?.sidebar?.editor = nil
             sceneDelegate.sidebarSplitViewController?.sidebar?.open(url: exampleURL)
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
@@ -267,11 +267,11 @@ func openSciPyExample(sceneDelegate: SceneDelegate) {
 // MARK: - takeScreenshots
 
 func takeScreenshots(sceneDelegate: SceneDelegate) {
-    DispatchQueue.global().async {
+    /*DispatchQueue.global().async {
         openProject(sceneDelegate: sceneDelegate)
         openREPL(sceneDelegate: sceneDelegate)
         openDebuggerExample(sceneDelegate: sceneDelegate)
         openPyPI(sceneDelegate: sceneDelegate)
         openSciPyExample(sceneDelegate: sceneDelegate)
-    }
+    }*/
 }

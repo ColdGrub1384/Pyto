@@ -4,6 +4,16 @@ try:
     import zipfile
     import site
     import shutil
+    import sysconfig
+    
+    site.USER_SITE = None
+    
+    pypath = os.path.expanduser("~/Documents/lib/python3.10/site-packages")
+    stdlib = os.path.join(os.getenv("APP"), "site-packages", "python3.10")
+    sysconfig._INSTALL_SCHEMES["ios"]["stdlib"] = stdlib
+    sysconfig._INSTALL_SCHEMES["ios"]["platstdlib"] = stdlib
+    sysconfig._INSTALL_SCHEMES["ios"]["platlib"] = pypath
+    sysconfig._INSTALL_SCHEMES["ios"]["purelib"] = pypath
 
     sys.path.insert(-1, site.getusersitepackages())
 
@@ -48,6 +58,7 @@ try:
     import getpass
     from _extensionsimporter import system
     import platform
+    import _collections_abc
     
     def with_docstring(object, doc):
         object.__doc__ = doc
@@ -366,6 +377,7 @@ try:
 
         def __str__(self):
             return str(self.get_argv())
+
     
     class Sys(sys.__class__):
     
@@ -432,11 +444,11 @@ try:
 
     sys.modules["sys"] = Sys(sys)
     console.sys = sys.modules["sys"]
-
-    try:
+    
+    if "__main__" in sys.modules:
         del sys.modules["__main__"]
-    except KeyError:
-        pass
+    
+    __import__("__main__")
 
     # MARK: - Pip bundled modules
     

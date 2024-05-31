@@ -18,12 +18,16 @@ import Foundation
     }
     
     @objc static func runSync(_ code: @escaping (() -> Void)) {
-        let code_ = code
-        let semaphore = Python.Semaphore(value: 0)
-        DispatchQueue.main.async {
-            code_()
-            semaphore.signal()
+        if !Thread.isMainThread {
+            let code_ = code
+            let semaphore = Python.Semaphore(value: 0)
+            DispatchQueue.main.async {
+                code_()
+                semaphore.signal()
+            }
+            semaphore.wait()
+        } else {
+            code()
         }
-        semaphore.wait()
     }
 }

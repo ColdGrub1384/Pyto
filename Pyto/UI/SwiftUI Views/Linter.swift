@@ -44,27 +44,38 @@ struct Linter: View, Identifiable, Hashable {
     static func warnings(pylintOutput: String) -> [Warning] {
         var warnings = [Warning]()
         
+        // {path}:{line}: {category} ({msg_id}, {symbol}, {obj}) {msg}
+        
         for line in pylintOutput.components(separatedBy: "\n") {
-            var comp = line.components(separatedBy: ":")
-            guard comp.count >= 5 else {
+            let comp = line.components(separatedBy: ":")
+            guard comp.count >= 3 else {
                 continue
             }
             
-            let url = URL(fileURLWithPath: comp[0])
+            var path = comp[0]
+            if path.hasPrefix(" ") {
+                path.removeFirst()
+            }
+            
+            let url = URL(fileURLWithPath: path)
             
             guard let lineNumber = Int(comp[1]) else {
                 continue
             }
             
-            let type = comp[3]
+            let error = comp[2]
             
-            for _ in 0..<4 {
-                comp.removeFirst()
+            guard let type = error.components(separatedBy: "(").last?.components(separatedBy: ",").first else {
+                continue
             }
             
-            let messageComp = comp.joined(separator: ":").components(separatedBy: " (")
-            let typeName = messageComp.last?.replacingOccurrences(of: ")", with: "") ?? ""
-            let message = ShortenFilePaths(in: messageComp.first ?? "")
+            guard let typeName = error.components(separatedBy: "(").last?.components(separatedBy: ", ")[1] else {
+                continue
+            }
+            
+            guard let message = error.components(separatedBy: ") ").last else {
+                continue
+            }
             
             warnings.append(Warning(type: type, typeDescription: typeName, message: message, lineno: lineNumber, url: url))
         }

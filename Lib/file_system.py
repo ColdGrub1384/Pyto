@@ -201,7 +201,7 @@ def quick_look(*path: str):
 
     _path = []
     for file in path:
-        check(file, "path", str)
+        check(file, "path", [str])
         _path.append(os.path.abspath(file))
     path = _path
 

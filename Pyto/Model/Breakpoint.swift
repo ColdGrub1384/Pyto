@@ -11,11 +11,12 @@ import Foundation
 import SwiftUI
 
 struct BreakpointsStore: Codable {
+    
     var breakpoints: [Data: [Breakpoint]]
     
     static var shared: BreakpointsStore {
         get {
-            let url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("breakpoints.json")
+            let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent("breakpoints.json")
             guard let data = try? Data(contentsOf: url) else {
                 return BreakpointsStore(breakpoints: [:])
             }
@@ -23,12 +24,27 @@ struct BreakpointsStore: Codable {
         }
         
         set {
-            let url = FileManager.default.urls(for: .libraryDirectory, in: .allDomainsMask)[0].appendingPathComponent("breakpoints.json")
+            let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent("breakpoints.json")
             guard let data = try? JSONEncoder().encode(newValue) else {
                 return
             }
             try? data.write(to: url)
         }
+    }
+    
+    static func allBreakpoints() -> [URL:[Breakpoint]] {
+        let breakpoints = Self.shared.breakpoints
+        
+        var scripts = [URL:[Breakpoint]]()
+        
+        for script in breakpoints {
+            var isStale = false
+            if let url = try? URL(resolvingBookmarkData: script.key, bookmarkDataIsStale: &isStale) {
+                scripts[url] = script.value
+            }
+        }
+        
+        return scripts
     }
     
     static func breakpoints(for url: URL) -> [Breakpoint] {

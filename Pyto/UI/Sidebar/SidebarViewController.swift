@@ -11,19 +11,20 @@ import SwiftUI
 import MobileCoreServices
 import Dynamic
 import QuickLook
+import InterfaceBuilder
 
 @objc class SidebarViewController: UICollectionViewController, UIDocumentPickerDelegate, UICollectionViewDropDelegate, UICollectionViewDragDelegate, QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     
     private let tabsItems = [
         Item(title: NSLocalizedString("Create", comment: "Create script"), image: UIImage(systemName: "plus.square.fill"), section: .tabs),
         Item(title: NSLocalizedString("Open script", comment: "Open script"), image: UIImage(systemName: "square.and.arrow.down"), section: .tabs),
-        Item(title: NSLocalizedString("Open directory", comment: "Open directory"), image: UIImage(systemName: "folder"), section: .tabs)
+        Item(title: NSLocalizedString("Open directory", comment: "Open directory"), image: UIImage(systemName: "folder"), section: .tabs),
     ]
 
     private let pythonItems = [
         Item(title: "Terminal", image: UIImage(systemName: "terminal"), section: .python),
         Item(title: NSLocalizedString("sidebar.pypi", comment: "PyPI"), image: UIImage(systemName: "cloud"), section: .python),
-        Item(title: "site-packages", image: UIImage(systemName: "shippingbox"), section: .python),
+        Item(title: "Home", image: UIImage(systemName: "house"), section: .python),
         Item(title: NSLocalizedString("sidebar.loadedModules", comment: "Loaded modules"), image: UIImage(systemName: "info.circle"), section: .python)
     ]
         
@@ -225,7 +226,7 @@ import QuickLook
     
     var recent = [URL]()
     
-    static func image(for url: URL) -> (image: UIImage?, color: UIColor?) {
+    static func image(for url: URL, forceMonochrome: Bool = false) -> (image: UIImage?, color: UIColor?) {
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) && isDir.boolValue {
             if FileManager.default.fileExists(atPath: url.appendingPathComponent("__init__.py").path) || FileManager.default.fileExists(atPath: url.appendingPathComponent("__main__.py").path) {
@@ -235,10 +236,34 @@ import QuickLook
             }
         } else {
             if !(url.pathExtension == "icloud" && url.lastPathComponent.hasPrefix(".")) {
-                if url.pathExtension.lowercased() == "py" {
-                    return (image: UIImage(named: "python.SFSymbol")?.withRenderingMode(.alwaysOriginal), color: nil)
+                if ["py", "pyc", "pyx"].contains(url.pathExtension.lowercased()) {
+                    
+                    let image: UIImage?
+                    if forceMonochrome {
+                        image = UIImage(named: "python.SFSymbol")?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(font: .systemFont(ofSize: 35)))?.withRenderingMode(.alwaysTemplate)
+                    } else if #available(iOS 16.0, *) {
+                        let renderer = ImageRenderer(content: Image("python.SFSymbol")
+                            .resizable()
+                            .symbolRenderingMode(.multicolor)
+                            .foregroundStyle(.blue, .yellow)
+                            .font(.system(size: 35)))
+                        renderer.scale = 2
+                        image = renderer.uiImage
+                    } else {
+                        image = UIImage(named: "python.SFSymbol")?.withRenderingMode(.alwaysOriginal)
+                    }
+                    
+                    return (image: image, color: nil)
+                } else if url.pathExtension.lowercased() == "pytoui" {
+                    return (image: UIImage(systemName: "ipad"), color: .systemRed)
+                } else if ["bc", "ll", "so"].contains(url.pathExtension.lowercased()) {
+                    return (image: UIImage(systemName: "terminal.fill"), color: .label)
+                } else if ["c", "cc", "cpp", "cxx", "m", "mm"].contains(url.pathExtension.lowercased()) {
+                    return (image: UIImage(systemName: "c.square.fill"), color: .systemPurple)
+                } else if ["h", "hpp"].contains(url.pathExtension.lowercased()) {
+                    return (image: UIImage(systemName: "h.square.fill"), color: .systemPink)
                 } else {
-                    return (image: UIImage(systemName: "doc.fill"), color: nil)
+                    return (image: UIImage(systemName: "doc.text.fill"), color: .label)
                 }
             } else {
                 return (image: UIImage(systemName: "icloud.and.arrow.down.fill"), color: .systemBlue)
@@ -298,7 +323,7 @@ import QuickLook
                 sectionSnapshot.collapse([headerItem])
             }
         } else {
-            sectionSnapshot.collapse([headerItem])
+            sectionSnapshot.expand([headerItem])
         }
         dataSource.apply(sectionSnapshot, to: section)
     }
@@ -368,10 +393,13 @@ import QuickLook
     }
     
     @objc func showExamples() {
+        
+        let url = Bundle.main.url(forResource: "Samples/Examples", withExtension: nil)!
+        
         if examples == nil {
-            examples = NavigationController(rootViewController: UIHostingController(rootView: SamplesNavigationView(url: Bundle.main.url(forResource: "Samples", withExtension: nil)!, selectScript: { [weak self] script in
-                self?.open(url: script)
-            }).withoutNavigation))
+            let browser = FileBrowserViewController()
+            browser.directory = url
+            examples = NavigationController(rootViewController: browser)
             examples?.navigationBar.prefersLargeTitles = true
         }
         
@@ -417,7 +445,6 @@ import QuickLook
     
     func showModuleRunner() {
         makeModuleRunnerIfNecessary()
-        
         show(vc: moduleRunner!)
     }
     
@@ -516,7 +543,7 @@ import QuickLook
                 content.imageProperties.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .largeTitle, compatibleWith: nil))
             }
 
-            content.imageProperties.tintColor = item.imageColor ?? .systemGreen
+            content.imageProperties.tintColor = item.imageColor
             
             cell.contentConfiguration = content
             
@@ -696,6 +723,7 @@ import QuickLook
         super.viewDidAppear(animated)
         
         navigationController?.setToolbarHidden(true, animated: true)
+        (editor?.vc as? EditorSplitViewController)?.editor?.setBarItems()
     }
         
     
@@ -706,6 +734,12 @@ import QuickLook
         loadRecents()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        (editor?.vc as? EditorSplitViewController)?.editor?.setBarItems()
+    }
+    
     func show(vc: NavigationController) {
         
         if vc.viewControllers.first == nil {
@@ -714,6 +748,10 @@ import QuickLook
         
         if splitViewController?.isCollapsed == true {
             navigationController?.pushViewController(vc.vc!, animated: true)
+        } else if vc.vc?.navigationController != nil && vc.vc?.navigationController != vc {
+            vc.vc?.removeFromParent()
+            vc.vc?.view.removeFromSuperview()
+            splitViewController?.setViewController(NavigationController(rootViewController: vc.vc!), for: .secondary)
         } else {
             splitViewController?.setViewController(vc, for: .secondary)
         }
@@ -730,7 +768,7 @@ import QuickLook
     
     @discardableResult func openDocument(_ documentURL: URL, run: Bool, viewController: UIViewController? = nil, isShortcut: Bool = false, folder: URL? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> EditorSplitViewController? {
         
-        let tintColor = ConsoleViewController.choosenTheme.tintColor ?? .systemGreen
+        let tintColor = ConsoleViewController.choosenTheme.tintColor ?? UIColor(named: "TintColor") ?? .systemGreen
         
         let document = PyDocument(fileURL: documentURL)
         
@@ -754,9 +792,9 @@ import QuickLook
             splitVC.ratio = 1
         }
         
-        let navVC = EditorSplitViewController.NavigationController(rootViewController: splitVC)
+        /*let navVC = EditorSplitViewController.NavigationController(rootViewController: splitVC)
         navVC.modalPresentationStyle = .fullScreen
-        navVC.navigationBar.isTranslucent = true
+        navVC.navigationBar.isTranslucent = true*/
                 
         splitVC.separatorColor = .clear
         splitVC.separatorSelectedColor = tintColor
@@ -779,7 +817,7 @@ import QuickLook
             return
         }
         
-        let fileBrowserNavVC = SidebarViewController.NavigationController(rootViewController: sidebar.fileBrowser)
+        let fileBrowserNavVC = sidebar.fileBrowserNavVC ?? SidebarViewController.NavigationController(rootViewController: sidebar.fileBrowser)
         fileBrowserNavVC.navigationBar.prefersLargeTitles = true
         fileBrowserNavVC.view.backgroundColor = .systemBackground
         
@@ -797,7 +835,7 @@ import QuickLook
     
     func open(url: URL, reloadRecents: Bool = false, run: Bool = false, completion: ((EditorViewController) -> Void)? = nil) {
         
-        guard url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "html" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .text) == true || (try? String(contentsOf: url)) != nil else { // Quick look
+        guard url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "pytoui" || url.pathExtension.lowercased() == "html" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .text) == true || (try? String(contentsOf: url)) != nil else { // Quick look
             
             let vc = QLPreviewController()
             previewingFile = url
@@ -808,7 +846,7 @@ import QuickLook
             return
         }
         
-        if self.editor == nil {
+        if self.editor == nil && url.pathExtension.lowercased() != "pytoui" {
             if let editor = openDocument(url, run: false, folder: nil) {
                 let navVC = NavigationController(rootViewController: editor)
                 navVC.navigationBar.prefersLargeTitles = false
@@ -821,7 +859,7 @@ import QuickLook
         
         showFilebrowserSidebar()
         
-        if let editor = (self.editor?.vc as? EditorSplitViewController)?.editor {
+        if url.pathExtension.lowercased() != "pytoui", let editor = (self.editor?.vc as? EditorSplitViewController)?.editor {
             (editor.parent as? EditorSplitViewController)?.killREPL()
             
             editor.document?.editor = nil
@@ -840,6 +878,7 @@ import QuickLook
                         editor.isDocOpened = false
                         editor.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
                         editor.document = document
+                        editor.setBarItems()
                         editor.viewWillAppear(false)
                         editor.appKitWindow.representedURL = document.fileURL
                         
@@ -876,10 +915,28 @@ import QuickLook
             RecentDataSource.shared.didSetRecent = nil
         }
         
-        show(vc: editor!)
-        
-        if run {
-            (editor?.vc as? EditorSplitViewController)?.editor?.run()
+        if url.pathExtension.lowercased() == "pytoui" {
+            guard #available(iOS 16.0, *) else {
+                return
+            }
+            
+            let doc = InterfaceDocument(fileURL: url)
+            doc.open { _ in
+                DispatchQueue.main.async {
+                    let ib = InterfaceBuilderViewController(document: doc)
+                    let navVC = NavigationController(rootViewController: ib)
+                    self.show(vc: navVC)
+                }
+            }
+        } else if let editor = editor {
+            
+            if editor.vc?.view.window == nil {
+                show(vc: editor)
+            }
+            
+            if run {
+                (editor.vc as? EditorSplitViewController)?.editor?.run()
+            }
         }
     }
     
@@ -969,27 +1026,12 @@ import QuickLook
                 showFilebrowserSidebar()
                 showPyPI()
             case 2:
-                // site-packages
+                // Home
                 
                 showFilebrowserSidebar()
                 
                 let browser = FileBrowserViewController()
-                
-                let site_packages = Python.pythonShared?.perform(#selector(PythonRuntime.getString(_:)), with: """
-                    import site
-                    s = site.getusersitepackages()
-                    """)
-                
-                guard let path = site_packages?.takeUnretainedValue() as? String else {
-                    return
-                }
-                
-                let url = URL(fileURLWithPath: path)
-                
-                if !FileManager.default.fileExists(atPath: url.path) {
-                    try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)
-                }
-                browser.directory = url
+                browser.directory = FileBrowserViewController.localContainerURL
                 
                 if splitViewController?.isCollapsed == false {
                     (splitViewController as! SidebarSplitViewController).fileBrowserNavVC.pushViewController(browser, animated: true)

@@ -1,5 +1,5 @@
 """
-Module used internally by Pyto for importing C extension.
+Module used internally by Pyto for importing C extensions.
 """
 
 import sys
@@ -8,17 +8,20 @@ import traceback
 import os
 import warnings
 from rubicon.objc import ObjCClass
-import _extensionsimporter
 import ctypes
 import threading
 import weakref
 import gc
-from pyto import PyOutputHelper
+from pyto import PyOutputHelper, PyInputHelper
 from importlib import util
 from importlib.machinery import ExtensionFileLoader, ModuleSpec, PathFinder
 from types import BuiltinFunctionType
 from inspect import isclass
 from time import sleep
+from _docsupport import is_sphinx
+
+if not is_sphinx:
+    import _extensionsimporter
 
 NSBundle = ObjCClass("NSBundle")
 
@@ -54,7 +57,16 @@ if "widget" not in os.environ:
 
 _added_modules = []
 
+
+def _enable_input_pipes():
+    try:
+        PyInputHelper.removeScriptFromIgnoreInputPipes(threading.current_thread().script_path)
+    except AttributeError:
+        pass
+
+
 class Extension:
+    """ A native extension module loaded from the app bundle. """
 
     def __init__(self, module):
         self.__original_module__ = module
@@ -76,6 +88,10 @@ class Extension:
 
 
 class FrameworkLoader(ExtensionFileLoader):
+    """
+    Loader for dynamic libraries included in app.
+    """
+
     def __init__(self, fullname, path):
         self.fullname = fullname
         super().__init__(fullname.split(".")[-1], path)
@@ -91,7 +107,7 @@ class FrameworkLoader(ExtensionFileLoader):
                     try:
                         price = str(Python.shared.environment["UPGRADE_PRICE"])
                     except KeyError:
-                        price = "5.99$"
+                        price = "(?)$"
 
                     try:
                         script_path = threading.current_thread().script_path
@@ -122,6 +138,8 @@ class FrameworkLoader(ExtensionFileLoader):
 
 
 class BuiltinLoader(ExtensionFileLoader):
+    """ Loader for builtin modules. (sys.builtin_module_names) """
+
     def __init__(self, fullname, path):
         self.fullname = fullname
         super().__init__(fullname.split(".")[-1], path)
@@ -143,6 +161,7 @@ class BuiltinLoader(ExtensionFileLoader):
 
     def module_repr(self, module):
         return f"<module '{module.__name__}' (built-in)>"
+
 
 def check_name(name, suffix, compare_with):
     if not name.endswith(suffix):
@@ -314,6 +333,7 @@ def free_cext_objects():
 
 
 class BitcodeValue:
+    """ A value returned by a bitcode module. """
 
     def __init__(self, pointer=None, module=None, _dict=None):
         # _dict is there so the initializer of 'BitcodeClass' works
@@ -352,7 +372,7 @@ class BitcodeValue:
         if name == "__dict__":
             return {}
 
-        if name in ["__bitcode_pointer__", "__repr__", "__del__", "__setattr__", "__llvm_module__", "__call__", "__instancecheck__", "__class__", "__annotations__", "__supports_custom_gettattro_setattro__", "__returns_pointer_attributes__", "__doc__", "__attribute_name__"]:
+        if name in ["__bitcode_pointer__", "__repr__", "__del__", "__setattr__", "__llvm_module__", "__call__", "__instancecheck__", "__class__", "__annotations__", "__supports_custom_gettattro_setattro__", "__returns_pointer_attributes__", "__doc__", "__attribute_name__", "__script_path__"]:
             try:
                 return super().__getattribute__(name)
             except TypeError:
@@ -363,14 +383,17 @@ class BitcodeValue:
 
         ret = None
         if llvm_has_getter(type(self.__bitcode_pointer__), name.encode("utf-8")):
+            _enable_input_pipes()
             ret = llvm_call_getter(type(self.__bitcode_pointer__), self, self.__llvm_module__, name.encode("utf-8"))
             _extensionsimporter.raise_exception_if_needed()
             sleep(0.25)
         elif llvm_has_getattr(type(self.__bitcode_pointer__)) and self.__supports_custom_gettattro_setattro__():
+            _enable_input_pipes()
             ret = llvm_call_getattro(type(self.__bitcode_pointer__), self, self.__llvm_module__, name)
             _extensionsimporter.raise_exception_if_needed()
             sleep(0.25)
         else:
+            _enable_input_pipes()
             ret = getattr(self.__bitcode_pointer__, name)
             _extensionsimporter.raise_exception_if_needed()
 
@@ -379,19 +402,21 @@ class BitcodeValue:
         return obj
     
     def __setattr__(self, name, value):
-        if name in ["__bitcode_pointer__", "__llvm_module__", "__attribute_name__"]:
+        if name in ["__bitcode_pointer__", "__llvm_module__", "__attribute_name__", "__script_path__"]:
             try:
                 return super().__setattr__(name, value)
             except TypeError:
                 return super().__setattr__(self, name, value)
 
         if llvm_has_setter(type(self.__bitcode_pointer__), name.encode("utf-8")):
+            _enable_input_pipes()
             llvm_call_setter(type(self.__bitcode_pointer__), self, self.__llvm_module__, name.encode("utf-8"), value)
             _extensionsimporter.raise_exception_if_needed()
             sleep(0.25)
             return
         
         if llvm_has_setattr(type(self.__bitcode_pointer__)) and self.__supports_custom_gettattro_setattro__():
+            _enable_input_pipes()
             llvm_call_setattro(type(self.__bitcode_pointer__), self, self.__llvm_module__, name, value)
             _extensionsimporter.raise_exception_if_needed()
             sleep(0.25)
@@ -410,6 +435,9 @@ class BitcodeValue:
 
 
 class BitcodeClass(BitcodeValue, type):
+    """
+    A class returned by a bitcode module.
+    """
 
     def __instancecheck__(cls, obj):
         if isinstance(obj, BitcodeValue):
@@ -429,6 +457,7 @@ class BitcodeClass(BitcodeValue, type):
         else:
             first = None
 
+        _enable_input_pipes()
         obj = llvm_create_instance(self.__bitcode_pointer__, self.__llvm_module__, args, kwargs, first, all_args, kwnames)
         _extensionsimporter.raise_exception_if_needed()
         
@@ -442,6 +471,9 @@ class BitcodeClass(BitcodeValue, type):
 
 
 class BitcodeFunction(BitcodeValue):
+    """
+    A function returned by a bitcode module.
+    """
 
     def __init__(self, function, module, name=None):
         self.__bitcode_pointer__ = function
@@ -467,6 +499,7 @@ class BitcodeFunction(BitcodeValue):
             else:
                 first = None
 
+            _enable_input_pipes()
             encoded_name = name.encode("utf-8")
             ret = llvm_call_function(encoded_name, self.__bitcode_pointer__, (self.__class__ is BitcodeCythonFunction), self.__llvm_module__, args, kwargs, first, all_args, kwnames)
             _extensionsimporter.raise_exception_if_needed()
@@ -477,12 +510,16 @@ class BitcodeFunction(BitcodeValue):
 
 
 class BitcodeCythonFunction(BitcodeFunction):
+     """
+     A bitcode Cython function.
+     """
 
      def __repr__(self):
         return f"<bitcode-cython-function {repr(self.__attribute_name__)}>"
 
 
 class BitcodeModule(BitcodeValue):
+    """ A bitcode module. """
     
     def __repr__(self):
         return f"<bitcode-module {repr(self.__name__)} from {repr(self.__file__)}>"
@@ -499,6 +536,7 @@ class BitcodeModule(BitcodeValue):
 
 
 class BitcodeLoader(ExtensionFileLoader):
+    """ Bitcode module loader. """
 
     def __init__(self, fullname, path):
         self.fullname = fullname
@@ -509,19 +547,47 @@ class BitcodeLoader(ExtensionFileLoader):
         if self.fullname in sys.modules:
             return sys.modules[self.fullname]
 
-        __import__("Cython.Compiler.FlowControl")
+        try:
+            __import__("Cython.Compiler.FlowControl")
+        except ImportError:
+            try:
+                price = str(Python.shared.environment["UPGRADE_PRICE"])
+            except KeyError:
+                price = "(?)$"
+
+            try:
+                script_path = threading.current_thread().script_path
+            except AttributeError:
+                script_path = None
+
+            PyOutputHelper.printLink(
+                f"Upgrade to import C extensions {price}\n",
+                url="pyto://upgrade",
+                script=script_path,
+            )
+
+            raise __UpgradeException__()
 
         with warnings.catch_warnings():
             warnings.filterwarnings(
                 action='ignore',
                 category=RuntimeWarning,
             )
-            mod = _extensionsimporter.module_from_bitcode(self.path, spec)
+            try:
+                script_path = threading.current_thread().script_path
+            except AttributeError:
+                script_path = None
+            mod = _extensionsimporter.module_from_bitcode(self.path, spec, script_path)
         
         if mod is None:
             raise RuntimeError("'{}' is not a valid module.".format(self.fullname))
         running_modules.append(weakref.ref(mod))
         mod = BitcodeModule(mod)
+        try:
+            mod.__script_path__ = threading.current_thread().script_path
+        except AttributeError:
+            mod.__script_path__ = None
+
         sys.modules[self.fullname] = mod
         return mod
 

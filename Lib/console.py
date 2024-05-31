@@ -42,7 +42,7 @@ if "widget" not in os.environ and not is_sphinx:
     from rubicon.objc import ObjCInstance
     from Foundation import NSObject
     import warnings
-    from _exc_handling import get_json, offer_suggestion
+    from _exc_handling import get_json, offer_suggestion, set_repl_id
 
     try:
         from rubicon.objc import *
@@ -110,10 +110,14 @@ def displayhook(_value):
         _value, ObjCInstance
     ):  # We assume it's an instance or subclass of NSObject
         _repr = str(_value.debugDescription)
+        try:
+            methods = str(_value._methodDescription())
+        except AttributeError:
+            methods = ""
         val = {
             "Description": _repr,
             "Superclass": str(_value.superclass.name),
-            "Methods": str(_value._methodDescription()),
+            "Methods": methods,
         }
     elif (
         isinstance(_value, Mapping)
@@ -241,10 +245,13 @@ def __runREPL__(repl_name="", namespace={}, banner=None):
         banner = f'Python {sys.version} on {sys.platform}\nType "help", "copyright", "credits" or "license" for more information.'
         banner += '\nType "clear()" to clear the console.'
 
+    set_repl_id(__namespace__)
+
     try:
         interact(readfunc=read, local=__namespace__, banner=banner)
-    except SystemExit:
+    except SystemExit as e:
         del sys.__class__.main[threading.current_thread().script_path]
+        raise e
 
 
 # MARK: - Running
@@ -276,6 +283,16 @@ def __clear_mods__():
         del sys.modules["turtle"]
     except KeyError:
         pass
+
+    try:
+        del sys.modules["make_sphinx_documentation"]
+    except KeyError:
+        pass
+
+    keys = list(sys.modules.keys())
+    for key in keys:
+        if key.startswith("Cython"):
+            del sys.modules[key]
 
     try:
         _values = sys.modules["_values"]
@@ -313,6 +330,7 @@ def __clear_mods__():
         except KeyError:
             pass
 
+
 __widget_id__ = None
 
 if "widget" not in os.environ:
@@ -327,7 +345,9 @@ if "widget" not in os.environ:
 
     _are_breakpoints_set = True
 
-    def run_script(path, replMode=False, debug=False, breakpoints="[]", runREPL=True, args=[], cwd="/", _input=None, is_shortcut=False):
+    _close_repl = []
+
+    def run_script(path, replMode=False, debug=False, breakpoints="[]", runREPL=True, args=[], cwd="/", _input=None, is_shortcut=False, only_shell=False, shell_id=None):
         """
         Run the script at given path catching exceptions.
     
@@ -342,7 +362,7 @@ if "widget" not in os.environ:
             args: The arguments passed to sys.argv.
             cwd: The thread working directory.
         """
-        
+
         sys = __import__("sys")
         if _input is not None:
             sys.stdin = _input
@@ -408,6 +428,9 @@ if "widget" not in os.environ:
         # Kill the REPL running for this script
         global __repl_threads__
         if path in __repl_threads__:
+
+            if path not in _close_repl:
+                _close_repl.append(path)
         
             Python.shared.interruptInputWithScript(path)
         
@@ -436,15 +459,18 @@ if "widget" not in os.environ:
                 sys.path.remove(pip_directory)
             except:
                 pass
-            sys.path.insert(-1, currentDir)
+
             sys.path.insert(-1, pip_directory)
+            sys.path.insert(-1, currentDir)
 
             try:
                 global __script__
                 spec = importlib.util.spec_from_file_location("__main__", path)
-                __script__ = importlib.util.module_from_spec(spec)
-                sys.__class__.main[path] = weakref.ref(__script__)
-                sys.modules["__main__"] = __import__("__main__")
+                if spec is not None:
+                    __script__ = importlib.util.module_from_spec(spec)
+                    sys.__class__.main[path] = weakref.ref(__script__)
+                    sys.modules["__main__"] = __import__("__main__")
+
                 if debug and "widget" not in os.environ:
 
                     try:
@@ -505,9 +531,17 @@ if "widget" not in os.environ:
 
                     loop.close()
                 else:
-                    spec.loader.exec_module(__script__)
                     loop.close()
-                    return (path, vars(__script__), None)
+                    if not only_shell:
+                        if spec is not None:
+                            spec.loader.exec_module(__script__)
+
+                        if path not in __repl_threads__ and path in _close_repl:
+                            _close_repl.remove(path)
+                        
+                        return (path, vars(__script__), None)
+                    else:
+                        return (path, {}, None)
             except SystemExit:
                 if PyCallbackHelper is not None:
                     PyCallbackHelper.cancelled = True
@@ -617,8 +651,18 @@ if "widget" not in os.environ:
                 return
 
             if type(t) is tuple and len(t) == 3 and not is_watch_script:
-                __repl_threads__[t[0]] = threading.current_thread()
-                __runREPL__(t[0], t[1], "")
+                try:
+                    if only_shell or os.path.basename(path) == ".run.py":
+                        raise SystemExit
+                    
+                    __repl_threads__[t[0]] = threading.current_thread()
+                    __runREPL__(t[0], t[1], "")
+                except SystemExit:
+                    if path not in _close_repl:
+                        sys.argv = ["shell"]
+                        from _shell import main as shell; shell(False, False, shell_id)
+                    else:
+                        _close_repl.remove(path)
 
         _script = None
 
@@ -653,7 +697,6 @@ if "widget" not in os.environ:
         else:
             # Return the script's __dict__ for the Xcode template
             t = run()
-            
             if Python.shared.tooMuchUsedMemory:
                 del t
             elif __isMainApp__():
@@ -664,9 +707,11 @@ if "widget" not in os.environ:
         sys.path = list(dict.fromkeys(sys.path))  # I don't remember why 😭
 
         if "widget" not in os.environ:
-            import watch
-
-            watch.__show_ui_if_needed__()
+            try:
+                import watch
+                watch.__show_ui_if_needed__()
+            except KeyError:
+                pass
 
         if Python.shared.tooMuchUsedMemory:
             Python.shared.runBlankScript()
@@ -712,7 +757,7 @@ def clear():
 __PyInputHelper__ = PyInputHelper
 
 
-def input(prompt: str = None, highlight=False, print_prompt=True):
+def input(prompt: str = None, highlight=False, print_prompt=True, shell=False):
     """
     Requests input with given prompt.
 
@@ -746,10 +791,10 @@ def input(prompt: str = None, highlight=False, print_prompt=True):
 
     try:
         __PyInputHelper__.showAlertWithPrompt(
-            prompt, script=threading.current_thread().script_path, highlight=highlight
+            prompt, script=threading.current_thread().script_path, highlight=highlight, shell=shell
         )
     except AttributeError:
-        __PyInputHelper__.showAlertWithPrompt(prompt, script=None, highlight=highlight)
+        __PyInputHelper__.showAlertWithPrompt(prompt, script=None, highlight=highlight, shell=shell)
 
     userInput = __PyInputHelper__.waitForInput(path)
 

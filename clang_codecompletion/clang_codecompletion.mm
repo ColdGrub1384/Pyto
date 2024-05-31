@@ -46,7 +46,7 @@ NSArray* complete(const char *path, const char *code, int line, int column, NSAr
     CXTranslationUnit u;
     CXErrorCode error = clang_parseTranslationUnit2(idx, path, (const char**)_argv,
                         argc, unsaved_files, 1,
-                        CXTranslationUnit_PrecompiledPreamble | CXTranslationUnit_CacheCompletionResults,
+                        CXTranslationUnit_PrecompiledPreamble,
                         &u);
 
     if (!u) {
@@ -140,7 +140,7 @@ NSArray* complete(const char *path, const char *code, int line, int column, NSAr
     clang_disposeCodeCompleteResults(res);
     clang_disposeIndex(idx);
     clang_disposeTranslationUnit(u);
-
+    
     for(i = 0; i < argc; i++) {
         free(_argv[i]);
     }

@@ -9,7 +9,6 @@
 import UIKit
 import SourceEditor
 import SavannaKit
-import Color_Picker_for_iOS
 import Highlightr
 
 @available(iOS 13.0, *)
@@ -412,55 +411,13 @@ class ThemeMakerTableViewController: UITableViewController, UITextFieldDelegate 
                 handler(color)
             }
             
-            func showColorPicker() {
-                let view = HRColorPickerView()
-                view.color = color
-                view.colorMapView.backgroundColor = .clear
-                view.colorMapView.setValue(NSNumber(integerLiteral: 1), forKey: "saturationUpperLimit")
-                view.brightnessSlider.setValue(NSNumber(integerLiteral: 0), forKey: "brightnessLowerLimit")
-                (view.colorInfoView.value(forKey: "_hexColorLabel") as? UILabel)?.textColor = .label
-                view.backgroundColor = .systemBackground
-                            
-                view.handler = handleColor
-                
-                class ViewController: UIViewController {
-                    
-                    @objc func close(_ sender: Any) {
-                        navigationController?.dismiss(animated: true, completion: nil)
-                    }
-                }
-                
-                let vc = ViewController()
-                vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: vc, action: #selector(ViewController.close(_:)))
-                vc.edgesForExtendedLayout = []
-                vc.loadViewIfNeeded()
-                
-                view.frame = vc.view.frame
-                view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                vc.view.addSubview(view)
-                
-                let navVC = UINavigationController(rootViewController: vc)
-                navVC.preferredContentSize = CGSize(width: 480, height: 640)
-                navVC.modalPresentationStyle = .formSheet
-                
-                present(navVC, animated: true, completion: nil)
-            }
+            colorHandler = handleColor
             
-            #if !Xcode11
-            if #available(iOS 14.0, *) {
-                colorHandler = handleColor
-                
-                let vc = UIColorPickerViewController()
-                vc.selectedColor = color
-                vc.supportsAlpha = false
-                vc.delegate = self
-                present(vc, animated: true, completion: nil)
-            } else {
-                showColorPicker()
-            }
-            #else
-            showColorPicker()
-            #endif
+            let vc = UIColorPickerViewController()
+            vc.selectedColor = color
+            vc.supportsAlpha = false
+            vc.delegate = self
+            present(vc, animated: true, completion: nil)
         }
         
         switch indexPath {

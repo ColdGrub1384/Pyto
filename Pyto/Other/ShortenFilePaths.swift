@@ -19,22 +19,22 @@ func ShortenFilePaths(in str: String) -> String {
     #if MAIN
     var text = str
     
-    let docs = FileBrowserViewController.localContainerURL
+    let home = FileBrowserViewController.localContainerURL.deletingLastPathComponent()
     
-    text = str.replacingOccurrences(of: docs.path, with: "Documents")
-    text = text.replacingOccurrences(of: "/privateDocuments", with: "Documents")
+    text = str.replacingOccurrences(of: home.path, with: "~")
+    text = text.replacingOccurrences(of: "/private~", with: "~")
     if let iCloudDrive = FileBrowserViewController.iCloudContainerURL {
-        text = text.replacingOccurrences(of: iCloudDrive.path, with: "iCloud Drive")
-        text = text.replacingOccurrences(of: iCloudDrive.deletingLastPathComponent().lastPathComponent, with: "iCloud Drive")
+        text = text.replacingOccurrences(of: iCloudDrive.path, with: "$ICLOUD")
+        text = text.replacingOccurrences(of: iCloudDrive.deletingLastPathComponent().lastPathComponent, with: "$ICLOUD")
     }
     
-    text = text.replacingOccurrences(of: Bundle.main.bundlePath, with: "Pyto.app")
-    text = text.replacingOccurrences(of: "/privatePyto.app", with: "Pyto.app")
+    text = text.replacingOccurrences(of: Bundle.main.bundlePath, with: "$APP")
+    text = text.replacingOccurrences(of: "/privatePyto.app", with: "$APP")
         
-    text = text.replacingOccurrences(of: (URL(fileURLWithPath: "/private").appendingPathComponent(docs.deletingLastPathComponent().path).path).replacingOccurrences(of: "//", with: "/")+"/", with: "")
-    text = text.replacingOccurrences(of: URL(fileURLWithPath: "/private").appendingPathComponent(docs.deletingLastPathComponent().path).path.replacingOccurrences(of: "//", with: "/"), with: "")
-    text = text.replacingOccurrences(of: docs.deletingLastPathComponent().path+"/", with: "")
-    text = text.replacingOccurrences(of: docs.deletingLastPathComponent().path, with: "")
+    text = text.replacingOccurrences(of: (URL(fileURLWithPath: "/private").appendingPathComponent(home.deletingLastPathComponent().path).path).replacingOccurrences(of: "//", with: "/")+"/", with: "")
+    text = text.replacingOccurrences(of: URL(fileURLWithPath: "/private").appendingPathComponent(home.deletingLastPathComponent().path).path.replacingOccurrences(of: "//", with: "/"), with: "")
+    text = text.replacingOccurrences(of: home.deletingLastPathComponent().path+"/", with: "")
+    text = text.replacingOccurrences(of: home.deletingLastPathComponent().path, with: "")
     
     return text
     #else

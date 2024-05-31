@@ -39,6 +39,20 @@
 				<string>ch.ada.pyto.wheel</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>PytoUI</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ch.ada.pytoui</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -121,10 +135,19 @@
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Scripts can play music.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_pyto._tcp</string>
+		<string>_pyto._udp</string>
+	</array>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Allow scripts to access your calendar.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow camera usage if you want to allow scripts accessing to it. The app itself doesn't require photo library access.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Allow contacts usage if you want to allow scripts to use them.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Connect with other devices with the multipeer module.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Scripts can access location.</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -277,6 +300,39 @@
 					<string>whl</string>
 				</array>
 			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.json</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>PytoUI</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ch.ada.pytoui</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>pytoui</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>PytoUI View</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>interfacebuilder.view</string>
+			<key>UTTypeTagSpecification</key>
+			<dict/>
 		</dict>
 	</array>
 </dict>

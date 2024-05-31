@@ -124,11 +124,14 @@ def suggestForCode(code, index, path, get_definitions=False):
                             for signature in name.get_signatures():
                                 _signatures.append(signature.to_string())
                         
-                            defined_names.append([name.description, name.line, name.docstring(raw=True), name.name, _signatures, [], name.module_name, name.type])
+                            doc = name.docstring(raw=True)
+                            defined_names.append([name.description, name.line if name.line is not None else 0, doc if doc is not None else "", name.name, _signatures, [], name.module_name, name.type])
                     except NotImplementedError:
                         pass
                     
-                    definitions.append([decl, line, _def.docstring(raw=True), _def.name, signatures, defined_names, _def.module_name, _def.type])
+                    doc = _def.docstring(raw=True)
+                    arr = [decl, line, doc if doc is not None else "", _def.name, signatures, defined_names, _def.module_name, _def.type]
+                    definitions.append(arr)
 
                 visibleEditor.definitions = definitions
 
@@ -354,13 +357,17 @@ def complete_files(arg, cwd):
     return (files, slashed_completions)
 
 
-def complete_shell_command(command):
+def complete_shell_command(command, shell_id=None):
 
     if " " in command:
         # Files
 
         try:
-            cwd = shell.working_directories[threading.current_thread().script_path]
+            if shell_id is None or shell_id not in shell.working_directories:
+                key = threading.current_thread().script_path
+            else:
+                key = shell_id
+            cwd = shell.working_directories[key]
         except (AttributeError, KeyError):
             cwd = "/"
 
@@ -393,10 +400,10 @@ def complete_shell_command(command):
 
     def filter_other_files(module):
         ext = os.path.splitext(module)[1]
-        return ((ext == "" or ext == ".py") and not module.startswith(".") and not (module.startswith("__") and module.endswith("__")))
+        return ((ext == "" or ext == ".py" or ext == ".bc" or ext == ".ll") and not module.startswith(".") and not (module.startswith("__") and module.endswith("__")))
     
     def remove_extension(module):
-        if module.endswith(".py"):
+        if module.endswith(".py") or module.endswith(".bc") or module.endswith(".ll"):
             return module[:-3]
         else:
             return module

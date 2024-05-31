@@ -8,6 +8,7 @@
 
 import Intents
 import UIKit
+import WidgetKit
 
 class GetScriptOutputIntentHandler: NSObject, GetScriptOutputIntentHandling {
     

@@ -22,18 +22,9 @@ func findFirstResponder(inView view: UIView) -> UIView? {
     return nil
 }
 
-fileprivate class KeyboardStatusManager: ObservableObject {
+class KeyboardHostingController: UIViewController {
     
-    @Published var isKeyboardShown = false {
-        didSet {
-            objectWillChange.send()
-        }
-    }
-}
-
-class KeyboardHostingController: UIHostingController<KeyboardHostingController.Container.View> {
-    
-    struct Container: UIViewControllerRepresentable {
+    /*struct Container: UIViewControllerRepresentable {
 
         var viewController: UIViewController
                 
@@ -55,37 +46,43 @@ class KeyboardHostingController: UIHostingController<KeyboardHostingController.C
         func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
             
         }
-    }
+    }*/
     
     let viewController: UIViewController
-    
-    fileprivate let keyboardStatusManager = KeyboardStatusManager()
-    
+        
     init(viewController: UIViewController) {
         self.viewController = viewController
-        super.init(rootView: Container.View(viewController: viewController, keyboardStatusManager: keyboardStatusManager))
+        super.init(nibName: nil, bundle: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { [weak self] _ in
+        viewController.view.frame = view.bounds
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addChild(viewController)
+        view.addSubview(viewController.view)
+        
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { [weak self] notification in
+            
             guard let self = self else {
                 return
             }
             
-            self.keyboardStatusManager.isKeyboardShown = (findFirstResponder(inView: self.view) != nil) ? true : false
+            guard let height = (notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect)?.height, height > 200 else { // Only software keyboard
+                return
+            }
+            
+            self.viewController.view.frame.size.height = self.view.bounds.height-height
         }
         
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { [weak self] notification in
             
             guard let self = self else {
                 return
             }
             
-            if findFirstResponder(inView: self.view) == nil {
-                self.keyboardStatusManager.isKeyboardShown = false
-            }
+            self.viewController.view.frame = self.view.bounds
         }
     }
     

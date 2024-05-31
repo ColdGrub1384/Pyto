@@ -49,3 +49,16 @@ def get_data() -> str:
     else:
         PyMultipeerHelper.data = None
         return str(data)
+
+
+def wait() -> str:
+    """
+    Waits until data is received and returns it.
+
+    Returns ``None`` when :func:`~multipeer.disconnect` is called.
+
+    :rtype: str
+    """
+
+    PyMultipeerHelper.wait()
+    return get_data()

@@ -35,6 +35,27 @@ struct DocumentationsDownloadScreen: View {
         }
     }
     
+    func docView(_ doc: DownloadableDocumentation) -> some View {
+        Button {
+            downloadingDocumentations = [doc]
+        } label: {
+            Label {
+                VStack {
+                    HStack {
+                        Text(doc.name).foregroundColor(.primary).padding(.top, 5)
+                        Spacer()
+                    }
+                    HStack {
+                        Text(doc.version).font(.footnote).foregroundColor(.secondary)
+                        Spacer()
+                    }
+                }
+            } icon: {
+                Image(systemName: "icloud.and.arrow.down.fill")
+            }
+        }
+    }
+    
     var body: some View {
         List {
             
@@ -51,7 +72,7 @@ struct DocumentationsDownloadScreen: View {
             
             if documentationManager.nonDownloadedDocumentations.count > 0 {
                 Button {
-                    downloadingDocumentations = documentationManager.nonDownloadedDocumentations
+                    downloadingDocumentations = documentationManager.nonDownloadedDocumentations+documentationManager.availableUpdates
                 } label: {
                     Text(NSLocalizedString("downloadAll", comment: "Download all"))
                 }.onAppear {
@@ -60,24 +81,22 @@ struct DocumentationsDownloadScreen: View {
                     fixBackgroundColor(documentationSidebarViewController: documentationSidebarViewController)
                 }
                 
-                ForEach(documentationManager.nonDownloadedDocumentations) { doc in
-                    Button {
-                        downloadingDocumentations = [doc]
-                    } label: {
-                        Label {
-                            VStack {
-                                HStack {
-                                    Text(doc.name).foregroundColor(.primary)
-                                    Spacer()
-                                }
-                                HStack {
-                                    Text(doc.version).font(.footnote).foregroundColor(.secondary)
-                                    Spacer()
-                                }
-                            }
-                        } icon: {
-                            Image(systemName: "icloud.and.arrow.down.fill")
+                Group {
+                    
+                    Section {
+                        ForEach(documentationManager.availableUpdates) { doc in
+                            docView(doc)
                         }
+                    } header: {
+                        Text("pypi.updates", comment: "Updatable packages")
+                    }
+                    
+                    Section {
+                        ForEach(documentationManager.nonDownloadedDocumentations) { doc in
+                            docView(doc)
+                        }
+                    } header: {
+                        Text(NSLocalizedString("downloads", comment: "The title of the downloadable documentations view"))
                     }
                 }.disabled(progress != nil).background(Group {
                     if #available(iOS 15.0, *) {

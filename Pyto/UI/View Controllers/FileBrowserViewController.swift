@@ -12,6 +12,7 @@ import MobileCoreServices
 import Dynamic
 import UniformTypeIdentifiers
 import SwiftUI
+import InterfaceBuilder
 
 fileprivate extension URL {
     
@@ -47,12 +48,12 @@ fileprivate extension URL {
 }
 
 /// The file browser used to manage files inside a project.
-@objc public class FileBrowserViewController: UICollectionViewController, UIDocumentPickerDelegate, UIContextMenuInteractionDelegate, UISearchResultsUpdating, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+@objc public class FileBrowserViewController: UICollectionViewController, UIDocumentPickerDelegate, UISearchResultsUpdating, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UINavigationItemRenameDelegate {
     
     init() {
         super.init(collectionViewLayout: UICollectionViewCompositionalLayout { section, layoutEnvironment in
-            var config = UICollectionLayoutListConfiguration(appearance: .plain)
-            config.showsSeparators = false
+            var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            config.showsSeparators = true
             return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
         })
     }
@@ -64,59 +65,57 @@ fileprivate extension URL {
     /// The button for showing the menu.
     let menuButton = UIButton()
     
+    /// The navigation item menu.
+    var menu: UIMenu?
+    
     /// Configures `menuButton`.
     func configureMenu() {
         
-        var setupPyMenuItems = [UIMenuElement]()
+        menu = UIMenu(title: directory.lastPathComponent, image: nil, identifier: nil, options: [], children: [])
         
-        if FileManager.default.fileExists(atPath: directory.appendingPathComponent("setup.py").path) {
+        var hierarchy = [UIMenuElement]()
+        
+        var history = directory!
+        for _ in directory.pathComponents.reversed() {
             
-            let canBuildDocs: Bool
-            if let str = try? String(contentsOf: directory.appendingPathComponent("setup.py")), str.contains("BuildDocsCommand"), str.contains("build_docs") {
-                canBuildDocs = true
-            } else {
-                canBuildDocs = false
+            history = history.deletingLastPathComponent()
+            let url = history
+            
+            guard FileManager.default.isReadableFile(atPath: url.path) else {
+                break
             }
             
-            setupPyMenuItems = [
-                
-                UIAction(title: NSLocalizedString("pypi.install", comment: "install"), image: UIImage(systemName: "square.and.arrow.down"), identifier: nil, discoverabilityTitle: "Install", attributes: [], state: .off, handler: { [weak self] _ in
-                    
-                    self?.run(cmd: "pip install .")
-                }),
-                
-                UIAction(title: NSLocalizedString("menuItems.build", comment: "The menu item to build a project"), image: UIImage(systemName: "gearshape.2"), identifier: nil, discoverabilityTitle: "Build", attributes: [], state: .off, handler: { [weak self] _ in
-                    
-                    self?.run(cmd: "python setup.py bdist_wheel")
-                }),
-                
-            ]+(!canBuildDocs ? [] : [
+            var image = UIImage(systemName: "folder")
+            var name = url.lastPathComponent
             
-                UIAction(title: NSLocalizedString("menuItems.buildDocs", comment: "The menu item to build a project's documentation"), image: UIImage(systemName: "books.vertical"), identifier: nil, discoverabilityTitle: "Build documentation", attributes: [], state: .off, handler: { [weak self] _ in
-                    
-                    self?.run(cmd: "python setup.py build_docs")
-                }),
-                
-            ])+[
-                UIAction(title: NSLocalizedString("menuItems.clean", comment: "The menu item to clean a project"), image: UIImage(systemName: "trash"), identifier: nil, discoverabilityTitle: "Clean", attributes: [], state: .off, handler: { [weak self] _ in
-                    
-                    self?.run(cmd: "python setup.py clean")
-                }),
-            ]
+            if url == Self.iCloudContainerURL?.deletingLastPathComponent() {
+                break
+            } else if url == Self.iCloudContainerURL {
+                name = "iCloud Drive"
+                image = UIImage(systemName: "cloud")
+            }
+            
+            hierarchy.append(UIAction(title: name, image: image, handler: { [weak self] _ in
+                let browser = FileBrowserViewController()
+                browser.directory = url
+                self?.navigationController?.pushViewController(browser, animated: true)
+            }))
+            
         }
         
-        menuButton.menu = UIMenu(title: directory.lastPathComponent, image: nil, identifier: nil, options: [], children: [
+        let hierarchyMenu = [UIMenu(title: "", options: .displayInline, children: hierarchy)]
+        
+        let addToFavorites = UIAction(title: NSLocalizedString("addToFavorites", comment: "Add to favorites"), image: UIImage(systemName: "star")) { action in
             
-            UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: NSLocalizedString("creation.createFolderTitle", comment: "The title of the button shown for creating a folder"), image: UIImage(systemName: "folder.badge.plus"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
-                    
-                    self?.createFile(type: .folder)
-                }),
-                
-                makeCreateMenu(includeFolder: false, directory: directory)
-            ])
-            
-        ]+setupPyMenuItems)
+            SidebarViewController.favorites.append(self.directory)
+            (self.splitViewController as? SidebarSplitViewController)?.sidebar?.loadFavorites()
+        }
+        
+        if #available(iOS 16.0, *) {
+            navigationItem.titleMenuProvider = { items in
+                return UIMenu(children: hierarchyMenu + items + self.menu!.children + (SidebarViewController.favorites.contains(self.directory) ? [] : [UIMenu(title: "", options: .displayInline, children: [addToFavorites])]))
+            }
+        }
     }
     
     /// The directory opened at launch.
@@ -163,6 +162,9 @@ fileprivate extension URL {
         /// Python source.
         case python
         
+        /// A PytoUI view.
+        case view
+        
         /// Blank file.
         case blank
         
@@ -197,7 +199,6 @@ fileprivate extension URL {
         folderObserver.setEventHandler {
             DispatchQueue.main.async {
                 self.load()
-                self.lint()
             }
         }
         folderObserver.resume()
@@ -224,6 +225,14 @@ fileprivate extension URL {
         didSet {
             title = directory != FileBrowserViewController.iCloudContainerURL ? FileManager.default.displayName(atPath: directory.path) : "iCloud Drive"
             
+            if #available(iOS 16.0, *) {
+                let props = UIDocumentProperties(url: directory)
+                props.activityViewControllerProvider = {
+                    UIActivityViewController(activityItems: [self.directory!], applicationActivities: nil)
+                }
+                navigationItem.documentProperties = props
+            }
+            
             expanded = []
             
             if dataSource != nil {
@@ -235,8 +244,6 @@ fileprivate extension URL {
             }
             
             configureMenu()
-            
-            lint()
         }
     }
     
@@ -265,9 +272,13 @@ fileprivate extension URL {
             _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { timer in
                 if moduleRunner?.console?.prompt != nil {
                     moduleRunner?.console?.input = cmd
+                    moduleRunner?.console?.inputIndex = cmd.count
+                    moduleRunner?.console?.print(cmd)
                     moduleRunner?.console?.webView.printInput(operation: .insert)
-                    if !onlyWrite {
-                        moduleRunner?.console?.webView.enter()
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+                        if !onlyWrite {
+                            moduleRunner?.console?.webView.enter()
+                        }
                     }
                     timer.invalidate()
                 }
@@ -335,6 +346,9 @@ fileprivate extension URL {
             }
         }
         dataSource.apply(snapshot, to: .main)
+        var newSnapshot = dataSource.snapshot()
+        newSnapshot.reloadItems(newSnapshot.itemIdentifiers)
+        dataSource.apply(newSnapshot)
     }
     
     private class DocumentPickerViewController: UIDocumentPickerViewController {
@@ -348,14 +362,15 @@ fileprivate extension URL {
     ///     - includeFolder. If `true`, includes a menu item to create a folder.
     ///     - directory: The directory where the file will be created. If `nil`, the file will be created in the receiver's directory.
     func makeCreateMenu(includeFolder: Bool = false, directory: URL? = nil) -> UIMenu {
-        UIMenu(title: NSLocalizedString("creation.createFileTitle", comment: "The title of the button shown for creating a file"), image: UIImage(systemName: "plus"), identifier: nil, options: [], children: (includeFolder ? [
+                
+        UIMenu(title: includeFolder ? NSLocalizedString("create", comment: "'Create' button") : NSLocalizedString("creation.createFileTitle", comment: "The title of the button shown for creating a file"), image: UIImage(systemName: "plus"), identifier: nil, options: [], children: (includeFolder ? [
         
                 UIAction(title: NSLocalizedString("creation.folder", comment: "A folder"), image: UIImage(systemName: "folder"), identifier: nil, discoverabilityTitle: NSLocalizedString("creation.folder", comment: "A folder"), attributes: [], state: .off, handler: { _ in
                     self.createFile(type: .folder, in: directory)
                 })
             ] : [])+[
         
-            UIAction(title: NSLocalizedString("creation.pythonScript", comment: "A Python script"), image: UIImage(systemName: "curlybraces"), identifier: nil, discoverabilityTitle: NSLocalizedString("creation.pythonScript", comment: "A Python script"), attributes: [], state: .off, handler: { _ in
+            UIAction(title: NSLocalizedString("creation.templates", comment: "Templates menu"), image: UIImage(systemName: "curlybraces"), identifier: nil, discoverabilityTitle: NSLocalizedString("creation.templates", comment: "Templates menu"), attributes: [], state: .off, handler: { _ in
                 self.createFile(type: .python, in: directory)
             }),
             
@@ -387,7 +402,14 @@ fileprivate extension URL {
             let templateChooser = TemplateChooser(parent: self, chooseName: true, importHandler: { url, _ in
                 if let url = url {
                     do {
-                        try FileManager.default.copyItem(at: url, to: dir.appendingPathComponent(url.lastPathComponent))
+                        
+                        let okayChars : Set<Character> =
+                                Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890_")
+                        let name = String(url.deletingPathExtension().lastPathComponent.filter { okayChars.contains($0) })
+                        
+                        var text = try String(contentsOf: url)
+                        text = text.replacingOccurrences(of: "<name>", with: name)
+                        try text.write(to: dir.appendingPathComponent(url.lastPathComponent), atomically: true, encoding: .utf8)
                     } catch {
                         present(error: error)
                     }
@@ -417,11 +439,20 @@ fileprivate extension URL {
                         name =  NSLocalizedString("untitled", comment: "Untitled")
                     }
                     
+                    if type == .view && !name.lowercased().hasSuffix(".pytoui") {
+                        name.append(".pytoui")
+                    }
+                    
                     if type == .folder {
                         try FileManager.default.createDirectory(at: dir.appendingPathComponent(name), withIntermediateDirectories: true, attributes: nil)
                     } else {
-                        if !FileManager.default.createFile(atPath: dir.appendingPathComponent(name).path, contents: "".data(using: .utf8), attributes: nil) {
-                            throw NSError(domain: "SeeLess.errorCreatingFile", code: 1, userInfo: [NSLocalizedDescriptionKey : "Error creating file"])
+                        let url = dir.appendingPathComponent(name)
+                        if type == .blank {
+                            if !FileManager.default.createFile(atPath: url.path, contents: "".data(using: .utf8), attributes: nil) {
+                                throw NSError(domain: "SeeLess.errorCreatingFile", code: 1, userInfo: [NSLocalizedDescriptionKey : "Error creating file"])
+                            }
+                        } else {
+                            try InterfaceDocument.createEmptyDocument(at: url)
                         }
                     }
                 } catch {
@@ -473,157 +504,7 @@ fileprivate extension URL {
     
     @objc static var visibles = NSMutableArray()
     
-    // MARK: - Linter
-    
-    @objc func showLinter(_ sender: Any) {
-        guard #available(iOS 15.0, *) else {
-            return
-        }
-        
-        var linters = [Linter]()
-        var warnings = [URL: [Linter.Warning]]()
-        
-        for warning in (self.warnings as? [Linter.Warning]) ?? [] {
-            if warnings[warning.url] != nil {
-                warnings[warning.url]?.append(warning)
-            } else {
-                warnings[warning.url] = [warning]
-            }
-        }
-        
-        
-        for warn in warnings {
-            linters.append(Linter(fileBrowser: self, fileURL: warn.key, code: (try? String(contentsOf: warn.key)) ?? "", warnings: warn.value))
-        }
-        
-        let linterVC = UIHostingController(rootView: ProjectLinter(linters: linters))
-        linterVC.modalPresentationStyle = .pageSheet
-        present(linterVC, animated: true)
-    }
-    
-    @objc var identifier = UUID().uuidString
-    
-    var warnings = [Any]() {
-        didSet {
-            
-            guard #available(iOS 15.0, *), let warnings = self.warnings as? [Linter.Warning] else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                if warnings.count == 0 {
-                    self.navigationItem.leftBarButtonItem = nil
-                } else {
-                    let hasErrors = warnings.contains(where: { $0.typeDescription.hasSuffix("-error") })
-                    
-                    let button = UIBarButtonItem(image: hasErrors ? UIImage(systemName: "xmark.octagon.fill") : UIImage(systemName: "exclamationmark.triangle.fill"), style: .plain, target: self, action: #selector(self.showLinter(_:)))
-                    button.tintColor = hasErrors ? .systemRed : .systemYellow
-                    self.navigationItem.leftBarButtonItem = button
-                }
-            }
-        }
-    }
-    
-    @objc var lintResult: String? {
-        didSet {
-            guard #available(iOS 15.0, *) else {
-                return
-            }
-            
-            if let lintResult = lintResult {
-                warnings = Linter.warnings(pylintOutput: lintResult)
-            } else {
-                warnings = []
-            }
-        }
-    }
-    
-    func lint() {
-        var url: URL!
-        if FileManager.default.fileExists(atPath: directory.appendingPathComponent("__init__.py").path) {
-            url = directory
-        } else {
-            for file in files {
-                if FileManager.default.fileExists(atPath: file.appendingPathComponent("__init__.py").path) {
-                    url = file
-                    break
-                }
-            }
-        }
-        
-        guard url != nil else {
-            return
-        }
-        
-        DispatchQueue.global().async {
-            Python.shared.run(code: """
-            try:
-                import sys
-                import io
-                import traceback
-                import threading
-                import console
-                
-                from astroid import MANAGER
-                MANAGER.astroid_cache.clear()
-                
-                console.__clear_mods__()
-                
-                threading.current_thread().script_path = '\(URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("script.py").path)'
-                
-                import multiprocessing
-                import configparser
-                import optparse
-                import getopt
-                
-                from pylint import lint
-                from pylint.reporters import text
-                
-                from pyto import FileBrowserViewController
-                
-                _id = '\(self.identifier)'
-                
-                if hasattr(sys, "sys") and hasattr(sys.sys.path, "path"):
-                    path = list(sys.sys.path.path)
-                else:
-                    path = sys.path
-                
-                try:
-                    sys.path = sys.path.path
-                except AttributeError:
-                    pass
-                
-                output = io.StringIO()
-                            
-                try:
-
-                    args = ["-E", "\(url.path.replacingOccurrences(of: "\"", with: "\\\""))"]
-
-                    reporter = text.TextReporter(output)
-
-                    lint.Run(args, reporter=reporter, exit=False) # exit=False means don't exit when the run is over
-                except Exception:
-                    traceback.print_exc()
-                except (SystemExit, KeyboardInterrupt):
-                    pass
-                
-                res = output.getvalue()
-                print(res)
-                
-                for visible in list(FileBrowserViewController.visibles):
-                    try:
-                        if str(visible.identifier) == _id:
-                            visible.lintResult = res
-                            break
-                    except AttributeError:
-                        pass
-            except Exception:
-                pass
-            """)
-        }
-    }
-    
-    // MARK: - Table view controller
+    // MARK: - Collection view controller
     
     private var alreadyShown = false
     
@@ -680,9 +561,12 @@ fileprivate extension URL {
                 var name = url.deletingPathExtension().lastPathComponent
                 name.removeFirst()
                 content.text = name
+                content.secondaryText = "iCloud Drive"
             } else {
                 content.text = url.lastPathComponent
             }
+            
+            var isPythonScript = false
             
             var isDir: ObjCBool = false
             if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) && isDir.boolValue {
@@ -693,32 +577,75 @@ fileprivate extension URL {
                     content.image = UIImage(systemName: "folder.fill")
                     content.imageProperties.tintColor = .systemBlue
                 }
+                
+                if let count = (try? FileManager.default.contentsOfDirectory(atPath: url.path))?.count, let attributes = (try? url.resourceValues(forKeys: [.contentModificationDateKey])), let date = attributes.contentModificationDate {
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateStyle = .short
+                    dateFormatter.timeStyle = .none
+                    
+                    content.secondaryText = "\(dateFormatter.string(from: date)) - \(count) item\(count > 1 ? "s" : "")"
+                }
                 cell.accessories = [.outlineDisclosure(options: .init(style: .header))]
             } else {
-                if !icloud {
-                    if url.pathExtension.lowercased() == "py" {
-                        content.image = UIImage(named: "python.SFSymbol")?.withRenderingMode(.alwaysOriginal)
-                        content.imageProperties.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .largeTitle, compatibleWith: nil))
-                        content.imageProperties.tintColor = .systemGreen
+                if ["py", "pyc", "pyx"].contains(url.pathExtension.lowercased()) {
+                    if #available(iOS 16.0, *) {
+                        let renderer = ImageRenderer(content: Image("python.SFSymbol")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .symbolRenderingMode(.multicolor)
+                            .foregroundStyle(.blue, .yellow)
+                            .font(.system(size: 30)))
+                        renderer.scale = 2
+                        content.image = renderer.uiImage
                     } else {
-                        content.image = UIImage(systemName: "doc.fill")
-                        content.imageProperties.tintColor = .systemGreen
+                        content.image = UIImage(named: "python.SFSymbol")?.withRenderingMode(.alwaysOriginal)
+                        content.imageProperties.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 30))
+                        
+                        content.imageProperties.tintColor = UIColor(named: "TintColor")
                     }
+                    
+                    isPythonScript = true
+                } else if url.pathExtension.lowercased() == "pytoui" {
+                    content.image = UIImage(systemName: "ipad")
+                    content.imageProperties.tintColor = .systemRed
+                } else if ["bc", "ll", "so"].contains(url.pathExtension.lowercased()) {
+                    content.image = UIImage(systemName: "terminal.fill")
+                    content.imageProperties.tintColor = .label
+                } else if ["c", "cc", "cpp", "cxx", "m", "mm"].contains(url.pathExtension.lowercased()) {
+                    content.image = UIImage(systemName: "c.square.fill")
+                    content.imageProperties.tintColor = .systemPurple
+                } else if ["h", "hpp"].contains(url.pathExtension.lowercased()) {
+                    content.image = UIImage(systemName: "h.square.fill")
+                    content.imageProperties.tintColor = .systemPink
                 } else {
-                    content.image = UIImage(systemName: "icloud.and.arrow.down.fill")
-                    content.imageProperties.tintColor = .systemBlue
+                    content.image = UIImage(systemName: "doc.text.fill")
+                    content.imageProperties.tintColor = .label
+                }
+                if !icloud, let attributes = (try? url.resourceValues(forKeys: [.fileSizeKey, .contentModificationDateKey])), let fileSize = attributes.fileSize, let date = attributes.contentModificationDate {
+                    let bytesFormatter = ByteCountFormatter()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateStyle = .short
+                    dateFormatter.timeStyle = .none
+                    content.secondaryText = "\(dateFormatter.string(from: date)) - \(bytesFormatter.string(fromByteCount: Int64(fileSize)))"
                 }
                 cell.accessories = []
             }
-            
-            let interaction = UIContextMenuInteraction(delegate: self)
-            cell.addInteraction(interaction)
-            
+             
+            if !isPythonScript {
+                content.imageProperties.preferredSymbolConfiguration = .init(font: UIFont.systemFont(ofSize: 30))
+            }
+            content.imageProperties.reservedLayoutSize = CGSize(width: 30, height: 30)
+            content.secondaryTextProperties.color = .secondaryLabel
+            content.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
             cell.contentConfiguration = content
+            cell.contentView.alpha = (icloud || url.lastPathComponent.hasPrefix(".")) ? 0.5 : 1
         }
         
+        
         dataSource = UICollectionViewDiffableDataSource<Section, URL>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            return cell
         })
         
         dataSource.sectionSnapshotHandlers.shouldExpandItem = {
@@ -792,12 +719,25 @@ fileprivate extension URL {
         searchController.searchBar.placeholder = NSLocalizedString("Search", bundle: Bundle(for: UIApplication.self), comment: "")
         navigationItem.searchController = searchController
         definesPresentationContext = true
+
+        if #available(iOS 16.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+            navigationItem.style = .navigator
+            navigationItem.renameDelegate = self
+        } else {
+            menuButton.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
+            menuButton.showsMenuAsPrimaryAction = true
+            navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(customView: menuButton)
+            ]
+        }
         
-        menuButton.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
-        menuButton.showsMenuAsPrimaryAction = true
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(customView: menuButton)
-        ]
+        let createFolder = UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(self.createFolder(_:)))
+        
+        let createFile = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: nil, action: nil)
+        createFile.menu = makeCreateMenu(includeFolder: false)
+        
+        navigationItem.rightBarButtonItems = [createFolder, createFile]
     }
     
     public override func viewDidAppear(_ animated: Bool) {
@@ -824,7 +764,7 @@ fileprivate extension URL {
             stopObserving(directory: dir)
         }
     }
-    
+        
     public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard var url = dataSource.itemIdentifier(for: indexPath) else {
@@ -848,7 +788,7 @@ fileprivate extension URL {
                 url = url.deletingLastPathComponent().appendingPathComponent(last)
             }
             
-            if url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "html" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .text) == true || (try? String(contentsOf: url)) != nil {
+            if url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "html" || (try? url.resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .text) == true || (try? String(contentsOf: url)) != nil, url.pathExtension.lowercased() != "pytoui" {
                 
                 if let editor = ((splitViewController as? SidebarSplitViewController)?.sidebar?.editor?.vc as? EditorSplitViewController)?.editor {
                     
@@ -861,7 +801,7 @@ fileprivate extension URL {
                             let document = PyDocument(fileURL: url)
                             document.open { (_) in
                                 
-                                #if !Xcode11
+#if !Xcode11
                                 if #available(iOS 14.0, *) {
                                     RecentDataSource.shared.recent.append(url)
                                     RecentDataSource.shared.didSetRecent = {
@@ -869,7 +809,7 @@ fileprivate extension URL {
                                         RecentDataSource.shared.didSetRecent = nil
                                     }
                                 }
-                                #endif
+#endif
                                 
                                 editor.isDocOpened = false
                                 editor.parent?.title = document.fileURL.deletingPathExtension().lastPathComponent
@@ -895,6 +835,23 @@ fileprivate extension URL {
                         (self.splitViewController as? SidebarSplitViewController)?.sidebar?.loadRecents()
                         RecentDataSource.shared.didSetRecent = nil
                     }
+                }
+            } else if url.pathExtension.lowercased() == "pytoui", #available(iOS 16.0, *) {
+                let doc = InterfaceDocument(fileURL: url)
+                doc.open { _ in
+                    DispatchQueue.main.async {
+                        let ib = InterfaceBuilderViewController(document: doc)
+                        let navVC = UINavigationController(rootViewController: ib)
+                        navVC.navigationBar.prefersLargeTitles = false
+                        ib.navigationItem.largeTitleDisplayMode = .never
+                        self.showDetailViewController(navVC, sender: self)
+                    }
+                }
+                
+                RecentDataSource.shared.recent.append(url)
+                RecentDataSource.shared.didSetRecent = {
+                    (self.splitViewController as? SidebarSplitViewController)?.sidebar?.loadRecents()
+                    RecentDataSource.shared.didSetRecent = nil
                 }
             } else if !icloud && url.pathExtension.lowercased() == "whl" {
                 (splitViewController as? SidebarSplitViewController)?.sidebar?.install(wheel: url)
@@ -942,6 +899,7 @@ fileprivate extension URL {
         }
         
         let item = UIDragItem(itemProvider: NSItemProvider())
+        item.itemProvider.registerObject(file as NSItemProviderWriting, visibility: .ownProcess)
         item.itemProvider.registerFileRepresentation(forTypeIdentifier: (try? file.resourceValues(forKeys: [.typeIdentifierKey]))?.typeIdentifier ?? kUTTypeItem as String, fileOptions: .openInPlace, visibility: .all) { (handler) -> Progress? in
             
             handler(file, true, nil)
@@ -957,7 +915,7 @@ fileprivate extension URL {
         return [item]
     }
     
-    // MARK: - Table view drop delegate
+    // MARK: - Collection view drop delegate
     
     public func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
         return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeItem as String])
@@ -1074,46 +1032,59 @@ fileprivate extension URL {
     
     // MARK: - Context menu interaction delegate
     
-    @available(iOS 13.0, *)
-    public func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-                
-        guard let cell = interaction.view as? UICollectionViewCell else {
-            return nil
+    public override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        let cell = (indexPaths.first != nil) ? collectionView.cellForItem(at: indexPaths[0]) : nil
+        
+        var urls = [URL]()
+        for i in indexPaths {
+            guard let url = dataSource.itemIdentifier(for: i) else {
+                continue
+            }
+            
+            urls.append(url)
         }
         
-        guard let index = collectionView.indexPath(for: cell) else {
-            return nil
+        let isEmpty = urls.isEmpty
+        if isEmpty {
+            urls = [directory]
         }
         
-        guard let url = dataSource.itemIdentifier(for: index) else {
-            return nil
-        }
-        
-        let directory: URL
-        var isDir: ObjCBool = false
-        if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) && isDir.boolValue {
-            directory = url
+        let create: UIMenu?
+        if urls.count < 2, let url = urls.first {
+            let directory: URL
+            var isDir: ObjCBool = false
+            if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) && isDir.boolValue {
+                directory = url
+            } else {
+                directory = url.deletingLastPathComponent()
+            }
+            
+            create = makeCreateMenu(includeFolder: true, directory: directory)
         } else {
-            directory = url.deletingLastPathComponent()
+            create = nil
         }
-        
-        let create = makeCreateMenu(includeFolder: true, directory: directory)
         
         let addToFavorites = UIAction(title: NSLocalizedString("addToFavorites", comment: "Add to favorites"), image: UIImage(systemName: "star")) { action in
             
-            SidebarViewController.favorites.append(url)
+            SidebarViewController.favorites.append(contentsOf: urls)
             (self.splitViewController as? SidebarSplitViewController)?.sidebar?.loadFavorites()
         }
         
         let share = UIAction(title: NSLocalizedString("menuItems.share", comment: "The menu item to share a file"), image: UIImage(systemName: "square.and.arrow.up")) { action in
             
-            let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-            activityVC.popoverPresentationController?.sourceView = cell
-            activityVC.popoverPresentationController?.sourceRect = cell.bounds
+            let activityVC = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = cell ?? collectionView
+            activityVC.popoverPresentationController?.sourceRect = (cell ?? collectionView).bounds
             self.present(activityVC, animated: true, completion: nil)
         }
         
-        let openInNewWindow = UIAction(title: "Open in new Window", image: UIImage(systemName: "square.grid.2x2")) { action in
+        let openInNewWindow = UIAction(title: NSLocalizedString("menuItems.openInNewWindow", comment: "The 'Open in new Window' menu item."), image: UIImage(systemName: "square.grid.2x2")) { action in
+            
+            guard let url = urls.first else {
+                return
+            }
+            
             let options = UIScene.ActivationRequestOptions()
             options.requestingScene = self.view.window?.windowScene
             
@@ -1144,16 +1115,20 @@ fileprivate extension URL {
         if !isiOSAppOnMac {
             saveTo = UIAction(title: NSLocalizedString("menuItems.saveToFiles", comment: "The menu item to save a file to Files"), image: UIImage(systemName: "folder")) { action in
                 
-                self.present(UIDocumentPickerViewController(forExporting: [url], asCopy: true), animated: true, completion: nil)
+                self.present(UIDocumentPickerViewController(forExporting: urls, asCopy: true), animated: true, completion: nil)
             }
         } else {
             saveTo = UIAction(title: NSLocalizedString("Show in Finder", comment: "The 'Show in Finder' menu item"), image: UIImage(systemName: "folder")) { action in
                 
-                Dynamic.NSWorkspace.sharedWorkspace.activateFileViewerSelectingURLs([url])
+                Dynamic.NSWorkspace.sharedWorkspace.activateFileViewerSelectingURLs(urls)
             }
         }
                 
         let rename = UIAction(title: NSLocalizedString("menuItems.rename", comment: "The 'Rename' menu item"), image: UIImage(systemName: "pencil")) { action in
+            
+            guard let url = urls.first else {
+                return
+            }
             
             let file = url
             
@@ -1164,10 +1139,16 @@ fileprivate extension URL {
                 do {
                     
                     let name = textField.text ?? ""
+                    let newURL = file.deletingLastPathComponent().appendingPathComponent(name)
                     
                     if !name.isEmpty {
-                        try FileManager.default.moveItem(at: file, to: file.deletingLastPathComponent().appendingPathComponent(name))
+                        try FileManager.default.moveItem(at: file, to: newURL)
                     }
+                    
+                    if url == self?.directory {
+                        self?.directory = url
+                    }
+                    (self?.splitViewController as? SidebarSplitViewController)?.sidebar?.loadFavorites()
                 } catch {
                     let alert = UIAlertController(title: NSLocalizedString("errors.errorRenamingFile", comment: "Title of the alert shown when an error occurred while renaming a file"), message: error.localizedDescription, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "'Cancel' button"), style: .cancel, handler: nil))
@@ -1188,7 +1169,9 @@ fileprivate extension URL {
         let delete = UIAction(title: NSLocalizedString("menuItems.remove", comment: "The 'Remove' menu item"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { action in
             
             do {
-                try FileManager.default.removeItem(at: url)
+                for url in urls {
+                    try FileManager.default.removeItem(at: url)
+                }
                 self.load()
             } catch {
                 let alert = UIAlertController(title: NSLocalizedString("errors.errorRemovingFile", comment: "Title of the alert shown when an error occurred while removing a file"), message: error.localizedDescription, preferredStyle: .alert)
@@ -1199,16 +1182,44 @@ fileprivate extension URL {
         
         let run = UIAction(title: NSLocalizedString("menuItems.run", comment: "The 'Run' menu item"), image: UIImage(systemName: "play")) { action in
             
-            self.run(cmd: "python '\((url.relativePath(from: self.directory) ?? url.path).replacingOccurrences(of: "'", with: "\\'"))' ", onlyWrite: true)
+            guard let url = urls.first else {
+                return
+            }
+            
+            var path = (url.relativePath(from: self.directory) ?? url.path).replacingOccurrences(of: "'", with: "\\'")
+            if !path.contains("/") {
+                path = "./"+path
+            }
+            self.run(cmd: "python '\(path)' ", onlyWrite: false)
         }
         
-        let top = UIMenu(title: "", options: .displayInline, children: [create, addToFavorites])
-        let middle = UIMenu(title: "", options: .displayInline, children: (UIApplication.shared.supportsMultipleScenes ? [openInNewWindow] : [])+((url.pathExtension.lowercased() == "py" || url.pathExtension.lowercased() == "html") ? [run] : []))
-        let bottom = UIMenu(title: "", options: .displayInline, children: [share, saveTo, rename, delete])
+        var isDir: ObjCBool = false
+        _ = FileManager.default.fileExists(atPath: urls[0].path, isDirectory: &isDir)
+        
+        let isPackage = isDir.boolValue && ((((try? FileManager.default.contentsOfDirectory(atPath: urls[0].path))?.contains("__init__.py")) == true) || (((try? FileManager.default.contentsOfDirectory(atPath: urls[0].path))?.contains("__main__.py")) == true))
+        
+        let open = UIMenu(title: "", options: .displayInline, children: urls.count == 1 ? [
+            UIAction(title: NSLocalizedString("menuItems.open", comment: "The 'Open' menu item"), image: UIImage(systemName: "chevron.right"), handler: { [weak self] _ in
+                let browser = FileBrowserViewController()
+                browser.directory = urls[0]
+                self?.navigationController?.pushViewController(browser, animated: true)
+            })
+        ] : [])
+        
+        let showAddToFavorites: Bool
+        if #available(iOS 16.0, *) {
+            showAddToFavorites = !SidebarViewController.favorites.contains(urls)
+        } else {
+            showAddToFavorites = true
+        }
+        
+        let top = UIMenu(title: "", options: .displayInline, children: (create != nil ? [create!] : []) + (isEmpty ? [] : [open]) + (showAddToFavorites ? [addToFavorites] : []))
+        let middle = UIMenu(title: "", options: .displayInline, children: ((UIApplication.shared.supportsMultipleScenes && urls.count == 1) ? [openInNewWindow] : [])+(((urls.first?.pathExtension.lowercased() == "py" || urls.first?.pathExtension.lowercased() == "html" || isPackage) && urls.count == 1) ? [run] : []))
+        let bottom = UIMenu(title: "", options: .displayInline, children: [share, saveTo] + (isEmpty ? [] : [rename, delete]))
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
             
-            return UIMenu(title: url.lastPathComponent, children: [top, middle, bottom])
+            return UIMenu(title: urls.map({ $0.lastPathComponent }).joined(separator: ", "), children: [top, middle, bottom])
         }
     }
     
@@ -1240,5 +1251,25 @@ fileprivate extension URL {
             }
             filteredResults = results
         }
+    }
+    
+    // MARK: - Navigation item rename delegate
+    
+    public func navigationItem(_: UINavigationItem, didEndRenamingWith title: String) {
+        
+        let newURL = directory.deletingLastPathComponent().appendingPathComponent(title)
+        
+        do {
+            try FileManager.default.moveItem(at: directory, to: newURL)
+            directory = newURL
+        } catch {
+            let alert = UIAlertController(title: NSLocalizedString("error", comment: "Error"), message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Cancel"), style: .cancel))
+            present(alert, animated: true)
+        }
+    }
+    
+    public func navigationItemShouldBeginRenaming(_: UINavigationItem) -> Bool {
+        FileManager.default.isWritableFile(atPath: directory.deletingLastPathComponent().path) && directory != Self.iCloudContainerURL
     }
 }

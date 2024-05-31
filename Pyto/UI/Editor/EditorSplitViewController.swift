@@ -34,6 +34,21 @@ public class EditorSplitViewController: SplitViewController {
         }
     }
     
+    /// If set to `true`, the suggestions will be shown.
+    static var shouldShowSuggestions: Bool {
+        get {
+            if UserDefaults.standard.value(forKey: "shouldShowSuggestions") == nil {
+                UserDefaults.standard.set(true, forKey: "shouldShowSuggestions")
+            }
+            
+            return UserDefaults.standard.bool(forKey: "shouldShowSuggestions")
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: "shouldShowSuggestions")
+        }
+    }
+    
     /// If set to `true`, the separator between the console and the editor will be shown.
     static var shouldShowSeparator: Bool {
         get {
@@ -189,33 +204,12 @@ public class EditorSplitViewController: SplitViewController {
             return
         }
         
-        guard let path = editor?.document?.fileURL.path else {
-            return
-        }
-        
         guard let editor = editor else {
             return
         }
         
         if firstChild == editor {
-            var items = [editor.searchItem!, editor.definitionsItem!]
-            
-            if #available(iOS 14.0, *), ((parent as? EditorSplitViewController)?.folder == nil && editor.traitCollection.horizontalSizeClass != .compact) || isiOSAppOnMac, !editor.alwaysShowBackButton {
-                items.removeFirst()
-            }
-            
-            navigationItem.leftBarButtonItems = items
-            if Python.shared.isScriptRunning(path) {
-                navigationItem.rightBarButtonItems = [
-                    editor.stopBarButtonItem,
-                    editor.ellipsisButtonItem,
-                ]
-            } else {
-                navigationItem.rightBarButtonItems = [
-                    editor.runBarButtonItem,
-                    editor.ellipsisButtonItem,
-                ]
-            }
+            editor.setBarItems()
         } else {
             navigationItem.leftBarButtonItems = []
             navigationItem.rightBarButtonItems = [closeConsoleBarButtonItem]

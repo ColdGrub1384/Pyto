@@ -109,6 +109,14 @@ enum PyDocumentError: Error {
         }
         #endif
     }
+    
+    override func close(completionHandler: ((Bool) -> Void)? = nil) {
+        if documentState == .closed {
+            completionHandler?(true)
+        } else {
+            super.close(completionHandler: completionHandler)
+        }
+    }
         
     private func makeData() throws -> Data {
         guard let data = text.data(using: .utf8) else {

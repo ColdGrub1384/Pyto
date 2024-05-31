@@ -67,7 +67,20 @@ def main():
             print(_usage, file=sys.stderr)
             sys.exit(1)
 
-        runpy.run_module(sys.argv[0], run_name="__main__")
+        cwd = os.getcwd()
+        if cwd not in sys.path:
+            sys.path.insert(-1, cwd)
+            added = True
+        else:
+            sys.path.remove(cwd)
+            sys.path.insert(-1, cwd)
+            added = False
+
+        try:
+            runpy.run_module(sys.argv[0], run_name="__main__")
+        finally:
+            if added and cwd in sys.path:
+                sys.path.remove(cwd)
 
     elif sys.argv[1] == "-h" or sys.argv[1] == "--help":
         print(_usage, file=sys.stderr)
@@ -78,7 +91,7 @@ def main():
         sys.argv.pop(0)
         
         try:
-            with Path(sys.path+[os.path.dirname(sys.argv[0])]):
+            with Path([os.path.dirname(sys.argv[0])]+sys.path):
                 runpy.run_path(sys.argv[0], run_name="__main__")
         except Exception as e:
             tb.print_exc()
