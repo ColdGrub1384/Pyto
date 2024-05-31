@@ -4,13 +4,17 @@ import sf_symbols as sf
 from .cal import get_current_year
 from dataclasses import dataclass
 
-class CalendarView(ui.View):
+class CalendarView(ui.View): # For annotations
     
     year: int
     country: str
     subdiv: str
     
     def load(self): pass
+
+
+# Data
+
 
 @dataclass
 class Country:
@@ -34,7 +38,13 @@ def get_countries() -> tuple[Country]:
     return sorted(countries, key=country_name)
 
 
+# UI
+
+
 class TerritoryAction(ui.MenuAction):
+    """
+    A menu action corresponding to a specific territory.
+    """
     
     def __init__(self, country: Country, view: CalendarView, subdiv: str = None):
         self.country = country
@@ -73,6 +83,9 @@ class TerritoryAction(ui.MenuAction):
 
 
 class SubdivMenu(ui.Menu):
+    """
+    A menu containing the selectable territories in a country.
+    """
     
     def __init__(self, country: Country, view: CalendarView):
         self.country = country
@@ -101,6 +114,9 @@ class SubdivMenu(ui.Menu):
 
 
 class CountriesMenu(ui.Menu):
+    """
+    A menu containing the countries and territories where holidays are available.
+    """
     
     def __init__(self, view: CalendarView):
         self.view = view
@@ -126,6 +142,9 @@ class CountriesMenu(ui.Menu):
 
 
 class YearMenu(ui.Menu):
+    """
+    A menu containing the years where holidays are available.
+    """
     
     def __init__(self, view: CalendarView):
         self.view = view

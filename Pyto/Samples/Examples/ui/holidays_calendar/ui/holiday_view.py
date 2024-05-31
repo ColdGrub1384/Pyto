@@ -4,6 +4,9 @@ from datetime import datetime
 import calendar_events as cal
 
 class HolidayView(ui.View):
+    """
+    A holiday display on screen.
+    """
     
     add_button_container: ui.StackView
     
@@ -14,6 +17,10 @@ class HolidayView(ui.View):
     holiday: Holiday
     
     def event_saved(self) -> cal.Event:
+        """
+        Returns an event from the system calendar if it corresponds to this holiday.
+        """
+        
         date = self.holiday.date
         start = datetime(date.year, date.month, date.day)
         end = datetime(date.year, date.month, date.day, 23, 59)

@@ -12,7 +12,11 @@ SELECTED_SUBDIV_KEY = "HOLIDAYS_CALENDAR_SELECTED_SUBDIV"
 
 HOLIDAY_VIEW_PATH = os.path.join(os.path.dirname(__file__), "holiday.pytoui")
 
+
 class HolidayCell(ui.TableViewCell):
+    """
+    A holiday on the list.
+    """
     
     def __init__(self, holiday: Holiday):
         date = holiday.date.strftime("%d %B")
@@ -27,6 +31,9 @@ class HolidayCell(ui.TableViewCell):
 
 
 class CalendarView(ui.View):
+    """
+    The main view. A list of holidays.
+    """
     
     year_menu: ui.Button
     
@@ -74,6 +81,9 @@ class CalendarView(ui.View):
         ui.show_view(self.holiday_view, ui.PresentationMode.SHEET)
     
     def load(self):
+        """
+        Fills the list.
+        """
         
         self.title = str(self.year)
         
@@ -106,6 +116,9 @@ class CalendarView(ui.View):
 
 
 class CloseAction(ui.MenuAction):
+    """
+    Close the view.
+    """
     
     def attributes(self):
         return ui.MenuElementAttributes.DESTRUCTIVE
@@ -118,6 +131,9 @@ class CloseAction(ui.MenuAction):
 
 
 class MainMenu(ui.Menu):
+    """
+    The main context menu.
+    """
     
     def __init__(self, view: CalendarView):
         self.view = view

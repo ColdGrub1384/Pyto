@@ -6,7 +6,7 @@ Usage
 
 1. Run the script.
 
-2. Add an "In App" widget to your home screen and select "Work" as the category. This widget only works on medium size, so make sure to select the 1x2 widget.
+2. Add an "In App" widget to your home screen and select "Timer" as the category. This widget only works on medium size, so make sure to select the 1x2 widget.
 
 You can now tap on a button and a timer will start. You'll receive a notification to remind you to take breaks.
 """
@@ -82,7 +82,7 @@ def show_timer(type):
     layout.add_row([timer])
     layout.add_vertical_spacer()
     layout.set_background_color(BACKGROUND)
-    wd.save_widget(widget, "Work")
+    wd.save_widget(widget, "Timer")
 
 
 def show_start_widget():

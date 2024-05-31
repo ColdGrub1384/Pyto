@@ -62,5 +62,4 @@ EXE_PATH = os.path.join(BUILD_DIR, "bin", PRODUCT_NAME+".bc")
 CACHE_DIR = os.path.join(os.path.dirname(OBJECTS_DIR), ".cache")
 
 
-if __name__ == "__main__":
-    build.main(globals())
+build.main(globals())
