@@ -27,7 +27,7 @@ void logToNSLog(const char* text) {
 }
 
 void llvm_breakpoint(void *p, void *p2, void *p3) {
-    //fprintf(stderr, "llvm_breakpoint(%p, %p, %p)\n", p, p2, p3);
+    NSLog(@"llvm_breakpoint(%p, %p, %p)", p, p2, p3);
 }
 
 /// Returns the main bundle.
