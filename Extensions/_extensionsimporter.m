@@ -593,7 +593,10 @@ PyObject *_extensionsimporter_module_from_bitcode(PyObject *self, PyObject *args
                 inputCache = [NSMutableArray array];
             }
             
-            if (scriptPath) {
+            if (_scriptPath && PyInputHelper.inputPipes[_scriptPath]) {
+                inputPipe = PyInputHelper.inputPipes[_scriptPath];
+                inputFile = fdopen(inputPipe.fileHandleForReading.fileDescriptor, "r");
+            } else if (scriptPath) {
                 inputPipe = [[NSPipe alloc] init];
                 inputFile = fdopen(inputPipe.fileHandleForReading.fileDescriptor, "r");
                 [inputCache addObject:inputPipe];
@@ -912,6 +915,13 @@ static PyObject *_extensionsimporter_system(PyObject *self, PyObject *args) {
         
         NSString *inputString = [NSString stringWithUTF8String: input];
         inputFile = makeInputFile(inputString);
+    }
+    
+    if (_scriptPath && [PyInputHelper.ignoreInputPipes containsObject:_scriptPath]) {
+        
+        NSMutableArray *arr = [NSMutableArray arrayWithArray: PyInputHelper.ignoreInputPipes];
+        [arr removeObject: _scriptPath];
+        PyInputHelper.ignoreInputPipes = arr;
     }
     
     ios_switchSession(output);
