@@ -182,6 +182,9 @@ import MediaPlayer
             
             func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
                 picked.addObjects(from: mediaItemCollection.items)
+                mediaPicker.dismiss(animated: true, completion: {
+                    self.semaphore?.signal()
+                })
             }
         }
         
@@ -195,6 +198,7 @@ import MediaPlayer
         
         DispatchQueue.main.async {
             let picker = MPMediaPickerController(mediaTypes: .music)
+            picker.allowsPickingMultipleItems = true
             picker.delegate = delegate
             
             #if !MAIN

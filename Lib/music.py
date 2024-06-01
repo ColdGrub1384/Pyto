@@ -165,6 +165,9 @@ class MediaItem:
         except AttributeError:
             return False
 
+    def __repr__(self):
+        return f"<{type(self).__module__}.{(type(self)).__name__} {repr(self.title)} - {repr(self.artist)}>"
+
     @property
     def album_artist(self) -> str:
         """
