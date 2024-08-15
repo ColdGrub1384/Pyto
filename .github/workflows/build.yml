@@ -1,23 +1,17 @@
 name: build
-
 on:
   push:
     branches:
       - main
   pull_request:
-
 jobs:
   build:
     runs-on: macos-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Xcode
-        run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
-
-      - name: Install dependencies
-        run: ./setup.sh
-
-      - name: Build
-        run: xcodebuild -workspace Pyto.xcworkspace -scheme Pyto -configuration Release
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+      - run: ./setup.sh
+      - run: xcodebuild -workspace Pyto.xcworkspace -scheme Pyto -configuration Release
