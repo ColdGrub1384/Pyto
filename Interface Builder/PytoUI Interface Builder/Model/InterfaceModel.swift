@@ -10,7 +10,7 @@ import UIKit
 /// The model of an interface.
 public struct InterfaceModel: Codable {
     
-    /// A conncection to Python code.
+    /// A connection to Python code.
     public struct Connection: Codable {
         
         /// The attribute to set. E.g: `did_appear`.
