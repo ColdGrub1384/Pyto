@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+      - run: pip install --upgrade pip
       - run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
       - run: ./setup.sh
       - run: xcodebuild -workspace Pyto.xcworkspace -scheme Pyto -configuration Release
