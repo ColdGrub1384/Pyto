@@ -475,8 +475,8 @@ class Color:
         :rtype: widgets.Color
         """
 
-        check(light, "light", Color)
-        check(dark, "dark", Color)
+        check(light, "light", [Color])
+        check(dark, "dark", [Color])
 
         return cls(
             __PyColor__.colorWithLight(light.__py_color__, dark=dark.__py_color__)
