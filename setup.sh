@@ -3,13 +3,8 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 cd "$DIR"
 
-python3 -m pip install Cython
-python3 -m pip install numpy
-python3 -m pip install jinja2
-python3 -m pip install wheel
-python3 -m pip install sphinx
-python3 -m pip install sphinx-rtd-theme
-python3 -m pip install pbxproj
+python3 -m pip install --upgrade pip wheel
+python3 -m pip install Cython jinja2 numpy pbxproj sphinx sphinx-rtd-theme
 brew install zlib
 
 # Python
